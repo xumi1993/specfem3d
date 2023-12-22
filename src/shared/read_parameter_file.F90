@@ -1250,6 +1250,10 @@
     IMODEL = IMODEL_IPATI_WATER
   case ('gll')
     IMODEL = IMODEL_GLL
+  case ('gll_az_ani')
+    IMODEL = IMODEL_GLL
+    ANISOTROPY = .true.
+    AZIMUTHAL_ANISOTROPY = .true.
   case ('salton_trough')
     IMODEL = IMODEL_SALTON_TROUGH
   case ('tomo')

@@ -778,7 +778,7 @@
 
   use constants, only: myrank,IMAIN,IMODEL_GLL,IMODEL_IPATI,IMODEL_IPATI_WATER,IMODEL_SEP
 
-  use generate_databases_par, only: IMODEL
+  use generate_databases_par, only: IMODEL, AZIMUTHAL_ANISOTROPY, ANISOTROPY
 
   use create_regions_mesh_ext_par
 
@@ -803,6 +803,9 @@
     ! import the model from files in SPECFEM format
     ! note that those files should be saved in LOCAL_PATH
     call model_gll(myrank,nspec,LOCAL_PATH)
+    if (AZIMUTHAL_ANISOTROPY .and. ANISOTROPY) then
+      call model_gll_az_ani(myrank,nspec,LOCAL_PATH)
+    endif
 
   case (IMODEL_IPATI)
     ! import the model from modified files in SPECFEM format

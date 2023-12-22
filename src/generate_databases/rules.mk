@@ -65,6 +65,7 @@ generate_databases_OBJECTS = \
 	$O/model_ipati.gen.o \
 	$O/parse_sep.genc.o \
 	$O/model_gll.gen.o \
+	$O/model_gll_az_ani.gen.o \
 	$O/model_salton_trough.gen.o \
 	$O/model_tomography.gen.o \
 	$O/pml_set_local_dampingcoeff.gen.o \

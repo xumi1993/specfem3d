@@ -226,6 +226,10 @@ end module constants
   ! model
   integer :: IMODEL
 
+  ! azimuthal anisotropy
+  ! **** added by Mijian Xu ****
+  logical :: AZIMUTHAL_ANISOTROPY = .false.
+
   !! VM VM number of source for external source time function
   integer :: NSOURCES_STF
 
