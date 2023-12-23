@@ -144,7 +144,7 @@
           
           ! calculate ani terms
           d44 = rho*vs*vs - gc_read(i,j,k,ispec)
-          d55 = rho*vs*vs + gs_read(i,j,k,ispec)
+          d55 = rho*vs*vs + gc_read(i,j,k,ispec)
           d45 = -gs_read(i,j,k,ispec)
           c44 = d55
           c45 = - d45
