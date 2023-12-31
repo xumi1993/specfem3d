@@ -95,13 +95,13 @@
   if (ier /= 0) stop 'error allocating array gs_read'
 
   ! user output
-  if (myrank == 0) write(IMAIN,*) '     reading in: gc.bin'
+  if (myrank == 0) write(IMAIN,*) '     reading in: gs.bin'
 
-  filename = prname_lp(1:len_trim(prname_lp))//'gs_read.bin'
+  filename = prname_lp(1:len_trim(prname_lp))//'gs.bin'
   open(unit=IIN,file=trim(filename),status='old',action='read',form='unformatted',iostat=ier)
   if (ier /= 0) then
     print *,'error opening file: ',trim(filename)
-    stop 'error reading gc.bin file'
+    stop 'error reading gs.bin file'
   endif
 
   read(IIN) gs_read
@@ -113,13 +113,13 @@
   if (ier /= 0) stop 'error allocating array gc_read'
 
   ! user output
-  if (myrank == 0) write(IMAIN,*) '     reading in: gc_read.bin'
+  if (myrank == 0) write(IMAIN,*) '     reading in: gc.bin'
 
-  filename = prname_lp(1:len_trim(prname_lp))//'gc_read.bin'
+  filename = prname_lp(1:len_trim(prname_lp))//'gc.bin'
   open(unit=IIN,file=trim(filename),status='old',action='read',form='unformatted',iostat=ier)
   if (ier /= 0) then
     print *,'error opening file: ',trim(filename)
-    stop 'error reading gc_read.bin file'
+    stop 'error reading gc.bin file'
   endif
 
   read(IIN) gc_read
