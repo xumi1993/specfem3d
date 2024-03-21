@@ -399,9 +399,9 @@ contains
 
   real(kind=dp) :: kappa, mu, lambda, c11, c22, c33, c23, c13, c12, c44, c55, c66, lp2m
 
-  c11 = triclinic(1);   c22=triclinic(2);   c33=triclinic(3);
-  c23 = triclinic(4);   c13=triclinic(5);   c12=triclinic(6);
-  c44 = triclinic(7);   c55=triclinic(8);   c66=triclinic(9);
+  c11 = triclinic(1);   c22 = triclinic(2);   c33 = triclinic(3);
+  c23 = triclinic(4);   c13 = triclinic(5);   c12 = triclinic(6);
+  c44 = triclinic(7);   c55 = triclinic(8);   c66 = triclinic(9);
 
   kappa  = (c11 + c22 + c33 + 2._dp*(c12 + c13 + c23)) / 9._dp
   mu     = (2._dp*(c11 + c22 + c33 - c12 - c23 - c13) + 6._dp * (c44 + c55 + c66)) / 30._dp
@@ -1355,7 +1355,7 @@ contains
   ! Get isotropic constants
   disum = 0._dp
   vosum = 0._dp
-  do i=1,3
+  do i = 1,3
      disum = disum + di(i,i)
      vosum = vosum + vo(i,i)
   enddo
@@ -1469,7 +1469,7 @@ contains
 
   ! Now check for best hexagonal symetry fit
   ! Basis transfer
-  scc=transpose(scc)
+  scc = transpose(scc)
 
   ! Loop over permutations ((123),(231),(312))
   do p = 1, 3
@@ -1498,7 +1498,7 @@ contains
 
   ! Choose permutation
   pos = minloc(dvm,dim=1)
-  scc = cshift(scc,shift=pos,dim=1)  ! to check...
+  scc = cshift(scc,shift = pos,dim = 1)  ! to check...
 
   ! Do the rotation
   bond = define_bond_stress_matrix(scc)

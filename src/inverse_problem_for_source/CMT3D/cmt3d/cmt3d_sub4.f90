@@ -32,15 +32,15 @@ contains
        moment(1,1)=cmt_par(1); moment(2,2)=cmt_par(2); moment(3,3)=cmt_par(3)
        moment(1,2)=cmt_par(4); moment(1,3)=cmt_par(5); moment(2,3)=cmt_par(6)
        moment(2,1)=moment(1,2); moment(3,1)=moment(1,3); moment(3,2)=moment(2,3)
-       moment=matmul(rmat, matmul(moment,transpose(rmat)))
+       moment = matmul(rmat, matmul(moment,transpose(rmat)))
        cmt_par(1)=moment(1,1); cmt_par(2)=moment(2,2); cmt_par(3)=moment(3,3)
        cmt_par(4)=moment(1,2); cmt_par(5)=moment(1,3); cmt_par(6)=moment(2,3)
 
        if (npar > 6) then ! guaranteed to be npar >= 9
-          edep=cmt_par(7); elon=cmt_par(8); elat=cmt_par(9)
+          edep = cmt_par(7); elon = cmt_par(8); elat = cmt_par(9)
           if (abs(elon-elon0) > EPS5 .or. abs(elat-elat0) > EPS5) stop 'Error lat,lon'
           loc=(/R_EARTH-edep,0.d1,0.d1/)  ! local [R,T,P]
-          loc=matmul(rmat,loc)  ! global [X,Y,Z]
+          loc = matmul(rmat,loc)  ! global [X,Y,Z]
           cmt_par(7:9)=loc(1:3)  ![R,T,P] in local or [X,Y,Z] in global
        endif
 
@@ -48,17 +48,17 @@ contains
     else ! DIRECTION = -1 : global to local coordinates
 
        if (npar > 6) then
-          gl=cmt_par(7:9)/sqrt(sum(cmt_par(7:9)**2)) ! global [X,Y,Z]
-          th=acos(gl(3))
+          gl = cmt_par(7:9)/sqrt(sum(cmt_par(7:9)**2)) ! global [X,Y,Z]
+          th = acos(gl(3))
           if (abs(th) < EPS5 .or. abs(th-pi) < EPS5) then
-             phi=0
+             phi = 0
           else
-             phi=atan2(gl(2)/sin(th),gl(1)/sin(th))
+             phi = atan2(gl(2)/sin(th),gl(1)/sin(th))
           endif
-          elon=phi*180/PI; elat=90-th*180/PI
-          if (elon > 180) elon=elon-360
+          elon = phi*180/PI; elat = 90-th*180/PI
+          if (elon > 180) elon = elon-360
        else
-          elat=elat0; elon=elon0
+          elat = elat0; elon = elon0
        endif
        call calc_rot_matrix(elon,elat,rmat)
 
@@ -66,12 +66,12 @@ contains
        moment(1,1)=cmt_par(1); moment(2,2)=cmt_par(2); moment(3,3)=cmt_par(3)
        moment(1,2)=cmt_par(4); moment(1,3)=cmt_par(5); moment(2,3)=cmt_par(6)
        moment(2,1)=moment(1,2); moment(3,1)=moment(1,3); moment(3,2)=moment(2,3)
-       moment=matmul(transpose(rmat), matmul(moment,rmat))
+       moment = matmul(transpose(rmat), matmul(moment,rmat))
        cmt_par(1)=moment(1,1); cmt_par(2)=moment(2,2); cmt_par(3)=moment(3,3)
        cmt_par(4)=moment(1,2); cmt_par(5)=moment(1,3); cmt_par(6)=moment(2,3)
 
        if (npar > 6) then
-          loc=matmul(transpose(rmat),cmt_par(7:9))  ! moment, loc in [R,T,P] local coord
+          loc = matmul(transpose(rmat),cmt_par(7:9))  ! moment, loc in [R,T,P] local coord
           if (abs(loc(2)) > EPS5 .or. abs(loc(3)) > EPS5) stop 'Error loc(2,3)'
           cmt_par(7)=R_EARTH-loc(1); cmt_par(8)=elon; cmt_par(9)=elat  ! [depth,lon,lat]
        endif
@@ -88,7 +88,7 @@ contains
     real*8 :: th,phi
 
     th=(90-elat)*PI/180
-    phi=elon*PI/180
+    phi = elon*PI/180
 
     rmat(1,1)=dsin(th)*dcos(phi)
     rmat(1,2)=dcos(th)*dcos(phi)

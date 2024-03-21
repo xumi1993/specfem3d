@@ -116,12 +116,12 @@ contains
       write(INVERSE_LOG_FILE,*)
       write(INVERSE_LOG_FILE,*) ' full family parameters  : '
       write(INVERSE_LOG_FILE,*)
-      do i=1, inversion_param%NfamilyPar
+      do i = 1, inversion_param%NfamilyPar
         write(INVERSE_LOG_FILE,*) ' Param ', i, ' :  ' , trim(inversion_param%param_ref_name(i))
       enddo
       write(INVERSE_LOG_FILE,*)
       write(INVERSE_LOG_FILE,*)
-      do i=1, inversion_param%NinvPar
+      do i = 1, inversion_param%NinvPar
         write(INVERSE_LOG_FILE,*) ' inverse parameter ', i, ' : ',trim(inversion_param%param_inv_name(i))
       enddo
     endif

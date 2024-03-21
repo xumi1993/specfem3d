@@ -64,15 +64,15 @@ contains
        endif
 
        do ispec = 1, NSPEC_ADJOINT
-          do k=1,NGLLZ
-             do j=1,NGLLY
-                do i=1,NGLLX
+          do k = 1,NGLLZ
+             do j = 1,NGLLY
+                do i = 1,NGLLX
 
-                   iglob=ibool(i,j,k,ispec)
+                   iglob = ibool(i,j,k,ispec)
 
-                   x=xstore(iglob)
-                   y=ystore(iglob)
-                   z=zstore(iglob)
+                   x = xstore(iglob)
+                   y = ystore(iglob)
+                   z = zstore(iglob)
 
 !!$                   taperx = 1.
 !!$                   tapery = 1.
@@ -115,9 +115,9 @@ contains
        endif
 
        do ispec = 1, NSPEC_ADJOINT
-          do k=1,NGLLZ
-             do j=1,NGLLY
-                do i=1,NGLLX
+          do k = 1,NGLLZ
+             do j = 1,NGLLY
+                do i = 1,NGLLX
 
                    iglob = ibool(i,j,k,ispec)
                    z = zstore(iglob)
@@ -146,9 +146,9 @@ contains
        endif
 
        do ispec = 1, NSPEC_ADJOINT
-          do k=1,NGLLZ
-             do j=1,NGLLY
-                do i=1,NGLLX
+          do k = 1,NGLLZ
+             do j = 1,NGLLY
+                do i = 1,NGLLX
 
                    iglob = ibool(i,j,k,ispec)
                    z = zstore(iglob)

@@ -2193,7 +2193,7 @@ end module my_mpi
       print *
       print *,'make sure to launch program with NPROC * NUMBER_OF_SIMULTANEOUS_RUNS processes'
       print *,'for example: NPROC = 1 and NUMBER_OF_SIMULTANEOUS_RUNS = 4'
-      print *,' > mpirun -np 4 ./bin/xspecfem3D'
+      print *,'  > mpirun -np 4 ./bin/xspecfem3D'
       print *
     endif
     stop 'the number of MPI processes is not a multiple of NUMBER_OF_SIMULTANEOUS_RUNS'

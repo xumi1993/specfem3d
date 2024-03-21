@@ -178,7 +178,7 @@ contains
   if (ier /= 0) call exit_MPI_without_rank('error allocating array 59')
   do iE_loc = 1, nE_loc
      iE = iE_loc ! loc2glob_elmnt(iE_loc)
-     do inode =1, NGNOD
+     do inode = 1, NGNOD
         loc_elmnt(inode) = glob2loc_nodes(elmnts(inode, iE))
      enddo
      iE = loc2glob_elmnt(iE_loc)
@@ -237,7 +237,7 @@ contains
     do i = 1,nE
       if (ipart(i) == myrank+1) then
         write(IIN_database) is_CPML(i)
-        if (is_CPML(i)) ncp=ncp+1
+        if (is_CPML(i)) ncp = ncp+1
       endif
     enddo
     !write(*,*) 'CPML ', myrank, ncp, nspec_cpml_local, nspec_cpml
@@ -302,7 +302,7 @@ contains
           enddo
         endif  !! on doit inclure ce if dessous ?
         if (k > 0) then
-          itype=k
+          itype = k
           !! need to update flag for HEX27
           if (NGNOD == 27) then
             if (k == 3) itype=2  !! it's edge
@@ -453,7 +453,7 @@ contains
 
   integer,                         intent(in) :: myrank , nE
   integer,   dimension(NGNOD,nE),  intent(in) :: elmnts
-  integer,   parameter                        :: NGNOD_EIGHT_CORNERS=8
+  integer,   parameter                        :: NGNOD_EIGHT_CORNERS = 8
   integer                                     :: iE, iE_loc
   integer                                     :: kE, New_element
   integer                                     :: inode, ivertex
@@ -472,13 +472,13 @@ contains
   if (ier /= 0) call exit_MPI_without_rank('error allocating array 64')
   allocate(nb_neigh(nE_loc),stat=ier)
   if (ier /= 0) call exit_MPI_without_rank('error allocating array 65')
-  do iE_loc=1,nE_loc !! loop on all element in partition
+  do iE_loc = 1,nE_loc !! loop on all element in partition
     iE = loc2glob_elmnt(iE_loc)
     nb_element_stored = 0
     stored_elements(:)=0
     do inode = 1, NGNOD_EIGHT_CORNERS  !! loop only on the corner of the element
       ivertex = elmnts(inode,iE_loc)
-      ivertex_local=glob2loc_nodes(ivertex)
+      ivertex_local = glob2loc_nodes(ivertex)
       do kE = 1, nelmnts_by_node(ivertex_local)  !! loop on all ivertex connected elements
         New_element = elmnts_by_node(kE,ivertex_local)
         call store_new_element(New_element, nb_element_stored, stored_elements)
@@ -491,7 +491,7 @@ contains
   allocate(adjcy(size_adjacency),id_adjcy(0:nE_loc),stat=ier)
   if (ier /= 0) call exit_MPI_without_rank('error allocating array 66')
   id_adjcy(0) = 0
-  do iE_loc=1, nE_loc !! loop on all element in partition
+  do iE_loc = 1, nE_loc !! loop on all element in partition
     iE = loc2glob_elmnt(iE_loc)
     nb_element_stored = 0
     stored_elements(:)=0
@@ -528,7 +528,7 @@ contains
   integer,               intent(inout) :: nb
   integer, dimension(:), intent(inout) :: indx
   integer                              :: i
-  do i=1,nb
+  do i = 1,nb
     if (new_indx == indx(i)) return
   enddo
   nb = nb + 1

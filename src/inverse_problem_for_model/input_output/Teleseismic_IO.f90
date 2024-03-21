@@ -88,7 +88,7 @@ contains
         read(666,'(a)',end=99) line
         if (DEBUG_MODE) write(IIDD,'(a)') trim(line)
         !if (is_blank_line(line)) cycle                     !! no significant line
-        if (INDEX(line,'event_name') > 0) NEVENT=NEVENT+1  !! new event
+        if (INDEX(line,'event_name') > 0) NEVENT = NEVENT+1  !! new event
       enddo
 99    close(666)
 
@@ -105,7 +105,7 @@ contains
 
       ! open event file
       open(666,file=trim(acqui_file))
-      ievent=0
+      ievent = 0
       do
         read(666,'(a)',end=999) line
         !if (is_blank_line(line)) cycle
@@ -156,7 +156,7 @@ contains
 
           ! Some checks about source wavelet and traction
           if (trim(adjustl(acqui_simu(ievent)%source_wavelet_file)) /= 'undef') then
-            acqui_simu(ievent)%external_source_wavelet=.true.
+            acqui_simu(ievent)%external_source_wavelet = .true.
             ! note sure if i should use this one..
             allocate(acqui_simu(ievent)%user_source_time_function(1,nt),stat=ier)
             if (ier /= 0) call exit_MPI_without_rank('error allocating array 337')

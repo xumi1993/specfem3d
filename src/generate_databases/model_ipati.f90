@@ -224,7 +224,7 @@
   vs_read = vp_read * SCALING_FACTOR
 
   ! overwrites only elastic elements
-  do ispec=1,nspec
+  do ispec = 1,nspec
     ! assumes water layer with acoustic elements are set properly
     ! only overwrites elastic elements
     if (ispec_is_elastic(ispec)) then

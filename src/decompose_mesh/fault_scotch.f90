@@ -1112,7 +1112,7 @@ CONTAINS
 
       ! flag used to decide if we have to re-assign partitions
       found = .true.
-      do iflt=1,size(faults)
+      do iflt = 1,size(faults)
         e2 = fault_elements_connected(iflt,e1)
         if (e2 >= 0) then
           proc2 = part(e2)
@@ -1550,7 +1550,7 @@ CONTAINS
   integer :: nspec_fault_1,nspec_fault_2
   integer :: inodes(NGNOD2D), node_loc(NGNOD2D)
 
-  do iflt=1,size(faults)
+  do iflt = 1,size(faults)
     ! get number of fault elements in this partition
     nspec_fault_1 = count( ipart(faults(iflt)%ispec1) == myrank + 1)
     nspec_fault_2 = count( ipart(faults(iflt)%ispec2) == myrank + 1)
@@ -1567,10 +1567,10 @@ CONTAINS
     ! if no fault element in this partition, move to next fault
     if (nspec_fault_1 == 0) cycle
 
-    do i=1, faults(iflt)%nspec
+    do i = 1, faults(iflt)%nspec
       iE = faults(iflt)%ispec1(i)
       if (ipart(iE) /= myrank +1) cycle
-      iE_loc=glob2loc_elmnt(iE)
+      iE_loc = glob2loc_elmnt(iE)
 
       inodes = faults(iflt)%inodes1(:,i)
       do inode = 1, NGNOD2D
@@ -1579,10 +1579,10 @@ CONTAINS
       write(IIN_database) iE_loc, node_loc(1:NGNOD2D)
     enddo
 
-    do i=1, faults(iflt)%nspec
+    do i = 1, faults(iflt)%nspec
       iE = faults(iflt)%ispec2(i)
       if (ipart(iE) /= myrank +1) cycle
-      iE_loc=glob2loc_elmnt(iE)
+      iE_loc = glob2loc_elmnt(iE)
 
       inodes = faults(iflt)%inodes2(:,i)
       do inode = 1, NGNOD2D

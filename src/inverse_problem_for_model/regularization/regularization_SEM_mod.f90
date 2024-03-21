@@ -1383,9 +1383,9 @@ contains
   !! all group will read the partition file
   if (NUMBER_OF_SIMULTANEOUS_RUNS > 1) then
      write(path_to_add,"('run',i4.4,'/')") 1
-     LOCAL_PATH_FOR_READING=trim(path_to_add)//trim(LOCAL_PATH(9:len_trim(LOCAL_PATH)))
+     LOCAL_PATH_FOR_READING = trim(path_to_add)//trim(LOCAL_PATH(9:len_trim(LOCAL_PATH)))
   else
-     LOCAL_PATH_FOR_READING=LOCAL_PATH
+     LOCAL_PATH_FOR_READING = LOCAL_PATH
   endif
 
 ! read databases about external mesh simulation
@@ -1609,7 +1609,7 @@ contains
      if (ier /= 0) call exit_MPI_without_rank('error allocating array 176')
      if (ier /= 0) stop 'Error allocating array CPML_regions'
 
-     do i=1,nspec_cpml
+     do i = 1,nspec_cpml
         ! #id_cpml_regions = 1 : X_surface C-PML
         ! #id_cpml_regions = 2 : Y_surface C-PML
         ! #id_cpml_regions = 3 : Z_surface C-PML
@@ -1622,7 +1622,7 @@ contains
         read(IIN) CPML_to_spec(i), CPML_regions(i)
      enddo
 
-     do i=1,NSPEC_AB
+     do i = 1,NSPEC_AB
         read(IIN) is_CPML(i)
      enddo
   endif
@@ -1787,8 +1787,8 @@ contains
        write(INVERSE_LOG_FILE,*)
     endif
 
-    Nb_test=5
-    do itest=1, Nb_test
+    Nb_test = 5
+    do itest = 1, Nb_test
        length = value_to_test(itest) * elemsize_max_glob
        lambda = 2* 3.1459265359/length
 
@@ -1914,11 +1914,11 @@ contains
 
     integer :: i, j, k, ispec, iglob
 
-    !if (myrank==0)write (*,*) lambda
-    do ispec=1,NSPEC_AB
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1, NGLLX
+    !if (myrank==0) write (*,*) lambda
+    do ispec = 1,NSPEC_AB
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1, NGLLX
                 iglob = ibool(i,j,k,ispec)
 
                 field(i,j,k,ispec) =  cos( lambda * xstore(iglob) ) * cos( lambda* ystore(iglob) ) * cos( lambda * zstore(iglob) ) &
@@ -2078,11 +2078,11 @@ contains
     penalty = 0._CUSTOM_REAL
 
     !! mean values of field on element boundary
-    do ispec=1,NSPEC_AB
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
-                iglob=ibool(i,j,k,ispec)
+    do ispec = 1,NSPEC_AB
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
+                iglob = ibool(i,j,k,ispec)
 !!$                field(1,iglob)=field(1,iglob) + current_model_vp(i,j,k,ispec)
 !!$                field(2,iglob)=field(2,iglob) + current_model_vs(i,j,k,ispec)
 !!$                field(3,iglob)=field(3,iglob) + current_model_rh(i,j,k,ispec)
@@ -2098,11 +2098,11 @@ contains
 
     field_to_derivate(:)=field(1,:)
     call compute_grad_laplacian(field_to_derivate, laplacian_of_field, norm_grad_of_field) !!!!!!!!! , regularization_fd)
-    do ispec=1,NSPEC_AB
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
-                iglob=ibool(i,j,k,ispec)
+    do ispec = 1,NSPEC_AB
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
+                iglob = ibool(i,j,k,ispec)
                 nGrad_vp(i,j,k,ispec)=norm_grad_of_field(iglob)
                 Lap1_vp(i,j,k,ispec)=laplacian_of_field(iglob)
              enddo
@@ -2112,11 +2112,11 @@ contains
 
     field_to_derivate(:)=field(2,:)
     call compute_grad_laplacian(field_to_derivate, laplacian_of_field, norm_grad_of_field) !!!!!!!!! , regularization_fd)
-    do ispec=1,NSPEC_AB
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
-                iglob=ibool(i,j,k,ispec)
+    do ispec = 1,NSPEC_AB
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
+                iglob = ibool(i,j,k,ispec)
                 nGrad_vs(i,j,k,ispec)=norm_grad_of_field(iglob)
                 Lap1_vs(i,j,k,ispec)=laplacian_of_field(iglob)
              enddo
@@ -2126,11 +2126,11 @@ contains
 
     field_to_derivate(:)=field(3,:)
     call compute_grad_laplacian(field_to_derivate, laplacian_of_field, norm_grad_of_field) !!!!!!!!! , regularization_fd)
-    do ispec=1,NSPEC_AB
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
-                iglob=ibool(i,j,k,ispec)
+    do ispec = 1,NSPEC_AB
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
+                iglob = ibool(i,j,k,ispec)
                 nGrad_rh(i,j,k,ispec)=norm_grad_of_field(iglob)
                 Lap1_rh(i,j,k,ispec)=laplacian_of_field(iglob)
              enddo
@@ -2175,14 +2175,14 @@ contains
 
     field(:,:)=0._CUSTOM_REAL
     valence(:)=0._CUSTOM_REAL
-    penalty=0._CUSTOM_REAL
+    penalty = 0._CUSTOM_REAL
 
     !! mean values of field on element boundary
-    do ispec=1,NSPEC_AB
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
-                iglob=ibool(i,j,k,ispec)
+    do ispec = 1,NSPEC_AB
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
+                iglob = ibool(i,j,k,ispec)
 !!$                field(1,iglob)=field(1,iglob) + current_model_vp(i,j,k,ispec)
 !!$                field(2,iglob)=field(2,iglob) + current_model_vs(i,j,k,ispec)
 !!$                field(3,iglob)=field(3,iglob) + current_model_rh(i,j,k,ispec)
@@ -2197,11 +2197,11 @@ contains
     field(3,:)=field(3,:)/valence(:)
 
     !! VP
-    do ispec=1,NSPEC_AB
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
-                iglob=ibool(i,j,k,ispec)
+    do ispec = 1,NSPEC_AB
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
+                iglob = ibool(i,j,k,ispec)
                 field_to_derivate(i,j,k,ispec)=field(1,iglob)
              enddo
           enddo
@@ -2210,11 +2210,11 @@ contains
     call  compute_derivatives_with_interpolation(field_to_derivate, lap1_vp, Lap2_vp)
 
    !! VS
-    do ispec=1,NSPEC_AB
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
-                iglob=ibool(i,j,k,ispec)
+    do ispec = 1,NSPEC_AB
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
+                iglob = ibool(i,j,k,ispec)
                 field_to_derivate(i,j,k,ispec)=field(2,iglob)
              enddo
           enddo
@@ -2223,11 +2223,11 @@ contains
     call  compute_derivatives_with_interpolation(field_to_derivate, lap1_vs, Lap2_vs)
 
     !! rho
-    do ispec=1,NSPEC_AB
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
-                iglob=ibool(i,j,k,ispec)
+    do ispec = 1,NSPEC_AB
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
+                iglob = ibool(i,j,k,ispec)
                 field_to_derivate(i,j,k,ispec)=field(3,iglob)
              enddo
           enddo
@@ -2352,10 +2352,10 @@ contains
     valence(:,:) = 0.
 
     !! 1/ compute average value on boundary of elements
-    do ispec=1, NSPEC_AB
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
+    do ispec = 1, NSPEC_AB
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
                 iglob = ibool(i,j,k,ispec)
 
                 field_wksp(1,iglob) = field_wksp(1,iglob) + field(1,i,j,k,ispec)
@@ -2428,18 +2428,18 @@ contains
 
     call zwgljd(gll_points, wgll_points, NGLLd,GAUSSALPHA,GAUSSBETA)
 
-    do i1=1,NGLLd
+    do i1 = 1,NGLLd
        call lagrange_any(gll_points(i1),NGLLX,xigll,h,hprime)
        hlagrange(:,i1)=h(:)
     enddo
 
-    do i1=1,NGLLd
-       do i2=1,NGLLd
+    do i1 = 1,NGLLd
+       do i2 = 1,NGLLd
           hlagrange_prime(i2,i1) = lagrange_deriv_GLL(i1-1,i2-1,gll_points,NGLLd)
        enddo
     enddo
 
-    do i1=1,NGLLX
+    do i1 = 1,NGLLX
        call lagrange_any(xigll(i1), NGLLd, gll_points, h1, hprime1)
        hlagrange_old(:,i1)=h1(:)
     enddo
@@ -2467,13 +2467,13 @@ contains
     integer :: ih, jh, kh
 
     field_in_higher_degree(:,:,:) = 0.
-    do kh=1,NGLLd
-       do jh=1,NGLLd
-          do ih=1,NGLLd
+    do kh = 1,NGLLd
+       do jh = 1,NGLLd
+          do ih = 1,NGLLd
 
-             do k=1,NGLLX
-                do j=1,NGLLX
-                   do i=1,NGLLX
+             do k = 1,NGLLX
+                do j = 1,NGLLX
+                   do i = 1,NGLLX
                       field_in_higher_degree(ih,jh,kh) = field_in_higher_degree(ih,jh,kh) + &
                            hlagrange(i,ih)*hlagrange(j,jh)*hlagrange(k,kh)*field_in_element(i,j,k)
                    enddo
@@ -2501,12 +2501,12 @@ contains
     integer :: ih, jh, kh
 
     field_in_element(:,:,:) = 0.
-    do k=1,NGLLX
-       do j=1,NGLLX
-          do i=1,NGLLX
-             do kh=1,NGLLd
-                do jh=1,NGLLd
-                   do ih=1,NGLLd
+    do k = 1,NGLLX
+       do j = 1,NGLLX
+          do i = 1,NGLLX
+             do kh = 1,NGLLd
+                do jh = 1,NGLLd
+                   do ih = 1,NGLLd
                       field_in_element(i,j,k) = field_in_element(i,j,k) + &
                            hlagrange_old(ih,i)*hlagrange_old(jh,j)*hlagrange_old(kh,k)*field_in_higher_degree(ih,jh,kh)
                    enddo
@@ -2535,9 +2535,9 @@ contains
     double precision                                                :: ra1, ra2, rb1, rb2, rc1, rc2
     integer                                                         :: i,j,k
 
-    do i=1,NGLL
-       do j=1,NGLL
-          do k=1,NGLL
+    do i = 1,NGLL
+       do j = 1,NGLL
+          do k = 1,NGLL
 
              xi =    gll_coord(i)
              eta =   gll_coord(j)
@@ -2615,9 +2615,9 @@ contains
     double precision ::  xmesh, ymesh, zmesh
     double precision :: jacobian
 
-    do k=1,NGLLd
-       do j=1,NGLLd
-          do i=1,NGLLd
+    do k = 1,NGLLd
+       do j = 1,NGLLd
+          do i = 1,NGLLd
 
              xxi = ZERO
              xeta = ZERO
@@ -2632,7 +2632,7 @@ contains
              ymesh = ZERO
              zmesh = ZERO
 
-             do ia=1,NGNOD
+             do ia = 1,NGNOD
                 xxi    = xxi    + dershape_function(1,ia,i,j,k)*xnode(ia)
                 xeta   = xeta   + dershape_function(2,ia,i,j,k)*xnode(ia)
                 xgamma = xgamma + dershape_function(3,ia,i,j,k)*xnode(ia)
@@ -2722,42 +2722,42 @@ contains
        field_initial(:,:,:) = field_to_derivate(:,:,:,ispec)
 
        !! store elements control points
-       iglob=ibool(1,1,1,ispec)
+       iglob = ibool(1,1,1,ispec)
        xnodelm(1)=xstore(iglob)
        ynodelm(1)=ystore(iglob)
        znodelm(1)=zstore(iglob)
 
-       iglob=ibool(NGLLX,1,1,ispec)
+       iglob = ibool(NGLLX,1,1,ispec)
        xnodelm(2)=xstore(iglob)
        ynodelm(2)=ystore(iglob)
        znodelm(2)=zstore(iglob)
 
-       iglob=ibool(NGLLX,NGLLY,1,ispec)
+       iglob = ibool(NGLLX,NGLLY,1,ispec)
        xnodelm(3)=xstore(iglob)
        ynodelm(3)=ystore(iglob)
        znodelm(3)=zstore(iglob)
 
-       iglob=ibool(1,NGLLY,1,ispec)
+       iglob = ibool(1,NGLLY,1,ispec)
        xnodelm(4)=xstore(iglob)
        ynodelm(4)=ystore(iglob)
        znodelm(4)=zstore(iglob)
 
-       iglob=ibool(1,1,NGLLZ,ispec)
+       iglob = ibool(1,1,NGLLZ,ispec)
        xnodelm(5)=xstore(iglob)
        ynodelm(5)=ystore(iglob)
        znodelm(5)=zstore(iglob)
 
-       iglob=ibool(NGLLX,1,NGLLZ,ispec)
+       iglob = ibool(NGLLX,1,NGLLZ,ispec)
        xnodelm(6)=xstore(iglob)
        ynodelm(6)=ystore(iglob)
        znodelm(6)=zstore(iglob)
 
-       iglob=ibool(NGLLX,NGLLY,NGLLZ,ispec)
+       iglob = ibool(NGLLX,NGLLY,NGLLZ,ispec)
        xnodelm(7)=xstore(iglob)
        ynodelm(7)=ystore(iglob)
        znodelm(7)=zstore(iglob)
 
-       iglob=ibool(1,NGLLY,NGLLZ,ispec)
+       iglob = ibool(1,NGLLY,NGLLZ,ispec)
        xnodelm(8)=xstore(iglob)
        ynodelm(8)=ystore(iglob)
        znodelm(8)=zstore(iglob)
@@ -2799,14 +2799,14 @@ contains
     double precision :: etaxl, etayl, etazl
     double precision :: gammaxl, gammayl, gammazl
 
-    do k=1,NGLLd
-       do j=1, NGLLd
-          do i=1,NGLLd
+    do k = 1,NGLLd
+       do j = 1, NGLLd
+          do i = 1,NGLLd
 
              tempx1l = 0.d0
              tempx2l = 0.d0
              tempx3l = 0.d0
-             do l=1,NGLLd
+             do l = 1,NGLLd
 
                 hp1 = hlagrange_prime(i,l)
                 tempx1l = tempx1l + field_in_element(l,j,k)*hp1
@@ -2838,9 +2838,9 @@ contains
        enddo
     enddo
 
-    do k=1,NGLLd
-       do j=1, NGLLd
-          do i=1,NGLLd
+    do k = 1,NGLLd
+       do j = 1, NGLLd
+          do i = 1,NGLLd
 
              tempx1l = 0.d0
              tempx2l = 0.d0
@@ -2851,7 +2851,7 @@ contains
              tempz1l = 0.d0
              tempz2l = 0.d0
              tempz3l = 0.d0
-             do l=1,NGLLd
+             do l = 1,NGLLd
 
                 hp1 = hlagrange_prime(i,l)
                 tempx1l = tempx1l + dfdx(l,j,k)*hp1
@@ -2901,9 +2901,9 @@ contains
     double precision :: x,y,z
     integer i,j,k
 
-    do k=1,NGLLd
-       do j=1, NGLLd
-          do i=1,NGLLd
+    do k = 1,NGLLd
+       do j = 1, NGLLd
+          do i = 1,NGLLd
              x = xstore_interp(i,j,k)
              y = ystore_interp(i,j,k)
              z = zstore_interp(i,j,k)
@@ -3047,7 +3047,7 @@ contains
     real(kind=CUSTOM_REAL), dimension(:), intent(inout) ::  buffer_to_send, buffer_to_recv
     ! local
     integer :: irank, igll, ishift
-    integer :: itag=0
+    integer :: itag = 0
 
     do irank = 0, NPROC-1
        if (struct_comm(irank)%ns > 0) then
@@ -3071,7 +3071,7 @@ contains
     enddo
 
     do irank = 0, NPROC-1
-       ishift=struct_comm(irank)%ibegin
+       ishift = struct_comm(irank)%ibegin
        if (struct_comm(irank)%nr > 0) then
           do igll = 1, struct_comm(irank)%nr
              buffer_to_recv(igll + ishift) = struct_comm(irank)%array_to_recv(igll)
@@ -3107,11 +3107,11 @@ contains
     real(kind=CUSTOM_REAL)                                       :: gammaxl,gammayl,gammazl
     integer                                                      :: ispec, ispec_irreg, iglob, i, j, k, l
 
-    do ispec =1, NSPEC_AB
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
-                iglob=ibool(i,j,k,ispec)
+    do ispec = 1, NSPEC_AB
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
+                iglob = ibool(i,j,k,ispec)
                 dummyloc(i,j,k) = field_to_derivate(iglob)
              enddo
           enddo
@@ -3119,9 +3119,9 @@ contains
 
        ispec_irreg = irregular_element_number(ispec)
 
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
 
                 iglob = ibool(i,j,k,ispec)
 
@@ -3129,7 +3129,7 @@ contains
                 tempx2l = 0.
                 tempx3l = 0.
 
-                do l=1,NGLLX
+                do l = 1,NGLLX
 
                    hp1 = hprime_xx(i,l)
                    tempx1l = tempx1l + dummyloc(l,j,k)*hp1
@@ -3203,12 +3203,12 @@ contains
 
     if (DEBUG_MODE) write(IIDD,*)
 
-    do ispec =1, NSPEC_AB
+    do ispec = 1, NSPEC_AB
 
        !! first derivatives
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
                 iglob = ibool(i,j,k,ispec)
                 F(i,j,k) = field_to_derivate(iglob)
              enddo
@@ -3220,9 +3220,9 @@ contains
        F(:,:,:) = F(:,:,:)/coef_norm
        ispec_irreg = irregular_element_number(ispec)
 
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
 
                 iglob = ibool(i,j,k,ispec)
 
@@ -3230,7 +3230,7 @@ contains
                 tempx2l = 0.
                 tempx3l = 0.
 
-                do l=1,NGLLX
+                do l = 1,NGLLX
 
                    hp1 = hprime_xx(i,l)
                    tempx1l = tempx1l + F(l,j,k)*hp1
@@ -3284,9 +3284,9 @@ contains
        !coef_norm=1.
        F(:,:,:)=F(:,:,:)/coef_norm
 
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
 
                 iglob = ibool(i,j,k,ispec)
 
@@ -3294,7 +3294,7 @@ contains
                 tempx2l = 0.
                 tempx3l = 0.
 
-                do l=1,NGLLX
+                do l = 1,NGLLX
 
                    hp1 = hprime_xx(i,l)
                    tempx1l = tempx1l + F(l,j,k)*hp1
@@ -3348,9 +3348,9 @@ contains
        !coef_norm=1.
        F(:,:,:)=F(:,:,:)/coef_norm
 
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
 
                 iglob = ibool(i,j,k,ispec)
 
@@ -3358,7 +3358,7 @@ contains
                 tempx2l = 0.
                 tempx3l = 0.
 
-                do l=1,NGLLX
+                do l = 1,NGLLX
 
                    hp1 = hprime_xx(i,l)
                    tempx1l = tempx1l + F(l,j,k)*hp1
@@ -3409,9 +3409,9 @@ contains
        !coef_norm=1.
        F(:,:,:)=F(:,:,:)/coef_norm
 
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
 
                 iglob = ibool(i,j,k,ispec)
 
@@ -3419,7 +3419,7 @@ contains
                 tempx2l = 0.
                 tempx3l = 0.
 
-                do l=1,NGLLX
+                do l = 1,NGLLX
 
                    hp1 = hprime_xx(i,l)
                    tempx1l = tempx1l + F(l,j,k)*hp1
@@ -3686,10 +3686,10 @@ contains
     call compute_mean_values_on_edge(Derivatives_of_field)
 
     ! store norm L2 of gradient
-    do ispec=1, NSPEC_AB
-       do k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
+    do ispec = 1, NSPEC_AB
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
                 iglob = ibool(i,j,k,ispec)
                 nGrad(iglob) = sqrt(Derivatives_of_field(1,i,j,k,ispec)**2 + Derivatives_of_field(2,i,j,k,ispec)**2 +&
                      Derivatives_of_field(3,i,j,k,ispec)**2)
@@ -3705,10 +3705,10 @@ contains
     field_to_derivate(:)=field_to_derivate_wks(1,:)
     call compute_first_derivatives_lagrange(Derivatives_of_field, field_to_derivate)
     !! store result
-    do ispec=1, NSPEC_AB
-       do k=1, NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
+    do ispec = 1, NSPEC_AB
+       do k = 1, NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
                 iglob = ibool(i,j,k,ispec)
                 !LapF(iglob) =  Derivatives_of_field(1,i,j,k,ispec)
                 Fwks(1,iglob) =  Derivatives_of_field(1,i,j,k,ispec)
@@ -3721,10 +3721,10 @@ contains
     field_to_derivate(:)=field_to_derivate_wks(2,:)
     call compute_first_derivatives_lagrange(Derivatives_of_field, field_to_derivate)
     !! store result
-    do ispec=1, NSPEC_AB
-       do k=1, NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
+    do ispec = 1, NSPEC_AB
+       do k = 1, NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
                 iglob = ibool(i,j,k,ispec)
                 !LapF(iglob) =   LapF(iglob) + Derivatives_of_field(2,i,j,k,ispec)
                 !LapF(iglob) =  Derivatives_of_field(2,i,j,k,ispec)
@@ -3739,10 +3739,10 @@ contains
     field_to_derivate(:)=field_to_derivate_wks(3,:)
     call compute_first_derivatives_lagrange(Derivatives_of_field, field_to_derivate)
     !! store result
-    do ispec=1, NSPEC_AB
-       do k=1, NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
+    do ispec = 1, NSPEC_AB
+       do k = 1, NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
                 iglob = ibool(i,j,k,ispec)
                 !LapF(iglob) =   LapF(iglob) + Derivatives_of_field(3,i,j,k,ispec)
                 !LapF(iglob) = Derivatives_of_field(3,i,j,k,ispec)
@@ -4080,20 +4080,20 @@ contains
        call send_recv_blocking(field_to_send, field_overlap)
 
        !! 3/ process derivatives in edges by FD
-       do iglob_index=1, Nb_iglob_on_faces
-          ncolu=regularization_fd(iglob_index)%nReg+regularization_fd(iglob_index)%nNei
+       do iglob_index = 1, Nb_iglob_on_faces
+          ncolu = regularization_fd(iglob_index)%nReg+regularization_fd(iglob_index)%nNei
           allocate(Values(ncolu),stat=ier)
           if (ier /= 0) call exit_MPI_without_rank('error allocating array 202')
-          ip=0
-          do igll=1, regularization_fd(iglob_index)%nReg
+          ip = 0
+          do igll = 1, regularization_fd(iglob_index)%nReg
              ip = ip + 1
-             iglob=regularization_fd(iglob_index)%iglob_regular_point_to_use(igll)
+             iglob = regularization_fd(iglob_index)%iglob_regular_point_to_use(igll)
              Values(ip)=field_to_send(iglob)
           enddo
 
 
           do igll = 1,  regularization_fd(iglob_index)%nNei
-             ip=ip+1
+             ip = ip+1
              iglob = regularization_fd(iglob_index)%iglob_neighbo_point_to_use(igll)
              Values(ip) = field_overlap(iglob)
           enddo
@@ -4166,20 +4166,20 @@ contains
     call send_recv_blocking(field_to_send, field_overlap)
 
     !! 3/ process derivatives in edges by FD
-    do iglob_index=1, Nb_iglob_on_faces
-       ncolu=regularization_fd(iglob_index)%nReg+regularization_fd(iglob_index)%nNei
+    do iglob_index = 1, Nb_iglob_on_faces
+       ncolu = regularization_fd(iglob_index)%nReg+regularization_fd(iglob_index)%nNei
        allocate(Values(ncolu),stat=ier)
        if (ier /= 0) call exit_MPI_without_rank('error allocating array 205')
-       ip=0
-       do igll=1, regularization_fd(iglob_index)%nReg
+       ip = 0
+       do igll = 1, regularization_fd(iglob_index)%nReg
           ip = ip + 1
-          iglob=regularization_fd(iglob_index)%iglob_regular_point_to_use(igll)
+          iglob = regularization_fd(iglob_index)%iglob_regular_point_to_use(igll)
           Values(ip)=field_to_send(iglob)
        enddo
 
 
        do igll = 1,  regularization_fd(iglob_index)%nNei
-          ip=ip+1
+          ip = ip+1
           iglob = regularization_fd(iglob_index)%iglob_neighbo_point_to_use(igll)
           Values(ip) = field_overlap(iglob)
        enddo
@@ -4320,9 +4320,9 @@ contains
     integer                                               :: i,k
 
 
-    do i=1,n
+    do i = 1,n
        r(i)=0.
-       do k=1,m
+       do k = 1,m
           r(i)=r(i)+A(i,k)*b(k)
        enddo
     enddo
@@ -4449,10 +4449,10 @@ contains
     itest = 1
     allocate(dd(NGLLX,NGLLY,NGLLZ,NSPEC_AB),stat=ier)
     if (ier /= 0) call exit_MPI_without_rank('error allocating array 206')
-    do ispec=1,nspec_ab
-       do k=1,ngllz
-          do j=1,nglly
-             do i=1,ngllx
+    do ispec = 1,nspec_ab
+       do k = 1,ngllz
+          do j = 1,nglly
+             do i = 1,ngllx
                 iglob = ibool(i,j,k,ispec)
                 dd(i,j,k,ispec)=f(iglob)
              enddo
@@ -4550,9 +4550,9 @@ contains
   do ispec = 1, NSPEC_AB
 
 !! store field in local array
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           !iglob=ibool(i,j,k,ispec)
           F(i,j,k)=field_to_derivate(1,i,j,k,ispec)
         enddo
@@ -4560,9 +4560,9 @@ contains
     enddo
     ispec_irreg = irregular_element_number(ispec)
     !! derivative of field based on lagrange polynomials
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
 
           !iglob = ibool(i,j,k,ispec)
 
@@ -4570,7 +4570,7 @@ contains
           tempx2l = 0.
           tempx3l = 0.
 
-          do l=1,NGLLX
+          do l = 1,NGLLX
             hp1 = hprime_xx(i,l)
             tempx1l = tempx1l + F(l,j,k)*hp1
 
@@ -4609,9 +4609,9 @@ contains
     enddo
 
     !! get derivative of field from  local array
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           derivative_of_field(1,i,j,k,ispec)= dF(1,i,j,k)
           derivative_of_field(2,i,j,k,ispec)= dF(2,i,j,k)
           derivative_of_field(3,i,j,k,ispec)= dF(3,i,j,k)
@@ -4647,12 +4647,12 @@ contains
    double precision                                              :: gammaxl,gammayl,gammazl
    integer                                                       :: ispec, ispec_irreg,i, j, k, l
 
-   do ispec =1, NSPEC_AB
+   do ispec = 1, NSPEC_AB
 
       !! store field in local array
-      do k=1,NGLLZ
-         do j=1,NGLLY
-            do i=1,NGLLX
+      do k = 1,NGLLZ
+         do j = 1,NGLLY
+            do i = 1,NGLLX
                F(1,i,j,k)=field_to_derivate(1,i,j,k,ispec)
                F(2,i,j,k)=field_to_derivate(2,i,j,k,ispec)
                F(3,i,j,k)=field_to_derivate(3,i,j,k,ispec)
@@ -4662,9 +4662,9 @@ contains
       ispec_irreg = irregular_element_number(ispec)
 
       !! derivative of field based on lagrange polynomials
-      do k=1,NGLLZ
-         do j=1,NGLLY
-            do i=1,NGLLX
+      do k = 1,NGLLZ
+         do j = 1,NGLLY
+            do i = 1,NGLLX
 
                !iglob = ibool(i,j,k,ispec)
 
@@ -4680,7 +4680,7 @@ contains
                tempz2l = 0.
                tempz3l = 0
 
-               do l=1,NGLLX
+               do l = 1,NGLLX
 
                   hp1 = hprime_xx(i,l)
                   tempx1l = tempx1l + F(1,l,j,k)*hp1
@@ -4728,9 +4728,9 @@ contains
     enddo
 
     !! get derivative of field from  local array
-    do k=1,NGLLZ
-       do j=1,NGLLY
-          do i=1,NGLLX
+    do k = 1,NGLLZ
+       do j = 1,NGLLY
+          do i = 1,NGLLX
              derivative_of_field(1,i,j,k,ispec)= dF(1,i,j,k)
              derivative_of_field(2,i,j,k,ispec)= dF(2,i,j,k)
              derivative_of_field(3,i,j,k,ispec)= dF(3,i,j,k)

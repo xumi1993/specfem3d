@@ -35,11 +35,11 @@ contains
     ! check sample rates are equal
     if (abs(dt1-dt2) > EPS5) stop 'Sampling rates differ, program stop !!!'
     dt = dble(dt1)
-    !write(*,*)'sampling rate dt=',dt
+    !write(*,*) 'sampling rate dt=',dt
 
     ! check start times are equal (LQY: a difference of dt is probably too big)
     if (abs(b1-b2) > dt) stop ' start times differ, program stop !!!'
-    b=dble(b1)
+    b = dble(b1)
 
     ! set global npts to the npts of the shortest seismogram
     npts = min(npts1, npts2)
@@ -54,7 +54,7 @@ contains
     call getkhv('kcmpnm', kcmpnm, nerr)
     call getkhv('knetwk', knetwk, nerr)
 
-    cmp=kcmpnm(3:3)
+    cmp = kcmpnm(3:3)
 
     if ((cmp /= 'Z') .and. (cmp /= 'T') .and. (cmp /= 'R')) &
          stop 'We only deal with Z, R, and T components at the moment'
@@ -90,7 +90,7 @@ contains
           nwint = nwint + 1
 
           ! component weights
-          comp_name=kcmpnm(i)
+          comp_name = kcmpnm(i)
           if (comp_name(3:3) == 'Z') then
              cmp_weight(nwint)=comp_z_weight
           else if (comp_name(3:3) == 'R') then
@@ -154,7 +154,7 @@ contains
     integer :: im,ir,id,it,j
 
     ! loop over (mw,rake,dip,strike) to pre-calculate mij's
-    j=0
+    j = 0
     do im = 1, n_mw
        mw = s_mw + (im-1) * d_mw
        ! equation (9.45) from Modern Global Seismology
@@ -165,7 +165,7 @@ contains
              dip = s_dip + (id-1) * d_dip
              do it = 1, n_strike
                 strike = s_strike + (it-1) * d_strike
-                j=j+1
+                j = j+1
                 call sdr2moment(strike,dip,rake,moment, &
                      mij(1,j),mij(2,j),mij(3,j),mij(4,j),mij(5,j),mij(6,j))
              enddo
@@ -212,17 +212,17 @@ contains
     enddo
 
     ! core computation
-    ishift=0; ishift_max=nint(tshift_max/dt)
+    ishift = 0; ishift_max = nint(tshift_max/dt)
     do j = 1, n_total
        syn(1:npts) =  matmul(mij(:,j),dsyn(:,1:npts)) / dmoment
        do iw = 1, nw
-          tt=t1(iw); iss=is(iw);iee=ie(iw)
+          tt = t1(iw); iss = is(iw);iee = ie(iw)
           if (station_correction) then
              call xcorr_calc(data,syn,npts,iss,iee,ishift,cc,ishift_max)
-             isd=max(1,iss+ishift); ied=min(npts,iee+ishift)
-             iss=isd-ishift; iee=ied-ishift
+             isd = max(1,iss+ishift); ied = min(npts,iee+ishift)
+             iss = isd-ishift; iee = ied-ishift
           else
-             isd=iss; ied=iee
+             isd = iss; ied = iee
           endif
           misfit(j) = misfit(j)+tt*sum((syn(iss:iee)-data(isd:ied))**2)
        enddo
@@ -252,13 +252,13 @@ contains
     character(len=150) :: filename
     real :: min_misfit
 
-    n_total=n_strike*n_dip*n_rake*n_mw
+    n_total = n_strike*n_dip*n_rake*n_mw
     mm = n_strike*n_dip*n_rake
     mm2 = n_strike*n_dip
     mm3 = n_strike
 
     jmina = minloc(misfit(1:n_total))
-    jmin=jmina(1)-1
+    jmin = jmina(1)-1
 
     jm = jmin/mm+1
     jmin = jmin-(jm-1)*mm
@@ -267,13 +267,13 @@ contains
     jd = jmin/mm3+1
     js = jmin-(jd-1)*mm3+1
 
-    strike=s_strike+(js-1)*d_strike
-    dip=s_dip+(jd-1)*d_dip
-    rake=s_rake+(jr-1)*d_rake
-    mw=s_mw+(jm-1)*d_mw
+    strike = s_strike+(js-1)*d_strike
+    dip = s_dip+(jd-1)*d_dip
+    rake = s_rake+(jr-1)*d_rake
+    mw = s_mw+(jm-1)*d_mw
 
     filename='grid3d_misfit'
-    if (global_search) filename=trim(filename)//'.'//char(icalc+48)
+    if (global_search) filename = trim(filename)//'.'//char(icalc+48)
 
     min_misfit=minval(misfit(1:n_total))
     print *, 'minimum misfit value = ', min_misfit

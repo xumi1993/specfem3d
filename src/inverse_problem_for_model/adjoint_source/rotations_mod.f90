@@ -89,7 +89,7 @@ contains
     lat = deg2rad * stalat
     lon = deg2rad * stalon
 
-    do ista=1,nsta
+    do ista = 1,nsta
 
        !* Equivalence of local and global Cartesian coordinates at (lat=0, lon=0)
        X2(ista,:) = vz(ista,:)
@@ -150,7 +150,7 @@ contains
     lat = deg2rad * stalat
     lon = deg2rad * stalon
 
-    do ista=1,nsta
+    do ista = 1,nsta
 
        !* Define rotation matrix
        rotc(1,1) =  cos(lat(ista)) * cos(lon(ista))

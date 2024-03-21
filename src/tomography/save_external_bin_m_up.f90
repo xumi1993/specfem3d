@@ -432,8 +432,8 @@
       if (ier /= 0) call exit_MPI_without_rank('error allocating array 1044')
       inum = 0
       iglob_tmp(:) = 0
-      do i=1,num_coupling_ac_el_faces
-        do j=1,NGLLSQUARE
+      do i = 1,num_coupling_ac_el_faces
+        do j = 1,NGLLSQUARE
           inum = inum+1
           iglob_tmp(inum) = ibool(coupling_ac_el_ijk(1,j,i), &
                                   coupling_ac_el_ijk(2,j,i), &
@@ -450,7 +450,7 @@
       ! saves acoustic/elastic flag
       allocate(v_tmp_i(nspec),stat=ier)
       if (ier /= 0) call exit_MPI_without_rank('error allocating array 1045')
-      do i=1,nspec
+      do i = 1,nspec
         if (ispec_is_acoustic(i)) then
           v_tmp_i(i) = 1
         else if (ispec_is_elastic(i)) then

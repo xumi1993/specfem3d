@@ -507,13 +507,13 @@ end module user_noise_distribution
     if (SIMULATION_TYPE /= 1) &
       call exit_mpi(myrank,'NOISE_TOMOGRAPHY=2 requires SIMULATION_TYPE=1! check Par_file')
     if (.not. SAVE_FORWARD) &
-      call exit_mpi(myrank,'NOISE_TOMOGRAPHY=2 requires SAVE_FORWARD=.true.! check Par_file')
+      call exit_mpi(myrank,'NOISE_TOMOGRAPHY=2 requires SAVE_FORWARD = .true.! check Par_file')
 
   else if (NOISE_TOMOGRAPHY == 3) then
     if (SIMULATION_TYPE /= 3) &
       call exit_mpi(myrank,'NOISE_TOMOGRAPHY=3 requires SIMULATION_TYPE=3! check Par_file')
     if (SAVE_FORWARD) &
-      call exit_mpi(myrank,'NOISE_TOMOGRAPHY=3 requires SAVE_FORWARD=.false.! check Par_file')
+      call exit_mpi(myrank,'NOISE_TOMOGRAPHY=3 requires SAVE_FORWARD = .false.! check Par_file')
   endif
 
   if (NOISE_TOMOGRAPHY /= 0) then

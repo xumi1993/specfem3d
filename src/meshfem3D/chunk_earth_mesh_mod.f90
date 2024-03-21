@@ -14,7 +14,7 @@ module chunk_earth_mod
   double precision                                  :: dx_elem, dy_elem, dz_elem
   double precision                                  :: dx_max, dy_max, dz_max
 
-  logical                                           :: use_doubling=.false.
+  logical                                           :: use_doubling = .false.
   integer                                           :: nb_doubling
   double precision,       dimension(:), allocatable :: layer_doubling, zlayer
   integer,                dimension(:), allocatable :: nzlayer
@@ -72,17 +72,17 @@ contains
          read(27,'(a)',end=99) line
 
          !! INDICES TO READ line -----------------------------------------------
-         ipos0=index(line,':')+1
-         ipos1=index(line,'#')-1
-         if (ipos1 < 0 ) ipos1=len_trim(line)
+         ipos0 = index(line,':')+1
+         ipos1 = index(line,'#')-1
+         if (ipos1 < 0 ) ipos1 = len_trim(line)
 
          !! STORE KEYWORD ITEM -------------------------------------------------
-         keyw=trim(adjustl(line(1:ipos0-2)))
+         keyw = trim(adjustl(line(1:ipos0-2)))
 
          select case (trim(keyw))
          case ('system_coordinate')
             write(*,*) line
-            system_coordinate=trim(adjustl(line(ipos0:ipos1)))
+            system_coordinate = trim(adjustl(line(ipos0:ipos1)))
          end select
 
       enddo
@@ -127,12 +127,12 @@ contains
           read(27,'(a)',end=99) line
 
           !! INDICES TO READ line -----------------------------------------------
-          ipos0=index(line,':')+1
-          ipos1=index(line,'#')-1
-          if (ipos1 < 0 ) ipos1=len_trim(line)
+          ipos0 = index(line,':')+1
+          ipos1 = index(line,'#')-1
+          if (ipos1 < 0 ) ipos1 = len_trim(line)
 
          !! STORE KEYWORD ITEM -------------------------------------------------
-          keyw=trim(adjustl(line(1:ipos0-2)))
+          keyw = trim(adjustl(line(1:ipos0-2)))
 
           select case (trim(keyw))
           case('xmin')
@@ -154,7 +154,7 @@ contains
           case('dz_elem')
              read(line(ipos0:ipos1),*) dz_elem
           case('nb_doubling')
-             use_doubling=.true.
+             use_doubling = .true.
              read(line(ipos0:ipos1),*) nb_doubling
              allocate(layer_doubling(nb_doubling),stat=ier)
              if (ier /= 0) call exit_MPI_without_rank('error allocating array 1240')
@@ -240,19 +240,19 @@ contains
        if (ier /= 0) call exit_MPI_without_rank('error allocating array 1245')
        allocate(nzlayer(nb_doubling+1),stat=ier)
        if (ier /= 0) call exit_MPI_without_rank('error allocating array 1246')
-       k=0
-       do ilayer=2, nb_doubling+1
-          k=k+1
+       k = 0
+       do ilayer = 2, nb_doubling+1
+          k = k+1
           zlayer(ilayer)=layer_doubling(k)
        enddo
        zlayer(1)=zmin_chunk
        zlayer(nb_doubling+2)=zmax_chunk
 
-       nspec_tot=0
-       npoint_tot=0
-       nx=nx_ref
-       ny=ny_ref
-       dz=dz_max
+       nspec_tot = 0
+       npoint_tot = 0
+       nx = nx_ref
+       ny = ny_ref
+       dz = dz_max
        !! compute number of elements needed for meshing
        do ilayer = 1, nb_doubling
           write(*,*)
@@ -270,8 +270,8 @@ contains
 
           write(*,*) ' nx, ny, nz ',nx, ny,  nzlayer(ilayer)
 
-          nx=2*nx
-          ny=2*ny
+          nx = 2*nx
+          ny = 2*ny
           dz = dz /2.d0
 
        enddo
@@ -295,7 +295,7 @@ contains
        if (ier /= 0) call exit_MPI_without_rank('error allocating array 1247')
        allocate(EtoV(8,nspec_tot), iboun(6,nspec_tot),stat=ier)
        if (ier /= 0) call exit_MPI_without_rank('error allocating array 1248')
-       iboun(:,:)=.false.
+       iboun(:,:) = .false.
        EtoV(:,:)=0
 
     end subroutine read_metric_params
@@ -310,14 +310,14 @@ contains
       double precision :: dx, dy, dz, z
       double precision, dimension(:,:), allocatable :: top_surface, bottom_surface
 
-      ispec=0
-      ipoint=0
-      nspec_xmin=0
-      nspec_xmax=0
-      nspec_ymin=0
-      nspec_ymax=0
-      nspec_zmin=0
-      nspec_zmax=0
+      ispec = 0
+      ipoint = 0
+      nspec_xmin = 0
+      nspec_xmax = 0
+      nspec_ymin = 0
+      nspec_ymax = 0
+      nspec_zmin = 0
+      nspec_zmax = 0
 
       !! mesh all layers with doubling
       do ilayer = 1, nb_doubling
@@ -354,8 +354,8 @@ contains
 
        !! mesh last layer with no doubling fore last layer
       ilayer = nb_doubling + 1
-      nx=nx_ref*(2**(ilayer-1))
-      ny=ny_ref*(2**(ilayer-1))
+      nx = nx_ref*(2**(ilayer-1))
+      ny = ny_ref*(2**(ilayer-1))
       nz = nzlayer(ilayer)
       z = zlayer(ilayer)
       dx =  ( xmax_chunk - xmin_chunk ) / real(nx,8)
@@ -399,21 +399,21 @@ contains
 
 
       !! write coords
-      k=0
+      k = 0
       filename = trim(MESH)//'nodes_coords_file'
       open(27,file=trim(filename))
       write(27,*) nglob
       write(*,*) " remaining points in mesh : ", nglob, " total point used in mesh building ", npoint_tot
       do i = 1, npoint_tot
          if (ifseg(i)) then
-            k=k+1
+            k = k+1
             write(27,'(i14,3x,3(f20.5,1x))') k, x_mesh_point(i), y_mesh_point(i), z_mesh_point(i)
          endif
       enddo
       close(27)
 
       !! read again the point to have them in right order
-      npoint_tot=k
+      npoint_tot = k
       write(*,*) " number of point found ", npoint_tot, nglob
       deallocate(x_mesh_point, y_mesh_point, z_mesh_point)
       allocate(x_mesh_point(npoint_tot), y_mesh_point(npoint_tot), z_mesh_point(npoint_tot),stat=ier)
@@ -431,7 +431,7 @@ contains
       filename = trim(MESH)//'mesh_file'
       open(27,file=trim(filename))
       write(27,*) nspec_tot
-      do i =1, nspec_tot
+      do i = 1, nspec_tot
          write(27,'(9i15)') i, &
               iglob((EtoV(1, i))), iglob((EtoV(2, i))), iglob((EtoV(3, i))), iglob((EtoV(4, i))), &
               iglob((EtoV(5, i))), iglob((EtoV(6, i))), iglob((EtoV(7, i))), iglob((EtoV(8, i)))
@@ -446,7 +446,7 @@ contains
       open(31,file=trim(MESH)//'absorbing_surface_file_bottom'); write(31,*) nspec_zmin
       open(32,file=trim(MESH)//'free_or_absorbing_surface_file_zmax'); write(32,*) nspec_zmax
 
-      do i=1, nspec_tot
+      do i = 1, nspec_tot
          if (iboun(1,i))  write(27,'(10(i10,1x))') i, &
               iglob((EtoV(1, i))), iglob((EtoV(2, i))), iglob((EtoV(6, i))), iglob((EtoV(5, i)))
          if (iboun(2,i))  write(28,'(10(i10,1x))') i, &
@@ -471,7 +471,7 @@ contains
       !! write materials !!
       filename = trim(MESH)//'nummaterial_velocity_file'
       open(27,file=trim(filename))
-      do i=1, nb_mat
+      do i = 1, nb_mat
          write(27,'(2i6,5f15.5,i6)') 2, Imaterial_domain(i), material_prop(i,1:5), 0
       enddo
       close(27)
@@ -481,7 +481,7 @@ contains
 
       filename = trim(MESH)//'/materials_file'
       open(28,file=trim(filename))
-      do i=1, nspec_tot
+      do i = 1, nspec_tot
          call Find_Domain(idom, i, iglob)
          write(28,*) i, Imaterial_domain(idom)
          Imatetrial_ispec(i)= Imaterial_domain(idom)
@@ -540,7 +540,7 @@ contains
 
       !! compute vertically deformed Cartesian grid --------------------------------------------------------------
       ip = ipoint
-      do k = 1, nz + 1  !!loop over depth from bottom surface (k=1) to the top (k=nz+1)
+      do k = 1, nz + 1  !!loop over depth from bottom surface (k = 1) to the top (k = nz+1)
 
          !! loop over (x,y) points
          do j = 1, ny + 1
@@ -586,33 +586,33 @@ contains
 
                !! get boundaries --------
                if (i == 1) then
-                  iboun(1,ispec)=.true.
-                  nspec_xmin=nspec_xmin+1
+                  iboun(1,ispec) = .true.
+                  nspec_xmin = nspec_xmin+1
                endif
 
                if (i == nx) then
-                  iboun(2,ispec)=.true.
-                  nspec_xmax=nspec_xmax+1
+                  iboun(2,ispec) = .true.
+                  nspec_xmax = nspec_xmax+1
                endif
 
                if (j == 1) then
-                  iboun(3,ispec)=.true.
-                  nspec_ymin=nspec_ymin+1
+                  iboun(3,ispec) = .true.
+                  nspec_ymin = nspec_ymin+1
                endif
 
                if (j == ny) then
-                  iboun(4,ispec)=.true.
-                  nspec_ymax=nspec_ymax+1
+                  iboun(4,ispec) = .true.
+                  nspec_ymax = nspec_ymax+1
                endif
 
                if (ilayer == 1 .and. k == 1) then
-                  iboun(5,ispec)=.true.
-                  nspec_zmin=nspec_zmin+1
+                  iboun(5,ispec) = .true.
+                  nspec_zmin = nspec_zmin+1
                endif
 
                if (ilayer == nlayer .and. k == nz) then
-                  iboun(6,ispec)=.true.
-                  nspec_zmax=nspec_zmax+1
+                  iboun(6,ispec) = .true.
+                  nspec_zmax = nspec_zmax+1
                endif
 
 
@@ -670,23 +670,23 @@ contains
 
             !! get boundaries --------
             if (i == 1) then
-               iboun(1,ispec)=.true.
-               nspec_xmin=nspec_xmin+1
+               iboun(1,ispec) = .true.
+               nspec_xmin = nspec_xmin+1
             endif
 
             if (i == nx) then
-               iboun(2,ispec)=.true.
-               nspec_xmax=nspec_xmax+1
+               iboun(2,ispec) = .true.
+               nspec_xmax = nspec_xmax+1
             endif
 
             if (j == 1) then
-               iboun(3,ispec)=.true.
-               nspec_ymin=nspec_ymin+1
+               iboun(3,ispec) = .true.
+               nspec_ymin = nspec_ymin+1
             endif
 
             if (j == ny) then
-               iboun(4,ispec)=.true.
-               nspec_ymax=nspec_ymax+1
+               iboun(4,ispec) = .true.
+               nspec_ymax = nspec_ymax+1
             endif
 
          enddo
@@ -720,7 +720,7 @@ contains
          type = tupe + ibri
 
          !! 1/ get normalized reference element
-         elem=elemref(type)
+         elem = elemref(type)
 
          !! 2/ scale and shift the element
          elem(:,1) = elem(:,1) * dx + x
@@ -914,7 +914,7 @@ contains
      integer                            :: ind(8)
      double precision                   :: x, y, z
 
-     do k=1, 8
+     do k = 1, 8
         ind(k)=iglob(EtoV(k,i));
      enddo
 
@@ -927,7 +927,7 @@ contains
         if ( x >= domain_boundary(k,1) .and. x <= domain_boundary(k,2) .and. &
              y >= domain_boundary(k,3) .and. y <= domain_boundary(k,4) .and. &
              z >= domain_boundary(k,5) .and. z <= domain_boundary(k,6)) then
-           id=k
+           id = k
            return
         endif
      enddo

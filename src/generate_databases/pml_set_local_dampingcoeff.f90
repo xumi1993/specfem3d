@@ -1390,9 +1390,9 @@
     ispec = CPML_to_spec(ispec_CPML)
   ! loops over all GLL points
   ! (combines directions to speed up calculations)
-    do k=1,NGLLZ-1
-      do j=1,NGLLY-1
-        do i=1,NGLLX-1
+    do k = 1,NGLLZ-1
+      do j = 1,NGLLY-1
+        do i = 1,NGLLX-1
           ! reference point
           iglob1 = ibool(i,j,k,ispec)
           x1 = xstore(iglob1)
@@ -1882,7 +1882,7 @@
         if (ier /= 0) stop 'error allocating array points_interface_PML_acoustic'
         points_interface_PML_acoustic = 0
         nglob_interface_PML_acoustic = 0
-        do ispec=1,nspec
+        do ispec = 1,nspec
           if (ispec_is_acoustic(ispec) .and. is_CPML(ispec)) then
             do k = 1,NGLLZ; do j = 1,NGLLY; do i = 1,NGLLX
               if (mask_ibool_interior_domain(ibool(i,j,k,ispec))) then
@@ -1906,7 +1906,7 @@
 
     if (ELASTIC_SIMULATION) then
 
-      do ispec=1,nspec
+      do ispec = 1,nspec
         if (ispec_is_elastic(ispec) .and. is_CPML(ispec)) then
           do k = 1,NGLLZ; do j = 1,NGLLY; do i = 1,NGLLX
             if (mask_ibool_interior_domain(ibool(i,j,k,ispec))) then

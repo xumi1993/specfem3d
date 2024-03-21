@@ -325,8 +325,8 @@
 
             ! normal convention: points away from acoustic, reference element
             !                                switch normal direction if necessary
-            do j=1,NGLLY
-              do i=1,NGLLX
+            do j = 1,NGLLY
+              do i = 1,NGLLX
                 ! directs normals such that they point outwards of element
                 call get_element_face_normal(ispec,iface_ref,xcoord,ycoord,zcoord, &
                                              ibool,nspec,nglob_unique, &
@@ -343,8 +343,8 @@
             inum = inum + 1
             tmp_ispec(inum) = ispec
             igll = 0
-            do j=1,NGLLY
-              do i=1,NGLLX
+            do j = 1,NGLLY
+              do i = 1,NGLLX
                 ! adds all GLL points on this face
                 igll = igll + 1
 
@@ -362,8 +362,8 @@
             enddo
           else
             ! assumes to be already collected by lower rank process, masks face points
-            do j=1,NGLLY
-              do i=1,NGLLX
+            do j = 1,NGLLY
+              do i = 1,NGLLX
                 iglob = ibool(ijk_face(1,i,j),ijk_face(2,i,j),ijk_face(3,i,j),ispec)
                 mask_ibool(iglob) = .true.
               enddo
@@ -904,9 +904,9 @@
                   endif ! found_order
                 endif ! if imatch
 
-              enddo ! do iface_ref_el=1,6
+              enddo ! do iface_ref_el = 1,6
             endif ! if (ispec_is_elastic(ispec_el)) then
-          enddo ! do ispec_el=1,nspec
+          enddo ! do ispec_el = 1,nspec
 
           ! checks if found matching elastic element
           if (.not. found_elastic_elem) then

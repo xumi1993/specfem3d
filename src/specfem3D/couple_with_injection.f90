@@ -926,7 +926,7 @@
     do ii = 1, nf2
       om = 2.0 * PI * fvec(ii)
       ! propagation matrix
-      call compute_N_Rayleigh(al,be,mu,H,nlayer,om,ray_p,sum(H(1:nlayer-1)),N_mat) !total-thickness=sum(H)
+      call compute_N_Rayleigh(al,be,mu,H,nlayer,om,ray_p,sum(H(1:nlayer-1)),N_mat) !total-thickness = sum(H)
 
       a = N_mat(3,2); b = N_mat(3,4); c = N_mat(4,2); d = N_mat(4,4)
       delta_mat = a*d - b*c
@@ -1107,7 +1107,7 @@
     do ii = 1, nf2
       om = 2.0 * PI * fvec(ii)
       ! propagation matrix
-      call compute_N_Rayleigh(al,be,mu,H,nlayer,om,ray_p,sum(H(1:nlayer-1)),N_mat) !total-thickness=sum(h)
+      call compute_N_Rayleigh(al,be,mu,H,nlayer,om,ray_p,sum(H(1:nlayer-1)),N_mat) !total-thickness = sum(h)
 
       a = N_mat(3,2); b = N_mat(3,4); c = N_mat(4,2); d = N_mat(4,4)
       delta_mat = a*d - b*c

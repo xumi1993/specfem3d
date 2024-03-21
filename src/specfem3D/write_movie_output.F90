@@ -255,9 +255,9 @@
   ! local parameters
   integer :: i,j,k
 
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         if (iglob == ibool(i,j,k,ispec)) then
           store_val_ux(ia) = val_element(1,i,j,k)
           store_val_uy(ia) = val_element(2,i,j,k)

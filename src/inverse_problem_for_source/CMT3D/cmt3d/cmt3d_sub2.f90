@@ -32,11 +32,11 @@ contains
     ! check sample rates are equal
     if (abs(dt1-dt2) > EPS5) stop 'Sampling rates differ, program stop !!!'
     dt = dble(dt1)
-    !write(*,*)'sampling rate dt=',dt
+    !write(*,*) 'sampling rate dt=',dt
 
     ! check start times are equal (LQY: a difference of dt is probably too big)
     if (abs(b1-b2) > dt) stop ' start times differ, program stop !!!'
-    b=dble(b1)
+    b = dble(b1)
 
     ! set global npts to the npts of the shortest seismogram
     npts = min(npts1, npts2)
@@ -54,7 +54,7 @@ contains
     call getkhv('kcmpnm', kcmpnm, nerr)
     call getkhv('knetwk', knetwk, nerr)
 
-    cmp=kcmpnm(3:3)
+    cmp = kcmpnm(3:3)
 
     if ((cmp /= 'Z') .and. (cmp /= 'T') .and. (cmp /= 'R')) &
          stop 'We only deal with Z, R, and T components at the moment'
@@ -92,7 +92,7 @@ contains
           nwint = nwint + 1
 
           ! component weights
-          comp_name=kcmpnm(i)
+          comp_name = kcmpnm(i)
           if (comp_name(3:3) == 'Z') then
              cmp_weight(nwint)=comp_z_weight
           else if (comp_name(3:3) == 'R') then
@@ -165,7 +165,7 @@ contains
     ! read in data, syn
     call rsac1(data_file,data_sngl,npts1,t0,dt,NDATAMAX,nerr)
     call rsac1(syn_file,syn_sngl,npts2,t0,dt,NDATAMAX,nerr)
-    npts=min(npts1,npts2)
+    npts = min(npts1,npts2)
 
     ! array indices of the start and end of the selected window
     istart = max(floor((tstart-t0)/dt),1)
@@ -180,8 +180,8 @@ contains
        call calc_criteria(data_sngl,syn_sngl,npts,istart,iend,nshift,cc,dlna)
        istart_d = max(1,istart + nshift)
        iend_d = min(npts,iend + nshift)
-       istart_s=istart_d-nshift
-       iend_s=iend_d-nshift
+       istart_s = istart_d-nshift
+       iend_s = iend_d-nshift
     else
        istart_d = istart; iend_d = iend
        istart_s = istart; iend_s = iend
@@ -192,7 +192,7 @@ contains
        if (i < NML+1) then
           dsyn_file = trim(syn_file) // '.' // trim(par_name(i))
           ! wierd enough, rsac1 can not detect the non-existence of dsyn_file
-          npts1=0
+          npts1 = 0
           inquire(file=dsyn_file,exist=lexd)
           call rsac1(dsyn_file,dsyn_sngl(:,i),npts1,t0_1,dt1,NDATAMAX,nerr)
           if (.not. lexd .or. nerr /= 0) then
@@ -315,7 +315,7 @@ contains
     ! read in data, syn
     call rsac1(data_file,data_sngl,npts1,b,dt,NDATAMAX,nerr)
     call rsac1(syn_file,syn_sngl,npts2,b,dt,NDATAMAX,nerr)
-    npts=min(npts1,npts2)
+    npts = min(npts1,npts2)
 
     call getkhv('kstnm', kstnm, nerr)
     call getkhv('kcmpnm', kcmpnm, nerr)
@@ -325,7 +325,7 @@ contains
     do i = 1, npar
        if (i < NML+1) then
           dsyn_file = trim(syn_file) // '.' // trim(par_name(i))
-          npts1=0
+          npts1 = 0
           call rsac1(dsyn_file,dsyn_sngl(:,i),npts1,b1,dt1,NDATAMAX,nerr)
           if (nerr /= 0) stop 'Error reading frechet derivative synthetics'
           if (npts1 /= npts2 .or. abs(b1-b) > EPS2 .or. abs(dt1-dt) > EPS5) &
@@ -398,7 +398,7 @@ contains
        id_right = min(npts,i2+i) ! right-most point on the data that will be treated
        norm = sqrt(sum(s_win(id_left-i:id_right-i)**2) * sum(d_win(id_left:id_right)**2))
 
-       cc=sum(s_win(id_left-i:id_right-i)*d_win(id_left:id_right))
+       cc = sum(s_win(id_left-i:id_right-i)*d_win(id_left:id_right))
 
        cc = cc/norm
 

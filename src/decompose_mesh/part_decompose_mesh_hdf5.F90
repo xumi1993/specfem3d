@@ -521,7 +521,7 @@ contains
 
       ! dump mask of C-PML elements for all elements in this partition
       ! count number of element in this iproc
-      do i=1,nspec
+      do i = 1,nspec
          if (part(i) == iproc) then
             !write(IIN_database) is_CPML(i)
             count2 = count2 + 1
@@ -533,7 +533,7 @@ contains
       if (ier /= 0) stop 'Error allocating array if_cpml'
 
       count2 = 1 ! reinitialize counter2 to reuse it below
-      do i=1,nspec
+      do i = 1,nspec
          if (part(i) == iproc) then
            if (is_CPML(i)) then
               if_cpml(count2) = 1

@@ -110,7 +110,7 @@ program combine_sem
   call parse_kernel_names(kernel_names_comma_delimited,kernel_names,nker)
 
   ! parse paths from INPUT_FILE
-  npath=0
+  npath = 0
   open(unit = IIN, file = trim(input_file), status = 'old',iostat = ier)
   if (ier /= 0) then
      print *,'Error opening ',trim(input_file), myrank
@@ -169,7 +169,7 @@ program combine_sem
     print *
   endif
 
-  do iker=1,nker
+  do iker = 1,nker
     call combine_sem_array(kernel_names(iker),kernel_paths,output_dir,npath)
   enddo
 

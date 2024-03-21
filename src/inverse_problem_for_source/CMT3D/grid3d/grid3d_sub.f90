@@ -26,7 +26,7 @@ contains
     if (ios /= 0) stop 'Error reading weigh_data_files'
 
     read(IOPAR,'(l7)',iostat=ios) read_weight
-    if (ios /= 0) read_weight=.false.
+    if (ios /= 0) read_weight = .false.
 
     read(IOPAR,*) comp_z_weight, comp_t_weight, comp_r_weight, &
          az_exp_weight, &
@@ -55,7 +55,7 @@ contains
 
        call get_cmt(cmt_file,yr,mo,jda,ho,mi,sec, &
                     t_cmt,hdur,elat,elon,depth,moment_tensor)
-       mw=log10(dsqrt((sum(moment_tensor(1:3)**2)+2*sum(moment_tensor(4:6)**2))/2.))/1.5-10.73
+       mw = log10(dsqrt((sum(moment_tensor(1:3)**2)+2*sum(moment_tensor(4:6)**2))/2.))/1.5-10.73
 
        ! these are global search control parameters -- can be adjusted
        ! 19x10x13x5
@@ -63,16 +63,16 @@ contains
        s_dip = 0; e_dip = 90;  d_dip = 10
        s_rake = -180; e_rake = 180; d_rake = 30
        s_mw = mw * 0.9; e_mw = mw * 1.1; d_mw = mw * 0.05
-       t_strike=1.5; t_dip=1.5; t_rake=1.5; t_mw=1
+       t_strike = 1.5; t_dip = 1.5; t_rake = 1.5; t_mw = 1
     endif
 
     read(IOPAR,*) write_new_cmt
-    if (write_new_cmt)  new_cmt_file=trim(cmt_file)//'_GRD'
+    if (write_new_cmt)  new_cmt_file = trim(cmt_file)//'_GRD'
 
     ! convert to radians
-    s_strike=s_strike*d2r; e_strike=e_strike*d2r; d_strike=d_strike*d2r
-    s_dip=s_dip*d2r; e_dip=e_dip*d2r; d_dip=d_dip*d2r
-    s_rake=s_rake*d2r; e_rake=e_rake*d2r; d_rake=d_rake*d2r
+    s_strike = s_strike*d2r; e_strike = e_strike*d2r; d_strike = d_strike*d2r
+    s_dip = s_dip*d2r; e_dip = e_dip*d2r; d_dip = d_dip*d2r
+    s_rake = s_rake*d2r; e_rake = e_rake*d2r; d_rake = d_rake*d2r
 
     ! print more information here
 
@@ -206,10 +206,10 @@ contains
           write(*,*) '  Mw = ', s_mw,e_mw,d_mw
        endif
 
-       n_strike=nint((e_strike-s_strike)/d_strike)+1
-       n_dip=nint((e_dip-s_dip)/d_dip)+1
-       n_rake=nint((e_rake-s_rake)/d_rake)+1
-       n_mw=nint((e_mw-s_mw)/d_mw)+1
+       n_strike = nint((e_strike-s_strike)/d_strike)+1
+       n_dip = nint((e_dip-s_dip)/d_dip)+1
+       n_rake = nint((e_rake-s_rake)/d_rake)+1
+       n_mw = nint((e_mw-s_mw)/d_mw)+1
 
        n_total =n_strike*n_dip*n_rake* n_mw
 
@@ -259,7 +259,7 @@ contains
        print *, '  mw = ', mw, '+/-', d_mw
 
        if (write_new_cmt) then
-          moment=10 ** ((mw + 10.73) * 1.5)
+          moment = 10 ** ((mw + 10.73) * 1.5)
           call sdr2moment(strike,dip,rake,moment, &
                mijn(1),mijn(2),mijn(3),mijn(4),mijn(5),mijn(6))
           call write_new_cmtsolution(cmt_file,trim(new_cmt_file),mijn)
@@ -267,12 +267,12 @@ contains
 
        ! if global search, reassign mw, strike, dip and rake search ranges
        if (global_search .and. icalc < ncalc) then
-          s_mw=mw-t_mw*d_mw; e_mw=mw+t_mw*d_mw
-          s_strike=strike-t_strike*d_strike; e_strike=strike+t_strike*d_strike
+          s_mw = mw-t_mw*d_mw; e_mw = mw+t_mw*d_mw
+          s_strike = strike-t_strike*d_strike; e_strike = strike+t_strike*d_strike
           ! dip is not continuous
-          s_dip=max(0.,dip-t_dip*d_dip); e_dip = min(pi/2,dip+t_dip*d_dip)
-          s_rake=rake-t_rake*d_rake; e_rake = rake+t_rake*d_rake
-          d_mw=d_mw/2; d_strike=d_strike/4; d_dip=d_dip/4; d_rake=d_rake/4
+          s_dip = max(0.,dip-t_dip*d_dip); e_dip = min(pi/2,dip+t_dip*d_dip)
+          s_rake = rake-t_rake*d_rake; e_rake = rake+t_rake*d_rake
+          d_mw = d_mw/2; d_strike = d_strike/4; d_dip = d_dip/4; d_rake = d_rake/4
        endif
 
     enddo ! icalc

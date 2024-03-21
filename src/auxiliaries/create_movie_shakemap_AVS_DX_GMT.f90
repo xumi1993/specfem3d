@@ -132,7 +132,7 @@
     stop 'error opening moviedata header file'
   endif
   ! skips first few lines
-  do i=1,6
+  do i = 1,6
     read(IIN,'(a)') line
   enddo
   ! line with info, e.g. "integer,parameter :: NSPEC_SURFACE_EXT_MESH = 23855"
@@ -703,7 +703,7 @@
         ! output list of points
         mask_point = .false.
         ipoin = 0
-        do ispec=1,nspectot_AVS_max
+        do ispec = 1,nspectot_AVS_max
           ieoff = NGNOD2D_FOUR_CORNERS_AVS_DX*(ispec-1)
           ! four points for each element
           do ilocnum = 1,NGNOD2D_FOUR_CORNERS_AVS_DX
@@ -726,7 +726,7 @@
           write(11,*) 'object 2 class array type int rank 1 shape 4 items ',nspectot_AVS_max,' data follows'
 
         ! output list of elements
-        do ispec=1,nspectot_AVS_max
+        do ispec = 1,nspectot_AVS_max
           ieoff = NGNOD2D_FOUR_CORNERS_AVS_DX*(ispec-1)
           ! four points for each element
           ibool_number1 = iglob(ieoff + 1)
@@ -757,7 +757,7 @@
 
         ! output data values
         mask_point = .false.
-        do ispec=1,nspectot_AVS_max
+        do ispec = 1,nspectot_AVS_max
           ieoff = NGNOD2D_FOUR_CORNERS_AVS_DX*(ispec-1)
           ! four points for each element
           do ilocnum = 1,NGNOD2D_FOUR_CORNERS_AVS_DX

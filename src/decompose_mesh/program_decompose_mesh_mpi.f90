@@ -47,7 +47,7 @@ program xdecompose_mesh_mpi
 
   ! proc numbers for MPI
   integer             :: myrank,sizeprocs
-  logical, parameter  :: BROADCAST_AFTER_READ=.true.
+  logical, parameter  :: BROADCAST_AFTER_READ = .true.
 
   ! number of proc in each direction
   integer             :: npartX, npartY, npartZ
@@ -276,7 +276,7 @@ end program xdecompose_mesh_mpi
   integer,                               intent(in) :: myrank, npart
   integer,   dimension(nspec_glob),      intent(in) :: ipart
 
-  integer,   parameter                              :: NGNOD_EIGHT_CORNERS=8
+  integer,   parameter                              :: NGNOD_EIGHT_CORNERS = 8
   integer                                           :: iE, kE, iE_loc, ier, i, j
   integer                                           :: nE
   integer                                           :: irank
@@ -347,7 +347,7 @@ end program xdecompose_mesh_mpi
   nnodes_in_partition(:)=0
   if (myrank == 0 ) then
      do inode = 1,nnodes_glob
-        stored_node(:)=.false.
+        stored_node(:) = .false.
         do kE = 1,nelmnts_by_node_glob(inode)
            iE = elmnts_by_node_glob(kE, inode)
            do irank = 0, npart -1
@@ -393,18 +393,18 @@ end program xdecompose_mesh_mpi
      irank = 0
      inode_loc = 0
      do inode = 1,nnodes_glob
-        not_stored=.true.
+        not_stored = .true.
         do kE = 1,nelmnts_by_node_glob(inode)
            iE = elmnts_by_node_glob(kE, inode)
            if (ipart(iE) == irank +1 .and. not_stored) then
-              inode_loc=inode_loc+1
+              inode_loc = inode_loc+1
               elmnts_by_node(:,inode_loc) = elmnts_by_node_glob(:, inode)
               nelmnts_by_node(inode_loc) = nelmnts_by_node_glob(inode)
               glob2loc_nodes(inode) = inode_loc
               loc2glob_nodes(inode_loc) = inode
               nodes_coords(:,inode_loc) = nodes_coords_glob(:,inode)
               if (ANY_FAULT) nodes_coords_open_loc(:,inode_loc) = nodes_coords_open(:,inode)
-              not_stored=.false.
+              not_stored = .false.
            endif
         enddo
      enddo
@@ -431,14 +431,14 @@ end program xdecompose_mesh_mpi
            do kE = 1,nelmnts_by_node_glob(inode)
               iE = elmnts_by_node_glob(kE, inode)
               if (ipart(iE) == irank +1 .and. not_stored) then
-                 inode_loc=inode_loc+1
+                 inode_loc = inode_loc+1
                  buffer_to_send(:,inode_loc) = elmnts_by_node_glob(:, inode)
                  buffer_to_send1(inode_loc) = nelmnts_by_node_glob(inode)
                  buffer_to_send2(inode_loc) = inode
                  buffer_to_send3(inode) = inode_loc
                  dp_buffer_to_send(:,inode_loc) = nodes_coords_glob(:,inode)
                  if (ANY_FAULT) dp_buffer_to_send_open(:,inode_loc) = nodes_coords_open(:,inode)
-                 not_stored=.false.
+                 not_stored = .false.
               endif
            enddo
         enddo
@@ -538,7 +538,7 @@ end program xdecompose_mesh_mpi
     iboundary(:) = -1
     i = 0
     do iE = 1, nE  !! loop over all elements
-      not_stored=.true.
+      not_stored = .true.
       do inode = 1, NGNOD_EIGHT_CORNERS  !! loop only on the corner of the element
          ivertex = elmnts_glob(inode,iE)
          do j = 1, nelmnts_by_node_glob(ivertex) !! loop on all ivertex connected elements
@@ -546,7 +546,7 @@ end program xdecompose_mesh_mpi
             if (ipart(iE) /= ipart(kE) .and. not_stored) then
                 i = i + 1
                 iboundary(iE)=i
-                not_stored=.false.
+                not_stored = .false.
             endif
          enddo
       enddo

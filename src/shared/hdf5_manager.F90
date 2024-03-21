@@ -4848,7 +4848,7 @@ end module manager_hdf5
     if (myrank /= 0) return
 
     ! initialize
-    store_x(:) = (/(i,i=1,10)/)
+    store_x(:) = (/(i,i = 1,10)/)
 
     ! hdf5
     ! calls the object constructor, i.e. h5io_constructor()

@@ -61,24 +61,24 @@
   ! assigns model parameters
   if (depth >= 32000.0) then
     ! moho
-    vp=7.8_CUSTOM_REAL
-    vs=4.5_CUSTOM_REAL
-    rho=3.0_CUSTOM_REAL
+    vp = 7.8_CUSTOM_REAL
+    vs = 4.5_CUSTOM_REAL
+    rho = 3.0_CUSTOM_REAL
   else if (depth > 16000.0) then
     ! moho - 16km
-    vp=6.7_CUSTOM_REAL
-    vs=3.87_CUSTOM_REAL
-    rho=2.8_CUSTOM_REAL
+    vp = 6.7_CUSTOM_REAL
+    vs = 3.87_CUSTOM_REAL
+    rho = 2.8_CUSTOM_REAL
   else if (depth > 5500.0) then
     ! basement
-    vp=6.3_CUSTOM_REAL
-    vs=3.64_CUSTOM_REAL
-    rho=2.67_CUSTOM_REAL
+    vp = 6.3_CUSTOM_REAL
+    vs = 3.64_CUSTOM_REAL
+    rho = 2.67_CUSTOM_REAL
   else
     ! up to topo surface
-    vp=5.5_CUSTOM_REAL
-    vs=3.18_CUSTOM_REAL
-    rho=2.4_CUSTOM_REAL
+    vp = 5.5_CUSTOM_REAL
+    vs = 3.18_CUSTOM_REAL
+    rho = 2.4_CUSTOM_REAL
   endif
 
   ! scale to standard units

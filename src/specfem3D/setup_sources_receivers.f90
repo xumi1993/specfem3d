@@ -1855,7 +1855,7 @@
       xmesh = 0.d0
       ymesh = 0.d0
       zmesh = 0.d0
-      do ia=1,NGNOD
+      do ia = 1,NGNOD
         xmesh = xmesh + shape3D(ia)*xelm(ia)
         ymesh = ymesh + shape3D(ia)*yelm(ia)
         zmesh = zmesh + shape3D(ia)*zelm(ia)
@@ -1879,7 +1879,7 @@
 
       ! vtk file for receivers only
       write(system_command, &
-  "('awk ',a1,'{if (NR < 5) print $0;if (NR == 5)print ',a1,'POINTS',i6,' float',a1,';if &
+  "('awk ',a1,'{if (NR < 5) print $0;if (NR == 5) print ',a1,'POINTS',i6,' float',a1,';if &
       &(NR > 5+',i6,')print $0}',a1,'<',a,'>',a)")&
       "'",'"',nrec,'"',NSOURCES,"'",trim(filename),trim(filename_new)
 
@@ -1887,7 +1887,7 @@
       filename_new = trim(OUTPUT_FILES)//'/source.vtk'
 
       write(system_command1, &
-  "('awk ',a1,'{if (NR < 5) print $0;if (NR == 5)print ',a1,'POINTS',i6,' float',a1,';')") &
+  "('awk ',a1,'{if (NR < 5) print $0;if (NR == 5) print ',a1,'POINTS',i6,' float',a1,';')") &
         "'",'"',NSOURCES,'"'
 
       write(system_command2, &

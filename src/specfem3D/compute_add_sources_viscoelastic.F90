@@ -132,9 +132,9 @@
           stf_used = real(stf,kind=CUSTOM_REAL)
 
           ! adds source array
-          do k=1,NGLLZ
-            do j=1,NGLLY
-              do i=1,NGLLX
+          do k = 1,NGLLZ
+            do j = 1,NGLLY
+              do i = 1,NGLLX
                 iglob = ibool(i,j,k,ispec)
 !$OMP ATOMIC
                 accel(1,iglob) = accel(1,iglob) + sourcearrays(isource,1,i,j,k)*stf_used
@@ -425,9 +425,9 @@
           stf_used = real(stf,kind=CUSTOM_REAL)
 
           ! adds source
-          do k=1,NGLLZ
-            do j=1,NGLLY
-              do i=1,NGLLX
+          do k = 1,NGLLZ
+            do j = 1,NGLLY
+              do i = 1,NGLLX
                 iglob = ibool(i,j,k,ispec)
                 b_accel(:,iglob) = b_accel(:,iglob) + sourcearrays(isource,:,i,j,k) * stf_used
               enddo

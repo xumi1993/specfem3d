@@ -327,9 +327,9 @@
     if (ispec_is_elastic(ispec) .eqv. .false.) cycle
 
     ! determines attenuation factors for each GLL point
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
 
           ! initializes Q
           Q_mu = 0.d0
@@ -1044,10 +1044,10 @@
   ! Run a simplex search to determine the optimum values of tau_eps
   call fminsearch(attenuation_eval, tau_eps, n, iterations, min_value, prnt, err)
   if (err > 0) then
-    write(*,*)'Search did not converge for an attenuation of ', Q_real
-    write(*,*)'    Iterations: ', iterations
-    write(*,*)'    Min Value:  ', min_value
-    write(*,*)'    Aborting program'
+    write(*,*) 'Search did not converge for an attenuation of ', Q_real
+    write(*,*) '    Iterations: ', iterations
+    write(*,*) '    Min Value:  ', min_value
+    write(*,*) '    Aborting program'
     call exit_MPI(0,'attenuation_simplex: Search for Strain relaxation times did not converge')
   endif
 
@@ -1204,12 +1204,12 @@
   do i = 1,nf
     w = 2.0d0 * PI * 10**f(i)
     do j = 1,nsls
-      !        write(*,*)j,tau_s(j),tau_eps(j)
+      !        write(*,*) j,tau_s(j),tau_eps(j)
       denom = 1.0d0 + w**2 * tau_s(j)**2
       A(i) = A(i) + (1.0d0 + (w**2 * tau_eps(j) * tau_s(j)))/ denom
       B(i) = B(i) + w * ( tau_eps(j) - tau_s(j) ) / denom
     enddo
-     !     write(*,*)A(i),B(i),10**f(i)
+     !     write(*,*) A(i),B(i),10**f(i)
   enddo
 
   end subroutine attenuation_maxwell
@@ -1344,14 +1344,14 @@
   itercount = 1
   func_evals = n+1
   if (prnt == 3) then
-     write(*,*)'Iterations   Funk Evals   Value How'
-     write(*,*)itercount, func_evals, fv(1), how
+     write(*,*) 'Iterations   Funk Evals   Value How'
+     write(*,*) itercount, func_evals, fv(1), how
   endif
   if (prnt == 4) then
-     write(*,*)'How: ',how
-     write(*,*)'V: ', v
-     write(*,*)'fv: ',fv
-     write(*,*)'evals: ',func_evals
+     write(*,*) 'How: ',how
+     write(*,*) 'V: ', v
+     write(*,*) 'fv: ',fv
+     write(*,*) 'evals: ',func_evals
   endif
 
   do while (func_evals < maxfun .and. itercount < maxiter)
@@ -1429,7 +1429,7 @@
               endif
            endif
            if (how == shrink) then
-              do j=2,n+1
+              do j = 2,n+1
                  v(:,j)=v(:,1)+sigma*(v(:,j) - v(:,1))
                  x(:) = v(:,j)
                  fv(j) = funk(x)
@@ -1447,22 +1447,22 @@
 
      itercount = itercount + 1
      if (prnt == 3) then
-        write(*,*)itercount, func_evals, fv(1), how
+        write(*,*) itercount, func_evals, fv(1), how
      else if (prnt == 4) then
         write(*,*)
-        write(*,*)'How: ',how
-        write(*,*)'v: ',v
-        write(*,*)'fv: ',fv
-        write(*,*)'evals: ',func_evals
+        write(*,*) 'How: ',how
+        write(*,*) 'v: ',v
+        write(*,*) 'fv: ',fv
+        write(*,*) 'evals: ',func_evals
      endif
   enddo
 
   if (func_evals > maxfun) then
-     write(*,*)'function evaluations exceeded prescribed limit', maxfun
+     write(*,*) 'function evaluations exceeded prescribed limit', maxfun
      err = 1
   endif
   if (itercount > maxiter) then
-     write(*,*)'iterations exceeded prescribed limit', maxiter
+     write(*,*) 'iterations exceeded prescribed limit', maxiter
      err = 2
   endif
 

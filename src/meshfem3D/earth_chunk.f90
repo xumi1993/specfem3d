@@ -361,7 +361,7 @@
 
   do iz = 0, nel_depth - 1
 
-     ilayer_current=current_layer(iz) - 1 ! Caution between pickets and intervals !!
+     ilayer_current = current_layer(iz) - 1 ! Caution between pickets and intervals !!
 
      if (iz /= 0) then
         if (current_layer(iz-1) /= current_layer(iz)) then
@@ -378,8 +378,8 @@
              '2', index_mat, 'tomography', 'elastic', 'tomography_model.xyz', '1'
      endif
 
-     do ilat=0,nel_lat-1
-        do ilon=0,nel_lon-1
+     do ilat = 0,nel_lat-1
+        do ilon = 0,nel_lon-1
 
            ispec = ispec + 1
            ! material file
@@ -392,8 +392,8 @@
            ! on boundary 1: x=xmin
            if (ilon == 0) then
 
-              iboun(1,ispec)=.true.
-              ispec2Dxmin=ispec2Dxmin+1
+              iboun(1,ispec) = .true.
+              ispec2Dxmin = ispec2Dxmin+1
               write(89,*) ispec,ispec2Dxmin,1
 
               istore_for_new_outputs = istore_for_new_outputs + 1
@@ -403,8 +403,8 @@
            ! on boundary 2: xmax
            if (ilon == nel_lon-1) then
 
-              iboun(2,ispec)=.true.
-              ispec2Dxmax=ispec2Dxmax+1
+              iboun(2,ispec) = .true.
+              ispec2Dxmax = ispec2Dxmax+1
               !write(*,*) '------ TOZ',ispec,ilon
               write(89,*) ispec,ispec2Dxmax,2
 
@@ -415,8 +415,8 @@
            ! on boundary 3: ymin
            if (ilat == 0) then
 
-              iboun(3,ispec)=.true.
-              ispec2Dymin=ispec2Dymin+1
+              iboun(3,ispec) = .true.
+              ispec2Dymin = ispec2Dymin+1
               write(89,*) ispec,ispec2Dymin,3
 
               istore_for_new_outputs = istore_for_new_outputs + 1
@@ -427,7 +427,7 @@
            if (ilat == nel_lat-1) then
 
               iboun(4,ispec) =.true.
-              ispec2Dymax=ispec2Dymax+1
+              ispec2Dymax = ispec2Dymax+1
               write(89,*) ispec,ispec2Dymax,4
 
               istore_for_new_outputs = istore_for_new_outputs + 1
@@ -437,8 +437,8 @@
            ! on boundary 5: bottom
            if (iz == 0) then
 
-              iboun(5,ispec)=.true.
-              ispec2Dzmin=ispec2Dzmin+1
+              iboun(5,ispec) = .true.
+              ispec2Dzmin = ispec2Dzmin+1
               write(89,*) ispec,ispec2Dzmin,5
 
               istore_for_new_outputs = istore_for_new_outputs + 1
@@ -448,15 +448,15 @@
            ! on boundary 6: top
            if (iz == nel_depth-1) then
               ispec2Dzmax= ispec2Dzmax+1
-              iboun(6,ispec)=.true.
+              iboun(6,ispec) = .true.
            endif
 
           ! 8 vertices of the element ispec
-           do ia=1,NGNOD
+           do ia = 1,NGNOD
 
-              i=iaddx(ia)
-              j=iaddy(ia)
-              k=iaddz(ia)
+              i = iaddx(ia)
+              j = iaddy(ia)
+              k = iaddz(ia)
 
               z = 1000d0*ProfForGemini(iz,1+k)
 
@@ -519,9 +519,9 @@
            if (ilon == 0 .and. iz == nel_depth-1) then
               call calc_gll_points(xelm,yelm,zelm,xstore,ystore,zstore,shape3D,NGNOD,NGLLX,NGLLY,NGLLZ)
               if (ilat == nel_lat-1) then ! This test is for add the last GLL point
-                 test=.true.
+                 test = .true.
               else
-                 test=.false.
+                 test = .false.
               endif
               call  write_stxmin(xstore,ystore,zstore,NGLLX,NGLLY,NGLLZ,rotation_matrix,test)
 
@@ -532,9 +532,9 @@
            if (ilon == nel_lon - 1 .and. iz == nel_depth-1) then
               call calc_gll_points(xelm,yelm,zelm,xstore,ystore,zstore,shape3D,NGNOD,NGLLX,NGLLY,NGLLZ)
                if (ilat == nel_lat-1) then ! This test is for add the last GLL point
-                 test=.true.
+                 test = .true.
               else
-                 test=.false.
+                 test = .false.
               endif
               call  write_stxmax(xstore,ystore,zstore,NGLLX,NGLLY,NGLLZ,rotation_matrix,test)
            endif
@@ -544,9 +544,9 @@
            if (ilat == 0 .and. iz == nel_depth-1) then
               call calc_gll_points(xelm,yelm,zelm,xstore,ystore,zstore,shape3D,NGNOD,NGLLX,NGLLY,NGLLZ)
               if (ilon == nel_lon-1) then ! This test is for add the last GLL point
-                 test=.true.
+                 test = .true.
               else
-                 test=.false.
+                 test = .false.
               endif
                call write_stymin(xstore,ystore,zstore,NGLLX,NGLLY,NGLLZ,rotation_matrix,test)
            endif
@@ -555,9 +555,9 @@
            if (ilat == nel_lat-1 .and. iz == nel_depth-1) then
               call calc_gll_points(xelm,yelm,zelm,xstore,ystore,zstore,shape3D,NGNOD,NGLLX,NGLLY,NGLLZ)
               if (ilon == nel_lon-1) then ! This test is for add the last GLL point
-                 test=.true.
+                 test = .true.
               else
-                 test=.false.
+                 test = .false.
               endif
               call write_stymax(xstore,ystore,zstore,NGLLX,NGLLY,NGLLZ,rotation_matrix,test)
            endif
@@ -594,7 +594,7 @@
  ! modele 1D
   open(88,file=trim(MESH)//'model_1D.in')
   write(88,*) nlayer,4
-  do i=1,nlayer
+  do i = 1,nlayer
      write(88,*) zlayer(i)
      write(88,'(4f20.10)') vpv(i,:)
      write(88,'(4f20.10)') vsv(i,:)
@@ -607,13 +607,13 @@
   !---------------- NUMEROTATION DES POINTS DE LA GRILLE ----
 
   ! on stocke tous les points de tous les elements
-  do ispec=1,nspec
+  do ispec = 1,nspec
 
      ieoff = 8 * (ispec - 1)
      ilocnum = 0
-     do k=1,2
-        do j=1,2
-           do i=1,2
+     do k = 1,2
+        do j = 1,2
+           do i = 1,2
 
               ilocnum = ilocnum + 1
               xp(ilocnum + ieoff)= xgrid(i,j,k,ispec)
@@ -633,13 +633,13 @@
   if (ier /= 0) call exit_MPI_without_rank('error allocating array 1293')
 
   ! on ne stocke que les points de la grille et leur numeros
-  do ispec=1,nspec
+  do ispec = 1,nspec
      ieoff = 8 * (ispec - 1)
      ilocnum = 0
-     do k=1,2
-        do j=1,2
-           do i=1,2
-              ilocnum=ilocnum+1
+     do k = 1,2
+        do j = 1,2
+           do i = 1,2
+              ilocnum = ilocnum+1
               inum_loc(i,j,k,ispec) = iglob(ilocnum+ieoff)
               xp(iglob(ilocnum+ieoff)) = xgrid(i,j,k,ispec)
               yp(iglob(ilocnum+ieoff)) = ygrid(i,j,k,ispec)
@@ -685,14 +685,14 @@
 
   open(27,file=trim(MESH)//'nodes_coords_file')
   write(27,*) nglob ! nb de sommets
-  do kglob=1,nglob
+  do kglob = 1,nglob
      write(27,'(i14,3x,3(f20.5,1x))') kglob,xp(kglob),yp(kglob),zp(kglob)
   enddo
   close(27)
 
   open(27,file=trim(MESH)//'mesh_file')
   write(27,*) nspec
-  do ispec=1,nspec
+  do ispec = 1,nspec
      write(27,'(9i15)')  ispec,inum_loc(1,1,1,ispec),inum_loc(2,1,1,ispec), &
           inum_loc(2,2,1,ispec),inum_loc(1,2,1,ispec), &
           inum_loc(1,1,2,ispec),inum_loc(2,1,2,ispec), &
@@ -702,7 +702,7 @@
 
   open(27,file=trim(MESH)//'absorbing_surface_file_xmin')
   write(27,*)  ispec2Dxmin
-  do ispec=1,nspec
+  do ispec = 1,nspec
      if (iboun(1,ispec)) write(27,'(5(i10,1x))') ispec,inum_loc(1,1,1,ispec),inum_loc(1,2,1,ispec), &
           inum_loc(1,2,2,ispec),inum_loc(1,1,2,ispec)
   enddo
@@ -710,7 +710,7 @@
 
   open(27,file=trim(MESH)//'absorbing_surface_file_xmax')
   write(27,*) ispec2Dxmax
-  do ispec=1,nspec
+  do ispec = 1,nspec
      if (iboun(2,ispec)) write(27,'(5(i10,1x))') ispec,inum_loc(2,1,1,ispec),inum_loc(2,2,1,ispec), &
           inum_loc(2,2,2,ispec),inum_loc(2,1,2,ispec)
   enddo
@@ -718,7 +718,7 @@
 
   open(27,file=trim(MESH)//'absorbing_surface_file_ymin')
   write(27,*) ispec2Dymin
-  do ispec=1,nspec
+  do ispec = 1,nspec
      if (iboun(3,ispec)) write(27,'(5(i10,1x))') ispec,inum_loc(1,1,1,ispec),inum_loc(2,1,1,ispec), &
           inum_loc(2,1,2,ispec),inum_loc(1,1,2,ispec)
   enddo
@@ -726,7 +726,7 @@
 
   open(27,file=trim(MESH)//'absorbing_surface_file_ymax')
   write(27,*) ispec2Dymax
-  do ispec=1,nspec
+  do ispec = 1,nspec
      if (iboun(4,ispec)) write(27,'(5(i10,1x))') ispec,inum_loc(1,2,1,ispec),inum_loc(2,2,1,ispec), &
           inum_loc(2,2,2,ispec),inum_loc(1,2,2,ispec)
   enddo
@@ -734,7 +734,7 @@
 
   open(27,file=trim(MESH)//'absorbing_surface_file_bottom')
   write(27,*) ispec2Dzmin
-  do ispec=1,nspec
+  do ispec = 1,nspec
      if (iboun(5,ispec)) write(27,'(5(i10,1x))') ispec,inum_loc(1,1,1,ispec),inum_loc(1,2,1,ispec), &
           inum_loc(2,2,1,ispec),inum_loc(2,1,1,ispec)
   enddo
@@ -742,7 +742,7 @@
 
   open(27,file=trim(MESH)//'free_surface')
   write(27,*) ispec2Dzmax
-  do ispec=1,nspec
+  do ispec = 1,nspec
      if (iboun(6,ispec)) write(27,'(5(i10,1x))') ispec,inum_loc(1,1,2,ispec),inum_loc(1,2,2,ispec), &
           inum_loc(2,2,2,ispec),inum_loc(2,1,2,ispec)
   enddo
@@ -1161,7 +1161,7 @@
 
   do iz = 0, nel_depth - 1
 
-     ilayer_current=current_layer(iz) - 1 ! Caution between pickets and intervals !!
+     ilayer_current = current_layer(iz) - 1 ! Caution between pickets and intervals !!
 
      if (iz /= 0) then
         if (current_layer(iz-1) /= current_layer(iz)) then
@@ -1178,8 +1178,8 @@
              '2', index_mat, 'tomography', 'elastic', 'tomography_model.xyz', '1'
      endif
 
-     do ilat=0,nel_lat-1
-        do ilon=0,nel_lon-1
+     do ilat = 0,nel_lat-1
+        do ilon = 0,nel_lon-1
 
            ispec = ispec + 1
            ! material file
@@ -1192,8 +1192,8 @@
            ! on boundary 1: x=xmin
            if (ilon == 0) then
 
-              iboun(1,ispec)=.true.
-              ispec2Dxmin=ispec2Dxmin+1
+              iboun(1,ispec) = .true.
+              ispec2Dxmin = ispec2Dxmin+1
               write(89,*) ispec,ispec2Dxmin,1
 
               istore_for_new_outputs = istore_for_new_outputs + 1
@@ -1203,8 +1203,8 @@
            ! on boundary 2: xmax
            if (ilon == nel_lon-1) then
 
-              iboun(2,ispec)=.true.
-              ispec2Dxmax=ispec2Dxmax+1
+              iboun(2,ispec) = .true.
+              ispec2Dxmax = ispec2Dxmax+1
               !write(*,*) '------ TOZ',ispec,ilon
               write(89,*) ispec,ispec2Dxmax,2
 
@@ -1215,8 +1215,8 @@
            ! on boundary 3: ymin
            if (ilat == 0) then
 
-              iboun(3,ispec)=.true.
-              ispec2Dymin=ispec2Dymin+1
+              iboun(3,ispec) = .true.
+              ispec2Dymin = ispec2Dymin+1
               write(89,*) ispec,ispec2Dymin,3
 
               istore_for_new_outputs = istore_for_new_outputs + 1
@@ -1227,7 +1227,7 @@
            if (ilat == nel_lat-1) then
 
               iboun(4,ispec) =.true.
-              ispec2Dymax=ispec2Dymax+1
+              ispec2Dymax = ispec2Dymax+1
               write(89,*) ispec,ispec2Dymax,4
 
               istore_for_new_outputs = istore_for_new_outputs + 1
@@ -1237,8 +1237,8 @@
            ! on boundary 5: bottom
            if (iz == 0) then
 
-              iboun(5,ispec)=.true.
-              ispec2Dzmin=ispec2Dzmin+1
+              iboun(5,ispec) = .true.
+              ispec2Dzmin = ispec2Dzmin+1
               write(89,*) ispec,ispec2Dzmin,5
 
               istore_for_new_outputs = istore_for_new_outputs + 1
@@ -1248,16 +1248,16 @@
            ! on boundary 6: top
            if (iz == nel_depth-1) then
               ispec2Dzmax= ispec2Dzmax+1
-              iboun(6,ispec)=.true.
+              iboun(6,ispec) = .true.
            endif
 
-           do ia=1,NGNOD
+           do ia = 1,NGNOD
 
 !! MODIF HEX27 LA -----------------------------
 
-              i=iaddx(ia)
-              j=iaddy(ia)
-              k=iaddz(ia)
+              i = iaddx(ia)
+              j = iaddy(ia)
+              k = iaddz(ia)
 
               SELECT CASE (k)
                 CASE(0)
@@ -1329,9 +1329,9 @@
            if (ilon == 0 .and. iz == nel_depth-1) then
               call calc_gll_points(xelm,yelm,zelm,xstore,ystore,zstore,shape3D,NGNOD,NGLLX,NGLLY,NGLLZ)
               if (ilat == nel_lat-1) then ! This test is for add the last GLL point
-                 test=.true.
+                 test = .true.
               else
-                 test=.false.
+                 test = .false.
               endif
               call  write_stxmin(xstore,ystore,zstore,NGLLX,NGLLY,NGLLZ,rotation_matrix,test)
 
@@ -1342,9 +1342,9 @@
            if (ilon == nel_lon - 1 .and. iz == nel_depth-1) then
               call calc_gll_points(xelm,yelm,zelm,xstore,ystore,zstore,shape3D,NGNOD,NGLLX,NGLLY,NGLLZ)
                if (ilat == nel_lat-1) then ! This test is for add the last GLL point
-                 test=.true.
+                 test = .true.
               else
-                 test=.false.
+                 test = .false.
               endif
               call  write_stxmax(xstore,ystore,zstore,NGLLX,NGLLY,NGLLZ,rotation_matrix,test)
            endif
@@ -1354,9 +1354,9 @@
            if (ilat == 0 .and. iz == nel_depth-1) then
               call calc_gll_points(xelm,yelm,zelm,xstore,ystore,zstore,shape3D,NGNOD,NGLLX,NGLLY,NGLLZ)
               if (ilon == nel_lon-1) then ! This test is for add the last GLL point
-                 test=.true.
+                 test = .true.
               else
-                 test=.false.
+                 test = .false.
               endif
                call write_stymin(xstore,ystore,zstore,NGLLX,NGLLY,NGLLZ,rotation_matrix,test)
            endif
@@ -1365,9 +1365,9 @@
            if (ilat == nel_lat-1 .and. iz == nel_depth-1) then
               call calc_gll_points(xelm,yelm,zelm,xstore,ystore,zstore,shape3D,NGNOD,NGLLX,NGLLY,NGLLZ)
               if (ilon == nel_lon-1) then ! This test is for add the last GLL point
-                 test=.true.
+                 test = .true.
               else
-                 test=.false.
+                 test = .false.
               endif
               call write_stymax(xstore,ystore,zstore,NGLLX,NGLLY,NGLLZ,rotation_matrix,test)
            endif
@@ -1406,7 +1406,7 @@
  ! modele 1D
   open(88,file=trim(MESH)//'model_1D.in')
   write(88,*) nlayer,4
-  do i=1,nlayer
+  do i = 1,nlayer
      write(88,*) zlayer(i)
      write(88,'(4f20.10)') vpv(i,:)
      write(88,'(4f20.10)') vsv(i,:)
@@ -1419,14 +1419,14 @@
   !---------------- NUMEROTATION DES POINTS DE LA GRILLE ----
 
   ! on stocke tous les points de tous les elements
-  do ispec=1,nspec
+  do ispec = 1,nspec
 
      ieoff = 27 * (ispec - 1)
      ilocnum = 0
 
-     do k=1,3
-        do j=1,3
-           do i=1,3
+     do k = 1,3
+        do j = 1,3
+           do i = 1,3
 
               ilocnum = ilocnum + 1
               xp(ilocnum + ieoff)= xgrid(i,j,k,ispec)
@@ -1448,14 +1448,14 @@
 !! MODIF HEX27 LA -----------------------------
 
   ! on ne stocke que les points de la grille et leur numeros
-  do ispec=1,nspec
+  do ispec = 1,nspec
 
      ieoff = 27 * (ispec - 1)
      ilocnum = 0
 
-     do k=1,3
-        do j=1,3
-           do i=1,3
+     do k = 1,3
+        do j = 1,3
+           do i = 1,3
 
               ilocnum                  = ilocnum + 1
               inum_loc(i,j,k,ispec)    = iglob(ilocnum+ieoff)
@@ -1506,14 +1506,14 @@
 
   open(27,file=trim(MESH)//'nodes_coords_file')
   write(27,*) nglob ! nb de sommets
-  do kglob=1,nglob
+  do kglob = 1,nglob
      write(27,'(i14,3x,3(f20.5,1x))') kglob,xp(kglob),yp(kglob),zp(kglob)
   enddo
   close(27)
 
   open(27,file=trim(MESH)//'mesh_file')
   write(27,*) nspec
-  do ispec=1,nspec
+  do ispec = 1,nspec
     write(27,'(28i15)') ispec, &
                         inum_loc(1,1,1,ispec), inum_loc(3,1,1,ispec), inum_loc(3,3,1,ispec), inum_loc(1,3,1,ispec), &
                         inum_loc(1,1,3,ispec), inum_loc(3,1,3,ispec), inum_loc(3,3,3,ispec), inum_loc(1,3,3,ispec), &
@@ -1527,7 +1527,7 @@
 
   open(27,file=trim(MESH)//'absorbing_surface_file_xmin')
   write(27,*)  ispec2Dxmin
-  do ispec=1,nspec
+  do ispec = 1,nspec
      if (iboun(1,ispec)) write(27,'(10(i10,1x))') ispec, &
                                                   inum_loc(1,1,1,ispec), inum_loc(1,3,1,ispec), &
                                                   inum_loc(1,3,3,ispec), inum_loc(1,1,3,ispec), &
@@ -1539,7 +1539,7 @@
 
   open(27,file=trim(MESH)//'absorbing_surface_file_xmax')
   write(27,*) ispec2Dxmax
-  do ispec=1,nspec
+  do ispec = 1,nspec
      if (iboun(2,ispec)) write(27,'(10(i10,1x))') ispec, &
                                                   inum_loc(3,1,1,ispec), inum_loc(3,3,1,ispec), &
                                                   inum_loc(3,3,3,ispec), inum_loc(3,1,3,ispec), &
@@ -1551,7 +1551,7 @@
 
   open(27,file=trim(MESH)//'absorbing_surface_file_ymin')
   write(27,*) ispec2Dymin
-  do ispec=1,nspec
+  do ispec = 1,nspec
      if (iboun(3,ispec)) write(27,'(10(i10,1x))') ispec, &
                                                   inum_loc(1,1,1,ispec), inum_loc(3,1,1,ispec), &
                                                   inum_loc(3,1,3,ispec), inum_loc(1,1,3,ispec), &
@@ -1563,7 +1563,7 @@
 
   open(27,file=trim(MESH)//'absorbing_surface_file_ymax')
   write(27,*) ispec2Dymax
-  do ispec=1,nspec
+  do ispec = 1,nspec
      if (iboun(4,ispec)) write(27,'(10(i10,1x))') ispec, &
                                                   inum_loc(1,3,1,ispec), inum_loc(3,3,1,ispec), &
                                                   inum_loc(3,3,3,ispec), inum_loc(1,3,3,ispec), &
@@ -1575,7 +1575,7 @@
 
   open(27,file=trim(MESH)//'absorbing_surface_file_bottom')
   write(27,*) ispec2Dzmin
-  do ispec=1,nspec
+  do ispec = 1,nspec
      if (iboun(5,ispec)) write(27,'(10(i10,1x))') ispec, &
                                                   inum_loc(1,1,1,ispec), inum_loc(3,1,1,ispec), &
                                                   inum_loc(3,3,1,ispec), inum_loc(1,3,1,ispec), &
@@ -1587,7 +1587,7 @@
 
   open(27,file=trim(MESH)//'free_surface')
   write(27,*) ispec2Dzmax
-  do ispec=1,nspec
+  do ispec = 1,nspec
      if (iboun(6,ispec)) write(27,'(10(i10,1x))') ispec, &
                                                   inum_loc(1,1,3,ispec), inum_loc(3,1,3,ispec), &
                                                   inum_loc(3,3,3,ispec), inum_loc(1,3,3,ispec), &
@@ -1615,13 +1615,13 @@
   character(len=2) cnlay
   character(len=11) format_to_use
 
-  do i=1,n
+  do i = 1,n
      !qm(i)=0.d0
         !qk(i)=0.d0
      rb(i)=0.d0
      !iflso(i)=0
      nco(i)=0
-     do j=1,4
+     do j = 1,4
         rho(i,j)=0.d0
         vp(i,j)=0.d0
         !vph(i,j)=0.d0
@@ -1630,7 +1630,7 @@
         !eta(i,j)=0.d0
      enddo
   enddo
-  iunit=26
+  iunit = 26
   open(unit=iunit,file='iasp91',status='old')
 
 1 read(iunit,'(a72)') text
@@ -1694,7 +1694,7 @@
 
   read(iunit,*) nzone
 
-  do i=1, nzone
+  do i = 1, nzone
      read(iunit,*) vrmin, vrmax, &
           rho(i,1), rho(i,2), rho(i,3), rho(i,4), &
           vp(i,1), vp(i,2), vp(i,3), vp(i,4), &
@@ -1776,7 +1776,7 @@
   updown(:) = 0
   if (ilayer == current_layer(iz)) then
 
-    do k=2,NGLLZ
+    do k = 2,NGLLZ
       profondeur = dsqrt(xstore(1,1,k)**2 + ystore(1,1,k)**2 + (zstore(1,1,k) )**2 )
       write(27,*) profondeur/1000., ilayer-1,1
       Ndepth = Ndepth + 1
@@ -1785,27 +1785,27 @@
 
   else ! new layer
 
-     k=1
+     k = 1
      profondeur = dsqrt(xstore(1,1,k)**2 + ystore(1,1,k)**2 + (zstore(1,1,k) )**2 )
      if (ilayer == 0) then
         ilayer =  current_layer(iz)
         write(27,*)  profondeur/1000., ilayer-1,1
-        Ndepth=Ndepth+1
+        Ndepth = Ndepth+1
 
         updown(k) = 0 !! for new output mesh files and VM coupling with AxiSEM
 
      else
         ilayer =  current_layer(iz)
         write(27,*)  profondeur/1000., ilayer-1,-1
-        Ndepth=Ndepth+1
+        Ndepth = Ndepth+1
 
         updown(k) = -1 !! for new output mesh files and VM coupling with AxiSEM
 
      endif
-     do k=2,NGLLZ ! on duplique le dernier point
+     do k = 2,NGLLZ ! on duplique le dernier point
         profondeur = dsqrt(xstore(1,1,k)**2 + ystore(1,1,k)**2 + (zstore(1,1,k) )**2 )
         write(27,*)  profondeur/1000., ilayer-1,1
-        Ndepth=Ndepth+1
+        Ndepth = Ndepth+1
 
         updown(k) = 0 !! for new output mesh files and VM coupling with AxiSEM
 
@@ -1979,9 +1979,9 @@
     kmin = 1
     kmax = NGLLZ
 
-    do k=kmin,kmax
-      do j=jmin,jmax
-        do i=imin,imax
+    do k = kmin,kmax
+      do j = jmin,jmax
+        do i = imin,imax
 
           ! CF 'earth_chunk_HEX8_Mesher' and 'earth_chunk_HEX27_Mesher' to see files whose units are 91 and 92
 
@@ -2014,9 +2014,9 @@
     kmin = 1
     kmax = NGLLZ
 
-    do k=kmin,kmax
-      do j=jmin,jmax
-        do i=imin,imax
+    do k = kmin,kmax
+      do j = jmin,jmax
+        do i = imin,imax
 
           if (INJECTION_TECHNIQUE_TYPE == INJECTION_TECHNIQUE_IS_DSM) then
             write(92,1000) xstore(i,j,k), ystore(i,j,k), zstore(i,j,k)
@@ -2047,9 +2047,9 @@
     kmin = 1
     kmax = NGLLZ
 
-    do k=kmin,kmax
-      do j=jmin,jmax
-        do i=imin,imax
+    do k = kmin,kmax
+      do j = jmin,jmax
+        do i = imin,imax
 
           if (INJECTION_TECHNIQUE_TYPE == INJECTION_TECHNIQUE_IS_DSM) then
             write(92,1000) xstore(i,j,k), ystore(i,j,k), zstore(i,j,k)
@@ -2080,9 +2080,9 @@
     kmin = 1
     kmax = NGLLZ
 
-    do k=kmin,kmax
-      do j=jmin,jmax
-        do i=imin,imax
+    do k = kmin,kmax
+      do j = jmin,jmax
+        do i = imin,imax
 
           if (INJECTION_TECHNIQUE_TYPE == INJECTION_TECHNIQUE_IS_DSM) then
             write(92,1000) xstore(i,j,k), ystore(i,j,k), zstore(i,j,k)
@@ -2113,9 +2113,9 @@
     kmin = 1
     kmax = 1
 
-    do k=kmin,kmax
-      do j=jmin,jmax
-        do i=imin,imax
+    do k = kmin,kmax
+      do j = jmin,jmax
+        do i = imin,imax
 
           if (INJECTION_TECHNIQUE_TYPE == INJECTION_TECHNIQUE_IS_DSM) then
             write(92,1000) xstore(i,j,k), ystore(i,j,k), zstore(i,j,k)
@@ -2157,9 +2157,9 @@
 !----
 !
 
-  do kgll=1,NGLLZ
-    do jgll=1,NGLLY
-      do igll=1,NGLLX
+  do kgll = 1,NGLLZ
+    do jgll = 1,NGLLY
+      do igll = 1,NGLLX
 
         vector_ori(1) = xstore(igll,jgll,kgll)
         vector_ori(2) = ystore(igll,jgll,kgll)
@@ -2216,7 +2216,7 @@
   allocate(z(Ndepth),stat=ier)
   if (ier /= 0) call exit_MPI_without_rank('error allocating array 1305')
 
-  do i=1,Ndepth
+  do i = 1,Ndepth
      read(27,*) prof,ilayer,flag
      z(Ndepth-i+1)=R_EARTH/1000.d0-prof
      zindex(Ndepth-i+1)=ilayer
@@ -2226,16 +2226,16 @@
 
   open(27,file=trim(MESH)//'recdepth')
   write(27,*) Ndepth
-  i=1
+  i = 1
   write(27,*) z(i),zindex(i),ziflag(i)
-  do i=2,Ndepth-1
+  do i = 2,Ndepth-1
      if (ziflag(i-1) == -1 ) then
         write(27,*) z(i),zindex(i),-1
      else
          write(27,*) z(i),zindex(i),1
      endif
   enddo
-  i=Ndepth
+  i = Ndepth
   write(27,*) z(i),zindex(i),ziflag(i)
   close(27)
 
@@ -2256,8 +2256,8 @@
   double precision rayon,x,y,z,deg2rad,long,lati
   logical test
 
-  deg2rad=3.141592653589793d0/180.d0
-  NDIM=3
+  deg2rad = 3.141592653589793d0/180.d0
+  NDIM = 3
 
   if (test) then
      NGLLY_eff = NGLLY
@@ -2265,7 +2265,7 @@
      NGLLY_eff = NGLLY - 1
   endif
 
-  do jgll=1,NGLLY_eff
+  do jgll = 1,NGLLY_eff
      vector_ori(1)=xstore(1,jgll,NGLLZ)
      vector_ori(2)=ystore(1,jgll,NGLLZ)
      vector_ori(3)=zstore(1,jgll,NGLLZ)
@@ -2276,11 +2276,11 @@
            vector_rotated(i) = vector_rotated(i) + rotation_matrix(i,j)*vector_ori(j)
         enddo
      enddo
-     x=vector_rotated(1);y=vector_rotated(2);z=vector_rotated(3)
+     x = vector_rotated(1);y = vector_rotated(2);z = vector_rotated(3)
      rayon = dsqrt(vector_rotated(1)**2 + vector_rotated(2)**2 + vector_rotated(3)**2)
 
-      long=atan2(y,x)
-      lati=asin(z/rayon)
+      long = atan2(y,x)
+      lati = asin(z/rayon)
 
       write(28,*) long/deg2rad,lati/deg2rad !,rayon/1000
 
@@ -2309,10 +2309,10 @@
      NGLLY_eff = NGLLY - 1
   endif
 
-  deg2rad=3.141592653589793d0/180.d0
-  NDIM=3
+  deg2rad = 3.141592653589793d0/180.d0
+  NDIM = 3
 
-  do jgll=1,NGLLY_eff
+  do jgll = 1,NGLLY_eff
      vector_ori(1)=xstore(NGLLX,jgll,NGLLZ)
      vector_ori(2)=ystore(NGLLX,jgll,NGLLZ)
      vector_ori(3) =zstore(NGLLX,jgll,NGLLZ)
@@ -2323,11 +2323,11 @@
            vector_rotated(i) = vector_rotated(i) + rotation_matrix(i,j)*vector_ori(j)
         enddo
      enddo
-     x=vector_rotated(1);y=vector_rotated(2);z=vector_rotated(3)
+     x = vector_rotated(1);y = vector_rotated(2);z = vector_rotated(3)
      rayon = dsqrt(vector_rotated(1)**2 + vector_rotated(2)**2 + vector_rotated(3)**2)
 
-      long=atan2(y,x)
-      lati=asin(z/rayon)
+      long = atan2(y,x)
+      lati = asin(z/rayon)
 
       write(29,*) long/deg2rad,lati/deg2rad !,rayon/1000
 
@@ -2350,8 +2350,8 @@
   double precision rayon,x,y,z,deg2rad,long,lati
   logical test
 
-  deg2rad=3.141592653589793d0/180.d0
-  NDIM=3
+  deg2rad = 3.141592653589793d0/180.d0
+  NDIM = 3
 
    if (test) then
      NGLLX_eff = NGLLX
@@ -2359,7 +2359,7 @@
      NGLLX_eff = NGLLX - 1
   endif
 
-  do jgll=1,NGLLX_eff
+  do jgll = 1,NGLLX_eff
      vector_ori(1)=xstore(jgll,1,NGLLZ)
      vector_ori(2)=ystore(jgll,1,NGLLZ)
      vector_ori(3) =zstore(jgll,1,NGLLZ)
@@ -2370,11 +2370,11 @@
            vector_rotated(i) = vector_rotated(i) + rotation_matrix(i,j)*vector_ori(j)
         enddo
      enddo
-     x=vector_rotated(1);y=vector_rotated(2);z=vector_rotated(3)
+     x = vector_rotated(1);y = vector_rotated(2);z = vector_rotated(3)
      rayon = dsqrt(vector_rotated(1)**2 + vector_rotated(2)**2 + vector_rotated(3)**2)
 
-      long=atan2(y,x)
-      lati=asin(z/rayon)
+      long = atan2(y,x)
+      lati = asin(z/rayon)
 
       write(30,*) long/deg2rad,lati/deg2rad !,rayon/1000
   enddo
@@ -2402,10 +2402,10 @@
      NGLLX_eff = NGLLX - 1
   endif
 
-  deg2rad=3.141592653589793d0/180.d0
-  NDIM=3
+  deg2rad = 3.141592653589793d0/180.d0
+  NDIM = 3
 
-  do jgll=1,NGLLX_eff
+  do jgll = 1,NGLLX_eff
      vector_ori(1)=xstore(jgll,NGLLY,NGLLZ)
      vector_ori(2)=ystore(jgll,NGLLY,NGLLZ)
      vector_ori(3) =zstore(jgll,NGLLY,NGLLZ)
@@ -2416,11 +2416,11 @@
            vector_rotated(i) = vector_rotated(i) + rotation_matrix(i,j)*vector_ori(j)
         enddo
      enddo
-     x=vector_rotated(1);y=vector_rotated(2);z=vector_rotated(3)
+     x = vector_rotated(1);y = vector_rotated(2);z = vector_rotated(3)
      rayon = dsqrt(vector_rotated(1)**2 + vector_rotated(2)**2 + vector_rotated(3)**2)
 
-      long=atan2(y,x)
-      lati=asin(z/rayon)
+      long = atan2(y,x)
+      lati = asin(z/rayon)
 
       write(31,*) long/deg2rad,lati/deg2rad !,rayon/1000
   enddo
@@ -2445,11 +2445,11 @@
   double precision lon_zmin(nlon_dsm,nlat_dsm),lat_zmin(nlon_dsm,nlat_dsm)
 
 
-  deg2rad=3.141592653589793d0/180.d0
-  NDIM=3
+  deg2rad = 3.141592653589793d0/180.d0
+  NDIM = 3
 
-  do jgll=1,NGLLY
-     do igll=1,NGLLX
+  do jgll = 1,NGLLY
+     do igll = 1,NGLLX
         vector_ori(1)=xstore(igll,jgll,1)
         vector_ori(2)=ystore(igll,jgll,1)
         vector_ori(3) =zstore(igll,jgll,1)
@@ -2460,11 +2460,11 @@
               vector_rotated(i) = vector_rotated(i) + rotation_matrix(i,j)*vector_ori(j)
            enddo
         enddo
-        x=vector_rotated(1);y=vector_rotated(2);z=vector_rotated(3)
+        x = vector_rotated(1);y = vector_rotated(2);z = vector_rotated(3)
         rayon = dsqrt(vector_rotated(1)**2 + vector_rotated(2)**2 + vector_rotated(3)**2)
 
-        long=atan2(y,x)
-        lati=asin(z/rayon)
+        long = atan2(y,x)
+        lati = asin(z/rayon)
 
         iglob=(ilon)*(NGLLX-1)+igll
         jglob=(ilat)*(NGLLY-1)+jgll
@@ -2490,8 +2490,8 @@
 
   open(27,file=trim(MESH)//'stzmin')
   write(27,*) nx*ny
-  do j=1,ny
-     do i=1,nx
+  do j = 1,ny
+     do i = 1,nx
         write(27,*) x(i,j),y(i,j)
      enddo
   enddo
@@ -2509,8 +2509,8 @@
 
   integer iunit,ispec2D,NGLL1,NGLL2,ie,je,js,il
   integer i,j
-  do j=1,NGLL2
-     do i=1,NGLL1
+  do j = 1,NGLL2
+     do i = 1,NGLL1
         write(iunit,*) i,j,ispec2D,(NGLL1-1)*ie+i,(NGLL2-1)*je+j+js,il
      enddo
   enddo
@@ -2565,18 +2565,18 @@
   double precision R(3,3)
   double precision c,s,ux,uy,uz,norme_axe
 
-  pi=3.1415926535897932d0
+  pi = 3.1415926535897932d0
   deg2rad = pi / 180.d0
   ! on normalise l'axe
-  norme_axe=dsqrt(axe(1)**2 + axe(2)**2 + axe(3)**2)
+  norme_axe = dsqrt(axe(1)**2 + axe(2)**2 + axe(3)**2)
 
   ! composantes de l'axe
-  ux=axe(1)/norme_axe
-  uy=axe(2)/norme_axe
-  uz=axe(3)/norme_axe
+  ux = axe(1)/norme_axe
+  uy = axe(2)/norme_axe
+  uz = axe(3)/norme_axe
 
   ! on calcule le cos et sin
-  c=dcos(deg2rad * theta);s=dsin(deg2rad * theta)
+  c = dcos(deg2rad * theta);s = dsin(deg2rad * theta)
 
   ! matrice de rotation complexe
   R(1,1)=(ux**2 + (1.d0-ux**2)*c)
@@ -2615,31 +2615,31 @@
 
   R(:,:)=0.d0
   ! multiplication R=R0*R00
-  do j=1,3
-     do i=1,3
-        do k=1,3
+  do j = 1,3
+     do i = 1,3
+        do k = 1,3
            R(i,j)=R(i,j) + R0(i,k)*R00(k,j)
         enddo
      enddo
   enddo
 
   ! multiplication R=R1*R
-  Rtmp=R
+  Rtmp = R
   R(:,:)=0.d0
-  do j=1,3
-     do i=1,3
-        do k=1,3
+  do j = 1,3
+     do i = 1,3
+        do k = 1,3
            R(i,j)=R(i,j) + R1(i,k)*Rtmp(k,j)
         enddo
      enddo
   enddo
 
   ! multiplication R=R2*R
-  Rtmp=R
+  Rtmp = R
   R(:,:)=0.d0
-  do j=1,3
-     do i=1,3
-        do k=1,3
+  do j = 1,3
+     do i = 1,3
+        do k = 1,3
            R(i,j)=R(i,j) + R2(i,k)*Rtmp(k,j)
         enddo
      enddo
@@ -2948,7 +2948,7 @@
   if (ier /= 0) call exit_MPI_without_rank('error allocating array 1309')
 
 ! establish initial pointers (!! VM changed NGLLCUBE (as in Specfem3D Basin Version 1.1) to NGNOD !!)
-  do ispec=1,nspec
+  do ispec = 1,nspec
     ieoff = NGNOD * (ispec - 1)
     do ilocnum = 1,NGNOD
       loc(ilocnum + ieoff) = ilocnum + ieoff
@@ -2960,12 +2960,12 @@
   ifseg(1)  = .true.
   ninseg(1) = npointot
 
-  do j=1,3 !,NDIM
+  do j = 1,3 !,NDIM
 
 ! sort within each segment
   ioff = 1
 
-  do iseg=1,nseg
+  do iseg = 1,nseg
 
     if (j == 1) then
       call rank(xp(ioff),ind,ninseg(iseg))
@@ -2985,19 +2985,19 @@
 ! compare the coordinates of the points within a small tolerance
   if (j == 1) then
 
-    do i=2,npointot
+    do i = 2,npointot
       if (dabs(xp(i)-xp(i-1)) > SMALLVALTOL) ifseg(i) = .true.
     enddo
 
   else if (j == 2) then
 
-    do i=2,npointot
+    do i = 2,npointot
       if (dabs(yp(i)-yp(i-1)) > SMALLVALTOL) ifseg(i) = .true.
     enddo
 
   else
 
-    do i=2,npointot
+    do i = 2,npointot
       if (dabs(zp(i)-zp(i-1)) > SMALLVALTOL) ifseg(i) = .true.
     enddo
 
@@ -3006,7 +3006,7 @@
 ! count up number of different segments
   nseg = 0
 
-  do i=1,npointot
+  do i = 1,npointot
     if (ifseg(i)) then
       nseg = nseg + 1
       ninseg(nseg) = 1
@@ -3019,7 +3019,7 @@
 ! assign global node numbers (now sorted lexicographically)
   ig = 0
 
-  do i=1,npointot
+  do i = 1,npointot
     if (ifseg(i)) ig = ig + 1
 
     iglob(loc(i)) = ig
@@ -3053,42 +3053,42 @@
   integer i,j,l,ir,indx
   double precision q
 
-  do j=1,n
+  do j = 1,n
    IND(j)=j
   enddo
 
   if (n == 1) return
 
-  L=n/2+1
-  ir=n
+  L = n/2+1
+  ir = n
   100 continue
    if (l > 1) then
-      l=l-1
-      indx=ind(l)
-      q=a(indx)
+      l = l-1
+      indx = ind(l)
+      q = a(indx)
    ELSE
-      indx=ind(ir)
-      q=a(indx)
+      indx = ind(ir)
+      q = a(indx)
       ind(ir)=ind(1)
-      ir=ir-1
+      ir = ir-1
       if (ir == 1) then
          ind(1)=indx
          return
       endif
    endif
-   i=l
-   j=l+l
+   i = l
+   j = l+l
   200    continue
    if (J <= IR) then
       if (J < IR) then
-         if (A(IND(j)) < A(IND(j+1))) j=j+1
+         if (A(IND(j)) < A(IND(j+1))) j = j+1
       endif
       if (q < A(IND(j))) then
          IND(I)=IND(J)
-         I=J
-         J=J+J
+         I = J
+         J = J+J
       ELSE
-         J=IR+1
+         J = IR+1
       endif
    goto 200
    endif
@@ -3115,20 +3115,20 @@
   IW(:) = IA(:)
   W(:) = A(:)
 
-  do i=1,n
+  do i = 1,n
     IA(i)=IW(ind(i))
     A(i)=W(ind(i))
   enddo
 
   W(:) = B(:)
 
-  do i=1,n
+  do i = 1,n
     B(i)=W(ind(i))
   enddo
 
   W(:) = C(:)
 
-  do i=1,n
+  do i = 1,n
     C(i)=W(ind(i))
   enddo
 

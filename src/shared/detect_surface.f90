@@ -400,7 +400,7 @@
       midpoint_faces_y(:) = 0.0
       midpoint_faces_z(:) = 0.0
 
-      do iface=1,6
+      do iface = 1,6
 
         ! face corners
         do icorner = 1,NGNOD2D_FOUR_CORNERS

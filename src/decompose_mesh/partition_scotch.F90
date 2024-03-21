@@ -482,7 +482,7 @@ end module scotch_par
         enddo
 
         ! remap parts, 1 level up. easier to do this as we go up the levels
-        do ispec=1,nspec
+        do ispec = 1,nspec
           if (ispec_p_refine(ispec) == p_level(ilevel + 1)) then
             part(ispec) = part_remap_inverse(part(ispec))
           endif

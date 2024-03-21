@@ -81,7 +81,7 @@
   zeta = ZERO
   zgamma = ZERO
 
-  do ia=1,NGNOD
+  do ia = 1,NGNOD
     x = x+shape3D(ia)*xelm(ia)
     y = y+shape3D(ia)*yelm(ia)
     z = z+shape3D(ia)*zelm(ia)

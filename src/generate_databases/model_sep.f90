@@ -270,15 +270,15 @@ contains
   integer :: iglob, i_target, j_target, k_target
   integer :: ispec, i, j, k
 
-  do ispec=1,NSPEC
-     do i=1,NGLLX
-        do j=1,NGLLY
-           do k=1,NGLLZ
-              iglob=ibool(i,j,k,ispec);
-              i_target=NINT((xstore(i, j, k, ispec)-xmin)/DX)+1
-              j_target=NINT((ystore(i, j, k, ispec)-ymin)/DY)+1
+  do ispec = 1,NSPEC
+     do i = 1,NGLLX
+        do j = 1,NGLLY
+           do k = 1,NGLLZ
+              iglob = ibool(i,j,k,ispec);
+              i_target = NINT((xstore(i, j, k, ispec)-xmin)/DX)+1
+              j_target = NINT((ystore(i, j, k, ispec)-ymin)/DY)+1
               ! in SEP, z-axis is downward; in SPECFEM, z-axis is upward
-              k_target=NINT(-zstore(i, j, k, ispec)/DZ)+1; !NOT using (z_temp-zmin)
+              k_target = NINT(-zstore(i, j, k, ispec)/DZ)+1; !NOT using (z_temp-zmin)
               ! Stay in the computational domain
               if (i_target < 1)  i_target=  1
               if (j_target < 1)  j_target=  1
@@ -321,20 +321,20 @@ contains
   zmin=minval(-zstore); zmax=maxval(-zstore);
 
   ! Bounds for the SEP model
-  imin=floor((xmin-OX)/DX+1); imax=ceiling((xmax-OX)/DX+1);
-  jmin=floor((ymin-OY)/DY+1); jmax=ceiling((ymax-OY)/DY+1);
-  kmin=floor((zmin-OZ)/DZ+1); kmax=ceiling((zmax-OZ)/DZ+1);
+  imin = floor((xmin-OX)/DX+1); imax = ceiling((xmax-OX)/DX+1);
+  jmin = floor((ymin-OY)/DY+1); jmax = ceiling((ymax-OY)/DY+1);
+  kmin = floor((zmin-OZ)/DZ+1); kmax = ceiling((zmax-OZ)/DZ+1);
   if (imin < 1)  imin= 1;  if (jmin < 1)  jmin= 1;  if (kmin < 1)  kmin= 1;
-  if (imax > NX) imin=NX;  if (jmax > NY) jmax=NY;  if (kmax > NZ) kmax=NZ;
+  if (imax > NX) imin = NX;  if (jmax > NY) jmax = NY;  if (kmax > NZ) kmax = NZ;
   ! Number of SEP indexes for the current slice
-  ni=imax-imin+1
-  nj=jmax-jmin+1
-  nk=kmax-kmin+1
+  ni = imax-imin+1
+  nj = jmax-jmin+1
+  nk = kmax-kmin+1
 
   ! Corrected bounds for the current slice when looking for SEP indexes
-  xmin=DX*(imin-1)+OX; xmax=DX*(imax-1)+OX;
-  ymin=DY*(jmin-1)+OY; ymax=DY*(jmax-1)+OY;
-  zmin=DZ*(kmin-1)+OZ; zmax=DZ*(kmax-1)+OZ;
+  xmin = DX*(imin-1)+OX; xmax = DX*(imax-1)+OX;
+  ymin = DY*(jmin-1)+OY; ymax = DY*(jmax-1)+OY;
+  zmin = DZ*(kmin-1)+OZ; zmax = DZ*(kmax-1)+OZ;
 
   end subroutine find_slice_bounds_sep
 

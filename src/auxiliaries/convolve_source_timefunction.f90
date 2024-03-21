@@ -128,7 +128,7 @@
 
 ! compute number of samples to remove from end of seismograms
   number_remove = N_j + 1
-  do i=1,nlines - number_remove
+  do i = 1,nlines - number_remove
     write(*,*) sngl(timeval(i)),' ',sngl(sem_fil(i))
   enddo
 

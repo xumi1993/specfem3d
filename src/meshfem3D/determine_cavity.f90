@@ -81,7 +81,7 @@
     cavity_file_exists = .false.
     if (myrank == 0) then
       write(IMAIN,*)
-      write(IMAIN,*)'File "'//trim(filename)//'" not found: assume no cavity'
+      write(IMAIN,*) 'File "'//trim(filename)//'" not found: assume no cavity'
       write(IMAIN,*)
       call flush_IMAIN()
     endif
@@ -128,9 +128,9 @@
       if (ier /= 0) call exit_MPI_without_rank('error allocating array 1325')
       allocate(cavity_z1(ncavity),stat=ier)
       if (ier /= 0) call exit_MPI_without_rank('error allocating array 1326')
-      cavity_x0=HUGEVAL; cavity_x1=HUGEVAL
-      cavity_y0=HUGEVAL; cavity_y1=HUGEVAL
-      cavity_z0=HUGEVAL; cavity_z1=HUGEVAL
+      cavity_x0 = HUGEVAL; cavity_x1 = HUGEVAL
+      cavity_y0 = HUGEVAL; cavity_y1 = HUGEVAL
+      cavity_z0 = HUGEVAL; cavity_z1 = HUGEVAL
       ! skip one comment line
       read(111,*)
       !read cavity range
@@ -141,9 +141,9 @@
 
         ! user output
         if (myrank == 0) then
-          write(IMAIN,*)'  cavity range: x min / max = ',cavity_x0(i_cavity),cavity_x1(i_cavity),'(m)'
-          write(IMAIN,*)'                y min / max = ',cavity_y0(i_cavity),cavity_y1(i_cavity),'(m)'
-          write(IMAIN,*)'                z min / max = ',cavity_z0(i_cavity),cavity_z1(i_cavity),'(m)'
+          write(IMAIN,*) '  cavity range: x min / max = ',cavity_x0(i_cavity),cavity_x1(i_cavity),'(m)'
+          write(IMAIN,*) '                y min / max = ',cavity_y0(i_cavity),cavity_y1(i_cavity),'(m)'
+          write(IMAIN,*) '                z min / max = ',cavity_z0(i_cavity),cavity_z1(i_cavity),'(m)'
           write(IMAIN,*)
           call flush_IMAIN()
         endif
@@ -206,7 +206,7 @@ cavity: do i_cavity = 1,ncavity
           enddo
         enddo
       endif
-    enddo ! ispec=1,nspec
+    enddo ! ispec = 1,nspec
 
     deallocate(cavity_x0,cavity_x1,cavity_y0,cavity_y1,cavity_z0,cavity_z1)
 
@@ -225,7 +225,7 @@ cavity: do i_cavity = 1,ncavity
     ! user output
     if (myrank == 0) then
       do iproc = 0,NPROC_ETA*NPROC_XI - 1
-        write(IMAIN,*)'    found ',cavity_num_elements_all(iproc),'cavity elements in slice ',iproc
+        write(IMAIN,*) '    found ',cavity_num_elements_all(iproc),'cavity elements in slice ',iproc
       enddo
       write(IMAIN,*)
       write(IMAIN,*) '    total cavity elements found = ',num_cav_total

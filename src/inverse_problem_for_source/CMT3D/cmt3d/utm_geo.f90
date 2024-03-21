@@ -40,11 +40,11 @@
   double precision rx,ry,rlon,rlat
   logical SUPPRESS_UTM_PROJECTION
 
-  double precision, parameter :: degrad=PI/180.d0, raddeg=180.d0/PI
+  double precision, parameter :: degrad = PI/180.d0, raddeg = 180.d0/PI
   !double precision, parameter :: semimaj=6378206.4d0, semimin=6356583.8d0   ! Clarke 1866 ellipsoid
-  double precision, parameter :: semimaj=6378137.0d0, semimin=6356752.314245d0   ! WGS-84 ellipsoid
-  double precision, parameter :: scfa=0.9996d0
-  double precision, parameter :: north=0.d0, east=500000.d0
+  double precision, parameter :: semimaj = 6378137.0d0, semimin = 6356752.314245d0   ! WGS-84 ellipsoid
+  double precision, parameter :: scfa = 0.9996d0
+  double precision, parameter :: north = 0.d0, east = 500000.d0
 
   double precision e2,e4,e6,ep2,xx,yy,dlat,dlon,zone,cm,cmr,delam
   double precision f1,f2,f3,f4,rm,rn,t,c,a,e1,u,rlat1,dlat1,c1,t1,rn1,r1,d
@@ -68,10 +68,10 @@
   ry_save = ry
 
 ! define parameters of reference ellipsoid
-  e2=1.0-(semimin/semimaj)**2.0
-  e4=e2*e2
-  e6=e2*e4
-  ep2=e2/(1.-e2)
+  e2 = 1.0-(semimin/semimaj)**2.0
+  e4 = e2*e2
+  e6 = e2*e4
+  ep2 = e2/(1.-e2)
 
   if (iway == IUTM2LONGLAT) then
     xx = rx

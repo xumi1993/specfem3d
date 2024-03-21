@@ -200,7 +200,7 @@ contains
 
        distance_from_target = HUGEVAL
 
-       do iproc=0, NPROC-1
+       do iproc = 0, NPROC-1
           if (distance_from_target >= distance_from_target_all(1,iproc)) then
              distance_from_target =  distance_from_target_all(1,iproc)
              islice_selected_dummy(1) = iproc
@@ -230,15 +230,15 @@ contains
     call bcast_all_dp(z_found_dummy,1)
 
     !! it was just to avoid compler error
-    islice_selected=islice_selected_dummy(1)
-    ispec_selected=ispec_selected_dummy(1)
-    xi=xi_dummy(1)
-    eta=eta_dummy(1)
-    gamma=gamma_dummy(1)
-    x_found=x_found_dummy(1)
-    y_found=y_found_dummy(1)
-    z_found=z_found_dummy(1)
-    distance_from_target=distance_from_target_dummy(1)
+    islice_selected = islice_selected_dummy(1)
+    ispec_selected = ispec_selected_dummy(1)
+    xi = xi_dummy(1)
+    eta = eta_dummy(1)
+    gamma = gamma_dummy(1)
+    x_found = x_found_dummy(1)
+    y_found = y_found_dummy(1)
+    z_found = z_found_dummy(1)
+    distance_from_target = distance_from_target_dummy(1)
 
     deallocate(distance_from_target_all, xi_all, eta_all, gamma_all, x_found_all, y_found_all, z_found_all)
     deallocate(ispec_selected_all)
@@ -284,9 +284,9 @@ contains
     typical_size_squared = (10. * typical_size_squared)**2
 
     ! INITIALIZE LOCATION --------
-    x_target=x_to_locate
-    y_target=y_to_locate
-    z_target=z_to_locate
+    x_target = x_to_locate
+    y_target = y_to_locate
+    z_target = z_to_locate
     ! flag to check that we located at least one target element
     located_target = .false.
     ispec_selected   = 1    !! first element by default
@@ -306,11 +306,11 @@ contains
        if (dist_squared > typical_size_squared) cycle ! exclude elements that are too far from target
 
        ! find closest GLL point form target
-       do k=2, NGLLZ-1
-          do j=2, NGLLY-1
-             do i=2, NGLLX-1
+       do k = 2, NGLLZ-1
+          do j = 2, NGLLY-1
+             do i = 2, NGLLX-1
 
-                iglob=ibool(i,j,k,ispec)
+                iglob = ibool(i,j,k,ispec)
                 dist_squared = (x_target - dble(xstore(iglob)))**2 &
                      + (y_target - dble(ystore(iglob)))**2 &
                      + (z_target - dble(zstore(iglob)))**2
@@ -342,7 +342,7 @@ contains
     gamma = zigll(iz_initial_guess)
 
     ! define coordinates of the control points of the element
-    do ia=1,NGNOD
+    do ia = 1,NGNOD
        iax = 0
        iay = 0
        iaz = 0
@@ -558,13 +558,13 @@ contains
         stop
         !call create_mass_matrices_pml_acoustic(nspec,ibool)
       else
-        do ispec=1,nspec_ab
+        do ispec = 1,nspec_ab
           if (ispec_is_acoustic(ispec)) then
             ispec_irreg = irregular_element_number(ispec)
             if (ispec_irreg == 0) jacobianl = jacobian_regular
-            do k=1,NGLLZ
-              do j=1,NGLLY
-                do i=1,NGLLX
+            do k = 1,NGLLZ
+              do j = 1,NGLLY
+                do i = 1,NGLLX
                   iglob = ibool(i,j,k,ispec)
 
                   weight = wxgll(i)*wygll(j)*wzgll(k)
@@ -594,13 +594,13 @@ contains
         stop
         !call create_mass_matrices_pml_elastic(nspec,ibool)
       else
-        do ispec=1,nspec_ab
+        do ispec = 1,nspec_ab
           if (ispec_is_elastic(ispec)) then
             ispec_irreg = irregular_element_number(ispec)
             if (ispec_irreg == 0) jacobianl = jacobian_regular
-            do k=1,NGLLZ
-              do j=1,NGLLY
-                do i=1,NGLLX
+            do k = 1,NGLLZ
+              do j = 1,NGLLY
+                do i = 1,NGLLX
                   iglob = ibool(i,j,k,ispec)
 
                   weight = wxgll(i)*wygll(j)*wzgll(k)
@@ -682,7 +682,7 @@ contains
                  k = abs_boundary_ijk(3,igll,iface)
 
                  ! gets global index
-                 iglob=ibool(i,j,k,ispec)
+                 iglob = ibool(i,j,k,ispec)
 
                  ! gets associated, weighted jacobian
                  jacobianw = abs_boundary_jacobian2Dw(igll,iface)

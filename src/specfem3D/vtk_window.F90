@@ -290,7 +290,7 @@ end module vtk_window_par
       xmesh = 0.0
       ymesh = 0.0
       zmesh = 0.0
-      do ia=1,NGNOD
+      do ia = 1,NGNOD
         xmesh = xmesh + shape3D(ia)*xelm(ia)
         ymesh = ymesh + shape3D(ia)*yelm(ia)
         zmesh = zmesh + shape3D(ia)*zelm(ia)

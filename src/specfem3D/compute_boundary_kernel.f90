@@ -105,7 +105,7 @@
     else if (ispec_bot > 0 .or. ispec_top > 0) then
 
       ! loops over surface
-      do igll=1,NGLLSQUARE
+      do igll = 1,NGLLSQUARE
 
         if (ispec_top > 0) then
           i = ijk_moho_top(1,igll,ispec2D)

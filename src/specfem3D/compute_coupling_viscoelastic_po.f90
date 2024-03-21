@@ -345,7 +345,7 @@
       tempz3l = 0.0_CUSTOM_REAL
 
       ! we can merge these loops because NGLLX = NGLLY = NGLLZ
-      do l=1,NGLLX
+      do l = 1,NGLLX
         hp1 = hprime_xx(i,l)
         iglob = ibool(l,j,k,ispec_el)
         tempx1l = tempx1l + displ(1,iglob)*hp1

@@ -75,7 +75,7 @@ contains
   endif
 
 
-  do ispec =1, NSPEC_AB
+  do ispec = 1, NSPEC_AB
 
      do kgg = 1, NGLLZ
         do jgg = 1, NGLLY
@@ -304,19 +304,19 @@ contains
     if (DEBUG_MODE) write(IIDD,*) ' END  compute_interpolation_coeff_FD_SEM step 1',  nb_fd_point_loc
 
     !! allocate projection structure
-    projection_fd%nx=nx_fd_proj
-    projection_fd%ny=ny_fd_proj
-    projection_fd%nz=nz_fd_proj
+    projection_fd%nx = nx_fd_proj
+    projection_fd%ny = ny_fd_proj
+    projection_fd%nz = nz_fd_proj
 
-    projection_fd%hx=hx_fd_proj
-    projection_fd%hy=hy_fd_proj
-    projection_fd%hz=hz_fd_proj
+    projection_fd%hx = hx_fd_proj
+    projection_fd%hy = hy_fd_proj
+    projection_fd%hz = hz_fd_proj
 
-    projection_fd%ox=ox_fd_proj
-    projection_fd%oy=oy_fd_proj
-    projection_fd%oz=oz_fd_proj
+    projection_fd%ox = ox_fd_proj
+    projection_fd%oy = oy_fd_proj
+    projection_fd%oz = oz_fd_proj
 
-    projection_fd%nb_fd_point=nb_fd_point_loc
+    projection_fd%nb_fd_point = nb_fd_point_loc
 
     allocate(projection_fd%ispec_selected(nb_fd_point_loc),stat=ier)
     if (ier /= 0) call exit_MPI_without_rank('error allocating array 148')
@@ -329,7 +329,7 @@ contains
     allocate(projection_fd%hgamma(NGLLX,nb_fd_point_loc),stat=ier)
     if (ier /= 0) call exit_MPI_without_rank('error allocating array 152')
 
-    nb_fd_point_loc=0
+    nb_fd_point_loc = 0
     do kfd = 1, nz_fd_proj
        do jfd = 1, ny_fd_proj
           do ifd = 1, nx_fd_proj
@@ -338,9 +338,9 @@ contains
 
                  nb_fd_point_loc =  nb_fd_point_loc + 1
 
-                 xi_loc=xi_in_fd(ifd, jfd, kfd)
-                 eta_loc=eta_in_fd(ifd, jfd, kfd)
-                 gamma_loc=gamma_in_fd(ifd, jfd, kfd)
+                 xi_loc = xi_in_fd(ifd, jfd, kfd)
+                 eta_loc = eta_in_fd(ifd, jfd, kfd)
+                 gamma_loc = gamma_in_fd(ifd, jfd, kfd)
                  ispec_selected = point_already_found(ifd, jfd, kfd)
 
                  call lagrange_any(xi_loc, NGLLX, xigll, hxis, hpxis)
@@ -645,7 +645,7 @@ contains
 
        distance_from_target = HUGEVAL
 
-       do iproc=0, NPROC-1
+       do iproc = 0, NPROC-1
           if (distance_from_target >= distance_from_target_all(1,iproc)) then
              distance_from_target =  distance_from_target_all(1,iproc)
              islice_selected_dummy(1) = iproc
@@ -674,15 +674,15 @@ contains
     call bcast_all_dp(y_dummy,1)
     call bcast_all_dp(z_dummy,1)
     !! it was just to avoid compler error
-    islice_selected=islice_selected_dummy(1)
-    ispec_selected=ispec_selected_dummy(1)
-    xi=xi_dummy(1)
-    eta=eta_dummy(1)
-    gamma=gamma_dummy(1)
-    distance_from_target=distance_from_target_dummy(1)
-    x_found=x_dummy(1)
-    y_found=y_dummy(1)
-    z_found=z_dummy(1)
+    islice_selected = islice_selected_dummy(1)
+    ispec_selected = ispec_selected_dummy(1)
+    xi = xi_dummy(1)
+    eta = eta_dummy(1)
+    gamma = gamma_dummy(1)
+    distance_from_target = distance_from_target_dummy(1)
+    x_found = x_dummy(1)
+    y_found = y_dummy(1)
+    z_found = z_dummy(1)
 
 !!$    if (DEBUG_MODE .and. distance_from_target > 1.) then
 !!$       write(IIDD, *) ' warning point no correctly localized  :'
@@ -741,9 +741,9 @@ contains
     typical_size_squared = (10. * typical_size_squared)**2
 
     ! INITIALIZE LOCATION --------
-    x_target=x_to_locate
-    y_target=y_to_locate
-    z_target=z_to_locate
+    x_target = x_to_locate
+    y_target = y_to_locate
+    z_target = z_to_locate
     ! flag to check that we located at least one target element
     located_target = .false.
     ispec_selected   = 1    !! first element by default
@@ -763,11 +763,11 @@ contains
        if (dist_squared > typical_size_squared) cycle ! exclude elements that are too far from target
 
        ! find closest GLL point form target
-       do k=2, NGLLZ-1
-          do j=2, NGLLY-1
-             do i=2, NGLLX-1
+       do k = 2, NGLLZ-1
+          do j = 2, NGLLY-1
+             do i = 2, NGLLX-1
 
-                iglob=ibool(i,j,k,ispec)
+                iglob = ibool(i,j,k,ispec)
                 dist_squared = (x_target - dble(xstore(iglob)))**2 &
                      + (y_target - dble(ystore(iglob)))**2 &
                      + (z_target - dble(zstore(iglob)))**2
@@ -799,7 +799,7 @@ contains
     gamma = zigll(iz_initial_guess)
 
     ! define coordinates of the control points of the element
-    do ia=1,NGNOD
+    do ia = 1,NGNOD
        iax = 0
        iay = 0
        iaz = 0
@@ -937,9 +937,9 @@ contains
     typical_size_squared = (10. * typical_size_squared)**2
 
     ! INITIALIZE LOCATION --------
-    x_target=x_to_locate
-    y_target=y_to_locate
-    z_target=z_to_locate
+    x_target = x_to_locate
+    y_target = y_to_locate
+    z_target = z_to_locate
     ! flag to check that we located at least one target element
     located_target = .false.
     ispec_selected   = 1    !! first element by default
@@ -959,11 +959,11 @@ contains
        !if (dist_squared > typical_size_squared) cycle ! exclude elements that are too far from target
 
        ! find closest GLL point form target
-       do k=2, NGLLZ-1
-          do j=2, NGLLY-1
-             do i=2, NGLLX-1
+       do k = 2, NGLLZ-1
+          do j = 2, NGLLY-1
+             do i = 2, NGLLX-1
 
-                iglob=ibool(i,j,k,ispec)
+                iglob = ibool(i,j,k,ispec)
                 dist_squared = (x_target - dble(xstore(iglob)))**2 &
                      + (y_target - dble(ystore(iglob)))**2 &
                      + (z_target - dble(zstore(iglob)))**2
@@ -995,7 +995,7 @@ contains
     gamma = zigll(iz_initial_guess)
 
     ! define coordinates of the control points of the element
-    do ia=1,NGNOD
+    do ia = 1,NGNOD
        iax = 0
        iay = 0
        iaz = 0

@@ -64,9 +64,9 @@
   ispec_irreg = irregular_element_number(ispec)
   if (ispec_irreg == 0) jacobianl = jacobian_regular
 
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         ! coefficients
         ! alpha_x
         coef0_x = pml_convolution_coef_alpha(1,i,j,k,ispec_CPML)
@@ -189,9 +189,9 @@
   ispec_irreg = irregular_element_number(ispec)
   if (ispec_irreg == 0) jacobianl = jacobian_regular
 
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         ! PML coefficient values
         A_1 = pml_convolution_coef_abar(1,i,j,k,ispec_CPML)
         A_2 = pml_convolution_coef_abar(2,i,j,k,ispec_CPML)

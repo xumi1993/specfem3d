@@ -27,7 +27,7 @@ contains
     if (ios /= 0) stop 'Error reading npar'
     read(line(3:),*,iostat=ios) global_coord
     ! if no global_coord specified
-    if (ios /= 0)  global_coord=.false.
+    if (ios /= 0)  global_coord = .false.
 
     if (.not. global_coord) then ! local coordinates (DEP, LON, LAT)
        par_name = (/'Mrr','Mtt','Mpp','Mrt','Mrp', 'Mtp','dep','lon','lat', &
@@ -67,7 +67,7 @@ contains
     if (ios /= 0) stop 'Error reading weigh_data_files'
 
     read(line(8:),'(l7)',iostat=ios) read_weight
-    if (ios /= 0) read_weight=.false.
+    if (ios /= 0) read_weight = .false.
 
 ! here we assume that Pnl wave window is the first window out
 ! of possible two windows selected for Z and R components
@@ -239,7 +239,7 @@ contains
     if (DEBUG) then
        ! write matrices
        write(*,'(/,a)') ' Inversion matrix A is as follows...'
-       do i=1,npar
+       do i = 1,npar
           write(*,'(12e12.3)') (sngl(A(j,i)),j=1,npar)
        enddo
        write(*,'(/,a)') ' RHS vector b is as follows...'
@@ -396,29 +396,29 @@ contains
        do j = 1, nw
           nwint = nwint + 1
           read(IOWIN,*) tstart, tend
-          is=max(floor((tstart-b)/dt),1)
-          ie=min(ceiling((tend-b)/dt),npts)
+          is = max(floor((tstart-b)/dt),1)
+          ie = min(ceiling((tend-b)/dt),npts)
 
           if (station_correction) then  !!! needs update?
              call calc_criteria(data_sngl,syn_sngl,npts,is,ie,ishift,cc,dlna)
              call calc_criteria(data_sngl,new_syn_sngl,npts,is,ie,ishift_new,cc_new,dlna_new)
-             istart_d=max(1,is+ishift); iend_d=min(npts,ie+ishift)
-             istart_dn=max(1,is+ishift_new); iend_dn=min(npts,ie+ishift_new)
-             istart=istart_d-ishift; iend=iend_d-ishift
-             istart_n=istart_dn-ishift_new; iend_n=iend_dn-ishift_new
+             istart_d = max(1,is+ishift); iend_d = min(npts,ie+ishift)
+             istart_dn = max(1,is+ishift_new); iend_dn = min(npts,ie+ishift_new)
+             istart = istart_d-ishift; iend = iend_d-ishift
+             istart_n = istart_dn-ishift_new; iend_n = iend_dn-ishift_new
           else
-             istart_d=is; istart=is; iend_d=ie; iend=ie
-             istart_dn=is; istart_n=is; iend_dn=ie; iend_n=ie
+             istart_d = is; istart = is; iend_d = ie; iend = ie
+             istart_dn = is; istart_n = is; iend_dn = ie; iend_n = ie
           endif
 
           ! hanning taper
           do ii = istart,iend
              taper(ii) = 0.5 * (1-cos(2*pi*(ii-istart)/(iend-istart)))
           enddo
-          v1=sum(taper(istart:iend)*(syn_sngl(istart:iend)-data_sngl(istart_d:iend_d))**2)
-          v2=sum(taper(istart:iend)*(new_syn_sngl(istart_n:iend_n)-data_sngl(istart_dn:iend_dn))**2)
-          d1=sum(taper(istart:iend)*data_sngl(istart_d:iend_d)**2)
-          d2=sum(taper(istart:iend)*data_sngl(istart_dn:iend_dn)**2)
+          v1 = sum(taper(istart:iend)*(syn_sngl(istart:iend)-data_sngl(istart_d:iend_d))**2)
+          v2 = sum(taper(istart:iend)*(new_syn_sngl(istart_n:iend_n)-data_sngl(istart_dn:iend_dn))**2)
+          d1 = sum(taper(istart:iend)*data_sngl(istart_d:iend_d)**2)
+          d2 = sum(taper(istart:iend)*data_sngl(istart_dn:iend_dn)**2)
           var_all = var_all + 0.5*v1*data_weights(nwint)*dt
           var_all_new = var_all_new + 0.5*v2*data_weights(nwint)*dt
 

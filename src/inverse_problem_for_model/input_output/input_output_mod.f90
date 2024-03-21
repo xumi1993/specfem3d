@@ -380,14 +380,14 @@ contains
     write(*,*)  ' NUMBER OF SIMULTANEOUS RUNS > 0 '
     write(*,*)
     call flush_iunit(6)
-    number_of_events_in_acqui_file_ref=0
+    number_of_events_in_acqui_file_ref = 0
     open(666,file=trim(acqui_file_ref))
     do
        read(666,'(a)',end=99) line
        !! no significant line
        if (is_blank_line(line)) cycle
        !! new event
-       if (INDEX(line,'event_name') > 0) number_of_events_in_acqui_file_ref=number_of_events_in_acqui_file_ref+1
+       if (INDEX(line,'event_name') > 0) number_of_events_in_acqui_file_ref = number_of_events_in_acqui_file_ref+1
     enddo
 99  close(666)
 
@@ -397,7 +397,7 @@ contains
 
     allocate(nevent_in_group(NUMBER_OF_SIMULTANEOUS_RUNS),stat=ier)
     if (ier /= 0) call exit_MPI_without_rank('error allocating array 392')
-    do ievent=1,NUMBER_OF_SIMULTANEOUS_RUNS
+    do ievent = 1,NUMBER_OF_SIMULTANEOUS_RUNS
        if (ievent <= nevent_remained) then
           nevent_in_group(ievent)= nevent_per_group+1
        else
@@ -406,8 +406,8 @@ contains
     enddo
 
     ievent_global = 0
-    ievent_in_group=0
-    igroup=1
+    ievent_in_group = 0
+    igroup = 1
     open(666,file=trim(acqui_file_ref))
     write(prefix_to_path_tmp,"('run',i4.4,'/')") igroup
     open(777, file=trim(prefix_to_path_tmp)//'DATA/inverse_problem/acquisition.dat')
@@ -421,18 +421,18 @@ contains
            ievent_global = ievent_global + 1
            write(*,*)
            write(*,*) '   next event ', ievent_global
-           ievent_in_group=ievent_in_group+1
+           ievent_in_group = ievent_in_group+1
 
        endif
 
        !! write lines related to the current event
        if (ievent_in_group > nevent_in_group(igroup)) then
-          igroup=igroup+1
+          igroup = igroup+1
           write(*,*) ' group ', igroup
           write(prefix_to_path_tmp,"('run',i4.4,'/')") igroup
           close(777)
           open(777, file=trim(prefix_to_path_tmp)//'DATA/inverse_problem/acquisition.dat')
-          ievent_in_group=1
+          ievent_in_group = 1
        endif
        write(777, '(a)') trim(line)
        write(*,*) trim(line)
@@ -693,7 +693,7 @@ contains
           call MPI_RECV(Gather_loc, Nt*nsta_irank*NDIM, CUSTOM_MPI_TYPE, irank, tag, my_local_mpi_comm_world, status,  ier)
           call MPI_RECV(irec_global, nsta_irank, MPI_INTEGER, irank, tag, my_local_mpi_comm_world, status,  ier)
 
-          do icomp=1,NDIM
+          do icomp = 1,NDIM
             do irec_local = 1, nsta_irank
               Gather(irec_global(irec_local), :, icomp) = Gather_loc(irec_local, :, icomp)
             enddo
@@ -1108,9 +1108,9 @@ contains
         ncomp_inv = 0
         data_type_inv = inversion_param%inverted_data_type
         if (data_type_inv /= data_type_read) then
-          write(*,*)'ERROR: requested type of inverted data is different from observed data'
-          write(*,*)'       integration of differentiation of observed not implemented yet'
-          write(*,*)'NOW STOP'
+          write(*,*) 'ERROR: requested type of inverted data is different from observed data'
+          write(*,*) '       integration of differentiation of observed not implemented yet'
+          write(*,*) 'NOW STOP'
           stop
         endif
         if (data_type_inv == 'd') inversion_param%get_synthetic_displacement = .true.
@@ -1161,8 +1161,8 @@ contains
           !! Data rotation required to pass in mesh system (zen -> xyz)
           !call define_mesh_rotation_matrix(lat0,lon0,azi0)
           !call rotate_comp_glob2mesh(vz2, vn, ve, stalat, stalon, nt, nsta, vx, vy, vz)
-          write(*,*)'ERROR: qtl is not implemented yet'
-          write(*,*)'NOW STOP'
+          write(*,*) 'ERROR: qtl is not implemented yet'
+          write(*,*) 'NOW STOP'
           stop
         end select
 
@@ -1363,7 +1363,7 @@ contains
           call MPI_RECV(Gather_loc, Nt*nsta_irank*NDIM, CUSTOM_MPI_TYPE, irank, tag, my_local_mpi_comm_world, status,  ier)
           call MPI_RECV(irec_global, nsta_irank, MPI_INTEGER, irank, tag, my_local_mpi_comm_world, status,  ier)
 
-          do icomp=1,NDIM
+          do icomp = 1,NDIM
             do irec_local = 1, nsta_irank
               Gather(irec_global(irec_local), :, icomp) = Gather_loc(irec_local, :, icomp)
             enddo
@@ -1385,7 +1385,7 @@ contains
           do irec_local = 1, NSTA_LOC
             irec_global(irec_local) = acqui_simu(ievent)%number_receiver_global(irec_local)
             !! choose the rigth seismograms_*
-            do icomp=1,NDIM
+            do icomp = 1,NDIM
               Gather_loc(irec_local,:,icomp) = array_to_write(icomp,irec_local,:)
             enddo
           enddo
@@ -1406,7 +1406,7 @@ contains
     !!  write gather file
     if (myrank == 0) then
       ! main process still needs to gather its own array data
-      do icomp=1,NDIM
+      do icomp = 1,NDIM
         do irec_local = 1, acqui_simu(ievent)%nsta_slice
           !! choose the right seismograms_*
           Gather(acqui_simu(ievent)%number_receiver_global(irec_local),:,icomp) = array_to_write(icomp,irec_local,:)
@@ -1464,8 +1464,8 @@ contains
           !! Data rotation required to pass in mesh system (zen -> xyz)
           !call define_mesh_rotation_matrix(lat0,lon0,azi0)
           !call rotate_comp_glob2mesh(vz2, vn, ve, stalat, stalon, nt, nsta, vx, vy, vz)
-          write(*,*)'ERROR: qtl is not implemented yet'
-          write(*,*)'NOW STOP'
+          write(*,*) 'ERROR: qtl is not implemented yet'
+          write(*,*) 'NOW STOP'
           stop
         end select
 
@@ -2553,7 +2553,7 @@ contains
            !! read source time function
            if (myrank == 0) then
               open(IINN, file=trim(acqui_simu(ievent)%source_wavelet_file))
-              do it=1,acqui_simu(ievent)%Nt_data
+              do it = 1,acqui_simu(ievent)%Nt_data
                  read(IINN, *) dt_dummy, acqui_simu(ievent)%user_source_time_function(it,1)
               enddo
               close(IINN)
@@ -2561,7 +2561,7 @@ contains
 
            call MPI_BCAST(acqui_simu(ievent)%user_source_time_function,acqui_simu(ievent)%Nt_data, &
                 CUSTOM_MPI_TYPE,0,my_local_mpi_comm_world,ier)
-           USE_FORCE_POINT_SOURCE=.false.
+           USE_FORCE_POINT_SOURCE = .false.
 
         case default
           !! define here reading of source file, and define accordingly the arrays :
@@ -2610,7 +2610,7 @@ contains
       acqui_simu(ievent)%t0 = t0
 
       nsrc_loc = 0
-      do isrc=1, NSOURCES
+      do isrc = 1, NSOURCES
         if (myrank == acqui_simu(ievent)%islice_selected_source(isrc)) then
           nsrc_loc = nsrc_loc + 1
           !! Warning in this subroutine you must add your case for source source

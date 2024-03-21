@@ -111,9 +111,9 @@
   ispec_irreg = irregular_element_number(ispec)
   if (ispec_irreg == 0) jacobianl = jacobian_regular
 
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         !---------------------- A6, A7, A8, A9 --------------------------
         ! coefficients
         ! alpha_z
@@ -476,9 +476,9 @@
   real(kind=CUSTOM_REAL) :: coef0_1,coef1_1,coef2_1,coef0_2,coef1_2,coef2_2,coef0_3,coef1_3,coef2_3
   integer :: i,j,k,ispec_irreg
 
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         ! PML convolution coefficients
         A6 = pml_convolution_coef_strain(1,i,j,k,ispec_CPML)
         A7 = pml_convolution_coef_strain(2,i,j,k,ispec_CPML)
@@ -593,9 +593,9 @@
   ispec_irreg = irregular_element_number(ispec)
   if (ispec_irreg /= 0) then
     ! irregular element
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           xixl = xixstore(i,j,k,ispec_irreg)
           xiyl = xiystore(i,j,k,ispec_irreg)
           xizl = xizstore(i,j,k,ispec_irreg)
@@ -621,9 +621,9 @@
   else
     ! regular element
     jacobianl = jacobian_regular
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           rho_invl_jacob = jacobianl / rhostore(i,j,k,ispec)
 
           temp1(i,j,k) = rho_invl_jacob * xix_regular * dpotentialdxl(i,j,k)
