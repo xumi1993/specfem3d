@@ -41,20 +41,20 @@ contains
 ! calculate derivatives of the Lagrange polynomials
 ! and precalculate some products in double precision
 ! hprime(i,j) = h'_i(xigll_j) by definition of the derivative matrix
-  do i1=1,NGLLX
-    do i2=1,NGLLX
+  do i1 = 1,NGLLX
+    do i2 = 1,NGLLX
       hprime_xx(i1,i2) = lagrange_deriv_GLL(i1-1,i2-1,xigll,NGLLX)
     enddo
   enddo
 
-  do k1=1,NGLLZ
-    do k2=1,NGLLZ
+  do k1 = 1,NGLLZ
+    do k2 = 1,NGLLZ
       hprime_zz(k1,k2) = lagrange_deriv_GLL(k1-1,k2-1,zigll,NGLLZ)
     enddo
   enddo
 
-  do i=1,NGLLX
-    do k=1,NGLLZ
+  do i = 1,NGLLX
+    do k = 1,NGLLZ
       wgllwgll_xz(i,k) = wxgll(i)*wzgll(k)
     enddo
   enddo

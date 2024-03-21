@@ -36,9 +36,9 @@ program mtadj
   ! --- PROGRAM STARTS HERE ---
   ! read parameter file
   call read_mtadj_par('MTADJ.PAR')
-  fstart_dble=fstart
-  fend_dble=fend_dble
-  dt_adj_dble=dt_adj
+  fstart_dble = fstart
+  fend_dble = fend_dble
+  dt_adj_dble = dt_adj
 
   ! loop over measurement file
   open(11,file='MEASUREMENT.WINDOWS',status='old',iostat=ios)
@@ -47,7 +47,7 @@ program mtadj
   if (ios /= 0) stop 'Error reading number of pairs of data/syn'
 
 
-  nwin_total=0
+  nwin_total = 0
   do ipair = 1, npairs
 
      ! read data and syn pair
@@ -60,9 +60,9 @@ program mtadj
      call read_data_syn(datafile,synfile,sta,net,chan)
 
      ! output file prefix
-     file_prefix=trim(sta)//'.'//trim(net)//'.'//trim(chan)
+     file_prefix = trim(sta)//'.'//trim(net)//'.'//trim(chan)
 
-     dt_dble=dt
+     dt_dble = dt
      ! filter data and synthetics (check xapiir() usage in sac lib)
      if (BANDPASS) then
         call xapiir(data,npts,'BU',TRBDNDW,APARM,IORD,'BP',fstart_dble,fend_dble,dt_dble,PASSES)
@@ -114,11 +114,11 @@ program mtadj
                 fstart_dble,fend_dble,dt_adj_dble,PASSES)
         endif
         if (iker /= IKER_FD) then
-           adj_prefix=trim(CKER(iker+1))//'.adj'
+           adj_prefix = trim(CKER(iker+1))//'.adj'
         else
-           adj_prefix=trim(CTAP(itap+1))//'.adj'
+           adj_prefix = trim(CTAP(itap+1))//'.adj'
         endif
-        adj_prefix=trim(adj_dir)//'/'//trim(file_prefix)//'.'//trim(adj_prefix)
+        adj_prefix = trim(adj_dir)//'/'//trim(file_prefix)//'.'//trim(adj_prefix)
 
         call wsac1(trim(adj_prefix),dt_adj_src_all,npts_adj,b_adj,dt_adj,nerr)
         ! write amplitude adjoint sources here

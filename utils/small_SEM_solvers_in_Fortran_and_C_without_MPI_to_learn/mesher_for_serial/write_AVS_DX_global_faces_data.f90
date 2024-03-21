@@ -71,7 +71,7 @@
   nspecface = 0
 
 ! mark global AVS or DX points
-  do ispec=1,nspec
+  do ispec = 1,nspec
 ! only if on face
   if (iMPIcut_xi(1,ispec) .or. iMPIcut_xi(2,ispec) .or. &
               iMPIcut_eta(1,ispec) .or. iMPIcut_eta(2,ispec)) then
@@ -134,7 +134,7 @@
 
 ! output global AVS or DX points
   numpoin = 0
-  do ispec=1,nspec
+  do ispec = 1,nspec
 ! only if on face
   if (iMPIcut_xi(1,ispec) .or. iMPIcut_xi(2,ispec) .or. &
               iMPIcut_eta(1,ispec) .or. iMPIcut_eta(2,ispec)) then
@@ -293,7 +293,7 @@
   write(10,*) nspecface
 
   ispecface = 0
-  do ispec=1,nspec
+  do ispec = 1,nspec
 ! only if on face
   if (iMPIcut_xi(1,ispec) .or. iMPIcut_xi(2,ispec) .or. &
               iMPIcut_eta(1,ispec) .or. iMPIcut_eta(2,ispec)) then

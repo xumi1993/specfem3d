@@ -38,42 +38,42 @@
   integer i
   double precision th,ph
 
-  th=theta
-  ph=phi
-  i=abs(int(ph/TWO_PI))
+  th = theta
+  ph = phi
+  i = abs(int(ph/TWO_PI))
   if (ph < ZERO) then
     ph=ph+(i+1)*TWO_PI
   else
     if (ph > TWO_PI) ph=ph-i*TWO_PI
   endif
-  phi=ph
+  phi = ph
   if (th < ZERO .or. th > PI) then
     i=int(th/PI)
     if (th > ZERO) then
       if (mod(i,2) /= 0) then
         th=(i+1)*PI-th
         if (ph < PI) then
-          ph=ph+PI
+          ph = ph+PI
         else
-          ph=ph-PI
+          ph = ph-PI
         endif
       else
-        th=th-i*PI
+        th = th-i*PI
       endif
     else
       if (mod(i,2) == 0) then
         th=-th+i*PI
         if (ph < PI) then
-          ph=ph+PI
+          ph = ph+PI
         else
-          ph=ph-PI
+          ph = ph-PI
         endif
       else
-        th=th-i*PI
+        th = th-i*PI
       endif
     endif
-    theta=th
-    phi=ph
+    theta = th
+    phi = ph
   endif
 
   if (theta < ZERO .or. theta > PI) stop 'theta out of range in reduce'

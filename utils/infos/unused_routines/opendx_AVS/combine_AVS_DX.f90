@@ -243,7 +243,7 @@
 
 ! initialize random colors
   allocate(random_colors(0:NPROC-1))
-  do iproc=0,NPROC-1
+  do iproc = 0,NPROC-1
     call random_number(random_val)
     ival_color = nint(random_val*NPROC)
     if (ival_color < 0) ival_color = 0
@@ -314,7 +314,7 @@
   iglobpointoffset = 0
 
 ! loop on the selected range of processors
-  do iproc=proc_p1,proc_p2
+  do iproc = proc_p1,proc_p2
 
   print *,'Reading slice ',iproc
 
@@ -331,7 +331,7 @@
   print *,'There are ',npoin,' global AVS or DX points in the slice'
 
 ! read local points in this slice and output global AVS or DX points
-  do ipoin=1,npoin
+  do ipoin = 1,npoin
       read(10,*) numpoin,xval,yval,zval
       if (numpoin /= ipoin) stop 'incorrect point number'
 ! write to AVS or DX global file with correct offset
@@ -370,7 +370,7 @@ endif
     write(11,*) 'object 2 class array type int rank 1 shape 4 items ',ntotspecAVS_DX,' data follows'
 
 ! loop on the selected range of processors
-  do iproc=proc_p1,proc_p2
+  do iproc = proc_p1,proc_p2
 
   print *,'Reading slice ',iproc
 
@@ -392,7 +392,7 @@ endif
   print *,'There are ',npoin,' global AVS or DX points in the slice'
 
 ! read local elements in this slice and output global AVS or DX elements
-  do ispec=1,nspec
+  do ispec = 1,nspec
       read(10,*) numelem,idoubling,iglob1,iglob2,iglob3,iglob4
   if (numelem /= ispec) stop 'incorrect element number'
 ! compute max of the doubling flag
@@ -459,7 +459,7 @@ endif
   iglobelemoffset = 0
 
 ! loop on the selected range of processors
-  do iproc=proc_p1,proc_p2
+  do iproc = proc_p1,proc_p2
 
   print *,'Reading slice ',iproc
 
@@ -476,7 +476,7 @@ endif
   print *,'There are ',nspec,' AVS or DX elements in the slice'
 
 ! read local elements in this slice and output global AVS or DX elements
-  do ispec=1,nspec
+  do ispec = 1,nspec
       read(10,*) numelem,idoubling,iglob1,iglob2,iglob3,iglob4
       if (numelem /= ispec) stop 'incorrect element number'
 
@@ -514,7 +514,7 @@ endif
   iglobpointoffset = 0
 
 ! loop on the selected range of processors
-  do iproc=proc_p1,proc_p2
+  do iproc = proc_p1,proc_p2
 
   print *,'Reading slice ',iproc
 
@@ -527,7 +527,7 @@ endif
   print *,'There are ',npoin,' global AVS or DX points in the slice'
 
 ! read local points in this slice and output global AVS or DX points
-  do ipoin=1,npoin
+  do ipoin = 1,npoin
       read(10,*) numpoin,xval,yval,zval
       if (numpoin /= ipoin) stop 'incorrect point number'
 ! write to AVS or DX global file with correct offset
@@ -642,7 +642,7 @@ endif
 
 ! loop on all the stations
     open(unit=11,file=filtered_rec_filename,status='old',action='read')
-    do irec=1,nrec
+    do irec = 1,nrec
       read(11,*) station_name(irec),network_name(irec),stlat(irec),stlon(irec),stele(irec),stbur(irec)
 
 ! points for the receivers are put at the surface for clarity (depth ignored)
@@ -669,7 +669,7 @@ endif
     sngl(y_target_source+small_offset),' ',sngl(z_target_source+small_offset)
   write(11,*) '3 ',sngl(x_target_source+small_offset),' ', &
     sngl(y_target_source+small_offset),' ',sngl(z_target_source+small_offset)
-  do ir=1,nrec
+  do ir = 1,nrec
     write(11,*) 4+2*(ir-1),' ',sngl(x_target(ir)),' ',sngl(y_target(ir)),' ',sngl(z_target(ir))
     write(11,*) 4+2*(ir-1)+1,' ',sngl(x_target(ir)+small_offset),' ', &
       sngl(y_target(ir)+small_offset),' ',sngl(z_target(ir)+small_offset)
@@ -677,7 +677,7 @@ endif
 
 ! add source and receivers (small AVS or DX lines)
   write(11,*) '1 1 line 1 2'
-  do ir=1,nrec
+  do ir = 1,nrec
     write(11,*) ir+1,' 1 line ',4+2*(ir-1),' ',4+2*(ir-1)+1
   enddo
 ! duplicate source to have right color normalization in AVS_DX
@@ -689,7 +689,7 @@ endif
 
 ! add source and receiver data
   write(11,*) '1 1.'
-  do ir=1,nrec
+  do ir = 1,nrec
     write(11,*) ir+1,' 255.'
   enddo
 ! duplicate source to have right color normalization in AVS_DX

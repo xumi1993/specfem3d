@@ -225,17 +225,17 @@ program adj_seismogram
         !daniel: outputs ascii trace
         if ( myrank == 0 .and. irec == 196 ) then
           open(221,file="SEM/syn/"//trim(filename_in)//".ascii",status='unknown')
-          do i=1,NSTEP
+          do i = 1,NSTEP
             write(221,*) i,syn(i)
           enddo
           close(221)
           open(222,file="SEM/dat/"//trim(filename_in)//".ascii",status='unknown')
-          do i=1,NSTEP
+          do i = 1,NSTEP
             write(222,*) i,dat(i)
           enddo
           close(222)
           open(223,file="SEM/"//trim(filename_out)//".adj.ascii",status='unknown')
-          do i=1,NSTEP
+          do i = 1,NSTEP
             write(223,*) i,adj(i)
           enddo
           close(223)

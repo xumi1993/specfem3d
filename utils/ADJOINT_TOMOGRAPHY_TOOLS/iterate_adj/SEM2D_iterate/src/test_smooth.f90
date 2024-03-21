@@ -136,10 +136,10 @@ program test_smooth
   write(*,*)             '   LENGTH * HEIGHT : ', LENGTH * HEIGHT
   print *
   print *, ' GLL weights:'
-  do i=1,NGLLX
+  do i = 1,NGLLX
      print *, wxgll(i)
   enddo
-  do i=1,NGLLZ
+  do i = 1,NGLLZ
      print *, wzgll(i)
   enddo
 

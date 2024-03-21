@@ -2,7 +2,7 @@ program xcorrect_syn
 
 implicit none
 
-integer,parameter:: NDIM=80000
+integer,parameter:: NDIM = 80000
 real:: dt0,dm0
 integer:: nfile,i,j
 character(len=250):: oldsyn_fnm,newsyn_fnm
@@ -23,9 +23,9 @@ write(*,*) 'total number of files:',nfile
 
 do i = 1,nfile
 
-        oldsyn=0.0
-        newsyn=0.0
-        syn_t=0.0
+        oldsyn = 0.0
+        newsyn = 0.0
+        syn_t = 0.0
 
         read(*,'(a)') oldsyn_fnm
         read(*,'(a)') newsyn_fnm
@@ -47,14 +47,14 @@ do i = 1,nfile
 
 
         ! shift and apply scale moment correction for seismograms
-        ishift=nint(abs(dt0)/dt)
+        ishift = nint(abs(dt0)/dt)
         if (dt0 > 0.0 ) then
            newsyn(1+ishift:npt+ishift)=dm0*oldsyn(1:npt)
         else
            newsyn(1:npt)=dm0*oldsyn(1+ishift:npt+ishift)
         endif
 
-        do j =1,npt
+        do j = 1,npt
            syn_t(j)=b+(j-1)*dt
         enddo
 !        call newhdr()

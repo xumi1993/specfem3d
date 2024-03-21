@@ -63,21 +63,21 @@
 
     call usual_hex_nodes(iaddx,iaddy,iaddz)
 
-    iy1=0
-    iy2=npy-2
-    diy=2
+    iy1 = 0
+    iy2 = npy-2
+    diy = 2
 
-    ix1=0
-    ix2=npx-2
-    dix=2
+    ix1 = 0
+    ix2 = npx-2
+    dix = 2
 
-    ir1=0
+    ir1 = 0
     ir2=2*(NER - 2)
-    dir=2
+    dir = 2
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     doubling_index = IFLAG_BASEMENT_TOPO
 
@@ -85,21 +85,21 @@
 
     call usual_hex_nodes(iaddx,iaddy,iaddz)
 
-    iy1=0
-    iy2=npy-2
-    diy=2
+    iy1 = 0
+    iy2 = npy-2
+    diy = 2
 
-    ix1=0
-    ix2=npx-2
-    dix=2
+    ix1 = 0
+    ix2 = npx-2
+    dix = 2
 
     ir1=2*(NER - 1)
-    ir2=ir1
-    dir=2
+    ir2 = ir1
+    dir = 2
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     doubling_index = IFLAG_ONE_LAYER_TOPOGRAPHY
 
@@ -119,21 +119,21 @@
 
     call usual_hex_nodes(iaddx,iaddy,iaddz)
 
-    iy1=0
-    iy2=npy-2
-    diy=2
+    iy1 = 0
+    iy2 = npy-2
+    diy = 2
 
-    ix1=0
-    ix2=npx-2
-    dix=2
+    ix1 = 0
+    ix2 = npx-2
+    dix = 2
 
     ir1=2*(NER - NER_SEDIM)
     ir2=2*(NER - 2)
-    dir=2
+    dir = 2
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     doubling_index = IFLAG_BASEMENT_TOPO
 
@@ -141,21 +141,21 @@
 
     call usual_hex_nodes(iaddx,iaddy,iaddz)
 
-    iy1=0
-    iy2=npy-2
-    diy=2
+    iy1 = 0
+    iy2 = npy-2
+    diy = 2
 
-    ix1=0
-    ix2=npx-2
-    dix=2
+    ix1 = 0
+    ix2 = npx-2
+    dix = 2
 
     ir1=2*(NER - 1)
-    ir2=ir1
-    dir=2
+    ir2 = ir1
+    dir = 2
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     doubling_index = IFLAG_ONE_LAYER_TOPOGRAPHY
 
@@ -163,21 +163,21 @@
 
     call usual_hex_nodes(iaddx,iaddy,iaddz)
 
-    iy1=0
-    iy2=npy-8
-    diy=8
+    iy1 = 0
+    iy2 = npy-8
+    diy = 8
 
-    ix1=0
-    ix2=npx-8
-    dix=8
+    ix1 = 0
+    ix2 = npx-8
+    dix = 8
 
     ir1= 0
     ir2= 2*NER_BOTTOM_MOHO-8
-    dir=8
+    dir = 8
 
-    iax=4
-    iay=4
-    iar=4
+    iax = 4
+    iay = 4
+    iar = 4
 
     doubling_index= IFLAG_HALFSPACE_MOHO
 
@@ -187,24 +187,24 @@
 
 ! generating stage 2 of the mesh doubling below 670
 
-    iy1=0
-    iy2=npy-8
-    diy=8
+    iy1 = 0
+    iy2 = npy-8
+    diy = 8
 
-    ix1=0
-    ix2=npx-16
-    dix=16
+    ix1 = 0
+    ix2 = npx-16
+    dix = 16
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 8
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_16km_BASEMENT
+    doubling_index = IFLAG_16km_BASEMENT
 
   else if (isubregion == 26) then
 
@@ -212,24 +212,24 @@
 
 ! generating stage 3 of the mesh doubling below 670
 
-    iy1=0
-    iy2=npy-8
-    diy=8
+    iy1 = 0
+    iy2 = npy-8
+    diy = 8
 
-    ix1=8
-    ix2=npx-8
-    dix=16
+    ix1 = 8
+    ix2 = npx-8
+    dix = 16
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 8
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_16km_BASEMENT
+    doubling_index = IFLAG_16km_BASEMENT
 
   else if (isubregion == 25) then
 
@@ -237,24 +237,24 @@
 
 ! generating stage 4 of the mesh doubling below 670
 
-    iy1=0
-    iy2=npy-8
-    diy=8
+    iy1 = 0
+    iy2 = npy-8
+    diy = 8
 
-    ix1=0
-    ix2=npx-16
-    dix=16
+    ix1 = 0
+    ix2 = npx-16
+    dix = 16
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 8
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_16km_BASEMENT
+    doubling_index = IFLAG_16km_BASEMENT
 
   else if (isubregion == 24) then
 
@@ -262,24 +262,24 @@
 
 ! generating stage 5 of the mesh doubling below 670
 
-    iy1=0
-    iy2=npy-8
-    diy=8
+    iy1 = 0
+    iy2 = npy-8
+    diy = 8
 
-    ix1=12
-    ix2=npx-4
-    dix=16
+    ix1 = 12
+    ix2 = npx-4
+    dix = 16
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 6
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_16km_BASEMENT
+    doubling_index = IFLAG_16km_BASEMENT
 
   else if (isubregion == 23) then
 
@@ -287,24 +287,24 @@
 
 ! generating stage 6 of the mesh doubling below 670
 
-    iy1=0
-    iy2=npy-8
-    diy=8
+    iy1 = 0
+    iy2 = npy-8
+    diy = 8
 
-    ix1=4
-    ix2=npx-12
-    dix=16
+    ix1 = 4
+    ix2 = npx-12
+    dix = 16
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 6
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_16km_BASEMENT
+    doubling_index = IFLAG_16km_BASEMENT
 
   else if (isubregion == 22) then
 
@@ -312,24 +312,24 @@
 
 ! generating stage 7 of the mesh doubling below 670
 
-    iy1=0
-    iy2=npy-8
-    diy=8
+    iy1 = 0
+    iy2 = npy-8
+    diy = 8
 
-    ix1=8
-    ix2=npx-8
-    dix=16
+    ix1 = 8
+    ix2 = npx-8
+    dix = 16
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 6
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_16km_BASEMENT
+    doubling_index = IFLAG_16km_BASEMENT
 
   else if (isubregion == 21) then
 
@@ -337,24 +337,24 @@
 
 ! generating stage 8 of the mesh doubling below 670
 
-    iy1=8
-    iy2=npy-8
-    diy=16
+    iy1 = 8
+    iy2 = npy-8
+    diy = 16
 
-    ix1=0
-    ix2=npx-4
-    dix=4
+    ix1 = 0
+    ix2 = npx-4
+    dix = 4
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 4
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_16km_BASEMENT
+    doubling_index = IFLAG_16km_BASEMENT
 
   else if (isubregion == 20) then
 
@@ -362,24 +362,24 @@
 
 ! generating stage 9 of the mesh doubling below 670
 
-    iy1=0
-    iy2=npy-16
-    diy=16
+    iy1 = 0
+    iy2 = npy-16
+    diy = 16
 
-    ix1=0
-    ix2=npx-4
-    dix=4
+    ix1 = 0
+    ix2 = npx-4
+    dix = 4
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 4
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_16km_BASEMENT
+    doubling_index = IFLAG_16km_BASEMENT
 
   else if (isubregion == 19) then
 
@@ -387,24 +387,24 @@
 
 ! generating stage 10 of the mesh doubling below 670
 
-    iy1=8
-    iy2=npy-8
-    diy=16
+    iy1 = 8
+    iy2 = npy-8
+    diy = 16
 
-    ix1=0
-    ix2=npx-4
-    dix=4
+    ix1 = 0
+    ix2 = npx-4
+    dix = 4
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 2
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_16km_BASEMENT
+    doubling_index = IFLAG_16km_BASEMENT
 
   else if (isubregion == 18) then
 
@@ -412,24 +412,24 @@
 
 ! generating stage 11 of the mesh doubling below 670
 
-    iy1=4
-    iy2=npy-12
-    diy=16
+    iy1 = 4
+    iy2 = npy-12
+    diy = 16
 
-    ix1=0
-    ix2=npx-4
-    dix=4
+    ix1 = 0
+    ix2 = npx-4
+    dix = 4
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 2
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_16km_BASEMENT
+    doubling_index = IFLAG_16km_BASEMENT
 
   else if (isubregion == 17) then
 
@@ -437,24 +437,24 @@
 
 ! generating stage 12 of the mesh doubling below 670
 
-    iy1=12
-    iy2=npy-4
-    diy=16
+    iy1 = 12
+    iy2 = npy-4
+    diy = 16
 
-    ix1=0
-    ix2=npx-4
-    dix=4
+    ix1 = 0
+    ix2 = npx-4
+    dix = 4
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 2
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_16km_BASEMENT
+    doubling_index = IFLAG_16km_BASEMENT
 
   else if (isubregion == 16) then
 
@@ -462,45 +462,45 @@
 
 ! generating stage 13 of the mesh doubling below 670
 
-    iy1=0
-    iy2=npy-16
-    diy=16
+    iy1 = 0
+    iy2 = npy-16
+    diy = 16
 
-    ix1=0
-    ix2=npx-4
-    dix=4
+    ix1 = 0
+    ix2 = npx-4
+    dix = 4
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 4
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_16km_BASEMENT
+    doubling_index = IFLAG_16km_BASEMENT
 
   else if (isubregion == 15) then
 
     call usual_hex_nodes(iaddx,iaddy,iaddz)
 
-    iy1=0
-    iy2=npy-8
-    diy=8
+    iy1 = 0
+    iy2 = npy-8
+    diy = 8
 
-    ix1=0
-    ix2=npx-8
-    dix=8
+    ix1 = 0
+    ix2 = npx-8
+    dix = 8
 
 ! honor So-Cal model discontinuity at 16 km for accuracy
-    ir1=2*NER_BOTTOM_MOHO
+    ir1 = 2*NER_BOTTOM_MOHO
     ir2=2*(NER_BOTTOM_MOHO+NER_MOHO_16) - 4
-    dir=4
+    dir = 4
 
-    iax=4
-    iay=4
-    iar=2
+    iax = 4
+    iay = 4
+    iar = 2
 
     doubling_index = IFLAG_MOHO_16km
 
@@ -508,22 +508,22 @@
 
     call usual_hex_nodes(iaddx,iaddy,iaddz)
 
-    iy1=0
-    iy2=npy-8
-    diy=8
+    iy1 = 0
+    iy2 = npy-8
+    diy = 8
 
-    ix1=0
-    ix2=npx-8
-    dix=8
+    ix1 = 0
+    ix2 = npx-8
+    dix = 8
 
 ! honor So-Cal model discontinuity at 16 km for accuracy
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16)
     ir2=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT)-12
-    dir=4
+    dir = 4
 
-    iax=4
-    iay=4
-    iar=2
+    iax = 4
+    iay = 4
+    iar = 2
 
     doubling_index = IFLAG_16km_BASEMENT
 
@@ -534,23 +534,23 @@
 
 ! generating stage 1 of the mesh doubling below the Moho
 
-    iy1=0
-    iy2=npy-4
-    diy=4
+    iy1 = 0
+    iy2 = npy-4
+    diy = 4
 
-    ix1=0
-    ix2=npx-4
-    dix=4
+    ix1 = 0
+    ix2 = npx-4
+    dix = 4
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT)
     ir2=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-12
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=2
+    iax = 2
+    iay = 2
+    iar = 2
 
-    doubling_index=IFLAG_BASEMENT_TOPO
+    doubling_index = IFLAG_BASEMENT_TOPO
 
   else if (isubregion == 12) then
 
@@ -558,24 +558,24 @@
 
 ! generating stage 2 of the mesh doubling below the Moho
 
-    iy1=0
-    iy2=npy-4
-    diy=4
+    iy1 = 0
+    iy2 = npy-4
+    diy = 4
 
-    ix1=0
-    ix2=npx-8
-    dix=8
+    ix1 = 0
+    ix2 = npx-8
+    dix = 8
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-8
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_BASEMENT_TOPO
+    doubling_index = IFLAG_BASEMENT_TOPO
 
   else if (isubregion == 11) then
 
@@ -583,24 +583,24 @@
 
 ! generating stage 3 of the mesh doubling below the Moho
 
-    iy1=0
-    iy2=npy-4
-    diy=4
+    iy1 = 0
+    iy2 = npy-4
+    diy = 4
 
-    ix1=4
-    ix2=npx-4
-    dix=8
+    ix1 = 4
+    ix2 = npx-4
+    dix = 8
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-8
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_BASEMENT_TOPO
+    doubling_index = IFLAG_BASEMENT_TOPO
 
   else if (isubregion == 10) then
 
@@ -608,24 +608,24 @@
 
 ! generating stage 4 of the mesh doubling below the Moho
 
-    iy1=0
-    iy2=npy-4
-    diy=4
+    iy1 = 0
+    iy2 = npy-4
+    diy = 4
 
-    ix1=0
-    ix2=npx-8
-    dix=8
+    ix1 = 0
+    ix2 = npx-8
+    dix = 8
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-8
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_BASEMENT_TOPO
+    doubling_index = IFLAG_BASEMENT_TOPO
 
   else if (isubregion == 9) then
 
@@ -633,24 +633,24 @@
 
 ! generating stage 5 of the mesh doubling below the Moho
 
-    iy1=0
-    iy2=npy-4
-    diy=4
+    iy1 = 0
+    iy2 = npy-4
+    diy = 4
 
-    ix1=6
-    ix2=npx-2
-    dix=8
+    ix1 = 6
+    ix2 = npx-2
+    dix = 8
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-6
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_BASEMENT_TOPO
+    doubling_index = IFLAG_BASEMENT_TOPO
 
   else if (isubregion == 8) then
 
@@ -658,24 +658,24 @@
 
 ! generating stage 6 of the mesh doubling below the Moho
 
-    iy1=0
-    iy2=npy-4
-    diy=4
+    iy1 = 0
+    iy2 = npy-4
+    diy = 4
 
-    ix1=2
-    ix2=npx-6
-    dix=8
+    ix1 = 2
+    ix2 = npx-6
+    dix = 8
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-6
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_BASEMENT_TOPO
+    doubling_index = IFLAG_BASEMENT_TOPO
 
   else if (isubregion == 7) then
 
@@ -683,24 +683,24 @@
 
 ! generating stage 7 of the mesh doubling below the Moho
 
-    iy1=0
-    iy2=npy-4
-    diy=4
+    iy1 = 0
+    iy2 = npy-4
+    diy = 4
 
-    ix1=4
-    ix2=npx-4
-    dix=8
+    ix1 = 4
+    ix2 = npx-4
+    dix = 8
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-6
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_BASEMENT_TOPO
+    doubling_index = IFLAG_BASEMENT_TOPO
 
   else if (isubregion == 6) then
 
@@ -708,24 +708,24 @@
 
 ! generating stage 8 of the mesh doubling below the Moho
 
-    iy1=4
-    iy2=npy-4
-    diy=8
+    iy1 = 4
+    iy2 = npy-4
+    diy = 8
 
-    ix1=0
-    ix2=npx-2
-    dix=2
+    ix1 = 0
+    ix2 = npx-2
+    dix = 2
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-4
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_BASEMENT_TOPO
+    doubling_index = IFLAG_BASEMENT_TOPO
 
   else if (isubregion == 5) then
 
@@ -733,24 +733,24 @@
 
 ! generating stage 9 of the mesh doubling below the Moho
 
-    iy1=0
-    iy2=npy-8
-    diy=8
+    iy1 = 0
+    iy2 = npy-8
+    diy = 8
 
-    ix1=0
-    ix2=npx-2
-    dix=2
+    ix1 = 0
+    ix2 = npx-2
+    dix = 2
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-4
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_BASEMENT_TOPO
+    doubling_index = IFLAG_BASEMENT_TOPO
 
   else if (isubregion == 4) then
 
@@ -758,24 +758,24 @@
 
 ! generating stage 10 of the mesh doubling below the Moho
 
-    iy1=4
-    iy2=npy-4
-    diy=8
+    iy1 = 4
+    iy2 = npy-4
+    diy = 8
 
-    ix1=0
-    ix2=npx-2
-    dix=2
+    ix1 = 0
+    ix2 = npx-2
+    dix = 2
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-2
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_BASEMENT_TOPO
+    doubling_index = IFLAG_BASEMENT_TOPO
 
   else if (isubregion == 3) then
 
@@ -783,24 +783,24 @@
 
 ! generating stage 11 of the mesh doubling below the Moho
 
-    iy1=2
-    iy2=npy-6
-    diy=8
+    iy1 = 2
+    iy2 = npy-6
+    diy = 8
 
-    ix1=0
-    ix2=npx-2
-    dix=2
+    ix1 = 0
+    ix2 = npx-2
+    dix = 2
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-2
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_BASEMENT_TOPO
+    doubling_index = IFLAG_BASEMENT_TOPO
 
   else if (isubregion == 2) then
 
@@ -808,24 +808,24 @@
 
 ! generating stage 12 of the mesh doubling below the Moho
 
-    iy1=6
-    iy2=npy-2
-    diy=8
+    iy1 = 6
+    iy2 = npy-2
+    diy = 8
 
-    ix1=0
-    ix2=npx-2
-    dix=2
+    ix1 = 0
+    ix2 = npx-2
+    dix = 2
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-2
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_BASEMENT_TOPO
+    doubling_index = IFLAG_BASEMENT_TOPO
 
   else if (isubregion == 1) then
 
@@ -833,24 +833,24 @@
 
 ! generating stage 13 of the mesh doubling below the Moho
 
-    iy1=0
-    iy2=npy-8
-    diy=8
+    iy1 = 0
+    iy2 = npy-8
+    diy = 8
 
-    ix1=0
-    ix2=npx-2
-    dix=2
+    ix1 = 0
+    ix2 = npx-2
+    dix = 2
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-4
-    ir2=ir1
+    ir2 = ir1
 
-    doubling_index=IFLAG_BASEMENT_TOPO
+    doubling_index = IFLAG_BASEMENT_TOPO
 
   else
 

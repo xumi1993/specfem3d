@@ -470,11 +470,11 @@
   double precision, dimension(30) :: bcast_double_precision
   logical, dimension(26) :: bcast_logical
 
-  integer, parameter :: maxker=200
-  integer, parameter :: maxl=72
-  integer, parameter :: maxcoe=2000
-  integer, parameter :: maxver=1000
-  integer, parameter :: maxhpa=2
+  integer, parameter :: maxker = 200
+  integer, parameter :: maxl = 72
+  integer, parameter :: maxcoe = 2000
+  integer, parameter :: maxver = 1000
+  integer, parameter :: maxhpa = 2
 
   integer numker
   integer numhpa,numcof
@@ -816,8 +816,8 @@
     write(IMAIN,*)
   endif
   do ichunk = 1,NCHUNKS
-    do iproc_eta=0,NPROC_ETA-1
-      do iproc_xi=0,NPROC_XI-1
+    do iproc_eta = 0,NPROC_ETA-1
+      do iproc_xi = 0,NPROC_XI-1
         iprocnum = (ichunk-1)*NPROC + iproc_eta * NPROC_XI + iproc_xi
         addressing(ichunk,iproc_xi,iproc_eta) = iprocnum
         ichunk_slice(iprocnum) = ichunk
@@ -832,7 +832,7 @@
   if (myrank == 0) close(IOUT)
 
 ! this for the different counters (which are now different if the superbrick is cut in the outer core)
-  do iregion=1,MAX_NUM_REGIONS
+  do iregion = 1,MAX_NUM_REGIONS
     NSPEC1D_RADIAL_CORNER(iregion,:) = NSPEC1D_RADIAL(iregion)
     NSPEC2D_XI_FACE(iregion,:) = NSPEC2D_XI(iregion)
     NSPEC2D_ETA_FACE(iregion,:) = NSPEC2D_ETA(iregion)
@@ -981,7 +981,7 @@
   write(IMAIN,*)
   if (ATTENUATION) then
     write(IMAIN,*) 'incorporating attenuation using ',N_SLS,' standard linear solids'
-    if (ATTENUATION_3D) write(IMAIN,*)'using 3D attenuation'
+    if (ATTENUATION_3D) write(IMAIN,*) 'using 3D attenuation'
   else
     write(IMAIN,*) 'no attenuation'
   endif

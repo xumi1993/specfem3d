@@ -52,11 +52,11 @@
   double precision r,theta,phi
   double precision gamma
 
-  integer, parameter :: maxker=200
-  integer, parameter :: maxl=72
-  integer, parameter :: maxcoe=2000
-  integer, parameter :: maxver=1000
-  integer, parameter :: maxhpa=2
+  integer, parameter :: maxker = 200
+  integer, parameter :: maxl = 72
+  integer, parameter :: maxcoe = 2000
+  integer, parameter :: maxver = 1000
+  integer, parameter :: maxhpa = 2
 
   integer numker
   integer numhpa,numcof

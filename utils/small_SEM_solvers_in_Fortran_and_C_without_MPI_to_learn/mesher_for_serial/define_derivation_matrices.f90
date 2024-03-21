@@ -73,48 +73,48 @@
 ! calculate derivatives of the Lagrange polynomials
 ! and precalculate some products in double precision
 ! hprime(i,j) = h'_j(xigll_i) by definition of the derivation matrix
-  do i1=1,NGLLX
-    do i2=1,NGLLX
+  do i1 = 1,NGLLX
+    do i2 = 1,NGLLX
       hprime_xx(i2,i1) = sngl(lagrange_deriv_GLL(i1-1,i2-1,xigll,NGLLX))
       hprimewgll_xx(i2,i1) = sngl(lagrange_deriv_GLL(i1-1,i2-1,xigll,NGLLX)*wxgll(i2))
     enddo
   enddo
 
-  do j1=1,NGLLY
-    do j2=1,NGLLY
+  do j1 = 1,NGLLY
+    do j2 = 1,NGLLY
       hprime_yy(j2,j1) = sngl(lagrange_deriv_GLL(j1-1,j2-1,yigll,NGLLY))
       hprimewgll_yy(j2,j1) = sngl(lagrange_deriv_GLL(j1-1,j2-1,yigll,NGLLY)*wygll(j2))
     enddo
   enddo
 
-  do k1=1,NGLLZ
-    do k2=1,NGLLZ
+  do k1 = 1,NGLLZ
+    do k2 = 1,NGLLZ
       hprime_zz(k2,k1) = sngl(lagrange_deriv_GLL(k1-1,k2-1,zigll,NGLLZ))
       hprimewgll_zz(k2,k1) = sngl(lagrange_deriv_GLL(k1-1,k2-1,zigll,NGLLZ)*wzgll(k2))
     enddo
   enddo
 
-  do i=1,NGLLX
-    do j=1,NGLLY
+  do i = 1,NGLLX
+    do j = 1,NGLLY
       wgllwgll_xy(i,j) = sngl(wxgll(i)*wygll(j))
     enddo
   enddo
 
-  do i=1,NGLLX
-    do k=1,NGLLZ
+  do i = 1,NGLLX
+    do k = 1,NGLLZ
       wgllwgll_xz(i,k) = sngl(wxgll(i)*wzgll(k))
     enddo
   enddo
 
-  do j=1,NGLLY
-    do k=1,NGLLZ
+  do j = 1,NGLLY
+    do k = 1,NGLLZ
       wgllwgll_yz(j,k) = sngl(wygll(j)*wzgll(k))
     enddo
   enddo
 
-  do i=1,NGLLX
-    do j=1,NGLLY
-      do k=1,NGLLZ
+  do i = 1,NGLLX
+    do j = 1,NGLLY
+      do k = 1,NGLLZ
         wgll_cube(i,j,k) = wxgll(i)*wygll(j)*wzgll(k)
       enddo
     enddo
@@ -125,48 +125,48 @@
 ! calculate derivatives of the Lagrange polynomials
 ! and precalculate some products in double precision
 ! hprime(i,j) = h'_j(xigll_i) by definition of the derivation matrix
-  do i1=1,NGLLX
-    do i2=1,NGLLX
+  do i1 = 1,NGLLX
+    do i2 = 1,NGLLX
       hprime_xx(i2,i1) = lagrange_deriv_GLL(i1-1,i2-1,xigll,NGLLX)
       hprimewgll_xx(i2,i1) = lagrange_deriv_GLL(i1-1,i2-1,xigll,NGLLX)*wxgll(i2)
     enddo
   enddo
 
-  do j1=1,NGLLY
-    do j2=1,NGLLY
+  do j1 = 1,NGLLY
+    do j2 = 1,NGLLY
       hprime_yy(j2,j1) = lagrange_deriv_GLL(j1-1,j2-1,yigll,NGLLY)
       hprimewgll_yy(j2,j1) = lagrange_deriv_GLL(j1-1,j2-1,yigll,NGLLY)*wygll(j2)
     enddo
   enddo
 
-  do k1=1,NGLLZ
-    do k2=1,NGLLZ
+  do k1 = 1,NGLLZ
+    do k2 = 1,NGLLZ
       hprime_zz(k2,k1) = lagrange_deriv_GLL(k1-1,k2-1,zigll,NGLLZ)
       hprimewgll_zz(k2,k1) = lagrange_deriv_GLL(k1-1,k2-1,zigll,NGLLZ)*wzgll(k2)
     enddo
   enddo
 
-  do i=1,NGLLX
-    do j=1,NGLLY
+  do i = 1,NGLLX
+    do j = 1,NGLLY
       wgllwgll_xy(i,j) = wxgll(i)*wygll(j)
     enddo
   enddo
 
-  do i=1,NGLLX
-    do k=1,NGLLZ
+  do i = 1,NGLLX
+    do k = 1,NGLLZ
       wgllwgll_xz(i,k) = wxgll(i)*wzgll(k)
     enddo
   enddo
 
-  do j=1,NGLLY
-    do k=1,NGLLZ
+  do j = 1,NGLLY
+    do k = 1,NGLLZ
       wgllwgll_yz(j,k) = wygll(j)*wzgll(k)
     enddo
   enddo
 
-  do i=1,NGLLX
-    do j=1,NGLLY
-      do k=1,NGLLZ
+  do i = 1,NGLLX
+    do j = 1,NGLLY
+      do k = 1,NGLLZ
         wgll_cube(i,j,k) = wxgll(i)*wygll(j)*wzgll(k)
       enddo
     enddo

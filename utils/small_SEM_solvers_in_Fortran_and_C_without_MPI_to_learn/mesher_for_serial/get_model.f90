@@ -293,11 +293,11 @@
 
   logical found_crust
 
-  integer, parameter :: maxker=200
-  integer, parameter :: maxl=72
-  integer, parameter :: maxcoe=2000
-  integer, parameter :: maxver=1000
-  integer, parameter :: maxhpa=2
+  integer, parameter :: maxker = 200
+  integer, parameter :: maxl = 72
+  integer, parameter :: maxcoe = 2000
+  integer, parameter :: maxver = 1000
+  integer, parameter :: maxhpa = 2
 
   integer numker
   integer numhpa,numcof
@@ -327,13 +327,13 @@
   character(len=80) kerstr
   character(len=40) varstr(maxker)
 
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
        xmesh = ZERO
        ymesh = ZERO
        zmesh = ZERO
-       do ia=1,NGNOD
+       do ia = 1,NGNOD
          xmesh = xmesh + shape3D(ia,i,j,k)*xelm(ia)
          ymesh = ymesh + shape3D(ia,i,j,k)*yelm(ia)
          zmesh = zmesh + shape3D(ia,i,j,k)*zelm(ia)
@@ -497,22 +497,22 @@
                           nconpt,iver,iconpt,conpt,xlaspl,xlospl,radspl, &
                           coe,vercof,vercofd,ylmcof,wk1,wk2,wk3,kerstr,varstr)
              if (TRANSVERSE_ISOTROPY) then
-               vpv=vpv*(1.0d0+dble(dvpv))
-               vph=vph*(1.0d0+dble(dvph))
-               vsv=vsv*(1.0d0+dble(dvsv))
-               vsh=vsh*(1.0d0+dble(dvsh))
+               vpv = vpv*(1.0d0+dble(dvpv))
+               vph = vph*(1.0d0+dble(dvph))
+               vsv = vsv*(1.0d0+dble(dvsv))
+               vsh = vsh*(1.0d0+dble(dvsh))
              else
-               vpv=vpv+dvpv
-               vph=vph+dvph
-               vsv=vsv+dvsv
-               vsh=vsh+dvsh
+               vpv = vpv+dvpv
+               vph = vph+dvph
+               vsv = vsv+dvsv
+               vsh = vsh+dvsh
                vp = sqrt(((8.d0+4.d0*eta_aniso)*vph*vph + 3.d0*vpv*vpv + (8.d0 - 8.d0*eta_aniso)*vsv*vsv)/15.d0)
                vs = sqrt(((1.d0-2.d0*eta_aniso)*vph*vph + vpv*vpv + 5.d0*vsh*vsh + (6.d0+4.d0*eta_aniso)*vsv*vsv)/15.d0)
-               vpv=vp
-               vph=vp
-               vsv=vs
-               vsh=vs
-               eta_aniso=1.0d0
+               vpv = vp
+               vph = vp
+               vsv = vs
+               vsh = vs
+               eta_aniso = 1.0d0
              endif
            else
              stop 'unknown 3D Earth model in get_model'
@@ -594,22 +594,22 @@
                           nconpt,iver,iconpt,conpt,xlaspl,xlospl,radspl, &
                           coe,vercof,vercofd,ylmcof,wk1,wk2,wk3,kerstr,varstr)
              if (TRANSVERSE_ISOTROPY) then
-               vpv=vpv*(1.0d0+dble(dvpv))
-               vph=vph*(1.0d0+dble(dvph))
-               vsv=vsv*(1.0d0+dble(dvsv))
-               vsh=vsh*(1.0d0+dble(dvsh))
+               vpv = vpv*(1.0d0+dble(dvpv))
+               vph = vph*(1.0d0+dble(dvph))
+               vsv = vsv*(1.0d0+dble(dvsv))
+               vsh = vsh*(1.0d0+dble(dvsh))
              else
-               vpv=vpv+dvpv
-               vph=vph+dvph
-               vsv=vsv+dvsv
-               vsh=vsh+dvsh
+               vpv = vpv+dvpv
+               vph = vph+dvph
+               vsv = vsv+dvsv
+               vsh = vsh+dvsh
                vp = sqrt(((8.d0+4.d0*eta_aniso)*vph*vph + 3.d0*vpv*vpv + (8.d0 - 8.d0*eta_aniso)*vsv*vsv)/15.d0)
                vs = sqrt(((1.d0-2.d0*eta_aniso)*vph*vph + vpv*vpv + 5.d0*vsh*vsh + (6.d0+4.d0*eta_aniso)*vsv*vsv)/15.d0)
-               vpv=vp
-               vph=vp
-               vsv=vs
-               vsh=vs
-               eta_aniso=1.0d0
+               vpv = vp
+               vph = vp
+               vsv = vs
+               vsh = vs
+               eta_aniso = 1.0d0
              endif
   else
              stop 'unknown 3D Earth model in get_model'
@@ -685,10 +685,10 @@
                    if (r > (R_EARTH - DEP_MAX*1000.d0)/R_EARTH) then
                       call iso3d_dpzhao_model(r,theta,phi,vpc,vsc,dvp,dvs,rhoc,found_crust,JP3DM_V)
                       if (found_crust) then
-                         vpv=vpc
-                         vph=vpc
-                         vsv=vsc
-                         vsh=vsc
+                         vpv = vpc
+                         vph = vpc
+                         vsv = vsc
+                         vsh = vsc
 !                     rho=rhoc
                          if (ANISOTROPIC_3D_MANTLE .and. iregion_code == IREGION_CRUST_MANTLE) then
                             c11 = rho*vpv*vpv
@@ -717,16 +717,16 @@
                    endif
                 else
                    lat=(PI/2.0d0-theta)*180.0d0/PI
-                   lon=phi*180.0d0/PI
+                   lon = phi*180.0d0/PI
                    if (lon > 180.0d0) lon=lon-360.0d0
                    call crustal_model(lat,lon,r,vpc,vsc,rhoc,moho,found_crust,CM_V)
                    if (found_crust) then
-                      vpv=vpc
-                      vph=vpc
-                      vsv=vsc
-                      vsh=vsc
-                      rho=rhoc
-                      eta_aniso=1.0d0
+                      vpv = vpc
+                      vph = vpc
+                      vsv = vsc
+                      vsh = vsc
+                      rho = rhoc
+                      eta_aniso = 1.0d0
                       if (ANISOTROPIC_3D_MANTLE .and. iregion_code == IREGION_CRUST_MANTLE) then
                          c11 = rho*vpv*vpv
                          c12 = rho*(vpv*vpv-2.*vsv*vsv)
@@ -754,15 +754,15 @@
                 endif
              else
                 lat=(PI/2.0d0-theta)*180.0d0/PI
-                lon=phi*180.0d0/PI
+                lon = phi*180.0d0/PI
                 if (lon > 180.0d0) lon=lon-360.0d0
                 call crustal_model(lat,lon,r,vpc,vsc,rhoc,moho,found_crust,CM_V)
                 if (found_crust) then
-                   vpv=vpc
-                   vph=vpc
-                   vsv=vsc
-                   vsh=vsc
-                   rho=rhoc
+                   vpv = vpc
+                   vph = vpc
+                   vsv = vsc
+                   vsh = vsc
+                   rho = rhoc
                    if (ANISOTROPIC_3D_MANTLE .and. iregion_code == IREGION_CRUST_MANTLE) then
                       c11 = rho*vpv*vpv
                       c12 = rho*(vpv*vpv-2.*vsv*vsv)

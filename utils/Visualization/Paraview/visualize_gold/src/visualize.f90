@@ -50,7 +50,7 @@ implicit none
 integer :: i_slice
 character(len=80) :: inp_fname
 
-!write(*,*)iargc()
+!write(*,*) iargc()
 if (iargc() <= 0) then
   write(*,'(/,a)')'ERROR: no input file!'
   stop! counts total number of nodes and elementsp
@@ -84,9 +84,9 @@ endif
 
 ! Display key information
 write(*,'(a)')'-------------------------------'
-!write(*,*)'Number of data slices: ',nproc
-write(*,*)'number of image frames: ',t_nstep
-write(*,*)'input directory:',inp_path
+!write(*,*) 'Number of data slices: ',nproc
+write(*,*) 'number of image frames: ',t_nstep
+write(*,*) 'input directory:',inp_path
 if (inp_ncomp == 1) then
   write(*,*) 'input data type: SCALAR'
 else if (inp_ncomp == 3) then
@@ -97,7 +97,7 @@ else
   write(*,'(/,a)')'ERROR: unsupported data type!'
   stop
 endif
-write(*,*)'output directory:',out_path
+write(*,*) 'output directory:',out_path
 if (out_ncomp == 1) then
   write(*,*) 'output data type: SCALAR'
 else if (out_ncomp == 3) then
@@ -109,25 +109,25 @@ else
   stop
 endif
 if (out_format == 0) then
-  write(*,*)'output format: VTK'
+  write(*,*) 'output format: VTK'
 else if (out_format == 1) then
-  write(*,*)'output format: Ensight Gold'
+  write(*,*) 'output format: Ensight Gold'
 else
   write(*,'(/,a)')'ERROR: unsupported output format!'
   stop
 endif
 if (out_res == 0) then
-  write(*,*)'resolution: LOW'
+  write(*,*) 'resolution: LOW'
 else if (out_res == 1) then
-  write(*,*)'resolution: MEDIUM'
+  write(*,*) 'resolution: MEDIUM'
 else if (out_res == 2) then
-  write(*,*)'resolution: HIGH'
+  write(*,*) 'resolution: HIGH'
 else
   write(*,'(/,a)')'ERROR: unsupported resolution!'
   stop
 endif
 
-write(*,*)'number of output slices: ',out_nslice
+write(*,*) 'number of output slices: ',out_nslice
 
 write(*,'(a)')'-------------------------------'
 write(*,'(a)',advance='no')'counting meshes...'
@@ -136,7 +136,7 @@ write(*,'(a)',advance='no')'counting meshes...'
 allocate(slice_nnode(out_nslice))
 allocate(slice_nelmt(out_nslice))
 ! Loop over output slices
-do i_slice=1,out_nslice
+do i_slice = 1,out_nslice
 
   slice_nnode(i_slice) = 0
   slice_nelmt(i_slice) = 0
@@ -144,7 +144,7 @@ do i_slice=1,out_nslice
   call cvd_count_totals_ext_mesh(slice_nproc(i_slice), &
   slice_proc_list(i_slice,1:slice_nproc(i_slice)),proc_width, &
   inp_path,slice_nnode(i_slice),slice_nelmt(i_slice),out_res)
-  !write(*,*)i_slice,slice_nnode(i_slice),slice_nelmt(i_slice)
+  !write(*,*) i_slice,slice_nnode(i_slice),slice_nelmt(i_slice)
 enddo
 write(*,'(a)')'complete!'
 

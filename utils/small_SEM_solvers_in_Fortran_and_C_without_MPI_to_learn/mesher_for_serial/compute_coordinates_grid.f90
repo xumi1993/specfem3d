@@ -64,8 +64,8 @@
 
 
 ! this to avoid compilation warnings
-  x_=0
-  y_=0
+  x_ = 0
+  y_ = 0
 
 ! loop on all the nodes in this element
   do ignod = 1,NGNOD

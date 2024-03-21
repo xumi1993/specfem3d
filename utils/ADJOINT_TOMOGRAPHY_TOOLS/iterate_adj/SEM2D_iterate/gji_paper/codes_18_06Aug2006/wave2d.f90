@@ -354,10 +354,10 @@ program wave2d
   write(*,*)             '              IKER : ', IKER
   print *
   print *, ' GLL weights:'
-  do i=1,NGLLX
+  do i = 1,NGLLX
      print *, wxgll(i)
   enddo
-  do i=1,NGLLZ
+  do i = 1,NGLLZ
      print *, wzgll(i)
   enddo
 
@@ -378,7 +378,7 @@ program wave2d
   print *,'origin (LON_MIN, LAT_MIN):'
   print *, LON_MIN, LAT_MIN
   print *, '        lon             lat           utm_x            utm_z'
-  do i=1,4
+  do i = 1,4
      call utm_geo(xtemp,ztemp,corners_utm_x(i),corners_utm_z(i),UTM_PROJECTION_ZONE,IUTM2LONGLAT)
      corners_lon(i) = xtemp
      corners_lat(i) = ztemp
@@ -465,7 +465,7 @@ program wave2d
      ! factor of 2 is because the scalelength is a 1/2 cycle
      w_scale = 2*pi/(Nfac*2*c0*t_target)
 
-     do iglob=1,NGLOB
+     do iglob = 1,NGLOB
         c_glob(iglob) = c0 + c0*afac/100.*(sin(x(iglob)*w_scale) * sin(z(iglob)*w_scale))
         !c_glob(iglob) = c0 + c0*afac/100.
      enddo
@@ -579,7 +579,7 @@ program wave2d
 
   print *
   print *, 'SoCal events (label, lon, lat, mag):'
-  do i=1,nevent
+  do i = 1,nevent
      write(*,'(i14,3f14.7)') socal_events_lab(i), socal_events_lon(i), socal_events_lat(i), socal_events_mag(i)
   enddo
 
@@ -617,7 +617,7 @@ program wave2d
   otime_dat(:) = origin_time_dat
 
   ! assign allowable target events to (x_eve_dat, z_eve_dat)
-  do i=1,nevent
+  do i = 1,nevent
     x_eve_dat(i) = x_eve0_dat(ifilter_eve_dat(i))
     z_eve_dat(i) = z_eve0_dat(ifilter_eve_dat(i))
   enddo
@@ -636,7 +636,7 @@ program wave2d
 
   print *
   print *, 'ievent, x, z, iglob, ispec, xi, gamma'
-  do i=1,nevent
+  do i = 1,nevent
      write(*,'(i8,2e18.8,2i8,2e18.8)') i, x_eve_dat(i), z_eve_dat(i), &
         eglob_dat(i), ispec_eve_dat(i), xi_eve_dat(i), gamma_eve_dat(i)
   enddo
@@ -649,7 +649,7 @@ program wave2d
   ! used for plotting purposes, so this is fine.
   print *
   print *, 'events [x_eve_lon0_dat, z_eve_lat0_dat, x_eve_lon_dat, x_eve_lat_dat, dist (m)]:'
-  do i=1,nevent
+  do i = 1,nevent
      temp1 = x_eve_lon0_dat(ifilter_eve_dat(i))
      temp2 = z_eve_lat0_dat(ifilter_eve_dat(i))
      temp3 = x_eve_lon_dat(i)
@@ -753,7 +753,7 @@ program wave2d
 
     print *
     print *, 'ievent, x, z, iglob, ispec, xi, gamma'
-    do i=1,nevent
+    do i = 1,nevent
       write(*,'(i8,2e18.8,2i8,2e18.8)') i, x_eve(i), z_eve(i), &
          eglob(i), ispec_eve(i), xi_eve(i), gamma_eve(i)
     enddo
@@ -764,7 +764,7 @@ program wave2d
     ! display target events and perturbed events -- and the distance between (in meters)
     print *
     print *, 'events [x_eve_lon_dat, z_eve_lat_dat, x_eve_lon, x_eve_lat, dist (m)]:'
-    do i=1,nevent
+    do i = 1,nevent
        temp1 = x_eve_lon_dat(i)
        temp2 = z_eve_lat_dat(i)
        temp3 = x_eve_lon(i)
@@ -899,7 +899,7 @@ endif  ! IREC_SPACE
   allocate(ispec_rec(nrec),xi_rec(nrec),gamma_rec(nrec))
 
   ! assign allowable target receivers to (x_rec, z_rec)
-  do i=1,nrec
+  do i = 1,nrec
     x_rec(i) = x_rec0(ifilter_rec(i))
     z_rec(i) = z_rec0(ifilter_rec(i))
   enddo
@@ -910,7 +910,7 @@ endif  ! IREC_SPACE
 
   print *
   print *, 'irec, x, z, iglob, ispec, xi, gamma'
-  do i=1,nrec
+  do i = 1,nrec
      write(*,'(i8,2e18.8,2i8,2e18.8)') i, x_rec(i), z_rec(i), rglob(i), ispec_rec(i), xi_rec(i), gamma_rec(i)
   enddo
 
@@ -922,7 +922,7 @@ endif  ! IREC_SPACE
   ! used for plotting purposes, so this is fine.
   print *
   print *, ' receivers [x_rec_lon0, z_rec_lat0, x_rec_lon, x_rec_lat, dist (m)] :'
-  do i=1,nrec
+  do i = 1,nrec
      temp1 = x_rec_lon0(ifilter_rec(i))
      temp2 = z_rec_lat0(ifilter_rec(i))
      temp3 = x_rec_lon(i)
@@ -1035,7 +1035,7 @@ endif  ! IREC_SPACE
   allocate(x_recf(nrecf),z_recf(nrecf),fglob(nrecf))
 
   ! assign allowable target receivers to (x_rec, z_rec)
-  do i=1,nrecf
+  do i = 1,nrecf
     x_recf(i) = x_recf0(ifilter_recf(i))
     z_recf(i) = z_recf0(ifilter_recf(i))
     !print *, i, x_recf(i), z_recf(i)
@@ -1136,7 +1136,7 @@ endif  ! IREC_SPACE
   enddo
 
   open(88,file=trim(out_dir2)//'scale_source.dat',status='unknown')
-  do i=1,nmod_src
+  do i = 1,nmod_src
     write(88,'(1e24.12)') m_scale_src(i)
   enddo
   close(88)
@@ -1161,7 +1161,7 @@ endif  ! IREC_SPACE
   enddo
 
   open(88,file=trim(out_dir2)//'initial_model_vector.dat',status='unknown')
-  do i=1,nmod
+  do i = 1,nmod
     write(88,'(1e24.12)') m0_vec(i)
   enddo
   close(88)
@@ -1363,7 +1363,7 @@ itest = 0
 
      endif  ! ISRC_SPACE
 
-     do i=1,nsrc
+     do i = 1,nsrc
         print *, x_src_lon0(i), z_src_lat0(i)
      enddo
 
@@ -1397,7 +1397,7 @@ itest = 0
      allocate(ispec_src(nsrc),xi_src(nsrc),gamma_src(nsrc))
 
      ! assign allowable target sources to (x_src, z_src)
-     do i=1,nsrc
+     do i = 1,nsrc
         x_src(i) = x_src0(ifilter_src(i))
         z_src(i) = z_src0(ifilter_src(i))
      enddo
@@ -1407,7 +1407,7 @@ itest = 0
      call locate_targets(nsrc, x_src, z_src, sglob, ispec_src, xi_src, gamma_src)
 
      print *
-     do i=1,nsrc
+     do i = 1,nsrc
         write(*,'(i8,2e18.8,2i8,2e18.8)') i, x_src(i), z_src(i), sglob(i), ispec_src(i), xi_src(i), gamma_src(i)
      enddo
 
@@ -1419,7 +1419,7 @@ itest = 0
      ! used for plotting purposes, so this is fine.
      print *
      print *, 'sources [x_src_lon0, z_src_lat0, x_src_lon, x_src_lat, dist (m)]:'
-     do i=1,nsrc
+     do i = 1,nsrc
         temp1 = x_src_lon0(ifilter_src(i))
         temp2 = z_src_lat0(ifilter_src(i))
         temp3 = x_src_lon(i)
@@ -1511,7 +1511,7 @@ itest = 0
      call locate_targets(nsrc, x_src, z_src, sglob, ispec_src, xi_src, gamma_src)
 
      print *
-     do i=1,nsrc
+     do i = 1,nsrc
         write(*,'(i8,2e18.8,2i8,2e18.8)') i, x_src(i), z_src(i), sglob(i), ispec_src(i), xi_src(i), gamma_src(i)
         write(*,'(i8,2e18.8,2i8,2e18.8)') i, x_src_dat(i), z_src_dat(i), &
            sglob_dat(i), ispec_src_dat(i), xi_src_dat(i), gamma_src_dat(i)
@@ -1538,7 +1538,7 @@ itest = 0
      ! source for data and source for synthetic
      print *
      print *, 'sources [x_src_lon_dat, z_src_lat_dat, x_src_lon, z_src_lat, dist (m)]:'
-     do i=1,nsrc
+     do i = 1,nsrc
         temp1 = x_src_lon_dat(i)
         temp2 = z_src_lat_dat(i)
         temp3 = x_src_lon(i)
@@ -1618,7 +1618,7 @@ itest = 0
         write(*,*) 'Event #', ievent, ', Source #', i
         write(*,*) '  actual location       : ', sngl(x_src_lon(i)), ', ', sngl(z_src_lat(i))
         write(*,*) '  closest GLL gridpoint : ', sngl(x_lon(sglob(i))), ', ', sngl(z_lat(sglob(i)))
-        do itime=1,NSTEP
+        do itime = 1,NSTEP
            write(12,'(1f16.6,1e16.6)') ti(itime), samp_dat(itime,icomp,i)
         enddo
         close(12)
@@ -1670,7 +1670,7 @@ itest = 0
      write(12,'(a,2f12.6,i10)') ('S ', x_lon(sglob(i)), z_lat(sglob(i)), i, i=1,nsrc)
   else
      ! finite area source
-     do i=1,nsrc
+     do i = 1,nsrc
         d = sqrt((x(sglob(i)) - xcen)**2+(z(sglob(i)) - zcen)**2)
         if ( d > s_radius-dh) then  ! get outermost sources
            write(12,'(a,2f12.6,i10)') 'S ', x_lon(sglob(i)), z_lat(sglob(i)), i
@@ -1819,7 +1819,7 @@ itest = 0
   ! but narrow enough to exclude suprious boundary reflections
   print *
   print *, 'cut times for adjoint sources'
-  do i=1,nrec
+  do i = 1,nrec
      d = sqrt( (x(sglob(1)) - x(rglob(i)))**2 + (z(sglob(1)) - z(rglob(i)))**2  )
      tcen      = tshift + d/c0
 
@@ -1867,7 +1867,7 @@ itest = 0
   print *,'chi-tot = ', sum(chi(ievent,:,1,1))
   print *,'---------------------------'
   open(19,file=trim(out_dir)//'chi_r.dat',status='unknown')
-  do irec=1,nrec
+  do irec = 1,nrec
      write(19,'(3e16.6)') x_lon(rglob(irec)), z_lat(rglob(irec)), chi(ievent,irec,1,1)
   enddo
   close(19)
@@ -1989,7 +1989,7 @@ itest = 0
 
   ! summed chi value for each event (nevent by 1)
   open(19,file=trim(out_dir1)//'summed_chi_e.dat',status='unknown')
-  do ievent=1,nevent
+  do ievent = 1,nevent
      write(19,*) sngl( sum(chi(ievent,:,1,1)) )
      !write(19,*) chi_etot(ievent)
   enddo
@@ -1997,7 +1997,7 @@ itest = 0
 
   ! summed chi value for each receiver (nrec by 1)
   open(19,file=trim(out_dir1)//'summed_chi_r.dat',status='unknown')
-  do irec=1,nrec
+  do irec = 1,nrec
      write(19,'(3e16.6)') x_lon(rglob0(irec)), z_lat(rglob0(irec)), sngl( sum(chi(:,irec,1,1)) )
   enddo
   close(19)
@@ -2039,7 +2039,7 @@ itest = 0
 
         ! summed kernel for all events (NGLOB by 1)
         open(19,file=trim(out_dir1)//'summed_ker.dat',status='unknown')
-        do iglob=1,NGLOB
+        do iglob = 1,NGLOB
            write(19,'(3e16.6)') x_lon(iglob), z_lat(iglob), sngl(kernel_basis_sum(iglob))
         enddo
         close(19)
@@ -2247,7 +2247,7 @@ itest = 0
      !mt(:)     = m0(:) + lam_t_val * pk(:) / da(:)    ! structure only (g = K da)
      itest     = 1
 
-     do i=1,nmod
+     do i = 1,nmod
        if (i <= nmod_str) then    ! structure
 
           ! get the new (test) structure model in terms of fractional perturbation
@@ -2357,7 +2357,7 @@ itest = 0
      m0(:) = m0(:) + lam_0_val * pk(:)
      itest = 0
 
-     do i=1,nmod
+     do i = 1,nmod
        if (i <= nmod_str) then    ! structure
 
           ! get the new structure model in terms of fractional perturbation

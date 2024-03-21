@@ -1449,7 +1449,7 @@
     allocate(y_copy(NGNOD,nspec))
     allocate(z_copy(NGNOD,nspec))
 
-    do ispec=1,nspec
+    do ispec = 1,nspec
       ieoff = NGNOD * (ispec-1)
       ilocnum = 0
       do ia = 1,NGNOD
@@ -1663,9 +1663,9 @@
 ! *** create 3D shape functions and jacobian
 ! ***
 
-  do i=1,NGLLX
-    do j=1,NGLLY
-      do k=1,NGLLZ
+  do i = 1,NGLLX
+    do j = 1,NGLLY
+      do k = 1,NGLLZ
 
         xi = xigll(i)
         eta = yigll(j)
@@ -1724,15 +1724,15 @@
 
 !--- check the shape functions and their derivatives
 
-  do i=1,NGLLX
-    do j=1,NGLLY
-      do k=1,NGLLZ
+  do i = 1,NGLLX
+    do j = 1,NGLLY
+      do k = 1,NGLLZ
 
         sumdershapexi = ZERO
         sumdershapeeta = ZERO
         sumdershapegamma = ZERO
 
-        do ia=1,NGNOD
+        do ia = 1,NGNOD
           sumdershapexi = sumdershapexi + dershape3D(1,ia,i,j,k)
           sumdershapeeta = sumdershapeeta + dershape3D(2,ia,i,j,k)
           sumdershapegamma = sumdershapegamma + dershape3D(3,ia,i,j,k)
@@ -1774,28 +1774,28 @@
   double precision l1pxi,l2pxi,l3pxi,l1peta,l2peta,l3peta,l1pgamma,l2pgamma,l3pgamma
 
   l1xi=HALF*xi*(xi-ONE)
-  l2xi=ONE-xi**2
+  l2xi = ONE-xi**2
   l3xi=HALF*xi*(xi+ONE)
 
-  l1pxi=xi-HALF
+  l1pxi = xi-HALF
   l2pxi=-TWO*xi
-  l3pxi=xi+HALF
+  l3pxi = xi+HALF
 
   l1eta=HALF*eta*(eta-ONE)
-  l2eta=ONE-eta**2
+  l2eta = ONE-eta**2
   l3eta=HALF*eta*(eta+ONE)
 
-  l1peta=eta-HALF
+  l1peta = eta-HALF
   l2peta=-TWO*eta
-  l3peta=eta+HALF
+  l3peta = eta+HALF
 
   l1gamma=HALF*gamma*(gamma-ONE)
-  l2gamma=ONE-gamma**2
+  l2gamma = ONE-gamma**2
   l3gamma=HALF*gamma*(gamma+ONE)
 
-  l1pgamma=gamma-HALF
+  l1pgamma = gamma-HALF
   l2pgamma=-TWO*gamma
-  l3pgamma=gamma+HALF
+  l3pgamma = gamma+HALF
 
   ! corner nodes
 
@@ -1926,9 +1926,9 @@
 !     do i=1,NGLLX
 ! for this CPML mesh extrusion routine it is sufficient to test the 8 corners of each element to reduce the cost
 ! because we just want to detect if the element is flipped or not, and if so flip it back
-  do k=1,NGLLZ,NGLLZ-1
-    do j=1,NGLLY,NGLLY-1
-      do i=1,NGLLX,NGLLX-1
+  do k = 1,NGLLZ,NGLLZ-1
+    do j = 1,NGLLY,NGLLY-1
+      do i = 1,NGLLX,NGLLX-1
 
       xxi = ZERO
       xeta = ZERO
@@ -1940,7 +1940,7 @@
       zeta = ZERO
       zgamma = ZERO
 
-      do ia=1,NGNOD
+      do ia = 1,NGNOD
         xxi = xxi + dershape3D(1,ia,i,j,k)*xelm(ia)
         xeta = xeta + dershape3D(2,ia,i,j,k)*xelm(ia)
         xgamma = xgamma + dershape3D(3,ia,i,j,k)*xelm(ia)

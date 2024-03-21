@@ -148,7 +148,7 @@
       endif
 
       ! loops over all records
-      irec=1
+      irec = 1
       do while(ios == 0)
         ! reads in data
         read(11,rec=irec,iostat=ios) r4head,dat
@@ -165,7 +165,7 @@
         write(33,rec=irec,iostat=ios) r4head,adj
         if (ios /= 0) cycle
 
-        irec=irec+1
+        irec = irec+1
       enddo
       close(11)
       close(22)

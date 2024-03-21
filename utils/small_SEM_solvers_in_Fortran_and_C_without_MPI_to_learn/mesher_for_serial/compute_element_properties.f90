@@ -297,11 +297,11 @@
   double precision, dimension(NGLLX,NGLLY,NGLLZ,nspec) :: Qmu_store
   double precision, dimension(N_SLS,NGLLX,NGLLY,NGLLZ,nspec) :: tau_e_store
 
-  integer, parameter :: maxker=200
-  integer, parameter :: maxl=72
-  integer, parameter :: maxcoe=2000
-  integer, parameter :: maxver=1000
-  integer, parameter :: maxhpa=2
+  integer, parameter :: maxker = 200
+  integer, parameter :: maxl = 72
+  integer, parameter :: maxcoe = 2000
+  integer, parameter :: maxver = 1000
+  integer, parameter :: maxhpa = 2
 
   integer numker
   integer numhpa,numcof

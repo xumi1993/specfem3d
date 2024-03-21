@@ -14,8 +14,8 @@ program smooth_specfem_function
 
 ! ======================================================
 
-  integer, parameter :: NSPEC_MAX=NSPEC_AB
-  integer, parameter :: NGLOB_MAX=NGLOB_AB
+  integer, parameter :: NSPEC_MAX = NSPEC_AB
+  integer, parameter :: NGLOB_MAX = NGLOB_AB
 
 ! only include the neighboring 3 x 3 slices
   integer, parameter :: NSLICES = 3
@@ -116,9 +116,9 @@ program smooth_specfem_function
   call zwgljd(xigll,wxgll,NGLLX,GAUSSALPHA,GAUSSBETA)
   call zwgljd(yigll,wygll,NGLLY,GAUSSALPHA,GAUSSBETA)
   call zwgljd(zigll,wzgll,NGLLZ,GAUSSALPHA,GAUSSBETA)
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         wgll_cube(i,j,k) = wxgll(i)*wygll(j)*wzgll(k)
       enddo
     enddo
@@ -192,7 +192,7 @@ program smooth_specfem_function
 
   write(ks_file,'(a,i6.6,a)') trim(scratch_file_dir)//'/proc',myrank,trim(reg_name)//trim(kernel_file_name)//'_smooth.bin'
 
-  tk = 0.0; bk = 0.0; kernel_smooth=0.0
+  tk = 0.0; bk = 0.0; kernel_smooth = 0.0
 
   ! loop over all the slices
   do ii = 1, ns

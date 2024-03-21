@@ -6,8 +6,8 @@ program xcompute_direction_sd
   include '../../SHARE_FILES/HEADER_FILES/values_from_mesher.h'
   include '../../SHARE_FILES/HEADER_FILES/precision.h'
 
-  integer,parameter:: NSPEC=NSPEC_CRUST_MANTLE
-  integer,parameter:: NKERNEL=4
+  integer,parameter:: NSPEC = NSPEC_CRUST_MANTLE
+  integer,parameter:: NKERNEL = 4
   integer:: myrank, sizeprocs,ier
   integer:: iker,ispec,i,j,k
 
@@ -32,7 +32,7 @@ program xcompute_direction_sd
   kernel_name=(/"reg1_bulk_betah_kernel_precond_smooth","reg1_bulk_betav_kernel_precond_smooth","reg1_bulk_c_kernel_precond_smooth","reg1_eta_kernel_precond_smooth"/)
 
   do iker = 1,NKERNEL
-     direction=0._CUSTOM_REAL
+     direction = 0._CUSTOM_REAL
 
      write(direction_file,'(a,i6.6,a)') trim(direction_dir)//'/proc',myrank,'_'//trim(kernel_name(iker))//'.bin'
      write(gradient_file,'(a,i6.6,a)') trim(gradient_dir)//'/proc',myrank,'_'//trim(kernel_name(iker))//'.bin'

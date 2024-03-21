@@ -50,11 +50,11 @@ contains
     i_xi_gamma = present(ispec_selected_rec) .and. present(xi_receiver) .and. present(gamma_receiver)
 
     ! loop over target points to get the (xi,gamma) for the closest gridpoint
-    do irec=1,nrec
+    do irec = 1,nrec
 
        dmin = sqrt(LENGTH**2+HEIGHT**2)  ! max possible distance
 
-       do ispec=1,NSPEC
+       do ispec = 1,NSPEC
 
           ! loop only on points inside the element
           ! exclude edges to ensure this point is not shared with other elements
@@ -186,7 +186,7 @@ contains
        enddo  ! irec
 
        ! display information
-       do irec=1,nrec
+       do irec = 1,nrec
 
           if (final_distance(irec) == HUGEVAL) stop 'error locating receiver'
 
@@ -297,11 +297,11 @@ contains
 
     !---------------------------------------------
 
-    do dgr=1,NGLL
+    do dgr = 1,NGLL
 
        prod1 = 1.0
        prod2 = 1.0
-       do i=1,NGLL
+       do i = 1,NGLL
           if (i /= dgr) then
              prod1 = prod1*(xi-xigll(i))
              prod2 = prod2*(xigll(dgr)-xigll(i))
@@ -310,10 +310,10 @@ contains
        h(dgr)=prod1/prod2
 
        hprime(dgr)=0.0
-       do i=1,NGLL
+       do i = 1,NGLL
           if (i /= dgr) then
-             prod1=1.0
-             do j=1,NGLL
+             prod1 = 1.0
+             do j = 1,NGLL
                 if (j /= dgr .and. j /= i) prod1 = prod1*(xi-xigll(j))
              enddo
              hprime(dgr) = hprime(dgr)+prod1
@@ -590,14 +590,14 @@ contains
     integer i
 
     if (iway == ILONLAT2MESH) then  ! lon-lat to mesh coordinates
-       do i=1,npt
+       do i = 1,npt
           call utm_geo(rlon(i),rlat(i),xtemp,ztemp,UTM_PROJECTION_ZONE,ILONGLAT2UTM)
           rx(i) = xtemp - utm_xmin
           rz(i) = ztemp - utm_zmin
        enddo
 
     else                           ! mesh coordinates to lon-lat
-       do i=1,npt
+       do i = 1,npt
           xtemp = rx(i) + utm_xmin
           ztemp = rz(i) + utm_zmin
           call utm_geo(rlon(i),rlat(i),xtemp,ztemp,UTM_PROJECTION_ZONE,IUTM2LONGLAT)
@@ -646,12 +646,12 @@ contains
     integer UTM_PROJECTION_ZONE,iway
     double precision rx,ry,rlon,rlat
 
-    double precision, parameter :: degrad=PI/180., raddeg=180./PI
+    double precision, parameter :: degrad = PI/180., raddeg = 180./PI
     !double precision, parameter :: semimaj=6378206.4d0, semimin=6356583.8d0 ! Clarke 1866
-    double precision, parameter :: semimaj=6378137.0d0, semimin=6356752.314245d0 ! WGS-84
+    double precision, parameter :: semimaj = 6378137.0d0, semimin = 6356752.314245d0 ! WGS-84
 
     double precision, parameter :: scfa=.9996
-    double precision, parameter :: north=0., east=500000.
+    double precision, parameter :: north = 0., east = 500000.
 
     double precision e2,e4,e6,e8,ep2,xx,yy,dlat,dlon,zone,cm,cmr,delam
     double precision f1,f2,f3,f4,rm,rn,t,c,a,e1,u,rlat1,dlat1,c1,t1,rn1,r1,d

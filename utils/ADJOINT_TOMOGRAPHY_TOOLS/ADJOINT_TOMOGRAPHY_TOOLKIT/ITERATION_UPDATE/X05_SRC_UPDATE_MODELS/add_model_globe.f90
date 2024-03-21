@@ -568,9 +568,9 @@ subroutine compute_volume()
   call zwgljd(xigll,wxgll,NGLLX,GAUSSALPHA,GAUSSBETA)
   call zwgljd(yigll,wygll,NGLLY,GAUSSALPHA,GAUSSBETA)
   call zwgljd(zigll,wzgll,NGLLZ,GAUSSALPHA,GAUSSBETA)
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         wgll_cube(i,j,k) = wxgll(i)*wygll(j)*wzgll(k)
       enddo
     enddo

@@ -96,8 +96,8 @@
                         kappav,muv,ibool,rmass_fictitious_inverse,myrank,xstore,ystore,zstore)
 
   open(unit=IIN,file='DATABASES_FOR_SOLVER/matrices.dat',status='old')
-  do j=1,NGLLY
-    do i=1,NGLLX
+  do j = 1,NGLLY
+    do i = 1,NGLLX
       read(IIN,*) hprime_xx(i,j)
       read(IIN,*) hprimewgll_xx(i,j)
       read(IIN,*) wgllwgll_yz(i,j)
@@ -114,9 +114,9 @@
 ! this is computed automatically by adding 1 from each point, and thus at the end the sum of all the 1s is equal to the
 ! number of elements that have this point in common
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
             iglob = ibool(i,j,k,ispec)
             rmass_fictitious_inverse(iglob) = rmass_fictitious_inverse(iglob) + 1._CUSTOM_REAL
         enddo
@@ -138,9 +138,9 @@
 
 ! assign a fictitious value to the array for the test
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
             iglob = ibool(i,j,k,ispec)
             displ(1,iglob) = cos(2.d0*PI*xstore(i,j,k,ispec))
             displ(2,iglob) = cos(PI*ystore(i,j,k,ispec))
@@ -160,9 +160,9 @@
 ! to the acceleration vector of each element of the finite-element mesh
   do ispec = 1,NSPEC
 
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
             iglob = ibool(i,j,k,ispec)
             dummyx_loc(i,j,k) = displ(1,iglob)
             dummyy_loc(i,j,k) = displ(2,iglob)
@@ -171,9 +171,9 @@
       enddo
     enddo
 
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
 
           tempx1l = 0._CUSTOM_REAL
           tempx2l = 0._CUSTOM_REAL
@@ -187,7 +187,7 @@
           tempz2l = 0._CUSTOM_REAL
           tempz3l = 0._CUSTOM_REAL
 
-          do l=1,NGLLX
+          do l = 1,NGLLX
             hp1 = hprime_xx(i,l)
             tempx1l = tempx1l + dummyx_loc(l,j,k)*hp1
             tempy1l = tempy1l + dummyy_loc(l,j,k)*hp1

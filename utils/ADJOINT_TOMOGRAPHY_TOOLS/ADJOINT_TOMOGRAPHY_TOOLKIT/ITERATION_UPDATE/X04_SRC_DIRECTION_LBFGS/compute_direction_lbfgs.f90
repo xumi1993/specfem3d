@@ -7,9 +7,9 @@ module globe_parameter
   include '../../SHARE_FILES/HEADER_FILES/constants.h'
   include '../../SHARE_FILES/HEADER_FILES/values_from_mesher.h'
 
-  integer,parameter:: NSPEC=NSPEC_CRUST_MANTLE
-  integer,parameter:: NGLOB=NGLOB_CRUST_MANTLE
-  integer,parameter:: NKERNEL=4
+  integer,parameter:: NSPEC = NSPEC_CRUST_MANTLE
+  integer,parameter:: NGLOB = NGLOB_CRUST_MANTLE
+  integer,parameter:: NKERNEL = 4
   integer,parameter:: m_store=5   ! stored model step 3 <= m_store <= 7
 
   integer:: myrank, sizeprocs,ier
@@ -83,13 +83,13 @@ program xcompute_direction_lbfgs
      print *,'************************************************'
   endif
 
-  do istore=iter_current-1,iter_store,-1
+  do istore = iter_current-1,iter_store,-1
      call get_gradient(istore+1,gradient1)
      call get_gradient(istore,gradient0)
      call get_model(istore+1,model1)
      call get_model(istore,model0)
-     gradient_diff=gradient1-gradient0
-     model_diff=model1-model0
+     gradient_diff = gradient1-gradient0
+     model_diff = model1-model0
 
      p_tmp=sum(gradient_diff*model_diff)
      call mpi_allreduce(p_tmp,p_sum,1,CUSTOM_MPI_TYPE,MPI_SUM,MPI_COMM_WORLD,ier)
@@ -103,13 +103,13 @@ program xcompute_direction_lbfgs
      q_vector=q_vector-a(istore)*gradient_diff
   enddo
 
-  istore=iter_current-1
+  istore = iter_current-1
   call get_gradient(istore+1,gradient1)
   call get_gradient(istore,gradient0)
   call get_model(istore+1,model1)
   call get_model(istore,model0)
-  gradient_diff=gradient1-gradient0
-  model_diff=model1-model0
+  gradient_diff = gradient1-gradient0
+  model_diff = model1-model0
 
 ! this implements Algorithm 7.4 and equation (7.20) on page 178 of the book of
 ! Jorge Nocedal and Stephen Wright, "Numerical Optimization", Springer, second edition (2006)
@@ -117,10 +117,10 @@ program xcompute_direction_lbfgs
   p_k_down=sum(gradient_diff*gradient_diff)
   call mpi_allreduce(p_k_up,p_k_up_sum,1,CUSTOM_MPI_TYPE,MPI_SUM,MPI_COMM_WORLD,ier)
   call mpi_allreduce(p_k_down,p_k_down_sum,1,CUSTOM_MPI_TYPE,MPI_SUM,MPI_COMM_WORLD,ier)
-  p_k=p_k_up_sum/p_k_down_sum
+  p_k = p_k_up_sum/p_k_down_sum
 
   if ( myrank == 0) print *,'p_k:',p_k
-  r_vector=p_k*q_vector
+  r_vector = p_k*q_vector
   !r_vector=1.0*q_vector
 
   if (myrank == 0) then
@@ -129,14 +129,14 @@ program xcompute_direction_lbfgs
      print *,'******************************************'
   endif
 
-  do istore=iter_store,iter_current-1,1
+  do istore = iter_store,iter_current-1,1
      call get_gradient(istore+1,gradient1)
      call get_gradient(istore,gradient0)
      call get_model(istore+1,model1)
      call get_model(istore,model0)
 
-     gradient_diff=gradient1-gradient0
-     model_diff=model1-model0
+     gradient_diff = gradient1-gradient0
+     model_diff = model1-model0
 
      b_tmp=sum(gradient_diff*r_vector)
      call mpi_allreduce(b_tmp,b_sum,1,CUSTOM_MPI_TYPE,MPI_SUM,MPI_COMM_WORLD,ier)
@@ -144,7 +144,7 @@ program xcompute_direction_lbfgs
 
      if (myrank == 0) print *,'a,b:',a(istore),b
 
-     r_vector=r_vector+model_diff*(a(istore)-b)
+     r_vector = r_vector+model_diff*(a(istore)-b)
 
   enddo
   r_vector=-1.0*r_vector
@@ -182,7 +182,7 @@ subroutine get_gradient(iter,gradient)
   real(kind=CUSTOM_REAL),dimension(NGLLX,NGLLY,NGLLZ,NSPEC)::vector
   real(kind=CUSTOM_REAL),dimension(NKERNEL,NGLOB)::vector_gll
 
-  do iker=1,NKERNEL
+  do iker = 1,NKERNEL
      write(dirname,'(a,i2.2)') '../SUMMED_KERNEL_M',iter
      write(filename,'(a,i6.6,a)') trim(dirname)//'/proc',myrank,'_'//trim(kernel_name(iker))//'.bin'
      open(1001,file=trim(filename),status='old',form='unformatted',iostat=ier)
@@ -193,10 +193,10 @@ subroutine get_gradient(iter,gradient)
      endif
      read(1001) vector(:,:,:,1:NSPEC)
      close(1001)
-     do ispec=1,NSPEC
-        do k=1,NGLLZ
-           do j=1,NGLLY
-              do i=1,NGLLX
+     do ispec = 1,NSPEC
+        do k = 1,NGLLZ
+           do j = 1,NGLLY
+              do i = 1,NGLLX
                  iglob=ibool(i,j,k,ispec)
                  vector_gll(iker,iglob)=vector(i,j,k,ispec)
               enddo
@@ -219,7 +219,7 @@ subroutine get_model(iter,model)
   real(kind=CUSTOM_REAL),dimension(NKERNEL,NGLOB):: vector_gll
   real(kind=CUSTOM_REAL),dimension(NGLLX,NGLLY,NGLLZ,NSPEC):: vector
 
-  do iker=1,NKERNEL
+  do iker = 1,NKERNEL
      write(dirname,'(a,i2.2)') '../MODEL_M',iter
      write(filename,'(a,i6.6,a)') trim(dirname)//'/proc',myrank,'_'//trim(model_name(iker))//'.bin'
      open(1001,file=trim(filename),status='old',form='unformatted',iostat=ier)
@@ -230,10 +230,10 @@ subroutine get_model(iter,model)
      endif
      read(1001) vector(:,:,:,1:NSPEC)
      close(1001)
-     do ispec=1,NSPEC
-        do k=1,NGLLZ
-           do j=1,NGLLY
-              do i=1,NGLLX
+     do ispec = 1,NSPEC
+        do k = 1,NGLLZ
+           do j = 1,NGLLY
+              do i = 1,NGLLX
                  iglob=ibool(i,j,k,ispec)
                  vector_gll(iker,iglob)=vector(i,j,k,ispec)
               enddo
@@ -262,11 +262,11 @@ subroutine write_gradient(iter,gradient)
   vector_gll(3,1:NGLOB)=gradient(2*NGLOB+1:3*NGLOB)
   vector_gll(4,1:NGLOB)=gradient(3*NGLOB+1:4*NGLOB)
 
-  do iker=1,NKERNEL
-     do ispec=1,NSPEC
-        do k=1,NGLLZ
-           do j=1,NGLLY
-              do i=1,NGLLX
+  do iker = 1,NKERNEL
+     do ispec = 1,NSPEC
+        do k = 1,NGLLZ
+           do j = 1,NGLLY
+              do i = 1,NGLLX
                  iglob=ibool(i,j,k,ispec)
                  vector(iker,i,j,k,ispec)=vector_gll(iker,iglob)
               enddo

@@ -48,8 +48,8 @@
                         'DATA/moho_map/moho_lupei_zhu.dat')
   open(unit=13,file=MOHO_MAP_FILE,status='old',action='read')
 ! file starts from North-West corner
-  do iy=NY_MOHO,1,-1
-    do ix=1,NX_MOHO
+  do iy = NY_MOHO,1,-1
+    do ix = 1,NX_MOHO
       read(13,*) long,lat,depth_km
 ! convert depth to meters
       imoho_depth(ix,iy) = nint(depth_km * 1000.d0)

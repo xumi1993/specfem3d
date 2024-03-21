@@ -8,7 +8,7 @@ program add_model
 
   ! ======================================================
 
-  integer, parameter :: NSPEC=NSPEC_AB
+  integer, parameter :: NSPEC = NSPEC_AB
   logical, parameter :: MINMAX_THRESHOLD_OLD = .false.   ! threshold the old model ("current model")
   logical, parameter :: MINMAX_THRESHOLD_NEW = .true.    ! threshold the new model
 
@@ -68,7 +68,7 @@ program add_model
   !-----------------------------------------------------
 
   ! read in list of file tags showing what model iteration you are on
-  nfile=0
+  nfile = 0
   open(unit=20, file='INPUT/ftags', status='old',iostat=ios)
   if (ios /= 0) then
     print *,'Error opening ',trim(ftag_file_list)
@@ -77,7 +77,7 @@ program add_model
   do while (1 == 1)
     read(20,'(a)',iostat=ios) sline
     if (ios /= 0) exit
-    nfile=nfile+1
+    nfile = nfile+1
     ftag_list(nfile) = sline
   enddo
   close(20)
@@ -130,10 +130,10 @@ program add_model
 
   ! threshold current model and write out the modified version
   if (MINMAX_THRESHOLD_OLD) then
-     do ispec=1,NSPEC
-        do k=1,NGLLZ
-           do j=1,NGLLY
-              do i=1,NGLLX
+     do ispec = 1,NSPEC
+        do k = 1,NGLLZ
+           do j = 1,NGLLY
+              do i = 1,NGLLX
                  if (model_vs(i,j,k,ispec) < VS_MIN) model_vs(i,j,k,ispec) = VS_MIN
                  if (model_vs(i,j,k,ispec) > VS_MAX) model_vs(i,j,k,ispec) = VS_MAX
                  if (model_vp(i,j,k,ispec) < VP_MIN) model_vp(i,j,k,ispec) = VP_MIN
@@ -215,10 +215,10 @@ program add_model
   ! threshold model according to minmax values specified above
 
   if (MINMAX_THRESHOLD_NEW) then
-     do ispec=1,NSPEC
-        do k=1,NGLLZ
-           do j=1,NGLLY
-              do i=1,NGLLX
+     do ispec = 1,NSPEC
+        do k = 1,NGLLZ
+           do j = 1,NGLLY
+              do i = 1,NGLLX
                  if (model_vs_new(i,j,k,ispec) < VS_MIN) model_vs_new(i,j,k,ispec) = VS_MIN
                  if (model_vs_new(i,j,k,ispec) > VS_MAX) model_vs_new(i,j,k,ispec) = VS_MAX
                  if (model_vp_new(i,j,k,ispec) < VP_MIN) model_vp_new(i,j,k,ispec) = VP_MIN

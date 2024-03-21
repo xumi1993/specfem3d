@@ -126,7 +126,7 @@
 ! non-dimensionalize
 ! time scaling (s^{-1}) is done with scaleval
   scaleval=dsqrt(PI*GRAV*RHOAV)
-  rho=rho/RHOAV
+  rho = rho/RHOAV
   vpv=vpv/(R_EARTH*scaleval)
   vph=vph/(R_EARTH*scaleval)
   vsv=vsv/(R_EARTH*scaleval)

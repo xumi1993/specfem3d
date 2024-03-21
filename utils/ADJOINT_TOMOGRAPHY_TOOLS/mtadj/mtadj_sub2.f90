@@ -90,7 +90,7 @@ contains
     if (i_pmax <= 0) stop 'Check if the maximum f has been identified'
     Tmax=1./(df*i_pmax)
 
-    misfit=sum((dataw(1:nlen)-synw(1:nlen))**2)/sum(dataw(1:nlen)**2)
+    misfit = sum((dataw(1:nlen)-synw(1:nlen))**2)/sum(dataw(1:nlen)**2)
 
     sigma_tshift_cc = max(MIN_SIGMA_TSHIFT_CC,Tmax*misfit*SIGMA_TSHIFT_CC_SCALE)
     sigma_dlnA_cc = max(MIN_SIGMA_dlnA_CC,abs(dlnA)*misfit*SIGMA_TSHIFT_CC_SCALE)
@@ -115,7 +115,7 @@ contains
     complex*16,dimension(NPT) :: csynw_recon
     real*8,dimension(NPT) :: synw_rc_fd_dp
 
-    df = 1./(dt*NPT); nf=floor(NPT/2.)+1
+    df = 1./(dt*NPT); nf = floor(NPT/2.)+1
     do j = 1, nf
        fvec(j) = df*(j-1)
     enddo
@@ -143,7 +143,7 @@ contains
     real, dimension(NPT) :: fvec, phi_wt, abs_wt
     integer :: nf, j, i
 
-    df = 1./(dt*NPT); nf=floor(NPT/2.)+1
+    df = 1./(dt*NPT); nf = floor(NPT/2.)+1
     do j = 1, nf
        fvec(j) = df*(j-1)
     enddo
@@ -299,7 +299,7 @@ contains
 
     df = 1./(dt*NPT) * npi
     idf_new = floor(1./(nlen)/df)
-    do i=1, i_right-idf_new
+    do i = 1, i_right-idf_new
        sigma_dtau_fdm(i) = maxval(abs(dtau_fdm(i)-dtau_fdm(i:i+idf_new)))
        sigma_dlnA_fdm(i) = maxval(abs(dlnA_fdm(i)-dlnA_fdm(i:i+idf_new)))
     enddo

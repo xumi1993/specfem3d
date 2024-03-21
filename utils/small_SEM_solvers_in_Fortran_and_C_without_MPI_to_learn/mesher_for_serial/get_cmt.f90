@@ -56,7 +56,7 @@
   open(unit=1,file=CMTSOLUTION,status='old',action='read')
 
 ! read source number isource
-  do isource=1,NSOURCES
+  do isource = 1,NSOURCES
 
 ! read header with event information
   read(1,"(a4,i5,i3,i3,i3,i3,f6.2)") datasource,yr,mo,da,ho,mi,sec
@@ -157,11 +157,11 @@
 !
 !---- returns 1 if leap year
 !
-  lpyr=0
+  lpyr = 0
   if (mod(yr,400) == 0) then
-    lpyr=1
+    lpyr = 1
   else if (mod(yr,4) == 0) then
-    lpyr=1
+    lpyr = 1
     if (mod(yr,100) == 0) lpyr=0
   endif
 

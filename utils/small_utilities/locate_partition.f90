@@ -207,10 +207,10 @@
   y_found = 0.0
   z_found = 0.0
 
-  do ispec=1,NSPEC_AB
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+  do ispec = 1,NSPEC_AB
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           iglob = ibool(i,j,k,ispec)
           dist =  (target_x - xstore(iglob))*(target_x - xstore(iglob)) &
                 + (target_y - ystore(iglob))*(target_y - ystore(iglob)) &

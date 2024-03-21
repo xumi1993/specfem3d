@@ -112,8 +112,8 @@ subroutine sea99_s_model(radius,theta,phi,dvs,SEA99M_V)
   double precision :: xxx,yyy,dep,pla,plo,xd1,dd1,dd2,ddd(2)
  !----------------------- depth in the model ------------------
   dep=R_EARTH_KM*(R_UNIT_SPHERE - radius)
-  pla=90.0d0 - theta/DEGREES_TO_RADIANS
-  plo=phi/DEGREES_TO_RADIANS
+  pla = 90.0d0 - theta/DEGREES_TO_RADIANS
+  plo = phi/DEGREES_TO_RADIANS
   if (dep <= SEA99M_V%sea99_depth(1)) then
      id1 = 1
      xd1 = 0

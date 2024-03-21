@@ -26,7 +26,7 @@ module mtadj_constants
   real, parameter :: TWOPI = 2.0 * PI
   complex ,parameter :: CCI = cmplx(0.,1.)
   real, parameter :: LARGE_VAL = 1.0d8
-  real, parameter :: EPS_dt=1.0e-4
+  real, parameter :: EPS_dt = 1.0e-4
 
   ! FFT parameters
   integer, parameter :: LNPT = 13, NPT = 2**LNPT, NDIM = 40000

@@ -473,7 +473,7 @@ program wave2d
   !============================================
 
      ! KEY COMMAND: scalelength of checker for velocity models (1,2,3)
-     Nfac = 3   ! use Nfac=3 for one-source examples
+     Nfac = 3   ! use Nfac = 3 for one-source examples
 
      if (READ_IN) then
         irun0 = IRUNZ
@@ -2069,11 +2069,11 @@ program wave2d
      close(19)
 
      open(unit=19,file=trim(out_dir2)//'scaling_values_covm.dat',status='unknown')
-     do i=1,NVAR
+     do i = 1,NVAR
         write(19,*) 'covm_weight_parts', covm_weight_parts(i)
      enddo
      write(19,*) 'sum_covm_weight_parts', sum(covm_weight_parts)
-     do i=1,NVAR
+     do i = 1,NVAR
         write(19,*) 'covg_weight_parts', covg_weight_parts(i)
      enddo
      write(19,*) 'sum_covg_weight_parts', sum(covg_weight_parts)
@@ -2822,7 +2822,7 @@ program wave2d
                  write(*,*) '  closest GLL gridpoint : ', sngl(x(sglob(i))), ', ', sngl(z(sglob(i)))
                  !write(*,*) '  actual location       : ', sngl(x_src_lon(i)), ', ', sngl(z_src_lat(i))
                  !write(*,*) '  closest GLL gridpoint : ', sngl(x_lon(sglob(i))), ', ', sngl(z_lat(sglob(i)))
-                 do itime=1,NSTEP
+                 do itime = 1,NSTEP
                     write(12,'(1f16.6,1e16.6)') ti(itime), samp_dat(itime,icomp,i)
                  enddo
                  close(12)

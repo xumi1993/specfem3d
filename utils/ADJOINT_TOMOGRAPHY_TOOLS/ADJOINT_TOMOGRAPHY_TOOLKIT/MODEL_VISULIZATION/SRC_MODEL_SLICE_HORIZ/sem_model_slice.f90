@@ -6,9 +6,9 @@ include '../../SHARE_FILES/HEADER_FILES/constants.h'
 include '../../SHARE_FILES/HEADER_FILES/values_from_mesher.h'
 include '../../SHARE_FILES/HEADER_FILES/precision.h'
 
-integer,parameter:: NUM_NODES=99  ! for recent mesher 100 processors
-integer,parameter:: iregion=1    ! for region one
-integer,parameter:: NMAXPTS=10000000
+integer,parameter:: NUM_NODES = 99  ! for recent mesher 100 processors
+integer,parameter:: iregion = 1    ! for region one
+integer,parameter:: NMAXPTS = 10000000
 real(kind=CUSTOM_REAL):: R_CUT_RANGE=0.00785d0  ! dr=0.00785 ~ 50 km depth
 
 integer::iproc,ipt,npts
@@ -50,9 +50,9 @@ endif
 
 
 open(1001,file=trim(xyz_infile),status='old',iostat=ios)
-i=0
+i = 0
 do while (1 == 1)
-        i=i+1
+        i = i+1
         read(1001,*,iostat=ios) xmesh,ymesh,zmesh
         R_CUT=sqrt(xmesh**2+ymesh**2+zmesh**2)
         if (ios /= 0) exit
@@ -61,7 +61,7 @@ do while (1 == 1)
         z(i)=zmesh
 enddo
 close(1001)
-npts=i-1
+npts = i-1
 
 !endif
 !call MPI_BCAST(npts,1,MPI_INTEGER,0,MPI_COMM_WORLD,ier)
@@ -106,7 +106,7 @@ if (myrank == 0) write(*,*) 'DONE READING',trim(topo_file)
 
 distmin(1:npts)=HUGEVAL
 
-do ispec=1,NSPEC_CRUST_MANTLE
+do ispec = 1,NSPEC_CRUST_MANTLE
 
    if (myrank == 0) write(*,*) 'ispec=',ispec
 
@@ -116,14 +116,14 @@ do ispec=1,NSPEC_CRUST_MANTLE
             iglob=ibool(i,j,k,ispec)
 
 
-            r1=sqrt((xstore(iglob))**2+(ystore(iglob))**2+(zstore(iglob))**2)
+            r1 = sqrt((xstore(iglob))**2+(ystore(iglob))**2+(zstore(iglob))**2)
 
             if ( abs(r1-R_CUT) < R_CUT_RANGE ) then
                 dist(1:npts) = dsqrt((x(1:npts)-dble(xstore(iglob)))**2 &
                                 +(y(1:npts)-dble(ystore(iglob)))**2 &
                                 +(z(1:npts)-dble(zstore(iglob)))**2)
 
-                do ipt=1,npts
+                do ipt = 1,npts
                         if (dist(ipt) < distmin(ipt)) then
                                 distmin(ipt)=dist(ipt)
                                 ispec_found(ipt)=ispec
@@ -154,7 +154,7 @@ call MPI_BCAST(out,2*npts,CUSTOM_MPI_TYPE,0,MPI_COMM_WORLD,ier)
 v(1:npts)=0
 dist(1:npts)=0.
 
-do i=1,npts
+do i = 1,npts
         if (myrank == nint(out(2,i))) then
                 v(i)=vfound(i)
                 dist(i)=distmin(i)
@@ -167,10 +167,10 @@ call MPI_REDUCE(dist,distall,npts,CUSTOM_MPI_TYPE,MPI_SUM,0,MPI_COMM_WORLD,ier)
 if (myrank == 0) then
         open(1002, file=gmt_outfile,status='unknown')
         do i = 1,npts
-               xmesh=x(i); ymesh=y(i); zmesh=z(i)
+               xmesh = x(i); ymesh = y(i); zmesh = z(i)
                call xyz_2_rthetaphi(xmesh,ymesh,zmesh,r,theta,phi)
-               lat=90.0 - theta*180.0/PI
-               lon=phi*180.0/PI
+               lat = 90.0 - theta*180.0/PI
+               lon = phi*180.0/PI
                dep=(1.0-r)*R_EARTH_KM
 !               write(1002,*) lon,lat,dep,vall(i),distall(i)
                write(1002,*) lon,lat,r,vall(i),distall(i)

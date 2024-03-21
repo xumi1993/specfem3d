@@ -16,7 +16,7 @@ program combine_signal_files_into_a_single_one
   real, allocatable, dimension(:) :: xx, yy, zz
   integer :: pos
 
-  integer, parameter :: strlen=200
+  integer, parameter :: strlen = 200
 
   character(len=strlen) :: filename_to_open, strdump
   character(len=strlen) :: out_h5_name

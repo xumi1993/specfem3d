@@ -19,8 +19,8 @@
   print *,'Reading seismograms in text format'
 
   open(unit=11,file='U_file.txt',status='unknown')
-  do ir=1,nr
-    do it=1,ntime
+  do ir = 1,nr
+    do it = 1,ntime
       read(11,*) sy(it,ir)
 
 ! invert sign of vertical component if needed depending on the reference frame convention

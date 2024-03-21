@@ -56,20 +56,20 @@
 ! processor identification
 !!!!!!!!!!!!!  character(len=150) prname
 
-  ispecb1=0
-  ispecb2=0
-  ispecb3=0
-  ispecb4=0
-  ispecb5=0
+  ispecb1 = 0
+  ispecb2 = 0
+  ispecb3 = 0
+  ispecb4 = 0
+  ispecb5 = 0
 
-  do ispecg=1,nspec
+  do ispecg = 1,nspec
 
 ! determine if the element falls on an absorbing boundary
 
   if (iboun(1,ispecg)) then
 
 !   on boundary 1: xmin
-    ispecb1=ispecb1+1
+    ispecb1 = ispecb1+1
 
 ! this is useful even if it is constant because it can be zero inside the slices
     njmin(1,ispecb1)=1
@@ -83,7 +83,7 @@
   if (iboun(2,ispecg)) then
 
 !   on boundary 2: xmax
-    ispecb2=ispecb2+1
+    ispecb2 = ispecb2+1
 
 ! this is useful even if it is constant because it can be zero inside the slices
     njmin(2,ispecb2)=1
@@ -97,7 +97,7 @@
   if (iboun(3,ispecg)) then
 
 !   on boundary 3: ymin
-    ispecb3=ispecb3+1
+    ispecb3 = ispecb3+1
 
 !   check for ovelap with other boundaries
     nimin(1,ispecb3)=1
@@ -111,7 +111,7 @@
   if (iboun(4,ispecg)) then
 
 !   on boundary 4: ymax
-    ispecb4=ispecb4+1
+    ispecb4 = ispecb4+1
 
 !   check for ovelap with other boundaries
     nimin(2,ispecb4)=1
@@ -123,7 +123,7 @@
   endif
 
 ! on boundary 5: bottom
-  if (iboun(5,ispecg)) ispecb5=ispecb5+1
+  if (iboun(5,ispecg)) ispecb5 = ispecb5+1
 
   enddo
 

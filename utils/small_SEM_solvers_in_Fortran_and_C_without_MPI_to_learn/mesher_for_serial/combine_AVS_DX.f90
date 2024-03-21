@@ -455,7 +455,7 @@
   do iregion_code = region_min,region_max
 
 ! loop on the selected range of processors
-  do iproc=proc_p1,proc_p2
+  do iproc = proc_p1,proc_p2
 
   print *,'Reading slice ',iproc,' in region ',iregion_code
 
@@ -476,7 +476,7 @@
   print *,'There are ',npoin,' global AVS or DX points in the slice'
 
 ! read local points in this slice and output global AVS or DX points
-  do ipoin=1,npoin
+  do ipoin = 1,npoin
       read(10,*) numpoin,xval,yval,zval
       if (ivalue == 2) then
         read(12,*) numpoin2,vmin,vmax
@@ -529,7 +529,7 @@
   do iregion_code = region_min,region_max
 
 ! loop on the selected range of processors
-  do iproc=proc_p1,proc_p2
+  do iproc = proc_p1,proc_p2
 
   print *,'Reading slice ',iproc,' in region ',iregion_code
 
@@ -556,7 +556,7 @@
   print *,'There are ',nspec,' AVS or DX elements in the slice'
 
 ! read local elements in this slice and output global AVS or DX elements
-  do ispec=1,nspec
+  do ispec = 1,nspec
       read(10,*) numelem,idoubling,iglob1,iglob2,iglob3,iglob4
       if (icolor == 5 .or. icolor == 6) then
         read(13,*) numelem2,deltavp,deltavs
@@ -851,7 +851,7 @@
   do iregion_code = region_min,region_max
 
 ! loop on the selected range of processors
-  do iproc=proc_p1,proc_p2
+  do iproc = proc_p1,proc_p2
 
   print *,'Reading slice ',iproc,' in region ',iregion_code
 
@@ -871,7 +871,7 @@
   print *,'There are ',nspec,' AVS or DX elements in the slice'
 
 ! read local elements in this slice and output global AVS or DX elements
-  do ispec=1,nspec
+  do ispec = 1,nspec
       read(10,*) numelem,idoubling,iglob1,iglob2,iglob3,iglob4
       if (numelem /= ispec) stop 'incorrect element number'
 

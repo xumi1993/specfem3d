@@ -102,10 +102,10 @@ program wave2d_cmap
   write(*,*)             '            IKER : ', IKER
   print *
   print *, ' GLL weights:'
-  do i=1,NGLLX
+  do i = 1,NGLLX
      print *, wxgll(i)
   enddo
-  do i=1,NGLLZ
+  do i = 1,NGLLZ
      print *, wzgll(i)
   enddo
 
@@ -288,7 +288,7 @@ program wave2d_cmap
      k_smooth_global(iglob) = sum( k_temp(:,:,:) ) / k_gaus_int_global(iglob)
   enddo
 
-  do i=1,NGLOB
+  do i = 1,NGLOB
      print *, k_gaus_int_global(i)
   enddo
 

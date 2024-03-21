@@ -204,7 +204,7 @@ contains
 
   ! KEY COMMAND: power of polynomial taper
   ! higher power means affecting only the ends of the series
-  pwr = 10   ! Welch : pwr=2
+  pwr = 10   ! Welch : pwr = 2
 
   ! Welch taper (in time)
   do i = 1,nt
@@ -318,7 +318,7 @@ contains
     integer :: i, irec, icomp, itime
 
     ! frequency domain
-    integer, parameter :: FFTW_FORWARD=-1, FFTW_ESTIMATE=0
+    integer, parameter :: FFTW_FORWARD=-1, FFTW_ESTIMATE = 0
     complex*16 :: out(NOUT)
     double precision :: in(NSTEP),ti(NSTEP)
     integer :: plan

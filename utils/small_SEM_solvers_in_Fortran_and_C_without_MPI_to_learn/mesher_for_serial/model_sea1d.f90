@@ -111,7 +111,7 @@
 ! non-dimensionalize
 ! time scaling (s^{-1}) is done with scaleval
   scaleval=dsqrt(PI*GRAV*RHOAV)
-  rho=rho*1000.0d0/RHOAV
+  rho = rho*1000.0d0/RHOAV
   vp=vp*1000.0d0/(R_EARTH*scaleval)
   vs=vs*1000.0d0/(R_EARTH*scaleval)
 
@@ -1131,7 +1131,7 @@
 
 ! strip the crust and replace it by mantle
   if (USE_EXTERNAL_CRUSTAL_MODEL) then
-    do i=NR_SEA1D-12,NR_SEA1D
+    do i = NR_SEA1D-12,NR_SEA1D
       SEA1DM_V%density_sea1d(i) = SEA1DM_V%density_sea1d(NR_SEA1D-13)
       SEA1DM_V%vp_sea1d(i) = SEA1DM_V%vp_sea1d(NR_SEA1D-13)
       SEA1DM_V%vs_sea1d(i) = SEA1DM_V%vs_sea1d(NR_SEA1D-13)

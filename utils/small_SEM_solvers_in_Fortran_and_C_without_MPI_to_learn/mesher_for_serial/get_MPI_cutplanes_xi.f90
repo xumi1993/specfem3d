@@ -105,15 +105,15 @@
   npoin2D_xi = 0
 
 ! nb of elements in this cut-plane
-  ispecc1=0
+  ispecc1 = 0
 
-  do ispec=1,nspec
+  do ispec = 1,nspec
     if (iMPIcut_xi(1,ispec)) then
-      ispecc1=ispecc1+1
+      ispecc1 = ispecc1+1
       ! loop on all the points in that 2-D element, including edges
       ix = 1
-      do iy=1,NGLLY
-          do iz=1,NGLLZ
+      do iy = 1,NGLLY
+          do iz = 1,NGLLZ
             ! select point, if not already selected
             if (.not. mask_ibool(ibool(ix,iy,iz,ispec))) then
                 mask_ibool(ibool(ix,iy,iz,ispec)) = .true.
@@ -136,7 +136,7 @@
     call sort_array_coordinates(npoin2D_xi,xstore_selected,ystore_selected,zstore_selected, &
             ibool_selected,iglob,locval,ifseg,nglob,ninseg)
 
-    do ipoin2D=1,npoin2D_xi
+    do ipoin2D = 1,npoin2D_xi
         write(10,*) ibool_selected(ipoin2D)
         mask_ibool2(ibool_selected(ipoin2D)) = .true.
     enddo
@@ -170,15 +170,15 @@
   npoin2D_xi = 0
 
 ! nb of elements in this cut-plane
-  ispecc2=0
+  ispecc2 = 0
 
-  do ispec=1,nspec
+  do ispec = 1,nspec
     if (iMPIcut_xi(2,ispec)) then
-      ispecc2=ispecc2+1
+      ispecc2 = ispecc2+1
       ! loop on all the points in that 2-D element, including edges
       ix = NGLLX
-      do iy=1,NGLLY
-        do iz=1,NGLLZ
+      do iy = 1,NGLLY
+        do iz = 1,NGLLZ
           ! select point, if not already selected
           if (.not. mask_ibool(ibool(ix,iy,iz,ispec))) then
               mask_ibool(ibool(ix,iy,iz,ispec)) = .true.
@@ -201,7 +201,7 @@
     call sort_array_coordinates(npoin2D_xi,xstore_selected,ystore_selected,zstore_selected, &
             ibool_selected,iglob,locval,ifseg,nglob,ninseg)
 
-    do ipoin2D=1,npoin2D_xi
+    do ipoin2D = 1,npoin2D_xi
         write(10,*) ibool_selected(ipoin2D)
         mask_ibool2(ibool_selected(ipoin2D)) = .true.
     enddo
