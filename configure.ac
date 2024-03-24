@@ -5,6 +5,11 @@ dnl
 dnl autoreconf -i
 dnl
 dnl You must have recent versions of Autoconf and Automake installed.
+dnl
+dnl using AC_CANONICAL_HOST required to provide config.sub and config.guess in this package.
+dnl to update these config.sub and config.guess files, a script is provided here:
+dnl ./utils/infos/update_config.sub_and_config.guess.sh
+dnl
 
 ############################################################
 
@@ -70,9 +75,6 @@ AM_CONDITIONAL([COND_MPI], [test x"$want_mpi" = xyes])
 ###
 ### FORCE_VECTORIZATION
 ###
-
-## note: vectorization support has been removed by DK due to problems with Intel compilers (2016).
-##       enabling will have no effect.
 
 AC_ARG_ENABLE([vectorization],
     [AS_HELP_STRING([--enable-vectorization],
