@@ -4,6 +4,19 @@ from __future__ import print_function
 import os
 import sys
 
+# checks for path for modules
+found_lib = False
+for path in sys.path:
+    if "geocubitlib" in path:
+        found_lib = True
+        break
+if not found_lib:
+    sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../CUBIT_GEOCUBIT/')
+#print("path:")
+#for path in sys.path: print("  ",path)
+#print("")
+
 ###########################################################################
 #### TNM: This is the mesh generation, adapted from a journal file
 ####      specific to the settings of Komatitsch and Tromp 1999, Fig.8

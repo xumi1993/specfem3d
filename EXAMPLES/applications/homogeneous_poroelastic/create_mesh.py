@@ -14,6 +14,19 @@ import sys
 # you can also explicitly set it here e.g. like:
 #sys.path.append('/opt/Trelis-15.0/bin/')
 
+# checks for path for modules
+found_lib = False
+for path in sys.path:
+    if "geocubitlib" in path:
+        found_lib = True
+        break
+if not found_lib:
+    sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../CUBIT_GEOCUBIT/')
+#print("path:")
+#for path in sys.path: print("  ",path)
+#print("")
+
 try:
     import cubit
 except ImportError:
@@ -68,12 +81,6 @@ cubit.cmd('mesh volume all')
 #
 # GEOCUBIT
 #
-# adds path to geocubit (if not setup yet)
-sys.path.append('../../../CUBIT_GEOCUBIT/')
-
-print("path: ")
-print(sys.path)
-print("")
 
 # avoids assigning empty blocks
 cubit.cmd('set duplicate block elements on')

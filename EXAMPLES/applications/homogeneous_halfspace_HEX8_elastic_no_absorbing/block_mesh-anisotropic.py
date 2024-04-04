@@ -4,15 +4,28 @@ from __future__ import print_function
 import os
 import sys
 
+# checks for path for modules
+found_lib = False
+for path in sys.path:
+    if "geocubitlib" in path:
+        found_lib = True
+        break
+if not found_lib:
+    sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../CUBIT_GEOCUBIT/')
+#print("path:")
+#for path in sys.path: print("  ",path)
+#print("")
+
 import cubit
 cubit.init([""])
 
 try:
-	from geocubitlib import boundary_definition
-	from geocubitlib import cubit2specfem3d
+    from geocubitlib import boundary_definition
+    from geocubitlib import cubit2specfem3d
 except:
     import boundary_definition
-	import cubit2specfem3d
+    import cubit2specfem3d
 
 # two volumes separating 134000x134000x60000 block horizontally
 cubit.cmd('reset')

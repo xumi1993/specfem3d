@@ -68,8 +68,18 @@ cubit.cmd('mesh volume all')
 #
 # GEOCUBIT
 #
-# adds path to geocubit (if not setup yet)
-sys.path.append('../../../CUBIT_GEOCUBIT/')
+# checks for path for modules
+found_lib = False
+for path in sys.path:
+    if "geocubitlib" in path:
+        found_lib = True
+        break
+if not found_lib:
+    sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../CUBIT_GEOCUBIT/')
+#print("path:")
+#for path in sys.path: print("  ",path)
+#print("")
 
 print("path: ")
 print(sys.path)

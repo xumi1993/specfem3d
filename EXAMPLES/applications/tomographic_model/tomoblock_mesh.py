@@ -4,6 +4,19 @@ from __future__ import print_function
 import os
 import sys
 
+# checks for path for modules
+found_lib = False
+for path in sys.path:
+    if "geocubitlib" in path:
+        found_lib = True
+        break
+if not found_lib:
+    sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../CUBIT_GEOCUBIT/')
+#print("path:")
+#for path in sys.path: print("  ",path)
+#print("")
+
 import cubit
 cubit.init([""])
 
@@ -23,13 +36,6 @@ cubit.cmd('mesh volume 1')
 #
 # GEOCUBIT
 #
-# adds path to geocubit (if not setup yet)
-sys.path.append('../../../CUBIT_GEOCUBIT/')
-
-print("path: ")
-print(sys.path)
-print("")
-
 try:
     from geocubitlib import boundary_definition
     from geocubitlib import cubit2specfem3d

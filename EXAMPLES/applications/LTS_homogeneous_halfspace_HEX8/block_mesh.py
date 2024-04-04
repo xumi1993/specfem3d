@@ -52,8 +52,18 @@ cubit.cmd('draw volume all')
 
 #### End of meshing
 
-# adds path to scripts (if not setup yet)
-sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
+# checks for path for modules
+found_lib = False
+for path in sys.path:
+    if "geocubitlib" in path:
+        found_lib = True
+        break
+if not found_lib:
+    sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../CUBIT_GEOCUBIT/')
+#print("path:")
+#for path in sys.path: print("  ",path)
+#print("")
 
 ## obsolete:
 #import boundary_definition

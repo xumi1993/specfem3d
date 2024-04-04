@@ -11,12 +11,25 @@
 ###########################################################################
 from __future__ import print_function
 
+import os
+import sys
+
+# checks for path for modules
+found_lib = False
+for path in sys.path:
+    if "geocubitlib" in path:
+        found_lib = True
+        break
+if not found_lib:
+    sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../CUBIT_GEOCUBIT/')
+#print("path:")
+#for path in sys.path: print("  ",path)
+#print("")
+
 import cubit
 import boundary_definition
 import cubit2specfem3d
-
-import os
-import sys
 
 cubit.cmd('reset')
 cubit.cmd('brick x 134000 y 134000 z 60000')
