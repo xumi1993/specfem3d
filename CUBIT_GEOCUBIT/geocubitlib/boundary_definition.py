@@ -71,7 +71,7 @@ def map_boundary(cpuxmin=0, cpuxmax=1, cpuymin=0, cpuymax=1, cpux=1, cpuy=1):
     return xmin, xmax, ymin, ymax, listfull
 
 
-def define_4side_lateral_surfaces(tres = 0.0003, tol = 0.000001):
+def define_4side_lateral_surfaces():
     list_vol = cubit.parse_cubit_list("volume", "all")
     surf_xmin = []
     surf_ymin = []
@@ -85,9 +85,36 @@ def define_4side_lateral_surfaces(tres = 0.0003, tol = 0.000001):
     ymax_box = cubit.get_total_bounding_box("volume", list_vol)[4]
     zmin_box = cubit.get_total_bounding_box("volume", list_vol)[6]
     zmax_box = cubit.get_total_bounding_box("volume", list_vol)[7]
-    #print('absorbing boundary xmin:' + str(xmin_box) + ' xmax: ' + str(xmax_box))
-    #print('absorbing boundary ymin:' + str(ymin_box) + ' ymax: ' + str(ymax_box))
-    #print('absorbing boundary zmin:' + str(zmin_box) + ' zmax: ' + str(zmax_box))
+
+    #print('# absorbing boundary:')
+    #print('#     xmin:' + str(xmin_box) + ' xmax: ' + str(xmax_box))
+    #print('#     ymin:' + str(ymin_box) + ' ymax: ' + str(ymax_box))
+    #print('#     zmin:' + str(zmin_box) + ' zmax: ' + str(zmax_box))
+
+    # mesh dimensions
+    dim_x = abs(xmax_box - xmin_box)
+    dim_y = abs(ymax_box - ymin_box)
+    dim_z = abs(zmax_box - zmin_box)
+
+    # maximum of lateral dimensions
+    dim_max = max( dim_x, dim_y )
+    #print('# define_4side_lateral_surfaces: mesh dimensions: ',dim_x,dim_y,dim_z,' - maximum: ',dim_max)
+    #print('#')
+
+    # we want to distinguish between NDT cases and others more seismic-like ones,
+    # assuming NDT uses much smaller mesh dimensions
+    if dim_max > 10000.0:
+        # seismic cases (like Mount St.Helens example, with UTM coordinates, and maximum extents around 22 km)
+        tres = 0.3
+        tol = 0.1
+    elif dim_max > 1000.0:
+        # seismic cases
+        tres = 0.3
+        tol = 0.001
+    else:
+        # NDT (non-destructive testing) cases
+        tres = 0.0003
+        tol = 0.000001
 
     for id_vol in list_vol:
         surf_vertical = []
@@ -96,6 +123,9 @@ def define_4side_lateral_surfaces(tres = 0.0003, tol = 0.000001):
         lsurf = cubit.get_relatives("volume", id_vol, "surface")
         for k in lsurf:
             normal = cubit.get_surface_normal(k)
+            #debug
+            #print("#debug: lateral surface: vol {} surf {} normal {} - tres {}".format(id_vol,k,normal,tres))
+
             # checks if normal is horizontal (almost 0, i.e., +/- tres)
             if normal[2] >= -1 * tres and normal[2] <= tres:
                 # checks if surface is on minimum/maximum side of the whole model
@@ -103,11 +133,17 @@ def define_4side_lateral_surfaces(tres = 0.0003, tol = 0.000001):
                 # note: for models with smaller volumes inscribed, we want only the outermost surfaces
                 #       as absorbing ones
                 #sbox = cubit.get_bounding_box('surface', k)
+                # relative distances to outer surfaces
+                dist_xmin = abs(center_point[0] - xmin_box) / dim_x
+                dist_xmax = abs(center_point[0] - xmax_box) / dim_x
+                dist_ymin = abs(center_point[1] - ymin_box) / dim_y
+                dist_ymax = abs(center_point[1] - ymax_box) / dim_y
+                #debug
+                #print("#debug: lateral surface: center {} dist {}/{}/{}/{}  - tol {}".format(center_point,dist_xmin,dist_xmax,dist_ymin,dist_ymax,tol))
+
                 # xmin of surface box relative to total box xmin
-                if (abs(center_point[0] - xmin_box) / abs(xmax_box - xmin_box) <= tol) or \
-                   (abs(center_point[0] - xmax_box) / abs(xmax_box - xmin_box) <= tol) or \
-                   (abs(center_point[1] - ymin_box) / abs(ymax_box - ymin_box) <= tol) or \
-                   (abs(center_point[1] - ymax_box) / abs(ymax_box - ymin_box) <= tol):
+                if (dist_xmin <= tol) or (dist_xmax <= tol) or \
+                   (dist_ymin <= tol) or (dist_ymax <= tol):
                     # adds as vertical surface
                     surf_vertical.append(k)
                     xsurf.append(center_point[0])
@@ -119,10 +155,11 @@ def define_4side_lateral_surfaces(tres = 0.0003, tol = 0.000001):
             surf_xmax.append(surf_vertical[xsurf.index(max(xsurf))])
             surf_ymax.append(surf_vertical[ysurf.index(max(ysurf))])
     #debug
-    #print('define_4side_lateral_surfaces: xmin ',surf_xmin)
-    #print('define_4side_lateral_surfaces: xmax ',surf_xmax)
-    #print('define_4side_lateral_surfaces: ymin ',surf_ymin)
-    #print('define_4side_lateral_surfaces: ymax ',surf_ymax)
+    #print('# define_4side_lateral_surfaces: xmin ',surf_xmin)
+    #print('# define_4side_lateral_surfaces: xmax ',surf_xmax)
+    #print('# define_4side_lateral_surfaces: ymin ',surf_ymin)
+    #print('# define_4side_lateral_surfaces: ymax ',surf_ymax)
+
     return surf_xmin, surf_ymin, surf_xmax, surf_ymax
 
 
@@ -147,15 +184,15 @@ def lateral_boundary_are_absorbing(iproc=0, cpuxmin=0, cpuxmax=1,
     #
     if iproc in iproc_xmin:
         abs_xmin = xmin
-        print('proc ', iproc, ' has absorbing boundary xmin')
+        print('# proc ', iproc, ' has absorbing boundary xmin')
     if iproc in iproc_ymin:
-        print('proc ', iproc, ' has absorbing boundary ymin')
+        print('# proc ', iproc, ' has absorbing boundary ymin')
         abs_ymin = ymin
     if iproc in iproc_xmax:
-        print('proc ', iproc, ' has absorbing boundary xmax')
+        print('# proc ', iproc, ' has absorbing boundary xmax')
         abs_xmax = xmax
     if iproc in iproc_ymax:
-        print('proc ', iproc, ' has absorbing boundary ymax')
+        print('# proc ', iproc, ' has absorbing boundary ymax')
         abs_ymax = ymax
     return abs_xmin, abs_xmax, abs_ymin, abs_ymax
 
@@ -203,7 +240,9 @@ def define_surf(iproc=0, cpuxmin=0, cpuxmax=1,
     #
     top_surf = []
     bottom_surf = []
+
     list_vol = cubit.parse_cubit_list("volume", "all")
+
     zmax_box = cubit.get_total_bounding_box("volume", list_vol)[7]
     # it is the z_min of the box ... box= xmin,xmax,d,ymin,ymax,d,zmin...
     zmin_box = cubit.get_total_bounding_box("volume", list_vol)[6]
@@ -212,17 +251,40 @@ def define_surf(iproc=0, cpuxmin=0, cpuxmax=1,
     ymin_box = cubit.get_total_bounding_box("volume", list_vol)[3]
     ymax_box = cubit.get_total_bounding_box("volume", list_vol)[4]
 
-    print('total bounding box:')
-    print('  xmin: ',xmin_box,' xmax: ',xmax_box)
-    print('  ymin: ',ymin_box,' ymax: ',ymax_box)
-    print('  zmin: ',zmin_box,' zmax: ',zmax_box)
-    print('')
+    print('# total bounding box:')
+    print('#     xmin: ',xmin_box,' xmax: ',xmax_box)
+    print('#     ymin: ',ymin_box,' ymax: ',ymax_box)
+    print('#     zmin: ',zmin_box,' zmax: ',zmax_box)
+    print('#')
+
+    # mesh dimensions
+    dim_x = abs(xmax_box - xmin_box)
+    dim_y = abs(ymax_box - ymin_box)
+    dim_z = abs(zmax_box - zmin_box)
+    dim_max = max( dim_x, dim_y, dim_z )
+    print('# mesh dimensions:')
+    print('#     dim x: ',dim_x)
+    print('#     dim y: ',dim_y)
+    print('#     dim z: ',dim_z)
+    print('#     maximum extent = ',dim_max)
+    print('#')
 
     list_surf = cubit.parse_cubit_list("surface", "all")
 
-    absorbing_surface_distance_tolerance = 0.000001
-    topographic_surface_distance_tolerance = 0.0001
-    topographic_surface_normal_tolerance = 0.0004
+    # we want to distinguish between NDT cases and others more seismic-like ones,
+    # assuming NDT uses much smaller mesh dimensions
+    if dim_max > 1000.0:
+        # seismic cases
+        absorbing_surface_distance_tolerance = 0.001
+        topographic_surface_distance_tolerance = 0.1
+        topographic_surface_normal_tolerance = 0.4
+        dzmin_tolerance = 0.001
+    else:
+        # NDT (non-destructive testing) cases
+        absorbing_surface_distance_tolerance = 0.000001
+        topographic_surface_distance_tolerance = 0.0001
+        topographic_surface_normal_tolerance = 0.0004
+        dzmin_tolerance = 0.00001
 
     lv = []
     for k in list_surf:
@@ -252,7 +314,7 @@ def define_surf(iproc=0, cpuxmin=0, cpuxmax=1,
                     # valence 3 is a corner, 4 is a vertex between 2 volumes,
                     # > 4 is a vertex not in the boundaries
                     lv.append(v)
-        elif dzmin <= 0.00001 and zn < -1 + topographic_surface_normal_tolerance:
+        elif dzmin <= dzmin_tolerance and zn < -1 + topographic_surface_normal_tolerance:
             bottom_surf.append(k)
     if len(top_surf) == 0:
         # assuming that one topo surface need to be selected
@@ -303,9 +365,11 @@ def define_surf(iproc=0, cpuxmin=0, cpuxmax=1,
         abs_ymin = list(set(abs_ymintmp) - set(abs_ymaxtmp))
         abs_ymax = list(set(abs_ymaxtmp) - set(abs_ymintmp))
 
-        print('lateral absorbing boundary:')
-        print('  abs_xmin: ',abs_xmin,' abs_xmax: ',abs_xmax)
-        print('  abs_ymin: ',abs_xmin,' abs_ymax: ',abs_xmax)
+        print('#')
+        print('# lateral absorbing boundary:')
+        print('#     abs_xmin: ',abs_xmin,' abs_xmax: ',abs_xmax)
+        print('#     abs_ymin: ',abs_ymin,' abs_ymax: ',abs_ymax)
+        print('#')
 
     return absorbing_surf, abs_xmin, abs_xmax, abs_ymin, abs_ymax, top_surf, \
         bottom_surf, xmin, ymin, xmax, ymax
@@ -331,9 +395,9 @@ def build_block(vol_list, name, id_0=1, top_surf=None, optionsea=False):
         seathres = False
 
     #
-    print('build blocks')
+    print('# build blocks')
     block_list = cubit.get_block_id_list()
-    print(block_list, vol_list)
+    #print('#debug:',block_list, vol_list)
     if len(block_list) > 0:
         id_block = max(max(block_list), 2) + id_0
     else:
@@ -370,15 +434,15 @@ def build_block(vol_list, name, id_0=1, top_surf=None, optionsea=False):
             if version_cubit >= 15:
                 command = 'block ' + str(id_block) + ' hex in vol ' + \
                           str(v)
-                print(command)
             else:
                 command = 'block ' + str(id_block) + ' hex in vol ' + \
                           str(v) + ' except hex in vol ' + str(list(v_other))
-            print(command)
+            print("#    ",command)
             command = command.replace("[", " ").replace("]", " ")
             cubit.cmd(command)
             command = "block " + str(id_block) + " name '" + n + "'"
             cubit.cmd(command)
+    print('#')
 
 
 def build_block_side(surf_list, name, obj='surface', id_0=1):
@@ -446,64 +510,67 @@ def define_bc(*args, **keys):
                         cpux=cpux, cpuy=cpuy)
         id_0 = cubit.get_next_block_id()
         v_list, name_list = define_block()
-        print('define block', v_list, name_list)
+        print('# define block: ', v_list, name_list)
+        print('#')
+
         build_block(v_list, name_list, id_0, top_surf, optionsea=optionsea)
+
         # entities
         entities = ['face']
         if type(args) == list:
             if len(args) > 0:
                 entities = args[0]
-        print(entities)
+
+        #print('#debug: ',entities)
         for entity in entities:
-            print("##entity: " + str(entity))
+            print("## entity: " + str(entity))
             # block for free surface (w/ topography)
             # print('## topo surface block: ' + str(topo))
             if len(top_surf) == 0:
-                print("")
-                print("no topo surface found,\
-                      please create block face_topo manually...")
-                print("")
+                print("#")
+                print("# no topo surface found, please create block face_topo manually...")
+                print("#")
             else:
                 build_block_side(top_surf, entity + '_topo',
                                  obj=entity, id_0=1001)
             # model has parallel sides (e.g. a block model )
             # xmin - blocks
             if len(xmin) == 0:
-                print("")
-                print("0 abs_xmin surface found, please create block manually")
-                print("")
+                print("#")
+                print("# zero abs_xmin surface found, please create block manually")
+                print("#")
             else:
                 build_block_side(xmin, entity + '_abs_xmin',
                                  obj=entity, id_0=1003)
             # xmax - blocks
             if len(xmax) == 0:
-                print("")
-                print("0 abs_xmax surface found, please create block manually")
-                print("")
+                print("#")
+                print("# zero abs_xmax surface found, please create block manually")
+                print("#")
             else:
                 build_block_side(xmax, entity + '_abs_xmax',
                                  obj=entity, id_0=1005)
             # ymin - blocks
             if len(ymin) == 0:
-                print("")
-                print("0 abs_xmin surface found, please create block manually")
-                print("")
+                print("#")
+                print("# zero abs_xmin surface found, please create block manually")
+                print("#")
             else:
                 build_block_side(ymin, entity + '_abs_ymin',
                                  obj=entity, id_0=1004)
             # ymax - blocks
             if len(ymax) == 0:
-                print("")
-                print("0 abs_ymax surface found, please create block manually")
-                print("")
+                print("#")
+                print("# zero abs_ymax surface found, please create block manually")
+                print("#")
             else:
                 build_block_side(ymax, entity + '_abs_ymax',
                                  obj=entity, id_0=1006)
             # bottom - blocks
             if len(bottom_surf) == 0:
-                print("")
-                print("0 abs_bottom surf found, please create block manually")
-                print("")
+                print("#")
+                print("# zero abs_bottom surf found, please create block manually")
+                print("#")
             else:
                 build_block_side(bottom_surf, entity +
                                  '_abs_bottom', obj=entity, id_0=1002)
@@ -517,7 +584,7 @@ def define_bc(*args, **keys):
         # # entities
         # entities = args[0]
         # id_side = 1001
-        # print(entities)
+        # print('# ',entities)
         # for entity in entities:
         #     build_block_side(surf, entity + '_closedvol',
         #                      obj=entity, id_0=id_side)
@@ -592,7 +659,7 @@ def get_ordered_node_surf(lsurface, icurve):
     if k != 0:
         cubit.cmd('del group sl')
     else:
-        print('initializing group sl')
+        print('# initializing group sl')
     cubit.cmd("group 'sl' add node in surf " + lsurf)
     group1 = cubit.get_id_from_name("sl")
     nodes_ls = list(cubit.get_group_nodes(group1))
@@ -604,7 +671,7 @@ def get_ordered_node_surf(lsurface, icurve):
     if k != 0:
         cubit.cmd('del group n1')
     else:
-        print('initializing group n1')
+        print('# initializing group n1')
     cubit.cmd("group 'n1' add node in curve " + icurvestr)
     x = cubit.get_bounding_box('curve', icurve)
     if x[2] > x[5]:
@@ -664,7 +731,7 @@ def get_ordered_node_surf(lsurface, icurve):
     if k != 0:
         cubit.cmd('del group curve_vertical')
     else:
-        print('initializing group curve_vertical')
+        print('# initializing group curve_vertical')
     cubit.cmd("group 'curve_vertical' add node in curve " + kcurve)
     group1 = cubit.get_id_from_name('curve_vertical')
     nodes_curve = list(cubit.get_group_nodes(group1))
@@ -696,14 +763,14 @@ def check_bc(iproc, xmin, xmax, ymin, ymax,
     curve_bottom_xmin, curve_bottom_ymin, curve_bottom_xmax, \
         curve_bottom_ymax = \
         extract_bottom_curves(surf_xmin, surf_ymin, surf_xmax, surf_ymax)
-    # print('absorbing surfaces: ', absorbing_surf)
-    print('absorbing surfaces xmin   : ', abs_xmin)
-    print('absorbing surfaces xmax   : ', abs_xmax)
-    print('absorbing surfaces ymin   : ', abs_ymin)
-    print('absorbing surfaces ymax   : ', abs_ymax)
-    print('absorbing surfaces top    : ', top_surf)
-    print('absorbing surfaces bottom : ', bottom_surf)
-    # print('bottom curves: ', surf_xmin, surf_ymin, surf_xmax, surf_ymax)
+    # print('# absorbing surfaces: ', absorbing_surf)
+    print('# absorbing surfaces xmin   : ', abs_xmin)
+    print('# absorbing surfaces xmax   : ', abs_xmax)
+    print('# absorbing surfaces ymin   : ', abs_ymin)
+    print('# absorbing surfaces ymax   : ', abs_ymax)
+    print('# absorbing surfaces top    : ', top_surf)
+    print('# absorbing surfaces bottom : ', bottom_surf)
+    # print('# bottom curves: ', surf_xmin, surf_ymin, surf_xmax, surf_ymax)
     #
     #
     #
