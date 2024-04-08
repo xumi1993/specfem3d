@@ -286,26 +286,68 @@ def define_surf(iproc=0, cpuxmin=0, cpuxmax=1,
         topographic_surface_normal_tolerance = 0.0004
         dzmin_tolerance = 0.00001
 
+    # tolerance factor for center point checks
+    # adding factor 0.1 for a relative tolerance to vertical mesh dimension
+    #
+    # note: using the splay_faults/ example, some of the internal fault surfaces would be assigned to the top free surface, since their bounding box top
+    #       is at the height of the free surface, and their normals almost vertical and within the normal tolerance.
+    #       to avoid taking these fault surfaces, we add here a check with the surface center point. the central points for those internal fault surfaces
+    #       are distant enough to the free surface top and thus we can distinguish them from the actual mesh surfaces at the top.
+    #
+    #       another example to check is the Mount_StHelens/ example where the top free surface has topography.
+    #       due to the mesh dimensions (rather shallow mesh for the given topography) and the top surface center point being too far below the top of the bounding box,
+    #       the center point check will fail with the current tolerance.
+    #       however, the top surface will be recognized in a subsequent step by the additional get_v_h_list() routine call below.
+    #
+    #       when changing these tolerance values, please check using splay_faults/ and Mount_StHelens/ examples.
+    topographic_surface_center_distance_tolerance = 0.1 * topographic_surface_distance_tolerance
+    dzmin_center_tolerance = 0.1 * dzmin_tolerance
+
     lv = []
     for k in list_surf:
         sbox = cubit.get_bounding_box('surface', k)
+        #debug
+        #print("#debug: define_surf: surface {} sbox[6]/sbox[7] = {}/{}".format(k,sbox[6],sbox[7]))
+
+        # checks distance to top surface using bounding box
         if zmax_box == 0 and sbox[7] == 0:
-            dzmax = 0
+            dzmax = 0.0
         elif zmax_box == 0 or sbox[7] == 0:
             dzmax = abs(sbox[7] - zmax_box)
         else:
             dzmax = abs(sbox[7] - zmax_box) / max(abs(sbox[7]), abs(zmax_box))
+
+        # checks distance to bottom surface using bounding box
         if zmin_box == 0 and sbox[6] == 0:
-            dzmin = 0
+            dzmin = 0.0
         elif zmin_box == 0 or sbox[6] == 0:
             dzmin = abs(sbox[6] - zmin_box)
         else:
             dzmin = abs(sbox[6] - zmin_box) / max(abs(sbox[6]), abs(zmin_box))
+
+        #debug
+        #print("#debug: define_surf: dzmin/dzmax = {}/{} - tol {}/{}".format(dzmin,dzmax,dzmin_tolerance,topographic_surface_distance_tolerance))
+
+        # surface center point
+        center_point = cubit.get_center_point('surface', k)
+
+        # relative vertical distances to top/bottom mesh surfaces
+        dist_zmin = abs(center_point[2] - zmin_box) / dim_z
+        dist_zmax = abs(center_point[2] - zmax_box) / dim_z
+
+        #debug
+        #print("#debug: define_surf: center {} dist {}/{}  - tol {}/{}".format(center_point,dist_zmin,dist_zmax, \
+        #      dzmin_center_tolerance,topographic_surface_center_distance_tolerance))
+
+        # surface normal in vertical Z-direction
         normal = cubit.get_surface_normal(k)
         zn = normal[2]
-        if dzmax <= topographic_surface_distance_tolerance and \
-           zn > topographic_surface_normal_tolerance:
 
+        # top surface
+        if dzmax <= topographic_surface_distance_tolerance and \
+           dist_zmax <= topographic_surface_center_distance_tolerance and \
+           zn > topographic_surface_normal_tolerance:
+            # adds surface id to top surfaces
             top_surf.append(k)
             list_vertex = cubit.get_relatives('surface', k, 'vertex')
             for v in list_vertex:
@@ -314,11 +356,24 @@ def define_surf(iproc=0, cpuxmin=0, cpuxmax=1,
                     # valence 3 is a corner, 4 is a vertex between 2 volumes,
                     # > 4 is a vertex not in the boundaries
                     lv.append(v)
-        elif dzmin <= dzmin_tolerance and zn < -1 + topographic_surface_normal_tolerance:
+        # bottom surface
+        elif dzmin <= dzmin_tolerance and \
+             dist_zmin <= dzmin_center_tolerance and \
+             zn < (-1 + topographic_surface_normal_tolerance):
+            # adds surface id to bottom surfaces
             bottom_surf.append(k)
+
+    #debug
+    #print("#debug: define_surf: total bottom_surf: ",bottom_surf)
+    #print("#debug: define_surf: total top_surf   : ",top_surf)
+
     if len(top_surf) == 0:
         # assuming that one topo surface need to be selected
         _, _, _, _, _, top_surf = get_v_h_list(list_vol, chktop=False)
+        #debug
+        #print("#debug: define_surf: total top_surf (w/ v_h): ",top_surf)
+
+    # overall absorbing surface
     lp = []
     labelp = []
     combs = product(lv, lv)
@@ -349,7 +404,8 @@ def define_surf(iproc=0, cpuxmin=0, cpuxmax=1,
                 if -1 <= center_point[0] <= 1 and -1 <= center_point[1] <= 1:
                     absorbing_surf.append(k)
                     break
-    #
+
+    # lateral sides
     four_side = True
     if four_side:
         xmintmp, ymintmp, xmaxtmp, ymaxtmp = define_4side_lateral_surfaces()
@@ -448,34 +504,38 @@ def build_block(vol_list, name, id_0=1, top_surf=None, optionsea=False):
 def build_block_side(surf_list, name, obj='surface', id_0=1):
     id_nodeset = cubit.get_next_nodeset_id()
     id_block = id_0
+
+    # check if surface list is empty
+    if len(surf_list) == 0:
+        print("#")
+        print("# zero {} surface found, please create block manually...".format(name))
+        print("#")
+        return
+
     if obj == 'hex':
         txt = 'hex in node in surface'
-        txt1 = 'block ' + str(id_block) + ' ' + txt + \
-            ' ' + str(list(surf_list))
+        txt1 = 'block ' + str(id_block) + ' ' + txt + ' ' + str(list(surf_list))
         txt2 = "block " + str(id_block) + " name '" + name + "'"
         txt1 = txt1.replace("[", " ").replace("]", " ")
         cubit.cmd(txt1)
         cubit.cmd(txt2)
     elif obj == 'node':
         txt = obj + ' in surface'
-        txt1 = 'nodeset ' + str(id_nodeset) + ' ' + \
-            txt + ' ' + str(list(surf_list))
+        txt1 = 'nodeset ' + str(id_nodeset) + ' ' + txt + ' ' + str(list(surf_list))
         txt1 = txt1.replace("[", " ").replace("]", " ")
         txt2 = "nodeset " + str(id_nodeset) + " name '" + name + "'"
         cubit.cmd(txt1)
         cubit.cmd(txt2)
     elif obj == 'face' or obj == 'edge':
         txt = obj + ' in surface'
-        txt1 = 'block ' + str(id_block) + ' ' + txt + \
-            ' ' + str(list(surf_list))
+        txt1 = 'block ' + str(id_block) + ' ' + txt + ' ' + str(list(surf_list))
         txt1 = txt1.replace("[", " ").replace("]", " ")
         txt2 = "block " + str(id_block) + " name '" + name + "'"
         cubit.cmd(txt1)
         cubit.cmd(txt2)
     else:
         txt1 = ''
-        txt2 = "block " + str(id_block) + " name " + \
-            name + "_notsupported (only hex,face,edge,node)"
+        txt2 = "block " + str(id_block) + " name " + name + "_notsupported (only hex,face,edge,node)"
         try:
             cubit.cmd('comment "' + txt1 + '"')
             cubit.cmd('comment "' + txt2 + '"')
@@ -526,54 +586,19 @@ def define_bc(*args, **keys):
             print("## entity: " + str(entity))
             # block for free surface (w/ topography)
             # print('## topo surface block: ' + str(topo))
-            if len(top_surf) == 0:
-                print("#")
-                print("# no topo surface found, please create block face_topo manually...")
-                print("#")
-            else:
-                build_block_side(top_surf, entity + '_topo',
-                                 obj=entity, id_0=1001)
+            build_block_side(top_surf, entity + '_topo', obj=entity, id_0=1001)
             # model has parallel sides (e.g. a block model )
             # xmin - blocks
-            if len(xmin) == 0:
-                print("#")
-                print("# zero abs_xmin surface found, please create block manually")
-                print("#")
-            else:
-                build_block_side(xmin, entity + '_abs_xmin',
-                                 obj=entity, id_0=1003)
+            build_block_side(xmin, entity + '_abs_xmin', obj=entity, id_0=1003)
             # xmax - blocks
-            if len(xmax) == 0:
-                print("#")
-                print("# zero abs_xmax surface found, please create block manually")
-                print("#")
-            else:
-                build_block_side(xmax, entity + '_abs_xmax',
-                                 obj=entity, id_0=1005)
+            build_block_side(xmax, entity + '_abs_xmax', obj=entity, id_0=1005)
             # ymin - blocks
-            if len(ymin) == 0:
-                print("#")
-                print("# zero abs_xmin surface found, please create block manually")
-                print("#")
-            else:
-                build_block_side(ymin, entity + '_abs_ymin',
-                                 obj=entity, id_0=1004)
+            build_block_side(ymin, entity + '_abs_ymin', obj=entity, id_0=1004)
             # ymax - blocks
-            if len(ymax) == 0:
-                print("#")
-                print("# zero abs_ymax surface found, please create block manually")
-                print("#")
-            else:
-                build_block_side(ymax, entity + '_abs_ymax',
-                                 obj=entity, id_0=1006)
+            build_block_side(ymax, entity + '_abs_ymax', obj=entity, id_0=1006)
             # bottom - blocks
-            if len(bottom_surf) == 0:
-                print("#")
-                print("# zero abs_bottom surf found, please create block manually")
-                print("#")
-            else:
-                build_block_side(bottom_surf, entity +
-                                 '_abs_bottom', obj=entity, id_0=1002)
+            build_block_side(bottom_surf, entity + '_abs_bottom', obj=entity, id_0=1002)
+
     elif closed:
         # closed boundary surfaces
         # (for example sphere or cylinder-like models)
