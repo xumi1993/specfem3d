@@ -41,7 +41,7 @@ except ImportError:
     print("")
     sys.exit("Import cubit failed")
 
-cubit.init([""])
+cubit.init(["-noecho","-nojournal"])
 
 #
 # GEOCUBIT
@@ -120,7 +120,8 @@ else:
     # topo surface doesn't exist yet, this creates it:
     print("# reading in topography surface")
     # reads in topography points and creates sheet surface
-    execfile("./read_topo.py")
+    # old: execfile("./read_topo.py")
+    exec(open("./read_topo.py").read())
     # clear
     cubit.cmd('reset')
     # now reopen the cubit file

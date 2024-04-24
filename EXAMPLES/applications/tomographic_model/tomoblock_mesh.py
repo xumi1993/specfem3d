@@ -44,6 +44,7 @@ except:
     import cubit2specfem3d
 
 # bounding faces
+print('#### DEFINE BC #######################')
 boundary_definition.entities=['face']
 boundary_definition.define_bc(boundary_definition.entities,parallel=True)
 

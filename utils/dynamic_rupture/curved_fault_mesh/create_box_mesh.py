@@ -357,7 +357,7 @@ cubit.cmd('block 1001 name "face_abs_topo"')
 #absorbing_boundary.define_boundaries(entities, xmin,xmax,ymin,ymax,bottom,topo)
 
 #### Define material properties for the 4 volumes ################
-cubit.cmd('#### DEFINE MATERIAL PROPERTIES #######################')
+print('#### DEFINE MATERIAL PROPERTIES #######################')
 for i in range(Vol_num):
     cubit.cmd('block {0}  name "elastic {0}" '.format(i+1))        # material region
     cubit.cmd('block {0} attribute count {1}'.format(i+1,6))

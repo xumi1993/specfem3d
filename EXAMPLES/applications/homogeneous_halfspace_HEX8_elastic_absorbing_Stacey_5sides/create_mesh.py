@@ -14,22 +14,32 @@ import sys
 # you can also explicitly set it here e.g. like:
 #sys.path.append('/opt/Trelis-15.0/bin/')
 
+# checks path for GEOCUBIT modules
+found_lib = False
+for path in sys.path:
+    if "geocubitlib" in path:
+        found_lib = True
+        break
+if not found_lib:
+    sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../CUBIT_GEOCUBIT/')
+
+print("path: ")
+print(sys.path)
+print("")
+
 try:
     import cubit
 except ImportError:
     print("Error: Importing cubit as python module failed")
     print("could not import cubit, please check your PYTHONPATH settings...")
     print("")
-    print("current path: ")
-    print(sys.path)
-    print("")
     print("try to include path to directory which includes file cubit.py, e.g. /opt/Trelis-15.0/bin/")
     print("")
     sys.exit("Import cubit failed")
 
-print(sys.path)
-
-cubit.init([""])
+# CUBIT
+cubit.init(["-noecho","-nojournal"])
 
 # gets version string
 cubit_version = cubit.get_version()
@@ -68,22 +78,6 @@ cubit.cmd('mesh volume all')
 #
 # GEOCUBIT
 #
-# checks for path for modules
-found_lib = False
-for path in sys.path:
-    if "geocubitlib" in path:
-        found_lib = True
-        break
-if not found_lib:
-    sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
-    sys.path.append('../../../CUBIT_GEOCUBIT/')
-#print("path:")
-#for path in sys.path: print("  ",path)
-#print("")
-
-print("path: ")
-print(sys.path)
-print("")
 
 # avoids assigning empty blocks
 cubit.cmd('set duplicate block elements on')
@@ -98,6 +92,7 @@ use_explicit=0
 if use_explicit == 1:
     from geocubitlib import boundary_definition
     # bounding faces
+    print("#### DEFINE BC #######################")
     boundary_definition.entities=['face']
     boundary_definition.define_bc(boundary_definition.entities,parallel=True)
     from geocubitlib import cubit2specfem3d
@@ -144,6 +139,7 @@ else:
     print("")
     # Export to SPECFEM3D format
     # note: exportlib-commands will overwrite material properties
+    print("#### DEFINE BLOCKS #######################")
     exportlib.define_blocks(outdir='MESH/',save_cubfile=True,outfilename='top')
     exportlib.e2SEM(outdir='MESH/')
     # Define material properties

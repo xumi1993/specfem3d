@@ -2,14 +2,54 @@
 # Percy. Script for TPV14-TPV15 SCEC benchmarks.
 from __future__ import print_function
 
-import cubit
-import cubit2specfem3d
 import math
 import os
 import sys
+
+# checks path for GEOCUBIT modules
+found_lib = False
+for path in sys.path:
+    if "geocubitlib" in path:
+        found_lib = True
+        break
+if not found_lib:
+    sys.path.append('../../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../../CUBIT_GEOCUBIT/')
+
+import cubit
+import cubit2specfem3d
+
 from save_fault_nodes_elements import *
 from absorbing_boundary import *
 from boundary_definition import *
+
+# CUBIT
+cubit.init(["-noecho","-nojournal"])
+
+print("#")
+print("## cubit version:")
+print("#")
+cubit.cmd('version')
+print("#")
+# gets version string
+cubit_version = cubit.get_version()
+print("version: ",cubit_version)
+
+# extracts major number
+v = cubit_version.split('.')
+cubit_version_major = int(v[0])
+print("major version number: ",cubit_version_major)
+
+# version check: script only works for older cubit versions
+if cubit_version_major >= 2020:
+    print("#")
+    print("# WARNING: Sorry, this script only works for older Cubit versions.")
+    print("#          newer versions like this one will fail meshing the first surface 1 using the pave scheme.")
+    print("#          Please try with an older version - exiting...")
+    print("#")
+    sys.exit(1)
+    # newer versions would also need the legacy sweeper to avoid sweep warnings
+    #cubit.cmd('set legacy sweeper on')
 
 cubit.cmd('reset')
 
@@ -192,17 +232,25 @@ h_size = 300
 
 cubit.cmd("surface 1 2 size "+str(h_size))
 cubit.cmd("volume 1 2 size "+str(h_size))
+
+# note: meshing surface 1 with the pave scheme will only work on older cubit versions...
 cubit.cmd("surface 1 2 scheme pave")
 cubit.cmd("mesh surface 1 2")
+
+#debug for checking meshed surfaces
+cubit.cmd('pause')
+#cubit.cmd('resume')
+
 cubit.cmd("mesh volume 1 2")
 
-bia=1.03
-inter= 40
+bia = 1.03
+inter = 40
 
 ## Meshing Aristas #####
 cubit.cmd('curve 95 97 99 101 103 105 107 109 interval '+str(inter))
 cubit.cmd('curve 95 97 99 101 103 105 107 109 scheme bias factor '+str(bia))
 cubit.cmd('mesh curve 95 97 99 101 103 105 107 109')
+
 
 ### meshing chuncks #######
 ### CHUNCK 1
@@ -230,11 +278,35 @@ os.system('mkdir -p MESH')
 Au = [6,7]   # A_up
 Ad = [5,14]  # A_down
 
+# fault surface info
+print("#")
+# fault up
+for k in Au:
+    center_point = cubit.get_center_point("surface", k)
+    print("# main fault up  : surface {} has center point: {}".format(k,center_point))
+# fault down
+for k in Ad:
+    center_point = cubit.get_center_point("surface", k)
+    print("# main fault down: surface {} has center point: {}".format(k,center_point))
+print("#")
+
 faultA = fault_input(1,Au,Ad)
 
 ####### Branch Fault##############################################################################
 Bu = [4]   # B_up
 Bd = [15]  # B_down
+
+# fault surface info
+print("#")
+# fault up
+for k in Bu:
+    center_point = cubit.get_center_point("surface", k)
+    print("# branch fault up  : surface {} has center point: {}".format(k,center_point))
+# fault down
+for k in Bd:
+    center_point = cubit.get_center_point("surface", k)
+    print("# branch fault down: surface {} has center point: {}".format(k,center_point))
+print("#")
 
 faultB = fault_input(2,Bu,Bd)
 
@@ -242,11 +314,12 @@ faultB = fault_input(2,Bu,Bd)
 
 ####### This is boundary_definition.py of GEOCUBIT
 ##..... which extracts the bounding faces and defines them into blocks
+print('#### DEFINE BC #######################')
 entities=['face']
 define_parallel_bc(entities)
 
 #### Define material properties for the 2 volumes ################
-cubit.cmd('#### DEFINE MATERIAL PROPERTIES #######################')
+print('#### DEFINE MATERIAL PROPERTIES #######################')
 
 # Material properties in concordance with tpv14-15 benchmark.
 

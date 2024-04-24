@@ -5,6 +5,16 @@ from __future__ import print_function
 import os
 import sys
 
+# checks path for GEOCUBIT modules
+found_lib = False
+for path in sys.path:
+    if "geocubitlib" in path:
+        found_lib = True
+        break
+if not found_lib:
+    sys.path.append('../../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../../CUBIT_GEOCUBIT/')
+
 import cubit
 try:
     #cubit.init([""])
@@ -58,9 +68,10 @@ ymin = [3]
 ymax = [5]
 zmax = [8,15]
 zmin = [10,14]
-entities=['face']
 
 # bounding faces
+print("#### DEFINE BC #######################")
+entities=['face']
 absorbing_boundary.define_boundaries(entities,xmin,xmax,ymin,ymax,zmin,zmax)
 
 # Define material properties
@@ -96,6 +107,18 @@ cubit2specfem3d.export2SPECFEM3D('MESH')
 ## fault surfaces
 Au = [8]    # A_up
 Ad = [3]    # A_down
+
+# fault surface info
+print("#")
+# fault up
+for k in Au:
+    center_point = cubit.get_center_point("surface", k)
+    print("# fault up  : surface {} has center point: {}".format(k,center_point))
+# fault down
+for k in Ad:
+    center_point = cubit.get_center_point("surface", k)
+    print("# fault down: surface {} has center point: {}".format(k,center_point))
+print("#")
 
 # create fault mesh files
 faultA = save_fault_nodes_elements.fault_input(1,Au,Ad)

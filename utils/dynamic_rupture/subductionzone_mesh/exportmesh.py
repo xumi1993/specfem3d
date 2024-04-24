@@ -72,12 +72,14 @@ ymin = [34,38]
 ymax = [27,36]
 zmax = [35,26,10,6,33,37,28,17]
 zmin = [16]
+
+print('#### DEFINE BOUNDARIES #######################')
 entities=['face']
 define_boundaries(entities,xmin,xmax,ymin,ymax,zmin,zmax)
 
 
 #### Define material properties for the 2 volumes ################
-cubit.cmd('#### DEFINE MATERIAL PROPERTIES #######################')
+print('#### DEFINE MATERIAL PROPERTIES #######################')
 for iblock in range(1,11,1):
     export_block(nb = iblock,vp=6000,vs=3464,rho=2670)
 

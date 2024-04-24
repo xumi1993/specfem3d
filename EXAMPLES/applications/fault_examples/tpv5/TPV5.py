@@ -5,6 +5,16 @@ import math
 import os
 import sys
 
+# checks path for GEOCUBIT modules
+found_lib = False
+for path in sys.path:
+    if "geocubitlib" in path:
+        found_lib = True
+        break
+if not found_lib:
+    sys.path.append('../../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../../CUBIT_GEOCUBIT/')
+
 import cubit
 try:
     #cubit.init([""])
@@ -25,23 +35,22 @@ print("major version number: ",cubit_version_major)
 # GEOCUBIT
 #
 # adds path to geocubit (if not setup yet)
-sys.path.append('../../../../CUBIT_GEOCUBIT/')
-
+#sys.path.append('../../../../CUBIT_GEOCUBIT/')
 # in case importing menu fails due to import utilities errors to find,
 # this will add the geocubitlib/ folder to the sys.path:
 import geocubitlib
-sys.path.append(geocubitlib.__path__[0])
 
-print("path: ")
-print(sys.path)
-print("")
+#sys.path.append(geocubitlib.__path__[0])
+#print("path: ")
+#print(sys.path)
+#print("")
 
 from geocubitlib import absorbing_boundary
 from geocubitlib import save_fault_nodes_elements
 from geocubitlib import cubit2specfem3d
 
-km = 1000
-z_surf = 0*km
+km = 1000.0
+z_surf = 0.0
 
 ####  initializing coordinates x,y,z
 x = []     # fault
@@ -127,17 +136,42 @@ cubit.cmd("volume 1 size "+str(elementsize))
 cubit.cmd("surface 1 scheme pave")
 cubit.cmd("mesh surface 1")
 cubit.cmd("mesh volume 1")
-cubit.cmd("unmerge surface 2 3")
 
-# clean up sheet bodies
-cubit.cmd("delete volume 2 3")
+cubit.cmd("compress all")
+
+# sets fault surfaces IDs
+if cubit_version_major < 2020:
+    # w/ older cubit versions
+    cubit.cmd("unmerge surface 2 3")
+    # clean up sheet bodies
+    cubit.cmd("delete volume 2 3")
+
+    ########### Fault elements and nodes ###############
+    # fault surfaces (up/down)
+    Au = [2]
+    Ad = [3]
+else:
+    # w/ newer cubit versions (latest 2024.3)
+    # clean up sheet bodies
+    cubit.cmd("delete volume 2 3")
+    ########### Fault elements and nodes ###############
+    # fault surfaces (up/down)
+    Au = [6]
+    Ad = [7]
+
+# fault surface info
+print("#")
+# fault up
+for k in Au:
+    center_point = cubit.get_center_point("surface", k)
+    print("# fault up  : surface {} has center point: {}".format(k,center_point))
+# fault down
+for k in Ad:
+    center_point = cubit.get_center_point("surface", k)
+    print("# fault down: surface {} has center point: {}".format(k,center_point))
+print("#")
 
 os.system('mkdir -p MESH')
-
-########### Fault elements and nodes ###############
-# fault surfaces (up/down)
-Au = [2]
-Ad = [3]
 
 faultA = save_fault_nodes_elements.fault_input(1,Au,Ad)
 
@@ -147,12 +181,12 @@ faultA = save_fault_nodes_elements.fault_input(1,Au,Ad)
 #..... which extracts the bounding faces and defines them into blocks
 #entities=['face'] # this is a deprecated boundary definition function
 #boundary_definition.define_bc(entities,parallel=True)
-
+print('#### DEFINE BC #######################')
 entities=['face']
 absorbing_boundary.define_parallel_bc(entities) # in absorbing_boundary.py
 
 #### Define material properties for the 2 volumes ################
-cubit.cmd('#### DEFINE MATERIAL PROPERTIES #######################')
+print('#### DEFINE MATERIAL PROPERTIES #######################')
 
 # Material properties in concordance with tpv5 benchmark.
 

@@ -15,7 +15,7 @@ import sys
 import os.path
 import time
 
-# checks for path for modules
+# checks path for GEOCUBIT modules
 found_lib = False
 for path in sys.path:
     if "geocubitlib" in path:
@@ -104,7 +104,8 @@ else:
     # topo surface doesn't exist yet, this creates it:
     print("# reading in topography surface")
     # reads in topography points and creates sheet surface
-    execfile("./read_topo.py")
+    # old: execfile("./read_topo.py")
+    exec(open("./read_topo.py").read())
     # clear
     cubit.cmd('reset')
     # now reopen the cubit file

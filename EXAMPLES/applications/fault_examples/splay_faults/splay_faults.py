@@ -5,26 +5,31 @@ import math
 import os
 import sys
 
-# checks for path for modules
+# checks path for GEOCUBIT modules
 found_lib = False
 for path in sys.path:
     if "geocubitlib" in path:
         found_lib = True
         break
 if not found_lib:
-    sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
-    sys.path.append('../../../CUBIT_GEOCUBIT/')
-#print("path:")
-#for path in sys.path: print("  ",path)
-#print("")
+    sys.path.append('../../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../../CUBIT_GEOCUBIT/')
 
 import cubit
 import boundary_definition
 import cubit2specfem3d
 
-import numarray
 from save_fault_nodes_elements import *
 
+# CUBIT
+cubit.init(["-noecho","-nojournal"])
+
+print("#")
+print("## cubit version:")
+print("#")
+cubit.cmd('version')
+
+# clean workspace
 cubit.cmd('reset')
 
 km = 1000
@@ -169,7 +174,7 @@ cubit.cmd('curve 8 10 7 9 size 2000')
 cubit.cmd('curve 8 10 7 9 scheme equal')
 cubit.cmd('mesh curve 8 10 7 9')
 cubit.cmd("surface 13 18 size "+str(elementsize))
-cubit.cmd("volume 1 2 3 size "+str(elementsize))
+cubit.cmd("volume 1 2 size "+str(elementsize))
 cubit.cmd("surface 13 18 scheme pave")
 cubit.cmd("mesh surface 13 18 ")
 cubit.cmd("mesh volume 1 2 ")
@@ -178,22 +183,50 @@ cubit.cmd("mesh volume 1 2 ")
 ########## loading cracks #######
 #SAVING FAULT NODES AND ELEMENTS.
 os.system('mkdir -p MESH')
+
 ########## FAULT A ##############################################################
 Au = [8,15] #face_up
 Ad = [6,7]  #face_down
+
+# fault surface info
+print("#")
+# fault up
+for k in Au:
+    center_point = cubit.get_center_point("surface", k)
+    print("# fault A up  : surface {} has center point: {}".format(k,center_point))
+# fault down
+for k in Ad:
+    center_point = cubit.get_center_point("surface", k)
+    print("# fault A down: surface {} has center point: {}".format(k,center_point))
+print("#")
+
 faultA = fault_input(1,Au,Ad)
 
 ########## FAULT BC ##############################################################
 BCu = [9,10]   #face_up
 BCd = [14,17]  #face_down
+
+# fault surface info
+print("#")
+# fault up
+for k in BCu:
+    center_point = cubit.get_center_point("surface", k)
+    print("# fault BC up  : surface {} has center point: {}".format(k,center_point))
+# fault down
+for k in BCd:
+    center_point = cubit.get_center_point("surface", k)
+    print("# fault BC down: surface {} has center point: {}".format(k,center_point))
+print("#")
+
 faultBC = fault_input(2,BCu,BCd)
 
 ### Exporting the mesh to cubit.
+print('#### DEFINE BC #######################')
 boundary_definition.entities=['face']
 boundary_definition.define_bc(boundary_definition.entities,parallel=True)
 
 #### Define material properties for the 2 volumes ################
-cubit.cmd('#### DEFINE MATERIAL PROPERTIES #######################')
+print('#### DEFINE MATERIAL PROPERTIES #######################')
 
 # Material properties in concordance with tpv5 benchmark.
 

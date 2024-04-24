@@ -40,9 +40,7 @@ except ImportError:
     print("")
     sys.exit("Import cubit failed")
 
-print(sys.path)
-
-cubit.init([""])
+cubit.init(["-noecho","-nojournal"])
 
 # gets version string
 cubit_version = cubit.get_version()
@@ -95,6 +93,7 @@ use_explicit=1
 if use_explicit == 1:
     from geocubitlib import boundary_definition
     # bounding faces
+    print("#### DEFINE BC #######################")
     boundary_definition.entities=['face']
     boundary_definition.define_bc(boundary_definition.entities,parallel=True)
     from geocubitlib import cubit2specfem3d
@@ -133,6 +132,7 @@ else:
     print("exporting to SPECFEM3D-format:")
     print("")
     # Export to SPECFEM3D format
+    print("#### DEFINE BLOCKS #######################")
     # note: exportlib-commands will overwrite material properties
     exportlib.define_blocks(outdir='MESH/',save_cubfile=True,outfilename='top')
     exportlib.e2SEM(outdir='MESH/')
