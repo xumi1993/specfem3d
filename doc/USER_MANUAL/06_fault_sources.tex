@@ -246,8 +246,8 @@ sequence (arguments in {[}brackets{]} are optional):\newline
 followed by (n1+n2+n3) \&\textbf{DIST2D} blocks\newline
 
 
-\&\textbf{SWF} mus, mud, dc {[}, nmus, nmud, ndc{]} (weakening\_kind=1 for linear (default); weakening\_kind=2 for exponential) /\newline
-\&\textbf{TWF} nuc\_x, nuc\_y, nuc\_z, nuc\_r, nuc\_t0, nuc\_v /\newline
+\&\textbf{SWF} mus, mud, dc {[}, nmus, nmud, ndc{]} (weakening\_kind=1 for linear (default); weakening\_kind=2 for exponential; weakening\_kind=3 for power-law with p) /\newline
+\&\textbf{TWF} nuc\_x, nuc\_y, nuc\_z, nuc\_r, nuc\_t0, nuc\_v, mus, mud, kind /\newline
 \&\textbf{RSF} V0,f0,a,b,L,V\_init,theta\_init,C,StateLaw {[} nV0,nf0,na,nb,nL,nV\_init,ntheta\_init,nC {]} /\newline
 
 
@@ -315,8 +315,12 @@ of the fault:
 \item [{ndc}] = number of heterogeneous items for critical slip-weakening
 distance {[}default is 0{]}
 \item [{nC}] = number of heterogeneous items for cohesion
+\item [{p}]  = power-law coefficient (Chambon et al., 2006)
+{[}default is 1{]}
 \item [{weakening\_kind}] = 1 for linear slip-weakening law (default); 2 for exponential slip-weakening law:
-                            $$\mu = \mu_d + (\mu_s-\mu_d) exp(-\frac{u}{d_c}) $$
+                            $$\mu = \mu_d + (\mu_s-\mu_d) exp(-\frac{u}{d_c}) $$;
+			    3 for power-law slip-weakening law:
+                            $$\mu = \mu_d + (\mu_s-\mu_d) (1+\frac{u}{p d_c})^{-p} $$
 \end{description}
 
 \item [{\&\textbf{TWF}}] input block sets the time-weakening friction parameters
@@ -328,6 +332,9 @@ of the fault:
 \item [{nuc\_r}]  = the radius of time-weakening nucleation (in m)
 \item [{nuc\_t0}] = the cohesive time. The friction linearly decreases from static friction to dynamic friction during this time (in s)
 \item [{nuc\_v}]  = the time-weakening nucleation speed (in m/s)
+\item [{mus}]     = constant static friction coefficient for TWF
+\item [{mud}]     = constant dynamic friction coefficient for TWF
+\item [{kind}]    = 1 for regular TWF (default); 2 for TWF in TPV22* benchmarks
 \end{description}
 
 \item [{\&\textbf{RSF}}] input block sets the rate and state friction parameters

@@ -67,7 +67,7 @@ module fault_solver_common
   end type swf_type
 
   type twf_type
-    real(kind=CUSTOM_REAL) ::  nuc_x, nuc_y, nuc_z, nuc_r, nuc_t0, nuc_v
+    real(kind=CUSTOM_REAL) :: nuc_x,nuc_y,nuc_z,nuc_r,nuc_t0,nuc_v,mus,mud,kind
   end type twf_type
 
 
