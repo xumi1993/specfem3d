@@ -111,6 +111,8 @@ jobs:
         echo "MPI environment:"
         echo "mpif90 on path: $(which mpif90)"
         echo
+        # add OpenMPI path to have ./configure detect mpi.h
+        echo "MPI_INC=/opt/homebrew/include" >> $GITHUB_ENV
         ## avoids MPI issue with number of slots
         echo "OMPI_MCA_rmaps_base_oversubscribe=1" >> $GITHUB_ENV
         echo "OMPI_MCA_rmaps_base_inherit=1" >> $GITHUB_ENV
