@@ -24,7 +24,7 @@ src/generate_databases/*.mod
 src/meshfem3D/*.mod
 src/specfem3D/*.mod
 *__genmod.f90
-./*.mod
+my_mpi.mod
 
 # documentation
 manual_SPECFEM3D_Cartesian.aux
