@@ -127,9 +127,8 @@ jobs:
 
     - name: configure
       run: |
-        ./configure
-        # checks exit code
-        if [[ $? -ne 0 ]]; then cat config.log; exit 1; fi
+        ./configure ; if [[ $? -ne 0 ]]; then cat config.log; exit 1; fi
+        # changes SCOTCH Makefile for macOS
         echo "modifying external_libs/scotch/src/Makefile.inc"
         cp -v external_libs/scotch/src/Make.inc/Makefile.inc.i686_mac_darwin8 external_libs/scotch/src/Makefile.inc
 
