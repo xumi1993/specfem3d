@@ -400,8 +400,8 @@ contains
       case('qtl')
         trace_cal_2 = trace_cal_1
         trace_obs_2 = trace_obs_1
-        write(*,*)'ERROR : qtl is not implemented yet'
-        write(*,*)'NOW STOP'
+        write(*,*) 'ERROR : qtl is not implemented yet'
+        write(*,*) 'NOW STOP'
         stop
       end select
 

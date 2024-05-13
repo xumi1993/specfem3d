@@ -68,7 +68,7 @@
   nspecface = 0
 
 ! mark global AVS or DX points
-  do ispec=1,nspec
+  do ispec = 1,nspec
 ! only if at the surface (top plane)
   if (iboun(6,ispec)) then
 
@@ -98,7 +98,7 @@
 
 ! output global AVS or DX points
   numpoin = 0
-  do ispec=1,nspec
+  do ispec = 1,nspec
 ! only if at the surface
   if (iboun(6,ispec)) then
 
@@ -163,7 +163,7 @@
   write(10,*) nspecface
 
   ispecface = 0
-  do ispec=1,nspec
+  do ispec = 1,nspec
 ! only if at the surface
   if (iboun(6,ispec)) then
 

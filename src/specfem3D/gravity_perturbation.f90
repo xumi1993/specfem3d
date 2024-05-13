@@ -287,33 +287,33 @@ contains
 
 
 ! compute coordinates and jacobian matrix
-  x=ZERO
-  y=ZERO
-  z=ZERO
-  xxi=ZERO
-  xeta=ZERO
-  xgamma=ZERO
-  yxi=ZERO
-  yeta=ZERO
-  ygamma=ZERO
-  zxi=ZERO
-  zeta=ZERO
-  zgamma=ZERO
+  x = ZERO
+  y = ZERO
+  z = ZERO
+  xxi = ZERO
+  xeta = ZERO
+  xgamma = ZERO
+  yxi = ZERO
+  yeta = ZERO
+  ygamma = ZERO
+  zxi = ZERO
+  zeta = ZERO
+  zgamma = ZERO
 
-  do ia=1,NGNOD
-    x=x+shape3D(ia)*xelm(ia)
-    y=y+shape3D(ia)*yelm(ia)
-    z=z+shape3D(ia)*zelm(ia)
+  do ia = 1,NGNOD
+    x = x+shape3D(ia)*xelm(ia)
+    y = y+shape3D(ia)*yelm(ia)
+    z = z+shape3D(ia)*zelm(ia)
 
-    xxi=xxi+dershape3D(1,ia)*xelm(ia)
-    xeta=xeta+dershape3D(2,ia)*xelm(ia)
-    xgamma=xgamma+dershape3D(3,ia)*xelm(ia)
-    yxi=yxi+dershape3D(1,ia)*yelm(ia)
-    yeta=yeta+dershape3D(2,ia)*yelm(ia)
-    ygamma=ygamma+dershape3D(3,ia)*yelm(ia)
-    zxi=zxi+dershape3D(1,ia)*zelm(ia)
-    zeta=zeta+dershape3D(2,ia)*zelm(ia)
-    zgamma=zgamma+dershape3D(3,ia)*zelm(ia)
+    xxi = xxi+dershape3D(1,ia)*xelm(ia)
+    xeta = xeta+dershape3D(2,ia)*xelm(ia)
+    xgamma = xgamma+dershape3D(3,ia)*xelm(ia)
+    yxi = yxi+dershape3D(1,ia)*yelm(ia)
+    yeta = yeta+dershape3D(2,ia)*yelm(ia)
+    ygamma = ygamma+dershape3D(3,ia)*yelm(ia)
+    zxi = zxi+dershape3D(1,ia)*zelm(ia)
+    zeta = zeta+dershape3D(2,ia)*zelm(ia)
+    zgamma = zgamma+dershape3D(3,ia)*zelm(ia)
   enddo
 
   jacobian = xxi*(yeta*zgamma-ygamma*zeta) - xeta*(yxi*zgamma-ygamma*zxi) + xgamma*(yxi*zeta-yeta*zxi)
@@ -347,7 +347,7 @@ contains
     allocate(dotP(NGLOB_AB),stat=ier)
     if (ier /= 0) call exit_MPI_without_rank('error allocating array 2242')
 
-    do istat=1,nstat
+    do istat = 1,nstat
       Rg = sqrt((xstore-xstat(istat))**2+(ystore-ystat(istat))**2+(zstore-zstat(istat))**2)
       dotP = (xstore-xstat(istat))*displ(1,:)+(ystore-ystat(istat))*displ(2,:)+(zstore-zstat(istat))*displ(3,:)
 

@@ -136,22 +136,22 @@
   call get_value_string(CNtype2_key_modif, 'model.CNtype2_key_modif', 'DATA/crust2.0/CNtype2_key_modif.txt')
 
   open(unit=1,file=CNtype2,status='old',action='read')
-  do ila=1,NCAP_CRUST/2
+  do ila = 1,NCAP_CRUST/2
     read(1,*) icolat,(CM_V%abbreviation(ila,i),i=1,NCAP_CRUST)
   enddo
   close(1)
 
   open(unit=1,file=CNtype2_key_modif,status='old',action='read')
-  h_moho_min=HUGEVAL
+  h_moho_min = HUGEVAL
   h_moho_max=-HUGEVAL
-  do ikey=1,NKEYS_CRUST
+  do ikey = 1,NKEYS_CRUST
     read (1,"(a2)") CM_V%code(ikey)
     read (1,*) (CM_V%velocp(ikey,i),i=1,NLAYERS_CRUST)
     read (1,*) (CM_V%velocs(ikey,i),i=1,NLAYERS_CRUST)
     read (1,*) (CM_V%dens(ikey,i),i=1,NLAYERS_CRUST)
     read (1,*) (CM_V%thlr(ikey,i),i=1,NLAYERS_CRUST-1),CM_V%thlr(ikey,NLAYERS_CRUST)
-    if (CM_V%thlr(ikey,NLAYERS_CRUST) > h_moho_max) h_moho_max=CM_V%thlr(ikey,NLAYERS_CRUST)
-    if (CM_V%thlr(ikey,NLAYERS_CRUST) < h_moho_min) h_moho_min=CM_V%thlr(ikey,NLAYERS_CRUST)
+    if (CM_V%thlr(ikey,NLAYERS_CRUST) > h_moho_max) h_moho_max = CM_V%thlr(ikey,NLAYERS_CRUST)
+    if (CM_V%thlr(ikey,NLAYERS_CRUST) < h_moho_min) h_moho_min = CM_V%thlr(ikey,NLAYERS_CRUST)
   enddo
   close(1)
 
@@ -259,9 +259,9 @@
       xc(2) = sint*sinp
       xc(3) = cost
 !     get x,y,z coordinates in cap around point of interest
-      do j=1,3
+      do j = 1,3
         x(j) = 0.0
-        do k=1,3
+        do k = 1,3
           x(j) = x(j)+rotation_matrix(j,k)*xc(k)
         enddo
       enddo
@@ -280,20 +280,20 @@
 
   npoints = i
 
-  do j=1,NLAYERS_CRUST
+  do j = 1,NLAYERS_CRUST
     rho(j)=0.0d0
     thick(j)=0.0d0
     velp(j)=0.0d0
     vels(j)=0.0d0
   enddo
 
-  do i=1,npoints
+  do i = 1,npoints
     call icolat_ilon(xlat(i),xlon(i),icolat,ilon)
     crustaltype=abbreviation(icolat,ilon)
     call get_crust_structure(crustaltype,velpl,velsl,rhol,thickl, &
                     code,thlr,velocp,velocs,dens,ierr)
     if (ierr /= 0) stop 'error in routine get_crust_structure'
-    do j=1,NLAYERS_CRUST
+    do j = 1,NLAYERS_CRUST
       rho(j)=rho(j)+weight(i)*rhol(j)
       thick(j)=thick(j)+weight(i)*thickl(j)
       velp(j)=velp(j)+weight(i)*velpl(j)
@@ -316,9 +316,9 @@
 
   if (xlat > 90.0d0 .or. xlat < -90.0d0 .or. xlon > 180.0d0 .or. xlon < -180.0d0) &
     stop 'error in latitude/longitude range in icolat_ilon'
-  icolat=int(1+((90.d0-xlat)/2.d0))
+  icolat = int(1+((90.d0-xlat)/2.d0))
   if (icolat == 91) icolat=90
-  ilon=int(1+((180.d0+xlon)/2.d0))
+  ilon = int(1+((180.d0+xlon)/2.d0))
   if (ilon == 181) ilon=1
 
   if (icolat > 90 .or. icolat < 1) stop 'error in routine icolat_ilon'
@@ -346,20 +346,20 @@
 ! local variables
   integer i,ikey
 
-  ierr=1
-  do ikey=1,NKEYS_CRUST
+  ierr = 1
+  do ikey = 1,NKEYS_CRUST
   if (code(ikey) == type) then
-    do i=1,NLAYERS_CRUST
+    do i = 1,NLAYERS_CRUST
       vptyp(i)=velocp(ikey,i)
       vstyp(i)=velocs(ikey,i)
       rhtyp(i)=dens(ikey,i)
     enddo
-    do i=1,NLAYERS_CRUST-1
+    do i = 1,NLAYERS_CRUST-1
       thtp(i)=thlr(ikey,i)
     enddo
 !   get distance to Moho from the bottom of the ocean or the ice
     thtp(NLAYERS_CRUST)=thlr(ikey,NLAYERS_CRUST)-thtp(1)-thtp(2)
-    ierr=0
+    ierr = 0
   endif
   enddo
 

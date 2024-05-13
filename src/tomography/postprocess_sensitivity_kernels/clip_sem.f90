@@ -156,7 +156,7 @@ program clip_sem
   if (ier /= 0) call exit_MPI_without_rank('error allocating array 977')
 
   ! clip kernels
-  do iker=1,nker
+  do iker = 1,nker
 
       kernel_name = trim(kernel_names(iker))
       write(filename,'(a,i6.6,a)') trim(input_dir)//'/proc',myrank,'_'//trim(kernel_name)//'.bin'
@@ -176,10 +176,10 @@ program clip_sem
      endif
 
      ! apply thresholds
-      do ispec=1,NSPEC
-        do k=1,NGLLZ
-          do j=1,NGLLY
-            do i=1,NGLLX
+      do ispec = 1,NSPEC
+        do k = 1,NGLLZ
+          do j = 1,NGLLY
+            do i = 1,NGLLX
               if (sem_array(i,j,k,ispec) < min_val) sem_array(i,j,k,ispec) = min_val
               if (sem_array(i,j,k,ispec) > max_val) sem_array(i,j,k,ispec) = max_val
             enddo

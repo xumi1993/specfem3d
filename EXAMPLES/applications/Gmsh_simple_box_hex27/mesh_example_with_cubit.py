@@ -83,6 +83,7 @@ cubit.cmd('mesh volume all')
 try:
     import geocubitlib
 except:
+    sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
     sys.path.append('../../../CUBIT_GEOCUBIT/')
     print("path: ")
     print(sys.path)
@@ -118,6 +119,7 @@ if use_explicit == 1:
         cubit.cmd('block '+str(id_block)+' element type hex27')
         cubit.cmd('reset block '+str(id_block))
     # bounding faces
+    print("#### DEFINE BC #######################")
     boundary_definition.entities=['face']
     boundary_definition.define_bc(boundary_definition.entities,parallel=True)
     from geocubitlib import cubit2specfem3d
@@ -172,6 +174,7 @@ else:
     # Export to SPECFEM3D format
     # note: exportlib-commands will overwrite material properties
     # for hex27 elements
+    print("#### DEFINE BLOCKS #######################")
     if 1 == 1:
         exportlib.define_blocks(outdir='MESH/',save_cubfile=True,outfilename='top',hex27=True)
         exportlib.e2SEM(outdir='MESH/',hex27=True)

@@ -240,7 +240,7 @@
 
   if (myrank == 0) then
     write(IMAIN,*) '  Created a total of ',nspec_CPML_total,' unique CPML elements'
-    write(IMAIN,*)'   (i.e., ',100. * nspec_CPML_total / real(nspec_total),'% of the mesh)'
+    write(IMAIN,*) '   (i.e., ',100. * nspec_CPML_total / real(nspec_total),'% of the mesh)'
     write(IMAIN,*)
   endif
 

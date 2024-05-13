@@ -463,7 +463,7 @@ program create_movie_GMT
      igmt = 1
      ! output list of points
      mask_point = .false.
-     do ispec=1,nspectot_AVS_max
+     do ispec = 1,nspectot_AVS_max
         ieoff = NGNOD2D_AVS_DX*(ispec-1)
         ! four points for each element
         do ilocnum = 1,NGNOD2D_AVS_DX
@@ -572,24 +572,24 @@ end program create_movie_GMT
   allocate(work(npointot))
 
 ! establish initial pointers
-  do ispec=1,nspec
+  do ispec = 1,nspec
     ieoff=NGNOD2D_AVS_DX*(ispec-1)
-    do ilocnum=1,NGNOD2D_AVS_DX
+    do ilocnum = 1,NGNOD2D_AVS_DX
       loc(ilocnum+ieoff)=ilocnum+ieoff
     enddo
   enddo
 
-  ifseg(:)=.false.
+  ifseg(:) = .false.
 
-  nseg=1
-  ifseg(1)=.true.
+  nseg = 1
+  ifseg(1) = .true.
   ninseg(1)=npointot
 
-  do j=1,NDIM
+  do j = 1,NDIM
 
 ! sort within each segment
-  ioff=1
-  do iseg=1,nseg
+  ioff = 1
+  do iseg = 1,nseg
     if (j == 1) then
       call rank(xp(ioff),ind,ninseg(iseg))
     else if (j == 2) then
@@ -604,24 +604,24 @@ end program create_movie_GMT
 ! check for jumps in current coordinate
 ! compare the coordinates of the points within a small tolerance
   if (j == 1) then
-    do i=2,npointot
-      if (dabs(xp(i)-xp(i-1)) > SMALLVALTOL) ifseg(i)=.true.
+    do i = 2,npointot
+      if (dabs(xp(i)-xp(i-1)) > SMALLVALTOL) ifseg(i) = .true.
     enddo
   else if (j == 2) then
-    do i=2,npointot
-      if (dabs(yp(i)-yp(i-1)) > SMALLVALTOL) ifseg(i)=.true.
+    do i = 2,npointot
+      if (dabs(yp(i)-yp(i-1)) > SMALLVALTOL) ifseg(i) = .true.
     enddo
   else
-    do i=2,npointot
-      if (dabs(zp(i)-zp(i-1)) > SMALLVALTOL) ifseg(i)=.true.
+    do i = 2,npointot
+      if (dabs(zp(i)-zp(i-1)) > SMALLVALTOL) ifseg(i) = .true.
     enddo
   endif
 
 ! count up number of different segments
-  nseg=0
-  do i=1,npointot
+  nseg = 0
+  do i = 1,npointot
     if (ifseg(i)) then
-      nseg=nseg+1
+      nseg = nseg+1
       ninseg(nseg)=1
     else
       ninseg(nseg)=ninseg(nseg)+1
@@ -630,13 +630,13 @@ end program create_movie_GMT
   enddo
 
 ! assign global node numbers (now sorted lexicographically)
-  ig=0
-  do i=1,npointot
-    if (ifseg(i)) ig=ig+1
+  ig = 0
+  do i = 1,npointot
+    if (ifseg(i)) ig = ig+1
     iglob(loc(i))=ig
   enddo
 
-  nglob=ig
+  nglob = ig
 
 ! deallocate arrays
   deallocate(ind)
@@ -663,42 +663,42 @@ end program create_movie_GMT
   integer i,j,l,ir,indx
   double precision q
 
-  do j=1,n
+  do j = 1,n
    IND(j)=j
   enddo
 
   if (n == 1) return
 
-  L=n/2+1
-  ir=n
+  L = n/2+1
+  ir = n
   100 continue
    if (l > 1) then
-      l=l-1
+      l = l-1
       indx=ind(l)
       q=a(indx)
    ELSE
       indx=ind(ir)
       q=a(indx)
       ind(ir)=ind(1)
-      ir=ir-1
+      ir = ir-1
       if (ir == 1) then
          ind(1)=indx
          return
       endif
    endif
-   i=l
-   j=l+l
+   i = l
+   j = l+l
   200    continue
    if (J <= IR) then
       if (J < IR) then
-         if ( A(IND(j)) < A(IND(j+1)) ) j=j+1
+         if ( A(IND(j)) < A(IND(j+1)) ) j = j+1
       endif
       if (q < A(IND(j))) then
          IND(I)=IND(J)
-         I=J
-         J=J+J
+         I = J
+         J = J+J
       ELSE
-         J=IR+1
+         J = IR+1
       endif
    goto 200
    endif
@@ -725,20 +725,20 @@ end program create_movie_GMT
   IW(:) = IA(:)
   W(:) = A(:)
 
-  do i=1,n
+  do i = 1,n
     IA(i)=IW(ind(i))
     A(i)=W(ind(i))
   enddo
 
   W(:) = B(:)
 
-  do i=1,n
+  do i = 1,n
     B(i)=W(ind(i))
   enddo
 
   W(:) = C(:)
 
-  do i=1,n
+  do i = 1,n
     C(i)=W(ind(i))
   enddo
 

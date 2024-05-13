@@ -214,7 +214,7 @@ contains
 
   return
 
-100 if (myrank == 0)write(IMAIN,*) 'Fatal error: did not find BEGIN_FAULT input block in file DATA/Par_file_faults. Abort.'
+100 if (myrank == 0) write(IMAIN,*) 'Fatal error: did not find BEGIN_FAULT input block in file DATA/Par_file_faults. Abort.'
     call exit_MPI(myrank,'Error: BEGIN_FAULT entry missing')
 
   end subroutine BC_KINFLT_init

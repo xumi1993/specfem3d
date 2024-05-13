@@ -214,7 +214,7 @@
     write(IMAIN,*)
     write(IMAIN,*) '  load per partition: min/max   = ',load_min,load_max
     write(IMAIN,*) '  load per partition: imbalance = ',load_balance,'%'
-    write(IMAIN,*)'                      (0% being totally balanced, 100% being unbalanced)'
+    write(IMAIN,*) '                      (0% being totally balanced, 100% being unbalanced)'
     write(IMAIN,*)
     write(IMAIN,*) 'total number of elements in mesh slice 0: ',NSPEC_AB
     write(IMAIN,*) 'total number of   regular elements in mesh slice 0: ',NSPEC_AB - nspec_irregular

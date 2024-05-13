@@ -198,9 +198,9 @@
       call mxm8_3dmat_single(chi_elem,m1,hprime_xxT,m1,temp2,NGLLX)
       call mxm8_single(chi_elem,m2,hprime_xxT,temp3,m1)
     case default
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
             ! derivative along x, y, z
             ! first double loop over GLL points to compute and store gradients
             temp1l = 0._CUSTOM_REAL
@@ -309,7 +309,7 @@
             temp2l = 0._CUSTOM_REAL
             temp3l = 0._CUSTOM_REAL
             ! we can merge these loops because NGLLX = NGLLY = NGLLZ
-            do l=1,NGLLX
+            do l = 1,NGLLX
               temp1l = temp1l + temp1(l,j,k) * hprimewgll_xx(l,i)
               temp2l = temp2l + temp2(i,l,k) * hprimewgll_yy(l,j)
               temp3l = temp3l + temp3(i,j,l) * hprimewgll_zz(l,k)
@@ -931,9 +931,9 @@
       call mxm8_3comp_3dmat_single(chi_elem,chi_elem_old,chi_elem_new,m1,hprime_xxT,m1,temp2,temp2_old,temp2_new,m1)
       call mxm8_3comp_singleB(chi_elem,chi_elem_old,chi_elem_new,m2,hprime_xxT,temp3,temp3_old,temp3_new,m1)
     case default
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
             ! derivative along x, y, z
             temp1l = 0._CUSTOM_REAL
             temp2l = 0._CUSTOM_REAL
@@ -947,7 +947,7 @@
             temp2l_new = 0._CUSTOM_REAL
             temp3l_new = 0._CUSTOM_REAL
             ! we can merge these loops because NGLLX = NGLLY = NGLLZ
-            do l=1,NGLLX
+            do l = 1,NGLLX
               hp1 = hprime_xx(i,l)
               temp1l     = temp1l     + chi_elem(l,j,k)*hp1
               temp1l_old = temp1l_old + chi_elem_old(l,j,k)*hp1
@@ -1136,7 +1136,7 @@
             temp2l = 0._CUSTOM_REAL
             temp3l = 0._CUSTOM_REAL
             ! we can merge these loops because NGLLX = NGLLY = NGLLZ
-            do l=1,NGLLX
+            do l = 1,NGLLX
               temp1l = temp1l + temp1(l,j,k) * hprimewgll_xx(l,i)
               temp2l = temp2l + temp2(i,l,k) * hprimewgll_yy(l,j)
               temp3l = temp3l + temp3(i,j,l) * hprimewgll_zz(l,k)

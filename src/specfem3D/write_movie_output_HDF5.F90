@@ -179,7 +179,7 @@ contains
   implicit none
 
   ! local parameters
-  integer :: ier, nfaces_actual, nfaces_aug=(NGLLX-1)*(NGLLY-1),nnodes_per_face_aug=4
+  integer :: ier, nfaces_actual, nfaces_aug=(NGLLX-1)*(NGLLY-1),nnodes_per_face_aug = 4
   integer :: len_array_aug, len_array_aug_proc
   character(len=64) :: dset_name, group_name
   real(kind=CUSTOM_REAL) :: aug_factor
@@ -1902,11 +1902,11 @@ contains
   ! count the number of nodes and elements in this IO group
   nglob_this_io = 0
   nelm_this_io  = 0
-  do iproc=0, nproc_io-1
+  do iproc = 0, nproc_io-1
     nglob_this_io = nglob_this_io + nglob_par_proc(id_proc_loc2glob(iproc))
     nelm_this_io  = nelm_this_io  + nelm_par_proc (id_proc_loc2glob(iproc))
     if (iproc > 0) then
-      do iproc2=0, iproc-1
+      do iproc2 = 0, iproc-1
         nglob_par_proc_offset(iproc) = nglob_par_proc_offset(iproc)+nglob_par_proc(id_proc_loc2glob(iproc2))
         nelm_par_proc_offset(iproc)  = nelm_par_proc_offset(iproc) +nelm_par_proc (id_proc_loc2glob(iproc2))
       enddo

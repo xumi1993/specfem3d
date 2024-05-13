@@ -62,33 +62,34 @@ def define_parallel_absorbing_surf():
     absorbing_surf_bottom = []
     top_surf = []
 
-
     list_vol = cubit.parse_cubit_list("volume","all")
     init_n_vol = len(list_vol)
+
     zmax_box = cubit.get_total_bounding_box("volume",list_vol)[7]
     zmin_box = cubit.get_total_bounding_box("volume",list_vol)[6] #it is the z_min of the box ... box= xmin,xmax,d,ymin,ymax,d,zmin...
     xmin_box = cubit.get_total_bounding_box("volume",list_vol)[0]
     xmax_box = cubit.get_total_bounding_box("volume",list_vol)[1]
     ymin_box = cubit.get_total_bounding_box("volume",list_vol)[3]
     ymax_box = cubit.get_total_bounding_box("volume",list_vol)[4]
+
     list_surf = cubit.parse_cubit_list("surface","all")
-    print('##boundary box: ')
-    print('##  x min: ' + str(xmin_box))
-    print('##  y min: ' + str(ymin_box))
-    print('##  z min: ' + str(zmin_box))
-    print('##  x max: ' + str(xmax_box))
-    print('##  y max: ' + str(ymax_box))
-    print('##  z max: ' + str(zmax_box))
+    print('## boundary box: ')
+    print('##   x min: ' + str(xmin_box))
+    print('##   y min: ' + str(ymin_box))
+    print('##   z min: ' + str(zmin_box))
+    print('##   x max: ' + str(xmax_box))
+    print('##   y max: ' + str(ymax_box))
+    print('##   z max: ' + str(zmax_box))
 
     #box lengths
-    x_len = abs( xmax_box - xmin_box)
-    y_len = abs( ymax_box - ymin_box)
-    z_len = abs( zmax_box - zmin_box)
+    dim_x = abs(xmax_box - xmin_box)
+    dim_y = abs(ymax_box - ymin_box)
+    dim_z = abs(zmax_box - zmin_box)
 
-    print('##boundary box: ')
-    print('##  x length: ' + str(x_len))
-    print('##  y length: ' + str(y_len))
-    print('##  z length: ' + str(z_len))
+    print('## boundary box: ')
+    print('##   x length: ' + str(dim_x))
+    print('##   y length: ' + str(dim_y))
+    print('##   z length: ' + str(dim_z))
 
     # tolerance parameters
     absorbing_surface_distance_tolerance = 0.005
@@ -97,22 +98,34 @@ def define_parallel_absorbing_surf():
 
     for k in list_surf:
         center_point = cubit.get_center_point("surface", k)
-        if abs((center_point[0] - xmin_box)/x_len) <= absorbing_surface_distance_tolerance:
-             absorbing_surf_xmin.append(k)
-        elif abs((center_point[0] - xmax_box)/x_len) <= absorbing_surface_distance_tolerance:
-             absorbing_surf_xmax.append(k)
-        elif abs((center_point[1] - ymin_box)/y_len) <= absorbing_surface_distance_tolerance:
-             absorbing_surf_ymin.append(k)
-        elif abs((center_point[1] - ymax_box)/y_len) <= absorbing_surface_distance_tolerance:
-             absorbing_surf_ymax.append(k)
-        elif abs((center_point[2] - zmin_box)/z_len) <= absorbing_surface_distance_tolerance:
-             print('center_point[2] ' + str(center_point[2]))
-             print('kz: ' + str(k))
-             absorbing_surf_bottom.append(k)
 
+        # relative distances to outer surfaces
+        dist_xmin = abs(center_point[0] - xmin_box) / dim_x
+        dist_xmax = abs(center_point[0] - xmax_box) / dim_x
+        dist_ymin = abs(center_point[1] - ymin_box) / dim_y
+        dist_ymax = abs(center_point[1] - ymax_box) / dim_y
+        dist_zmin = abs(center_point[2] - zmin_box) / dim_z
+
+        #debug
+        #print("#debug: define_parallel_absorbing_surf: center {} dist {}/{}/{}/{}/{} - tol {}".format(center_point, \
+        #      dist_xmin,dist_xmax,dist_ymin,dist_ymax,dist_zmin,absorbing_surface_distance_tolerance))
+
+        # checks surface distances
+        if dist_xmin <= absorbing_surface_distance_tolerance:
+             absorbing_surf_xmin.append(k)
+        elif dist_xmax <= absorbing_surface_distance_tolerance:
+             absorbing_surf_xmax.append(k)
+        elif dist_ymin <= absorbing_surface_distance_tolerance:
+             absorbing_surf_ymin.append(k)
+        elif dist_ymax <= absorbing_surface_distance_tolerance:
+             absorbing_surf_ymax.append(k)
+        elif dist_zmin <= absorbing_surface_distance_tolerance:
+             #print('#debug: center_point[2] ' + str(center_point[2]))
+             #print('#debug: kz: ' + str(k))
+             absorbing_surf_bottom.append(k)
         else:
             sbox = cubit.get_bounding_box('surface',k)
-            dz = abs((sbox[7] - zmax_box)/z_len)
+            dz = abs(sbox[7] - zmax_box) / dim_z
             normal = cubit.get_surface_normal(k)
             zn = normal[2]
             dn = abs(zn-1)
@@ -120,14 +133,14 @@ def define_parallel_absorbing_surf():
                 top_surf.append(k)
 
     # checking list sizes before return
-    len_return_items = [len(liste) for liste in \
-                absorbing_surf_xmin,absorbing_surf_xmax,absorbing_surf_ymin,absorbing_surf_ymax,\
-                absorbing_surf_bottom,top_surf]
-    if (0 in len_return_items ): 
-        print ('WARNING::define_parallel_absorbing_surf:: empty return list(s). try increasing tolerance!')
+    len_return_items = [len(liste) for liste in (absorbing_surf_xmin,absorbing_surf_xmax,absorbing_surf_ymin,absorbing_surf_ymax,absorbing_surf_bottom,top_surf)]
+
+    # check surface list lengths
+    if 0 in len_return_items:
+        print('ERROR: define_parallel_absorbing_surf: empty return list(s). try increasing tolerance!')
+        print('       surface list lengths: ',len_return_items)
         import sys
         sys.exit()
-    ##    
 
     return absorbing_surf_xmin,absorbing_surf_xmax,absorbing_surf_ymin,absorbing_surf_ymax,absorbing_surf_bottom,top_surf
 
@@ -159,23 +172,23 @@ def define_top_bottom_absorbing_surf(zmin_box,zmax_box):
     ymax_box = cubit.get_total_bounding_box("volume",list_vol)[4]
     list_surf = cubit.parse_cubit_list("surface","all")
 
-    print('##boundary box: ')
-    print('##  x min: ' + str(xmin_box))
-    print('##  y min: ' + str(ymin_box))
-    print('##  z min: ' + str(zmin_box))
-    print('##  x max: ' + str(xmax_box))
-    print('##  y max: ' + str(ymax_box))
-    print('##  z max: ' + str(zmax_box))
+    print('## boundary box: ')
+    print('##   x min: ' + str(xmin_box))
+    print('##   y min: ' + str(ymin_box))
+    print('##   z min: ' + str(zmin_box))
+    print('##   x max: ' + str(xmax_box))
+    print('##   y max: ' + str(ymax_box))
+    print('##   z max: ' + str(zmax_box))
 
     #box lengths
     x_len = abs( xmax_box - xmin_box)
     y_len = abs( ymax_box - ymin_box)
     z_len = abs( zmax_box - zmin_box)
 
-    print('##boundary box: ')
-    print('##  x length: ' + str(x_len))
-    print('##  y length: ' + str(y_len))
-    print('##  z length: ' + str(z_len))
+    print('## boundary box: ')
+    print('##   x length: ' + str(x_len))
+    print('##   y length: ' + str(y_len))
+    print('##   z length: ' + str(z_len))
 
     # tolerance parameters
     absorbing_surface_distance_tolerance = 0.005
@@ -185,8 +198,8 @@ def define_top_bottom_absorbing_surf(zmin_box,zmax_box):
     for k in list_surf:
         center_point = cubit.get_center_point("surface", k)
         if abs((center_point[2] - zmin_box)/z_len) <= absorbing_surface_distance_tolerance:
-             print('center_point[2] ' + str(center_point[2]))
-             print('kz: ' + str(k))
+             #print('#debug: center_point[2] ' + str(center_point[2]))
+             #print('#debug: kz: ' + str(k))
              absorbing_surf_bottom.append(k)
 
         else:
@@ -265,6 +278,13 @@ def build_block_side(surf_list,name,obj='surface'):
     id_nodeset = cubit.get_next_nodeset_id()
     id_block = cubit.get_next_block_id()
 
+    # check if surface list is empty
+    if len(surf_list) == 0:
+        print("#")
+        print("# zero {} surface found, please create block manually...".format(name))
+        print("#")
+        return
+
     if obj == 'hex':
         txt='hex in node in surface'
         txt1='block '+str(id_block)+ ' '+ txt +' '+str(list(surf_list))
@@ -299,9 +319,9 @@ def define_bc(entities,zmin,zmax,self):
     bottom,topo = define_top_bottom_absorbing_surf(zmin,zmax)
     v_list,name_list = define_block()
     build_block(v_list,name_list)
-    print(entities)
+    #print("#debug: entities: ",entities)
     for entity in entities:
-        print("##entity: "+str(entity))
+        print("## entity: "+str(entity))
         build_block_side(xmin,entity+'_abs_xmin',obj=entity)
         build_block_side(xmax,entity+'_abs_xmax',obj=entity)
         build_block_side(ymin,entity+'_abs_ymin',obj=entity)
@@ -320,9 +340,9 @@ def define_parallel_bc(entities):
     xmin,xmax,ymin,ymax,bottom,topo = define_parallel_absorbing_surf()
     v_list,name_list = define_block()
     build_block(v_list,name_list)
-    print(entities)
+    #print("#debug: entities: ",entities)
     for entity in entities:
-        print("##entity: "+str(entity))
+        print("## entity: "+str(entity))
         build_block_side(xmin,entity+'_abs_xmin',obj=entity)
         build_block_side(xmax,entity+'_abs_xmax',obj=entity)
         build_block_side(ymin,entity+'_abs_ymin',obj=entity)
@@ -337,9 +357,9 @@ def define_boundaries(entities,xmin,xmax,ymin,ymax,zmin,zmax):
     topo = zmax
     v_list,name_list = define_block()
     build_block(v_list,name_list)
-    print(entities)
+    #print("#debug: entities: ",entities)
     for entity in entities:
-        print("##entity: "+str(entity))
+        print("## entity: "+str(entity))
         build_block_side(xmin,entity+'_abs_xmin',obj=entity)
         build_block_side(xmax,entity+'_abs_xmax',obj=entity)
         build_block_side(ymin,entity+'_abs_ymin',obj=entity)
@@ -357,9 +377,9 @@ def define_bc_topo(entities,self):
     topo = self.topo
     v_list,name_list = define_block()
     build_block(v_list,name_list)
-    print(entities)
+    #print("#debug: entities: ",entities)
     for entity in entities:
-        print("##entity: "+str(entity))
+        print("## entity: "+str(entity))
         build_block_side(xmin,entity+'_abs_xmin',obj=entity)
         build_block_side(xmax,entity+'_abs_xmax',obj=entity)
         build_block_side(ymin,entity+'_abs_ymin',obj=entity)

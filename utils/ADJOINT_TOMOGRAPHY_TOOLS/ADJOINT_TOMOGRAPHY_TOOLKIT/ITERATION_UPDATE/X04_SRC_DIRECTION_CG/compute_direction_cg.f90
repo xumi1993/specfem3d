@@ -6,8 +6,8 @@ program xcompute_direction_cg
   include '../../SHARE_FILES/HEADER_FILES/values_from_mesher.h'
   include '../../SHARE_FILES/HEADER_FILES/precision.h'
 
-  integer,parameter:: NSPEC=NSPEC_CRUST_MANTLE
-  integer,parameter:: NKERNEL=4
+  integer,parameter:: NSPEC = NSPEC_CRUST_MANTLE
+  integer,parameter:: NKERNEL = 4
   integer:: myrank, sizeprocs,ier
   integer:: iker,ispec,i,j,k
 
@@ -58,7 +58,7 @@ program xcompute_direction_cg
         read(1001) gradient_1(:,:,:,1:NSPEC)
         close(1001)
 
-        beta_upper=sum(gradient_1*(gradient_1-gradient_0))
+        beta_upper = sum(gradient_1*(gradient_1-gradient_0))
         beta_down=sum(gradient_0*gradient_0)
 
         call mpi_barrier(MPI_COMM_WORLD,ier)
@@ -69,12 +69,12 @@ program xcompute_direction_cg
         beta_down_all(iker)=beta_down_all_tmp
   enddo
 
-  beta=sum(beta_upper_all)/sum(beta_down_all)
+  beta = sum(beta_upper_all)/sum(beta_down_all)
   if (myrank == 0 ) then
         print *,'before zero',myrank,beta
   endif
   if ( beta < 0.0 ) then
-        beta=0.0
+        beta = 0.0
   endif
 
 
@@ -84,7 +84,7 @@ program xcompute_direction_cg
 
 
   do iker = 1,NKERNEL
-        direction_1=0._CUSTOM_REAL
+        direction_1 = 0._CUSTOM_REAL
 
         write(direction_0_file,'(a,i6.6,a)') trim(direction_0_dir)//'/proc',myrank,'_'//trim(kernel_name(iker))//'.bin'
         write(direction_1_file,'(a,i6.6,a)') trim(direction_1_dir)//'/proc',myrank,'_'//trim(kernel_name(iker))//'.bin'
@@ -121,7 +121,7 @@ program xcompute_direction_cg
 
 
 
-        do ispec=1,NSPEC
+        do ispec = 1,NSPEC
            do k = 1,NGLLZ
               do j = 1,NGLLY
                  do i = 1,NGLLX

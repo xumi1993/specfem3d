@@ -151,11 +151,11 @@ contains
 
     integer :: ier
 
-    write(*,*)'Read PIF-file header from ',trim(adjustl(filename)),' ...'
+    write(*,*) 'Read PIF-file header from ',trim(adjustl(filename)),' ...'
     open(iunit, file=trim(adjustl(filename)), status='old',action='read', iostat=io_err)
 
     if (io_err /= 0) then
-       write(*,*)'PIF file: ',trim(adjustl(filename)),' does not exist!'
+       write(*,*) 'PIF file: ',trim(adjustl(filename)),' does not exist!'
        stop 'PIF file does not exist!'
     endif
 
@@ -174,62 +174,62 @@ contains
        select case(trim(keyword))
        case('event_name')
           read(keyval,*) mygather%hdr%event_name
-          write(*,*)'    event_name ',trim(adjustl(mygather%hdr%event_name))
+          write(*,*) '    event_name ',trim(adjustl(mygather%hdr%event_name))
 
        case('source_type')
           keyval  = lowcase(keyval)
           read(keyval,*) mygather%hdr%source_type
-          write(*,*)'    source_type ',trim(adjustl(mygather%hdr%source_type))
+          write(*,*) '    source_type ',trim(adjustl(mygather%hdr%source_type))
 
        case('source_components')
           read(line,*)keyval, mygather%hdr%source_components
-          write(*,*)'    receiver_component ',trim(adjustl(mygather%hdr%source_components))
+          write(*,*) '    receiver_component ',trim(adjustl(mygather%hdr%source_components))
 
        case('modeling_tool')
           read(line,*) keyval, mygather%hdr%modeling_tool, mygather%hdr%modeling_path
           mygather%hdr%modeling_tool  = lowcase(mygather%hdr%modeling_tool)
-          write(*,*)'    modeling_tool ',trim(adjustl(mygather%hdr%modeling_tool)),' ', &
+          write(*,*) '    modeling_tool ',trim(adjustl(mygather%hdr%modeling_tool)),' ', &
                                          trim(adjustl(mygather%hdr%modeling_path))
 
        case('data_components')
           read(line,*) keyval, mygather%hdr%data_type, mygather%hdr%data_comp
           mygather%hdr%data_type = lowcase(mygather%hdr%data_type)
           mygather%hdr%data_comp = lowcase(mygather%hdr%data_comp)
-          write(*,*)'    data_components ',trim(adjustl(mygather%hdr%data_type)),' ', &
+          write(*,*) '    data_components ',trim(adjustl(mygather%hdr%data_type)),' ', &
                                            trim(adjustl(mygather%hdr%data_comp))
 
        case('cartloc_mesh_origin')
           read(line,*) keyword, mygather%hdr%mesh_origin(1:3)
-          write(*,*)'    cartloc_mesh_origin :',mygather%hdr%mesh_origin
+          write(*,*) '    cartloc_mesh_origin :',mygather%hdr%mesh_origin
 
        case('data_origin_time')
           read(keyval,*) mygather%hdr%otime
-          write(*,*)'    data_origin_time ',mygather%hdr%otime
+          write(*,*) '    data_origin_time ',mygather%hdr%otime
 
        case('number_of_station')
           read(keyval,*) mygather%hdr%nsta
-          write(*,*)'    number_of_station ',mygather%hdr%nsta
+          write(*,*) '    number_of_station ',mygather%hdr%nsta
 
        case('data_time_step')
           read(keyval,*) mygather%hdr%dt
-          write(*,*)'    data_time_step ',mygather%hdr%dt
+          write(*,*) '    data_time_step ',mygather%hdr%dt
 
        case('data_sample_number')
           read(keyval,*) mygather%hdr%nt
-          write(*,*)'    data_sample_number ',mygather%hdr%nt
+          write(*,*) '    data_sample_number ',mygather%hdr%nt
 
        case('is_time_pick')
           read(keyval,*) mygather%hdr%is_pick
-          write(*,*)'    is_time_pick ',mygather%hdr%is_pick
+          write(*,*) '    is_time_pick ',mygather%hdr%is_pick
 
        case('time_window')
           read(line,*)      keyval, mygather%hdr%is_window, mygather%hdr%tbef, mygather%hdr%taft
-          write(*,*)'    time_window ',mygather%hdr%is_window,mygather%hdr%tbef,mygather%hdr%taft
+          write(*,*) '    time_window ',mygather%hdr%is_window,mygather%hdr%tbef,mygather%hdr%taft
 
        case('station_coord_system')
           keyval = lowcase(keyval)
           read(keyval,*) mygather%hdr%coord_sys
-          write(*,*)'    station_coord_system ',trim(adjustl(mygather%hdr%coord_sys))
+          write(*,*) '    station_coord_system ',trim(adjustl(mygather%hdr%coord_sys))
 
        end select
 
@@ -312,13 +312,13 @@ contains
 
        end select
 
-       if (debug_level > 1) write(*,*)trim(adjustl(line))
+       if (debug_level > 1) write(*,*) trim(adjustl(line))
 
     enddo
 
     if (k < mygather%hdr%nsta) stop 'Not enough stations in PIF binary file..., check number_of_station'
     close(iunit)
-    write(*,*)'Done!'
+    write(*,*) 'Done!'
 
     ! Read CMT file if needed
     select case (mygather%hdr%source_type)
@@ -360,11 +360,11 @@ contains
     character(len=*),    intent(in) :: filename
     type(source_type),  intent(out) :: cmt
 
-    write(*,*)'Read CMT solution file ...'
+    write(*,*) 'Read CMT solution file ...'
     print *,filename
     open(iunit, file=trim(adjustl(filename)), status='old',action='read', iostat=io_err)
     if (io_err /= 0) then
-       write(*,*)'CMT solution file: ',trim(adjustl(filename)),' does not exist!'
+       write(*,*) 'CMT solution file: ',trim(adjustl(filename)),' does not exist!'
        stop 'CMT solution file does not exist!'
     endif
 
@@ -421,7 +421,7 @@ contains
     enddo
 
     close(iunit)
-    write(*,*)'Done!'
+    write(*,*) 'Done!'
 
   end subroutine read_cmt_solution_file
   !--------------------------------------------------------------------------------
@@ -433,10 +433,10 @@ contains
     character(len=*),    intent(in) :: filename
     type(source_type),  intent(out) :: cmt
 
-    write(*,*)'Read force solution file ...'
+    write(*,*) 'Read force solution file ...'
     open(iunit, file=trim(adjustl(filename)), status='old',action='read', iostat=io_err)
     if (io_err /= 0) then
-       write(*,*)'Force solution file: ',trim(adjustl(filename)),' does not exist!'
+       write(*,*) 'Force solution file: ',trim(adjustl(filename)),' does not exist!'
        stop 'Force solution file does not exist!'
     endif
 
@@ -478,7 +478,7 @@ contains
     enddo
 
     close(iunit)
-    write(*,*)'Done!'
+    write(*,*) 'Done!'
 
   end subroutine read_force_solution_file
   !--------------------------------------------------------------------------------
@@ -493,8 +493,8 @@ contains
     real(kind=sp),    dimension(nrec,nt)              :: datas
     real(kind=cp),    dimension(nrec,nt), intent(out) :: data
 
-    write(*,*)'Read binary data: '
-    write(*,*)'    filename, nrec, nt = ',trim(adjustl(filename)),nrec,nt
+    write(*,*) 'Read binary data: '
+    write(*,*) '    filename, nrec, nt = ',trim(adjustl(filename)),nrec,nt
 
     nsize = nrec * sp
     open(iunit,file=trim(adjustl(filename)),access='direct',recl=nsize,status='old')
@@ -505,7 +505,7 @@ contains
     close(iunit)
     data = real(datas,kind=cp)
 
-    write(*,*)'Done!'
+    write(*,*) 'Done!'
 
   end subroutine read_binary_data
   !--------------------------------------------------------------------------------
@@ -520,8 +520,8 @@ contains
     real(kind=sp),    dimension(nt)              :: stfs
     real(kind=cp),    dimension(nt), intent(out) :: stf
 
-    write(*,*)'Read binary source signature: '
-    write(*,*)'    filename, nt = ',trim(adjustl(filename)),nt
+    write(*,*) 'Read binary source signature: '
+    write(*,*) '    filename, nt = ',trim(adjustl(filename)),nt
 
     nsize = nt * sp
 
@@ -531,7 +531,7 @@ contains
 
     stf = real(stfs,kind=cp)
 
-    write(*,*)'Done!'
+    write(*,*) 'Done!'
 
   end subroutine read_binary_source_signature
   !--------------------------------------------------------------------------------
@@ -546,8 +546,8 @@ contains
     real(kind=sp),    dimension(nt)              :: stfs
     real(kind=cp),    dimension(nt), intent(in)  :: stf
 
-    write(*,*)'Write binary source signature: '
-    write(*,*)'    filename, nt = ',trim(adjustl(filename)),nt
+    write(*,*) 'Write binary source signature: '
+    write(*,*) '    filename, nt = ',trim(adjustl(filename)),nt
 
     nsize = nt * sp
     stfs  = real(stf,kind=sp)
@@ -556,7 +556,7 @@ contains
     write(iunit,rec=1)stfs(:)
     close(iunit)
 
-    write(*,*)'Done!'
+    write(*,*) 'Done!'
 
   end subroutine write_binary_source_signature
   !--------------------------------------------------------------------------------
@@ -570,8 +570,8 @@ contains
     integer(kind=si)                                 :: nsize, it
     real(kind=cp), dimension(nrec,nt), intent(in) :: data
 
-    write(*,*)'Write binary data: '
-    write(*,*)'    filename, nrec, nt = ',trim(adjustl(filename)),nrec,nt
+    write(*,*) 'Write binary data: '
+    write(*,*) '    filename, nrec, nt = ',trim(adjustl(filename)),nrec,nt
 
     nsize = nrec * sp
     open(iunit,file=trim(adjustl(filename)),access='direct',recl=nsize,status='replace')
@@ -580,7 +580,7 @@ contains
     enddo
     close(iunit)
 
-    write(*,*)'Done!'
+    write(*,*) 'Done!'
 
   end subroutine write_binary_data
   !--------------------------------------------------------------------------------

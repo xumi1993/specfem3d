@@ -3,14 +3,14 @@
 # downloads openstreetmap buildings and creates 3d mesh objects saved in .ply format
 #
 # required python modules:
-# - numpy          (numpy==1.26.3)
-# - scipy          (scipy-1.11.4)
-# - pygmt          (pygmt==0.10.0)
+# - numpy          (numpy==1.26.4)
+# - scipy          (scipy==1.13.0)
+# - pygmt          (pygmt==0.11.0)
 # - pyproj         (pyproj==3.6.1)
-# - xarray         (xarray==2023.10.1)
-# - osmnx          (osmnx==1.8.1)
-# - geopandas      (geopandas==0.14.2)
-# - trimesh        (trimesh==4.0.10)
+# - xarray         (xarray==2024.3.0)
+# - osmnx          (osmnx==1.9.2)
+# - geopandas      (geopandas==0.14.3)
+# - trimesh        (trimesh==4.2.4)
 # - rtree          (Rtree==1.2.0)
 # - mapbox_earcut  (mapbox-earcut==1.0.1)
 #
@@ -66,6 +66,20 @@ except:
     print("install by: > pip install -U trimesh")
     sys.exit(1)
 
+try:
+    import rtree
+except:
+    print("Error importing module `rtree`")
+    print("install by: > pip install -U rtree")
+    sys.exit(1)
+
+try:
+    import mapbox_earcut
+except:
+    print("Error importing module `mapbox_earcut`")
+    print("install by: > pip install -U mapbox_earcut")
+    sys.exit(1)
+
 # for mesh triangulation
 from scipy.spatial import Delaunay
 
@@ -88,7 +102,7 @@ transformer_to_utm = None
 
 
 
-def download_buildings(mesh_area):
+def download_buildings(mesh_area: np.array):
     """
     downloads OpenStreetMap (OSM) building footprints and infos
     """
@@ -114,6 +128,7 @@ def download_buildings(mesh_area):
 
     # define a bounding box
     north, south, east, west = lat_max, lat_min, lon_max, lon_min
+    target_area = (north, south, east, west)
 
     # configuration
     ox.settings.use_cache = True
@@ -121,7 +136,7 @@ def download_buildings(mesh_area):
 
     if 1 == 0:
         # get graph
-        G = ox.graph_from_bbox(north, south, east, west, network_type="drive")
+        G = ox.graph_from_bbox(bbox=target_area, network_type="drive")
 
         #print("debug: G ",G)
         fig, ax = ox.plot_graph(G, node_size=0)
@@ -141,7 +156,7 @@ def download_buildings(mesh_area):
     tags = {"building": True, "building:part": True}
 
     # download buildings as a GeoDataFrame
-    gdf = ox.features_from_bbox(north, south, east, west, tags)
+    gdf = ox.features_from_bbox(bbox=target_area, tags=tags)
 
     print("")
     print("  number of all buildings: ",gdf.shape[0])
@@ -374,7 +389,7 @@ def prepare_osm_building_data(gdf):
 #----------------------------------------------------------------------------------------
 #
 
-def get_topo_DEM(mesh_area):
+def get_topo_DEM(mesh_area: np.array):
     """
     downloads elevation data using GMT
     """
@@ -473,7 +488,7 @@ def get_topo_elevation(lat,lon,topo_grid):
 #----------------------------------------------------------------------------------------
 #
 
-def convert_coordinates_to_UTM(gdf,mesh_area,lons,lats):
+def convert_coordinates_to_UTM(gdf, mesh_area: np.array, lons, lats):
     global transformer_to_utm
 
     # user output
@@ -553,7 +568,7 @@ def convert_coordinates_to_UTM(gdf,mesh_area,lons,lats):
 #----------------------------------------------------------------------------------------
 #
 
-def create_building_mesh(gdf,mesh_area,elevation,obj,meshes,icount_added):
+def create_building_mesh(gdf, mesh_area: np.array, elevation, obj, meshes, icount_added: int):
     """
     creates a 3d mesh for building specified by obj
     """
@@ -802,7 +817,7 @@ def get_building_roof_type(obj):
 #----------------------------------------------------------------------------------------
 #
 
-def create_extruded_building(gdf,mesh_area,height,roof_type,roof_height,roof_direction,roof_orientation,elevation,poly):
+def create_extruded_building(gdf, mesh_area: np.array, height, roof_type, roof_height, roof_direction, roof_orientation, elevation, poly):
     """
     create building mesh by extrusion
     """
@@ -978,7 +993,7 @@ def get_triangulation(coords, coords_inner):
 #----------------------------------------------------------------------------------------
 #
 
-def add_roof_mesh(b_mesh,height,roof_type,roof_height,roof_direction,roof_orientation):
+def add_roof_mesh(b_mesh, height, roof_type, roof_height, roof_direction, roof_orientation):
     """
     adds a roof mesh to the building
     """
@@ -1217,7 +1232,7 @@ def add_roof_mesh(b_mesh,height,roof_type,roof_height,roof_direction,roof_orient
 #----------------------------------------------------------------------------------------
 #
 
-def get_roof_primitive(roof_type,roof_height,base_points,height):
+def get_roof_primitive(roof_type, roof_height, base_points, height):
     """
     creates a geometric primitive of different roof types which will need to be scaled and positioned
     """
@@ -1457,7 +1472,7 @@ def get_roof_primitive(roof_type,roof_height,base_points,height):
 #----------------------------------------------------------------------------------------
 #
 
-def determine_building_elevations(gdf,topo_grid,mesh_area):
+def determine_building_elevations(gdf, topo_grid, mesh_area: np.array):
     """
     determines for each building its topographic elevation based on the building's centroid position
     """
@@ -1576,7 +1591,7 @@ def determine_building_elevations(gdf,topo_grid,mesh_area):
 #----------------------------------------------------------------------------------------
 #
 
-def create_3d_buildings(gdf,topo_grid,mesh_area):
+def create_3d_buildings(gdf, topo_grid, mesh_area: np.array) -> None:
     """
     creates for each building a 3d mesh and stores all as .ply output file
     """
@@ -1710,7 +1725,7 @@ def create_3d_buildings(gdf,topo_grid,mesh_area):
 #----------------------------------------------------------------------------------------
 #
 
-def convert_openstreetmap_buildings(input_file=None,mesh_origin=None,mesh_scale=None,mesh_area=None):
+def convert_openstreetmap_buildings(input_file: str="", mesh_area: np.array=None) -> None:
 
     # user output
     print("")
@@ -1718,10 +1733,6 @@ def convert_openstreetmap_buildings(input_file=None,mesh_origin=None,mesh_scale=
 
     if len(input_file) > 0:
         print("  input file  : ",input_file)
-    if not mesh_origin is None:
-        print("  mesh_origin : ",mesh_origin)
-    if not mesh_scale is None:
-        print("  mesh_scale  : ",mesh_scale)
     if not mesh_area is None:
         print("  mesh_area   : ",mesh_area)
 
@@ -1733,12 +1744,12 @@ def convert_openstreetmap_buildings(input_file=None,mesh_origin=None,mesh_scale=
     print("")
 
     # input data
-    if len(input_file) == 0:
-        # download buildings
-        gdf = download_buildings(mesh_area)
-    else:
+    if len(input_file) > 0:
         # reads in buildings and loads GeoJSON format file into a GeoDataFrame object
         gdf = gpd.read_file(input_file)
+    else:
+        # download buildings
+        gdf = download_buildings(mesh_area)
 
     # prepare gdf data array and validate entries
     gdf = prepare_osm_building_data(gdf)
@@ -1754,22 +1765,18 @@ def convert_openstreetmap_buildings(input_file=None,mesh_origin=None,mesh_scale=
 #----------------------------------------------------------------------------------------
 #
 
-def usage():
-    print("usage: ./convert_openstreetmap_buildings_to_dxf.py [--mesh_area=(lon_min,lat_min,lon_max,lat_max)] [--mesh_origin=(x0,y0,z0)] [--mesh_scale=factor] [--GeoJSON_file=file]")
+def usage() -> None:
+    print("usage: ./convert_openstreetmap_buildings_to_dxf.py [--mesh_area=(lon_min,lat_min,lon_max,lat_max)] [--GeoJSON_file=file]")
     print("  with")
     print("     --mesh_area             - downloads/limits buildings for area specified by (lon_min,lat_min,lon_max,lat_max)")
-    print("     --mesh_origin           - translate mesh by origin position")
-    print("     --mesh_scale            - scale mesh by a factor")
     print("     --GeoJSON_file          - use input mesh file (.gjson) instead of download")
     sys.exit(1)
 
 
 if __name__ == '__main__':
     # init
-    input_file = ""
-    mesh_origin = None
-    mesh_scale = None
-    mesh_area = None
+    input_file: str = ""
+    mesh_area: np.array = None
 
     # reads arguments
     #print("\nnumber of arguments: " + str(len(sys.argv)))
@@ -1782,19 +1789,12 @@ if __name__ == '__main__':
         # get arguments
         if "--help" in arg:
             usage()
-        elif "--dxf_file=" in arg:
-            input_file = arg.split('=')[1]
-        elif "--dwg_file=" in arg:
-            input_file = arg.split('=')[1]
-        elif "--mesh_origin=" in arg:
-            str_array = arg.split('=')[1]
-            mesh_origin = np.array([float(val) for val in str_array.strip('()[]').split(',')])
-        elif "--mesh_scale=" in arg:
-            mesh_scale = float(arg.split('=')[1])
         elif "--mesh_area=" in arg:
             str_array = arg.split('=')[1]
             mesh_area = np.array([float(val) for val in str_array.strip('()[]').split(',')])
-        elif i >= 6:
+        elif "--GeoJSON_file=" in arg:
+            input_file = arg.split('=')[1]
+        elif i >= 2:
             print("argument not recognized: ",arg)
 
     # logging
@@ -1806,4 +1806,4 @@ if __name__ == '__main__':
       print("command logged to file: " + filename)
 
     # main routine
-    convert_openstreetmap_buildings(input_file,mesh_origin,mesh_scale,mesh_area)
+    convert_openstreetmap_buildings(input_file,mesh_area)

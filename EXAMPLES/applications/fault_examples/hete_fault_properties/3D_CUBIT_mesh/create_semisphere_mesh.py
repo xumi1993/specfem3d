@@ -297,7 +297,7 @@ cubit.cmd('block 1001 name "face_topo"')
 
 
 #### Define material properties for the 4 volumes ################
-cubit.cmd('#### DEFINE MATERIAL PROPERTIES #######################')
+print('#### DEFINE MATERIAL PROPERTIES #######################')
 for i in range(Vol_num):
     cubit.cmd('block {0}  name "elastic {0}" '.format(i+1))        # material region
     cubit.cmd('block {0} attribute count {1}'.format(i+1,6))
@@ -313,6 +313,18 @@ if(element_type == "HEX27"):
     cubit2specfem3d.export2SPECFEM3D('MESH',hex27=True)
 else:
     cubit2specfem3d.export2SPECFEM3D('MESH')
+
+# fault surface info
+print("#")
+# fault up
+for k in Au:
+    center_point = cubit.get_center_point("surface", k)
+    print("# fault up  : surface {} has center point: {}".format(k,center_point))
+# fault down
+for k in Ad:
+    center_point = cubit.get_center_point("surface", k)
+    print("# fault down: surface {} has center point: {}".format(k,center_point))
+print("#")
 
 # You need to create fault mesh file in the last, if using hex27.
 faultA = save_fault_nodes_elements.fault_input(1,Au,Ad)

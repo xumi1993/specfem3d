@@ -64,7 +64,8 @@ print('#done curves: '+str(countcurves))
 print('')
 
 cubit.cmd('Display')
-cubit.cmd('pause')
+#cubit.cmd('pause')
+#cubit.cmd('resume')
 
 # creates surface
 print('#creating skin surface...')
@@ -72,7 +73,8 @@ cubit.cmd('create surface skin curve all')
 
 
 cubit.cmd('Display')
-cubit.cmd('pause')
+#cubit.cmd('pause')
+#cubit.cmd('resume')
 
 # cleans up
 cubit.cmd('merge all ')
@@ -80,6 +82,7 @@ cubit.cmd('delete vertex all')
 cubit.cmd('delete curve all')
 
 print('#done cleaning up')
+
 cubit.cmd('Display')
 cubit.cmd('echo on')
 

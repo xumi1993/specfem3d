@@ -467,7 +467,7 @@ contains
 
        ! get model from specfem database
        if (ELASTIC_SIMULATION) then
-          do ispec=1, NSPEC_AB  !! update just the elastic elements
+          do ispec = 1, NSPEC_AB  !! update just the elastic elements
              if (ispec_is_elastic(ispec)) then
                 wks_model_rho(:,:,:,ispec) =  rho_vs(:,:,:,ispec) * rho_vs(:,:,:,ispec) / mustore(:,:,:,ispec)
                 wks_model_vp(:,:,:,ispec) = (kappastore(:,:,:,ispec) + (4./3.) * mustore(:,:,:,ispec) ) / rho_vp(:,:,:,ispec)
@@ -477,7 +477,7 @@ contains
        endif
 
        if (ACOUSTIC_SIMULATION) then
-          do ispec=1, NSPEC_AB  !! update just the acoustic elements
+          do ispec = 1, NSPEC_AB  !! update just the acoustic elements
              if (ispec_is_acoustic(ispec)) then
                 wks_model_rho(:,:,:,ispec) = rhostore(:,:,:,ispec)
                 wks_model_vp(:,:,:,ispec) = sqrt(kappastore(:,:,:,ispec)/rhostore(:,:,:,ispec))
@@ -811,11 +811,11 @@ contains
 
 
     !! PROJECT FD MODEL IN SEM GRID
-    do ispec=1,NSPEC_AB
-       do  k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
-                iglob=ibool(i,j,k,ispec)
+    do ispec = 1,NSPEC_AB
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
+                iglob = ibool(i,j,k,ispec)
 
                 !! nearest neighbor
                 ii = 1+ floor( (xstore(iglob) - ox_fd)/hx_fd)
@@ -939,20 +939,20 @@ contains
 
 
     !! PROJECT FD MODEL IN SEM GRID
-    do ispec=1,NSPEC_AB
-       do  k=1,NGLLZ
-          do j=1,NGLLY
-             do i=1,NGLLX
-                iglob=ibool(i,j,k,ispec)
+    do ispec = 1,NSPEC_AB
+       do k = 1,NGLLZ
+          do j = 1,NGLLY
+             do i = 1,NGLLX
+                iglob = ibool(i,j,k,ispec)
 
                 !! nearest neighbor
                 ii = 1+ floor( (xstore(iglob) - ox_fd)/hx_fd)
                 jj = 1+ floor( (ystore(iglob) - oy_fd)/hy_fd)
                 kk = 1+ floor( (zstore(iglob) - oz_fd)/hz_fd)
 
-                xp=xstore(iglob)
-                yp=ystore(iglob)
-                zp=zstore(iglob)
+                xp = xstore(iglob)
+                yp = ystore(iglob)
+                zp = zstore(iglob)
 
                 !! trilinear interpolation
                 call Get_value_by_trilinear_interp(rh_interp, xp, yp, zp, rho_fd, &
@@ -1029,7 +1029,7 @@ contains
        if (ier /= 0) call exit_MPI_without_rank('error allocating array 311')
 
        open(4444,file=trim(model_file),access='direct',recl=CUSTOM_REAL*nx_fd*ny_fd*nz_fd)
-       do i=1,nb_model_to_read
+       do i = 1,nb_model_to_read
           read(4444,rec=i) model_fd(:,:,:,i)
        enddo
        close(4444)
@@ -1100,11 +1100,11 @@ contains
        endif
 
        !! PROJECT FD MODEL IN SEM GRID
-       do ispec=1,NSPEC_AB
-          do  k=1,NGLLZ
-             do j=1,NGLLY
-                do i=1,NGLLX
-                   iglob=ibool(i,j,k,ispec)
+       do ispec = 1,NSPEC_AB
+          do k = 1,NGLLZ
+             do j = 1,NGLLY
+                do i = 1,NGLLX
+                   iglob = ibool(i,j,k,ispec)
 
                    !! nearest neighbor
                    ii = 1+ floor( (xstore(iglob) - ox_fd)/hx_fd)
@@ -1153,11 +1153,11 @@ contains
     case ('TRISO') !! tansverse isotropic
 
        !! PROJECT FD MODEL IN SEM GRID
-       do ispec=1,NSPEC_AB
-          do  k=1,NGLLZ
-             do j=1,NGLLY
-                do i=1,NGLLX
-                   iglob=ibool(i,j,k,ispec)
+       do ispec = 1,NSPEC_AB
+          do k = 1,NGLLZ
+             do j = 1,NGLLY
+                do i = 1,NGLLX
+                   iglob = ibool(i,j,k,ispec)
 
                    !! nearest neighbor
                    ii = 1+ floor( (xstore(iglob) - ox_fd)/hx_fd)
@@ -1240,22 +1240,22 @@ contains
          allocate(zcrd_fd(nz_fd),stat=ier)
          if (ier /= 0) call exit_MPI_without_rank('error allocating array 315')
        endif
-       do i=1,nx_fd
+       do i = 1,nx_fd
           xcrd_fd(i) = ox_fd + hx_fd * real(i-1)
        enddo
-       do i=1,ny_fd
+       do i = 1,ny_fd
           ycrd_fd(i) = oy_fd + hy_fd * real(i-1)
        enddo
-       do i=1,nz_fd
+       do i = 1,nz_fd
           zcrd_fd(i) = oz_fd + hz_fd * real(i-1)
        enddo
 
        !! PROJECT FD MODEL IN SEM GRID
-       do ispec=1,NSPEC_AB
-          do  k=1,NGLLZ
-             do j=1,NGLLY
-                do i=1,NGLLX
-                   iglob=ibool(i,j,k,ispec)
+       do ispec = 1,NSPEC_AB
+          do k = 1,NGLLZ
+             do j = 1,NGLLY
+                do i = 1,NGLLX
+                   iglob = ibool(i,j,k,ispec)
 
                    !! nearest neighbor
                    !ii = 1+ floor( (xstore(iglob) - ox_fd)/hx_fd)
@@ -1265,7 +1265,7 @@ contains
                    !! trilinear (not optimized here but can be done if needed,
                    !            (to do so, split trilinear routine such that coefficients
                    !             are computed only once per gll)
-                   do ipar=1,22
+                   do ipar = 1,22
 
                       call trilin_interp(xstore(iglob), ystore(iglob), zstore(iglob), &
                                                xcrd_fd,       ycrd_fd,       zcrd_fd, &

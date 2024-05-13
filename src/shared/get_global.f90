@@ -117,10 +117,10 @@
 
 ! reduces misses
   inumber = 0
-  do ispec=1,nspec
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+  do ispec = 1,nspec
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           if (mask_ibool(copy_ibool_ori(i,j,k,ispec)) == -1) then
 ! create a new point
             inumber = inumber + 1

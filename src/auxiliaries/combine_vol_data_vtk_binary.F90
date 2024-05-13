@@ -275,7 +275,7 @@
 
   allocate(celltype(nee),stat=ier)
   if (ier /= 0) call exit_MPI_without_rank('error allocating array 1163')
-  celltype=12
+  celltype = 12
 
   call write_unstructured_mesh(mesh_file,len_trim(mesh_file), 1, npp, pts, nee, celltype, conn, &
                                filename,len_trim(filename),total_dat)
@@ -588,7 +588,7 @@
 
   mask_ibool(:) = .false.
   numpoin = 0
-  do ispec=1,NSPEC_AB
+  do ispec = 1,NSPEC_AB
     do k = 1, NGLLZ
       do j = 1, NGLLY
         do i = 1, NGLLX

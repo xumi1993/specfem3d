@@ -52,8 +52,8 @@
 !
 !--- bottom of the mesh (Z_DEPTH_BLOCK) to Moho
 !
-  do ir=0,2*NER_BOTTOM_MOHO-1
-    npr=npr+1
+  do ir = 0,2*NER_BOTTOM_MOHO-1
+    npr = npr+1
     rn(npr)=(Z_DEPTH_MOHO-Z_DEPTH_BLOCK)*dble(ir)/dble(2*NER_BOTTOM_MOHO)
   enddo
 
@@ -63,8 +63,8 @@
 !
 !--- Moho to modified basement surface
 !
-    do ir=0,2*(NER_MOHO_16+NER_16_BASEMENT)-1
-      npr=npr+1
+    do ir = 0,2*(NER_MOHO_16+NER_16_BASEMENT)-1
+      npr = npr+1
       rn(npr)=(Z_DEPTH_MOHO-Z_DEPTH_BLOCK) + (Z_BASEMENT_SURFACE-Z_DEPTH_MOHO)*dble(ir)/dble(2*(NER_MOHO_16+NER_16_BASEMENT))
     enddo
 
@@ -72,15 +72,15 @@
 !
 !--- Moho to d16km
 !
-    do ir=0,2*NER_MOHO_16-1
-      npr=npr+1
+    do ir = 0,2*NER_MOHO_16-1
+      npr = npr+1
       rn(npr)=(Z_DEPTH_MOHO-Z_DEPTH_BLOCK) + (DEPTH_16km_SOCAL-Z_DEPTH_MOHO)*dble(ir)/dble(2*NER_MOHO_16)
     enddo
 !
 !--- d16km to modified basement surface
 !
-    do ir=0,2*NER_16_BASEMENT-1
-      npr=npr+1
+    do ir = 0,2*NER_16_BASEMENT-1
+      npr = npr+1
       rn(npr)=(DEPTH_16km_SOCAL-Z_DEPTH_BLOCK) + (Z_BASEMENT_SURFACE-DEPTH_16km_SOCAL)*dble(ir)/dble(2*NER_16_BASEMENT)
     enddo
 
@@ -91,8 +91,8 @@
 !
 ! also create last point exactly at the surface
 ! other regions above stop one point below
-  do ir=0,2*(NER_BASEMENT_SEDIM+NER_SEDIM) - 0
-    npr=npr+1
+  do ir = 0,2*(NER_BASEMENT_SEDIM+NER_SEDIM) - 0
+    npr = npr+1
     rn(npr)=(Z_BASEMENT_SURFACE-Z_DEPTH_BLOCK) + &
 !! DK DK UGLY modif z_top by Emmanuel Chaljub here
 !! DK DK UGLY suppressed Manu's modif and put old code back because better mesh
@@ -113,7 +113,7 @@
   if (npr /= 2*NER) call exit_MPI(myrank,'incorrect intervals for model')
 
 ! check that vertical spacing makes sense
-  do ir=0,2*NER-1
+  do ir = 0,2*NER-1
     if (rn(ir+1) < rn(ir)) call exit_MPI(myrank,'incorrect vertical spacing for model')
   enddo
 

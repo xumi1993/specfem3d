@@ -41,14 +41,14 @@ program sem_model_slice
 
   ! read points to be interpolated
   open(11,file=xyz_infile,iostat=ios)
-  i=0
+  i = 0
   do while (1 == 1)
-    i=i+1
+    i = i+1
     read(11,*,iostat=ios) x(i),y(i),z(i)
     if (ios /= 0) exit
   enddo
   close(11)
-  npts=i-1
+  npts = i-1
   if (myrank == 0) then
     if (npts > NMAXPTS .or. npts < 0) call exit_mpi(myrank,'Npts error ...')
     write(*,*) 'Total number of points = ', npts
@@ -84,16 +84,16 @@ program sem_model_slice
   ! search for local minimum-distance point
   distmin(1:npts) = HUGEVAL
 
-  do ispec=1,NSPEC_AB
+  do ispec = 1,NSPEC_AB
 
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           iglob = ibool(i,j,k,ispec)
           dist(1:npts)=dsqrt((x(1:npts)-dble(xstore(iglob)))**2 &
                      +(y(1:npts)-dble(ystore(iglob)))**2 &
                      +(z(1:npts)-dble(zstore(iglob)))**2)
-          do ipt=1,npts
+          do ipt = 1,npts
             if (dist(ipt) < distmin(ipt)) then
               distmin(ipt)=dist(ipt)
               ispec_min(ipt)=ispec
@@ -121,7 +121,7 @@ program sem_model_slice
   !  enddo
   !  close(33)
 
-  do i=1, npts
+  do i = 1, npts
     in(1,i) = distmin(i)
     in(2,i) = myrank    ! myrank is coerced to a double
   enddo

@@ -98,6 +98,8 @@ z_center = 0.0
 # elevation at center point
 z_elevation = 0.0
 
+# background color
+world_background_color = (1,1,1,1)  # white
 
 # class to avoid long stdout output by renderer
 # see: https://stackoverflow.com/questions/24277488/in-python-how-to-capture-the-stdout-from-a-c-shared-library-to-a-variable/29834357
@@ -123,7 +125,7 @@ class SuppressStream(object):
             self.devnull.close()
 
 
-def convert_vtk_to_obj(vtk_file,colormap=0,color_max=None):
+def convert_vtk_to_obj(vtk_file: str="", colormap: int=0, color_max=None) -> str:
     global mesh_scale_factor,mesh_origin
 
     # Path to your .vtu file
@@ -767,7 +769,7 @@ def convert_vtk_to_obj(vtk_file,colormap=0,color_max=None):
 
     return obj_file
 
-def create_blender_setup(obj_file=""):
+def create_blender_setup(obj_file: str="") -> None:
     ## Blender setup
     print("blender setup:")
     print("")
@@ -994,7 +996,7 @@ def create_blender_setup(obj_file=""):
     print("")
 
 
-def add_blender_buildings(buildings_file=""):
+def add_blender_buildings(buildings_file: str="") -> None:
     """
     adds buildings given by input .ply file
     """
@@ -1153,7 +1155,7 @@ def add_blender_buildings(buildings_file=""):
     print("")
 
 
-def get_mesh_elevation(point_of_interest):
+def get_mesh_elevation(point_of_interest: Vector) -> float:
     """
     determines elevation of object (obj) at a given point by ray intersection
     """
@@ -1185,7 +1187,7 @@ def get_mesh_elevation(point_of_interest):
         return None
 
 
-def get_mesh_elevation_at_origin():
+def get_mesh_elevation_at_origin() -> float:
     """
     determines elevation of mesh at origin/center point
     """
@@ -1211,7 +1213,7 @@ def get_mesh_elevation_at_origin():
 
     return elevation
 
-def add_camera(title="",close_up_view=False):
+def add_camera(title: str="", close_up_view: bool=False) -> None:
     """
     adds camera object
     """
@@ -1344,7 +1346,7 @@ def add_camera(title="",close_up_view=False):
         scene.camera.data.angle = float(30.0 * DEGREE_TO_RAD)
 
 
-def add_light():
+def add_light() -> None:
     """
     adds a light to the scene
     """
@@ -1370,7 +1372,7 @@ def add_light():
     light.data.use_contact_shadow = True  # Enable contact shadows
 
 
-def add_plane(close_up_view=False):
+def add_plane(close_up_view: bool=False) -> None:
     """
     adds a plane at sea-level
     """
@@ -1411,7 +1413,7 @@ def add_plane(close_up_view=False):
     plane_object.data.materials.append(mat)
 
 
-def add_title(title=""):
+def add_title(title: str="") -> None:
     """
     adds a title text
     """
@@ -1446,7 +1448,7 @@ def add_title(title=""):
 
         text_object.data.materials.append(text_material)
 
-def set_scene():
+def set_scene() -> None:
     """
     sets scene options
     """
@@ -1512,14 +1514,14 @@ def set_scene():
     # Set the render percentage (optional, for scaling down the final output)
     #scene.render.resolution_percentage = 50  # Adjust as needed
 
-    # sets white background color
-    bpy.data.worlds["World"].node_tree.nodes["Background"].inputs[0].default_value = (1, 1, 1, 1)
+    # sets background color
+    bpy.data.worlds["World"].node_tree.nodes["Background"].inputs[0].default_value = world_background_color
 
     print("    renderer: ",scene.render.engine)
     print("")
 
 
-def render_animation():
+def render_animation() -> None:
     """
     renders a movie animation
     """
@@ -1773,7 +1775,7 @@ def render_animation():
         print("elapsed time for animation render is {} min {:0.4f} sec\n".format(min,sec))
 
 
-def render_image():
+def render_image() -> None:
     """
     renders a single image
     """
@@ -1817,7 +1819,7 @@ def render_image():
         print("elapsed time for image render is {} min {:0.4f} sec\n".format(min,sec))
 
 
-def render_blender_scene(title="",animation=False,close_up_view=False):
+def render_blender_scene(title: str="", animation: bool=False, close_up_view: bool=False) -> None:
 
     ## blender scene setup
     print("Setting up blender scene...")
@@ -1859,7 +1861,8 @@ def render_blender_scene(title="",animation=False,close_up_view=False):
 
 
 # main routine
-def plot_with_blender(vtk_file="",image_title="",colormap=0,color_max=None,buildings_file="",animation=False,close_up_view=False):
+def plot_with_blender(vtk_file: str="", image_title: str="", colormap: int=0, color_max: float=None,
+                      buildings_file: str="", animation: bool=False, close_up_view: bool=False) -> None:
     """
     renders image for (earth) sphere with textures
     """
@@ -1881,7 +1884,7 @@ def plot_with_blender(vtk_file="",image_title="",colormap=0,color_max=None,build
     render_blender_scene(image_title,animation,close_up_view)
 
 
-def usage():
+def usage() -> None:
     print("usage: ./plot_with_blender.py [--vtk_file=file] [--title=my_mesh_name] [--colormap=val] [--color-max=val] [--buildings=file]")
     print("                              [--with-cycles/--no-cycles] [--closeup] [--small] [--anim] [--suppress] [--help]")
     print("  with")
@@ -1954,6 +1957,12 @@ if __name__ == '__main__':
             use_transparent_sea_level_plane = True
         elif "--vtk_file=" in arg:
             vtk_file = arg.split('=')[1]
+        elif "--background-dark" in arg:
+            world_background_color = (0.05,0.05,0.05,1)  # dark world background
+        elif "--background-blue" in arg:
+            world_background_color = (0.05,0.05,0.1,1)   # dark-blue world background
+        elif "--background-black" in arg:
+            world_background_color = (0,0,0,1)           # black world background
         elif i >= 8:
             print("argument not recognized: ",arg)
 

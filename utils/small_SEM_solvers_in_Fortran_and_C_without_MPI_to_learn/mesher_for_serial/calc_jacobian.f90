@@ -67,9 +67,9 @@
   double precision xix,xiy,xiz,etax,etay,etaz,gammax,gammay,gammaz
   double precision jacobian
 
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
 
       xxi = ZERO
       xeta = ZERO
@@ -84,7 +84,7 @@
       ymesh = ZERO
       zmesh = ZERO
 
-      do ia=1,NGNOD
+      do ia = 1,NGNOD
         xxi = xxi + dershape3D(1,ia,i,j,k)*xelm(ia) * R_EARTH
         xeta = xeta + dershape3D(2,ia,i,j,k)*xelm(ia) * R_EARTH
         xgamma = xgamma + dershape3D(3,ia,i,j,k)*xelm(ia) * R_EARTH

@@ -59,9 +59,9 @@
   call gravity_init()
 
   ! sets up weights needed for integration of gravity
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         wgll_cube(i,j,k) = sngl( wxgll(i)*wygll(j)*wzgll(k) )
       enddo
     enddo

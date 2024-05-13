@@ -43,7 +43,7 @@
   double precision r,theta,phi,factor
   double precision cost,p20
 
-  do ia=1,NGNOD
+  do ia = 1,NGNOD
 
   call xyz_2_rthetaphi_dble(xelm(ia),yelm(ia),zelm(ia),r,theta,phi)
 

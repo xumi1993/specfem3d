@@ -156,7 +156,7 @@ contains
           call compute_partition(ipart_3, nEipart_3, npart_3, sum_load_3, cri_load_3, &
                                  load_elmnts_3, elmnts_center_3, iperm_3, nE_3, ref_point, idir)
 
-          do iE=1, nE_3
+          do iE = 1, nE_3
              p1 = kpart_2
              p2 = kpart_3
              p3 = ipart_3(iE)
@@ -239,7 +239,7 @@ contains
     x_bin = (xmax - xmin)/npart_1
     y_bin = (ymax - ymin)/npart_2
     z_bin = (zmax - zmin)/npart_3
-    do iE=1, nE
+    do iE = 1, nE
        p1 = floor((elmnts_center(1,iE)-xmin)/x_bin) + 1
        p2 = floor((elmnts_center(2,iE)-ymin)/y_bin) + 1
        p3 = floor((elmnts_center(3,iE)-zmin)/z_bin) + 1
@@ -342,7 +342,7 @@ end subroutine partition_mesh_distance
 
     integer                                                 :: i
 
-    do i=1, nE_tmp
+    do i = 1, nE_tmp
        cri_load_perm(i) = abs( elmnts_center_tmp(idir,i) - ref_point(idir) )
     enddo
 
@@ -394,7 +394,7 @@ end subroutine partition_mesh_distance
     integer                                                    :: iE, i
 
     elmnts_center(:,:) = 0.d0
-    do iE =1, nE
+    do iE = 1, nE
        do i = 1, NGNOD
           elmnts_center(1,iE) = elmnts_center(1,iE) + nodes_coords(1,elmnts(i,iE))
           elmnts_center(2,iE) = elmnts_center(2,iE) + nodes_coords(2,elmnts(i,iE))

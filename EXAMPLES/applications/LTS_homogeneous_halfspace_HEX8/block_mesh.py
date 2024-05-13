@@ -4,6 +4,19 @@ from __future__ import print_function
 import os
 import sys
 
+# checks path for GEOCUBIT modules
+found_lib = False
+for path in sys.path:
+    if "geocubitlib" in path:
+        found_lib = True
+        break
+if not found_lib:
+    sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../CUBIT_GEOCUBIT/')
+#print("path:")
+#for path in sys.path: print("  ",path)
+#print("")
+
 # default directories
 SEMoutput='MESH'
 os.system('mkdir -p '+ SEMoutput)
@@ -52,9 +65,6 @@ cubit.cmd('draw volume all')
 
 #### End of meshing
 
-# adds path to scripts (if not setup yet)
-sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
-
 ## obsolete:
 #import boundary_definition
 #import cubit2specfem3d
@@ -65,12 +75,13 @@ from geocubitlib import cubit2specfem3d
 
 ###### This is boundary_definition.py of GEOCUBIT
 #..... which extracts the bounding faces and defines them into blocks
+print('#### DEFINE BC #######################')
 boundary_definition.entities=['face']
 boundary_definition.define_bc(boundary_definition.entities,parallel=True)
 
 
 #### Define material properties for the 3 volumes ################
-cubit.cmd('#### DEFINE MATERIAL PROPERTIES #######################')
+print('#### DEFINE MATERIAL PROPERTIES #######################')
 
 cubit.cmd('block 1 name "elastic 1" ')        # elastic material region
 cubit.cmd('block 1 attribute count 7')

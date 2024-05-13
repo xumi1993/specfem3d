@@ -440,7 +440,7 @@ contains
 
   ! KEY COMMAND: power of polynomial taper
   ! higher power means affecting only the ends of the series
-  pwr = 10   ! Welch : pwr=2
+  pwr = 10   ! Welch : pwr = 2
 
   ! Welch taper (in time)
   do i = 1,nt

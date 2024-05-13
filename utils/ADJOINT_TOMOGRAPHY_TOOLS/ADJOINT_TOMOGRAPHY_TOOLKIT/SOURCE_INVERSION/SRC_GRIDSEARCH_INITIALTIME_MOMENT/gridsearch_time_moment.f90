@@ -2,7 +2,7 @@ program xgrid_search_time_moment
 
   implicit none
 
-  integer,parameter:: NDIM=80000
+  integer,parameter:: NDIM = 80000
 
   character(len=256) :: cmt_file, new_cmt_file
   character(len=256) :: output_minmax, output_misfit
@@ -44,21 +44,21 @@ program xgrid_search_time_moment
   !---------------------------------------------------------
   !- setup searching space
   !---------------------------------------------------------
-  n_m0=nint((e_m0-s_m0)/d_m0)+1
-  n_t0=nint((e_t0-s_t0)/d_t0)+1
-  n_total=n_m0*n_t0
+  n_m0 = nint((e_m0-s_m0)/d_m0)+1
+  n_t0 = nint((e_t0-s_t0)/d_t0)+1
+  n_total = n_m0*n_t0
 
   allocate(misfit(n_total))
   allocate(t0(n_total))
   allocate(m0(n_total))
-  misfit=0.0
-  t0=0.0
-  m0=0.0
+  misfit = 0.0
+  t0 = 0.0
+  m0 = 0.0
 
-  i_total=0
-  do i=1,n_m0
-     do j=1,n_t0
-        i_total=i_total+1
+  i_total = 0
+  do i = 1,n_m0
+     do j = 1,n_t0
+        i_total = i_total+1
         t0(i_total)=s_t0+d_t0*(j-1)
         m0(i_total)=s_m0+d_m0*(i-1)
      enddo
@@ -73,7 +73,7 @@ program xgrid_search_time_moment
   !------------------------------------------------------------
   open(1001,file=trim(flexwin_out_file),status='old')
   read(1001,*) nf,bd_z,bd_r,bd_t,sw_z,sw_r,sw_t
-  do j=1,nf
+  do j = 1,nf
      write(*,*) j,nf
      read(1001,'(a)') data_file
      read(1001,'(a)') syn_file
@@ -91,39 +91,39 @@ program xgrid_search_time_moment
      ! decide weight factors
      if ( trim(bandpass) == trim(body_bandpass) .and. trim(cmp) == 'LHZ' ) then
         if ( bd_z /= 0 ) then
-           weight=1.0/bd_z
+           weight = 1.0/bd_z
         else
-           weight=1.0
+           weight = 1.0
         endif
      else if ( trim(bandpass) == trim(body_bandpass) .and. trim(cmp) == 'LHR' ) then
         if ( bd_r /= 0 ) then
-           weight=1.0/bd_r
+           weight = 1.0/bd_r
         else
-           weight=1.0
+           weight = 1.0
         endif
      else if ( trim(bandpass) == trim(body_bandpass) .and. trim(cmp) == 'LHT' ) then
         if ( bd_t /= 0 ) then
-           weight=1.0/bd_t
+           weight = 1.0/bd_t
         else
-           weight=1.0
+           weight = 1.0
         endif
      else if ( trim(bandpass) == trim(surf_bandpass) .and. trim(cmp) == 'LHZ' ) then
         if ( sw_z /= 0 ) then
-           weight=1.0/sw_z
+           weight = 1.0/sw_z
         else
-           weight=1.0
+           weight = 1.0
         endif
      else if ( trim(bandpass) == trim(surf_bandpass) .and. trim(cmp) == 'LHR' ) then
         if ( sw_r /= 0 ) then
-           weight=1.0/sw_r
+           weight = 1.0/sw_r
         else
-           weight=1.0
+           weight = 1.0
         endif
      else if ( trim(bandpass) == trim(surf_bandpass) .and. trim(cmp) == 'LHT' ) then
         if ( sw_t /= 0) then
-           weight=1.0/sw_t
+           weight = 1.0/sw_t
         else
-           weight=1.0
+           weight = 1.0
         endif
      else
         stop 'wrong bandpass and component, check input parameters'
@@ -131,42 +131,42 @@ program xgrid_search_time_moment
 
 
      read(1001,*) nwin
-     do k=1,nwin
+     do k = 1,nwin
         read(1001,*) tstart,tend
-        is=max(floor((tstart-b)/dt),1)
-        ie=min(ceiling((tend-b)/dt),npts)
+        is = max(floor((tstart-b)/dt),1)
+        ie = min(ceiling((tend-b)/dt),npts)
 
         data_win(:)=0.0
         syn_win(:)=0.0
         data_win(is:ie)=data(is:ie)
         syn_win(is:ie)=syn(is:ie)
         call xcorr_calc(data_win,syn_win,npts,is,ie,cc_shift,cc_max)
-        deltaT0=cc_shift*dt
+        deltaT0 = cc_shift*dt
 
 
-        do i=1,n_total
+        do i = 1,n_total
 
            t00=t0(i)
            m00=m0(i)
            ishift=nint(t00/dt)
 
-           isd=is
-           ied=ie
+           isd = is
+           ied = ie
 
-           iss=isd-ishift
-           iee=ied-ishift
+           iss = isd-ishift
+           iee = ied-ishift
 
 
            if ( trim(criteria) == 'waveform' ) then
               ! full waveform misfit function
-              misfit_tmp=weight*sum((m00*syn(iss:iee)-data(isd:ied))**2)/sum(sqrt(syn(iss:iee)**2)*sqrt(data(isd:ied)**2))
+              misfit_tmp = weight*sum((m00*syn(iss:iee)-data(isd:ied))**2)/sum(sqrt(syn(iss:iee)**2)*sqrt(data(isd:ied)**2))
            else if (trim(criteria) == 'phase_amplitude' ) then
               ! phase and amplitude misfit function
-              deltaT=deltaT0-t00
-              syn_m0=syn*m00
-              deltaA=0.5*log(sum(data(isd:ied)*data(isd:ied))/sum(syn_m0(iss:iee)*syn_m0(iss:iee)))
+              deltaT = deltaT0-t00
+              syn_m0 = syn*m00
+              deltaA = 0.5*log(sum(data(isd:ied)*data(isd:ied))/sum(syn_m0(iss:iee)*syn_m0(iss:iee)))
 
-              misfit_tmp=weight*(fact_tt*(deltaT**2)+fact_am*(deltaA**2))
+              misfit_tmp = weight*(fact_tt*(deltaT**2)+fact_am*(deltaA**2))
            else
               stop 'wrong criteria for misfit function, check input parameters'
            endif
@@ -201,20 +201,20 @@ program xgrid_search_time_moment
   enddo
   close(1004)
 
-  t_cmt_new=t_cmt+t0_best
+  t_cmt_new = t_cmt+t0_best
 
   ! several criteria to negelect selected parameters
   ! 1. if number of window smaller than 10
   ! 2. if new original time is smaller than 0.0
   ! 3. for scale moment, only use perturbation linesearch_mbest since its large covariance
   if (nf < 10 ) then
-     t0_best=0.0
-     m0_best=1.0
+     t0_best = 0.0
+     m0_best = 1.0
   endif
 
   if ( t_cmt_new < 0.0 ) then
-     t0_best=0.0
-     m0_best=1.0
+     t0_best = 0.0
+     m0_best = 1.0
   endif
   m0_best=1.0+(m0_best-1.0)*linesearch_mbest
 
@@ -334,7 +334,7 @@ subroutine write_new_cmtsolution(cmt_file,new_cmt_file,t0_best,m0_best)
 
   character(len=*),intent(in):: cmt_file,new_cmt_file
   real,intent(in):: t0_best,m0_best
-  integer,parameter:: IOCMT=1009
+  integer,parameter:: IOCMT = 1009
 
   character(len=150):: pde_time,event_name,str_tshift,str_hdur,str_lat,str_lon,str_dep
   real:: t_cmt, t_cmt_new
@@ -380,7 +380,7 @@ subroutine write_new_cmtsolution(cmt_file,new_cmt_file,t0_best,m0_best)
 
   ! calculate new t0 and Mij
   !t_cmt_new=t_cmt
-  t_cmt_new=t_cmt+t0_best
+  t_cmt_new = t_cmt+t0_best
   moment_tensor_new(:)=moment_tensor(:)*m0_best
 
   ! write out new CMTSOLUTION

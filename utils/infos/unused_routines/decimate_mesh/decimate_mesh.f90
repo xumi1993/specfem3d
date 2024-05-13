@@ -78,7 +78,7 @@ enddo
 ! set up local geometric tolerances
   xtypdist=+HUGEVAL
 
-  do ispec=1,nelmnts_ext_mesh
+  do ispec = 1,nelmnts_ext_mesh
 
   xminval=+HUGEVAL
   yminval=+HUGEVAL
@@ -88,12 +88,12 @@ enddo
   zmaxval=-HUGEVAL
 
   do inode = 1, 8
-     xmaxval=max(nodes_coords_ext_mesh(1,elmnts_ext_mesh(inode,ispec)),xmaxval)
-     xminval=min(nodes_coords_ext_mesh(1,elmnts_ext_mesh(inode,ispec)),xminval)
-     ymaxval=max(nodes_coords_ext_mesh(2,elmnts_ext_mesh(inode,ispec)),ymaxval)
-     yminval=min(nodes_coords_ext_mesh(2,elmnts_ext_mesh(inode,ispec)),yminval)
-     zmaxval=max(nodes_coords_ext_mesh(3,elmnts_ext_mesh(inode,ispec)),zmaxval)
-     zminval=min(nodes_coords_ext_mesh(3,elmnts_ext_mesh(inode,ispec)),zminval)
+     xmaxval = max(nodes_coords_ext_mesh(1,elmnts_ext_mesh(inode,ispec)),xmaxval)
+     xminval = min(nodes_coords_ext_mesh(1,elmnts_ext_mesh(inode,ispec)),xminval)
+     ymaxval = max(nodes_coords_ext_mesh(2,elmnts_ext_mesh(inode,ispec)),ymaxval)
+     yminval = min(nodes_coords_ext_mesh(2,elmnts_ext_mesh(inode,ispec)),yminval)
+     zmaxval = max(nodes_coords_ext_mesh(3,elmnts_ext_mesh(inode,ispec)),zmaxval)
+     zminval = min(nodes_coords_ext_mesh(3,elmnts_ext_mesh(inode,ispec)),zminval)
   enddo
 
 ! compute the minimum typical "size" of an element in the mesh
@@ -105,7 +105,7 @@ enddo
   enddo
 
 ! define a tolerance, small with respect to the minimum size
-  xtol=smallval_tol*xtypdist*1.d7
+  xtol = smallval_tol*xtypdist*1.d7
 
   print *, 'xtypdist' , xtypdist
   print *, 'facteur de tolerance XTOL = ', xtol

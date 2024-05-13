@@ -147,16 +147,16 @@
   nspec_outer = 0
   nspec_inner = 0
   nspec_domain = 0
-  do ispec=1,nspec
+  do ispec = 1,nspec
     ! domain elements
     if (ispec_is_d(ispec)) then
       ! outer/inner elements
       if (is_on_a_slice_edge(ispec)) then
-        nspec_outer=nspec_outer+1
+        nspec_outer = nspec_outer+1
       else
-        nspec_inner=nspec_inner+1
+        nspec_inner = nspec_inner+1
       endif
-      nspec_domain=nspec_domain+1
+      nspec_domain = nspec_domain+1
     endif
   enddo
 
@@ -227,14 +227,14 @@
         if (is_on_a_slice_edge(ispec)) then
           if (color(ispec) == 0) then
             ! the eight corners of the current element
-            iglob1=ibool(1,1,1,ispec)
-            iglob2=ibool(NGLLX,1,1,ispec)
-            iglob3=ibool(NGLLX,NGLLY,1,ispec)
-            iglob4=ibool(1,NGLLY,1,ispec)
-            iglob5=ibool(1,1,NGLLZ,ispec)
-            iglob6=ibool(NGLLX,1,NGLLZ,ispec)
-            iglob7=ibool(NGLLX,NGLLY,NGLLZ,ispec)
-            iglob8=ibool(1,NGLLY,NGLLZ,ispec)
+            iglob1 = ibool(1,1,1,ispec)
+            iglob2 = ibool(NGLLX,1,1,ispec)
+            iglob3 = ibool(NGLLX,NGLLY,1,ispec)
+            iglob4 = ibool(1,NGLLY,1,ispec)
+            iglob5 = ibool(1,1,NGLLZ,ispec)
+            iglob6 = ibool(NGLLX,1,NGLLZ,ispec)
+            iglob7 = ibool(NGLLX,NGLLY,NGLLZ,ispec)
+            iglob8 = ibool(1,NGLLY,NGLLZ,ispec)
 
             if (mask_ibool(iglob1) .or. mask_ibool(iglob2) .or. mask_ibool(iglob3) .or. mask_ibool(iglob4) .or. &
                mask_ibool(iglob5) .or. mask_ibool(iglob6) .or. mask_ibool(iglob7) .or. mask_ibool(iglob8)) then
@@ -293,14 +293,14 @@
         if (.not. is_on_a_slice_edge(ispec)) then
           if (color(ispec) == 0) then
             ! the eight corners of the current element
-            iglob1=ibool(1,1,1,ispec)
-            iglob2=ibool(NGLLX,1,1,ispec)
-            iglob3=ibool(NGLLX,NGLLY,1,ispec)
-            iglob4=ibool(1,NGLLY,1,ispec)
-            iglob5=ibool(1,1,NGLLZ,ispec)
-            iglob6=ibool(NGLLX,1,NGLLZ,ispec)
-            iglob7=ibool(NGLLX,NGLLY,NGLLZ,ispec)
-            iglob8=ibool(1,NGLLY,NGLLZ,ispec)
+            iglob1 = ibool(1,1,1,ispec)
+            iglob2 = ibool(NGLLX,1,1,ispec)
+            iglob3 = ibool(NGLLX,NGLLY,1,ispec)
+            iglob4 = ibool(1,NGLLY,1,ispec)
+            iglob5 = ibool(1,1,NGLLZ,ispec)
+            iglob6 = ibool(NGLLX,1,NGLLZ,ispec)
+            iglob7 = ibool(NGLLX,NGLLY,NGLLZ,ispec)
+            iglob8 = ibool(1,NGLLY,NGLLZ,ispec)
 
             if (mask_ibool(iglob1) .or. mask_ibool(iglob2) .or. mask_ibool(iglob3) .or. mask_ibool(iglob4) .or. &
                mask_ibool(iglob5) .or. mask_ibool(iglob6) .or. mask_ibool(iglob7) .or. mask_ibool(iglob8)) then
@@ -376,14 +376,14 @@
       if (ispec_is_d(ispec)) then
         if (color(ispec) == icolor) then
           ! the eight corners of the current element
-          iglob1=ibool(1,1,1,ispec)
-          iglob2=ibool(NGLLX,1,1,ispec)
-          iglob3=ibool(NGLLX,NGLLY,1,ispec)
-          iglob4=ibool(1,NGLLY,1,ispec)
-          iglob5=ibool(1,1,NGLLZ,ispec)
-          iglob6=ibool(NGLLX,1,NGLLZ,ispec)
-          iglob7=ibool(NGLLX,NGLLY,NGLLZ,ispec)
-          iglob8=ibool(1,NGLLY,NGLLZ,ispec)
+          iglob1 = ibool(1,1,1,ispec)
+          iglob2 = ibool(NGLLX,1,1,ispec)
+          iglob3 = ibool(NGLLX,NGLLY,1,ispec)
+          iglob4 = ibool(1,NGLLY,1,ispec)
+          iglob5 = ibool(1,1,NGLLZ,ispec)
+          iglob6 = ibool(NGLLX,1,NGLLZ,ispec)
+          iglob7 = ibool(NGLLX,NGLLY,NGLLZ,ispec)
+          iglob8 = ibool(1,NGLLY,NGLLZ,ispec)
 
           if (mask_ibool(iglob1) .or. mask_ibool(iglob2) .or. mask_ibool(iglob3) .or. mask_ibool(iglob4) .or. &
              mask_ibool(iglob5) .or. mask_ibool(iglob6) .or. mask_ibool(iglob7) .or. mask_ibool(iglob8)) then
@@ -459,14 +459,14 @@
       ! outer elements
       if (is_on_a_slice_edge(ispec)) then
         ! the eight corners of the current element
-        iglob1=ibool(1,1,1,ispec)
-        iglob2=ibool(NGLLX,1,1,ispec)
-        iglob3=ibool(NGLLX,NGLLY,1,ispec)
-        iglob4=ibool(1,NGLLY,1,ispec)
-        iglob5=ibool(1,1,NGLLZ,ispec)
-        iglob6=ibool(NGLLX,1,NGLLZ,ispec)
-        iglob7=ibool(NGLLX,NGLLY,NGLLZ,ispec)
-        iglob8=ibool(1,NGLLY,NGLLZ,ispec)
+        iglob1 = ibool(1,1,1,ispec)
+        iglob2 = ibool(NGLLX,1,1,ispec)
+        iglob3 = ibool(NGLLX,NGLLY,1,ispec)
+        iglob4 = ibool(1,NGLLY,1,ispec)
+        iglob5 = ibool(1,1,NGLLZ,ispec)
+        iglob6 = ibool(NGLLX,1,NGLLZ,ispec)
+        iglob7 = ibool(NGLLX,NGLLY,NGLLZ,ispec)
+        iglob8 = ibool(1,NGLLY,NGLLZ,ispec)
 
         count_ibool(iglob1) = count_ibool(iglob1) + 1
         count_ibool(iglob2) = count_ibool(iglob2) + 1
@@ -489,14 +489,14 @@
       ! inner elements
       if (.not. is_on_a_slice_edge(ispec)) then
         ! the eight corners of the current element
-        iglob1=ibool(1,1,1,ispec)
-        iglob2=ibool(NGLLX,1,1,ispec)
-        iglob3=ibool(NGLLX,NGLLY,1,ispec)
-        iglob4=ibool(1,NGLLY,1,ispec)
-        iglob5=ibool(1,1,NGLLZ,ispec)
-        iglob6=ibool(NGLLX,1,NGLLZ,ispec)
-        iglob7=ibool(NGLLX,NGLLY,NGLLZ,ispec)
-        iglob8=ibool(1,NGLLY,NGLLZ,ispec)
+        iglob1 = ibool(1,1,1,ispec)
+        iglob2 = ibool(NGLLX,1,1,ispec)
+        iglob3 = ibool(NGLLX,NGLLY,1,ispec)
+        iglob4 = ibool(1,NGLLY,1,ispec)
+        iglob5 = ibool(1,1,NGLLZ,ispec)
+        iglob6 = ibool(NGLLX,1,NGLLZ,ispec)
+        iglob7 = ibool(NGLLX,NGLLY,NGLLZ,ispec)
+        iglob8 = ibool(1,NGLLY,NGLLZ,ispec)
 
         count_ibool(iglob1) = count_ibool(iglob1) + 1
         count_ibool(iglob2) = count_ibool(iglob2) + 1

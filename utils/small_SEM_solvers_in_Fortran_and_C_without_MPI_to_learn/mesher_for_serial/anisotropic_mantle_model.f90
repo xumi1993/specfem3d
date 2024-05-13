@@ -394,8 +394,8 @@
           if (nf <= 3 .or. nf >= 6) then
             bet2(ipa,idep,ilat,ilon) = AMM_V%beta(ipa,idep,ilat,ilon)*0.01*ppp + ppp
           else
-            if (nf == 4)bet2(ipa,idep,ilat,ilon) = AMM_V%beta(ipa,idep,ilat,ilon)*0.01 + 1.
-            if (nf == 5)bet2(ipa,idep,ilat,ilon) = - AMM_V%beta(ipa,idep,ilat,ilon)*0.01 + 1.
+            if (nf == 4) bet2(ipa,idep,ilat,ilon) = AMM_V%beta(ipa,idep,ilat,ilon)*0.01 + 1.
+            if (nf == 5) bet2(ipa,idep,ilat,ilon) = - AMM_V%beta(ipa,idep,ilat,ilon)*0.01 + 1.
           endif
         enddo
 
@@ -432,7 +432,7 @@
         read(15,"(17f7.2)",end = 888) (alph(ilon,ilat),ilon = 1,ny)
       enddo
 
-      do ilat=1,nx
+      do ilat = 1,nx
         read(15,"(17f7.2)",end = 888) (ph(ilon,ilat),ilon = 1,ny)
       enddo
 

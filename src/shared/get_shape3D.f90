@@ -63,9 +63,9 @@
 ! *** create 3D shape functions and jacobian
 ! ***
 
-  do i=1,NGLLX
-    do j=1,NGLLY
-      do k=1,NGLLZ
+  do i = 1,NGLLX
+    do j = 1,NGLLY
+      do k = 1,NGLLZ
 
         xi = xigll(i)
         eta = yigll(j)
@@ -133,16 +133,16 @@
 
 !--- check the shape functions and their derivatives
 
-  do i=1,NGLLX
-    do j=1,NGLLY
-      do k=1,NGLLZ
+  do i = 1,NGLLX
+    do j = 1,NGLLY
+      do k = 1,NGLLZ
 
         sumshape = ZERO
         sumdershapexi = ZERO
         sumdershapeeta = ZERO
         sumdershapegamma = ZERO
 
-        do ia=1,NGNOD
+        do ia = 1,NGNOD
           sumshape = sumshape + shape3D(ia,i,j,k)
           sumdershapexi = sumdershapexi + dershape3D(1,ia,i,j,k)
           sumdershapeeta = sumdershapeeta + dershape3D(2,ia,i,j,k)
@@ -219,15 +219,15 @@
   else
 
     l1xi=HALF*xi*(xi-ONE)
-    l2xi=ONE-xi**2
+    l2xi = ONE-xi**2
     l3xi=HALF*xi*(xi+ONE)
 
     l1eta=HALF*eta*(eta-ONE)
-    l2eta=ONE-eta**2
+    l2eta = ONE-eta**2
     l3eta=HALF*eta*(eta+ONE)
 
     l1gamma=HALF*gamma*(gamma-ONE)
-    l2gamma=ONE-gamma**2
+    l2gamma = ONE-gamma**2
     l3gamma=HALF*gamma*(gamma+ONE)
 
     ! corner nodes
@@ -269,7 +269,7 @@
 
   ! check the shape functions
   sumshape = ZERO
-  do ia=1,NGNOD
+  do ia = 1,NGNOD
     sumshape = sumshape + shape3D(ia)
   enddo
 
@@ -415,28 +415,28 @@
   double precision l1pxi,l2pxi,l3pxi,l1peta,l2peta,l3peta,l1pgamma,l2pgamma,l3pgamma
 
   l1xi=HALF*xi*(xi-ONE)
-  l2xi=ONE-xi**2
+  l2xi = ONE-xi**2
   l3xi=HALF*xi*(xi+ONE)
 
-  l1pxi=xi-HALF
+  l1pxi = xi-HALF
   l2pxi=-TWO*xi
-  l3pxi=xi+HALF
+  l3pxi = xi+HALF
 
   l1eta=HALF*eta*(eta-ONE)
-  l2eta=ONE-eta**2
+  l2eta = ONE-eta**2
   l3eta=HALF*eta*(eta+ONE)
 
-  l1peta=eta-HALF
+  l1peta = eta-HALF
   l2peta=-TWO*eta
-  l3peta=eta+HALF
+  l3peta = eta+HALF
 
   l1gamma=HALF*gamma*(gamma-ONE)
-  l2gamma=ONE-gamma**2
+  l2gamma = ONE-gamma**2
   l3gamma=HALF*gamma*(gamma+ONE)
 
-  l1pgamma=gamma-HALF
+  l1pgamma = gamma-HALF
   l2pgamma=-TWO*gamma
-  l3pgamma=gamma+HALF
+  l3pgamma = gamma+HALF
 
   ! corner nodes
   shape3D(1,i,j,k)=l1xi*l1eta*l1gamma

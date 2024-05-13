@@ -67,11 +67,11 @@
     write(IOUT,'(a8)') '*HEADING'
     write(IOUT,'(a27)') 'SPECFEM3D meshfem3D(mesh): '
     write(IOUT,'(a5)') '*NODE'
-    do i=1,nglob
+    do i = 1,nglob
       write(IOUT,'(i10,3(a,e15.6))') i,',',nodes_coords(i,1),',',nodes_coords(i,2),',',nodes_coords(i,3)
     enddo
     write(IOUT,'(a31)') '*ELEMENT, TYPE=C3D8R, ELSET=EB1'
-    do ispec=1,nspec
+    do ispec = 1,nspec
       write(IOUT,'(i10,8(a,i10))') ispec,',',ibool(1,1,NGLLZ_M,ispec),',',ibool(1,1,1,ispec), &
                                    ',',ibool(1,NGLLY_M,1,ispec), ',',ibool(1,NGLLY_M,NGLLZ_M,ispec), &
                                    ',',ibool(NGLLX_M,1,NGLLZ_M,ispec),',',ibool(NGLLX_M,1,1,ispec), &
@@ -102,7 +102,7 @@
 
     write(IOUT,*) 'object 2 class array type int rank 1 shape ',8,' items ',nspec,' data follows'
 
-    do ispec=1,nspec
+    do ispec = 1,nspec
 
       ! point order in OpenDX in 2D is 1,4,2,3 *not* 1,2,3,4 as in AVS
       ! point order in OpenDX in 3D is 4,1,8,5,3,2,7,6, *not* 1,2,3,4,5,6,7,8 as in AVS
@@ -160,7 +160,7 @@
 
     ! note: indices for vtk start at 0
     write(IOUT,'(a,i12,i12)') "CELLS ",nspec,nspec*9
-    do ispec=1,nspec
+    do ispec = 1,nspec
       write(IOUT,'(9i12)') 8, &
             ibool(1,1,1,ispec)-1,ibool(NGLLX_M,1,1,ispec)-1, &
             ibool(NGLLX_M,NGLLY_M,1,ispec)-1,ibool(1,NGLLY_M,1,ispec)-1, &

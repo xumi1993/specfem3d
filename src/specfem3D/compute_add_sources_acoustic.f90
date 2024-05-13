@@ -112,9 +112,9 @@
           ! to add minus the source to Chi_dot_dot to get plus the source in pressure
 
           ! adds source array
-          do k=1,NGLLZ
-            do j=1,NGLLY
-              do i=1,NGLLX
+          do k = 1,NGLLZ
+            do j = 1,NGLLY
+              do i = 1,NGLLX
                 ! adds source contribution
                 ! note: acoustic source for pressure gets divided by kappa
                 iglob = ibool(i,j,k,ispec)
@@ -381,9 +381,9 @@
         stf_used = real(stf,kind=CUSTOM_REAL)
 
         ! add source array
-        do k=1,NGLLZ
-          do j=1,NGLLY
-            do i=1,NGLLX
+        do k = 1,NGLLZ
+          do j = 1,NGLLY
+            do i = 1,NGLLX
               ! adds source contribution
               ! note: acoustic source for pressure gets divided by kappa
               iglob = ibool(i,j,k,ispec)

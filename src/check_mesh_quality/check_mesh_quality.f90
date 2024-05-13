@@ -859,9 +859,9 @@
 ! *** create 3D shape functions and jacobian
 ! ***
 
-  do i=1,local_NGLLX_always_5
-    do j=1,local_NGLLY_always_5
-      do k=1,local_NGLLZ_always_5
+  do i = 1,local_NGLLX_always_5
+    do j = 1,local_NGLLY_always_5
+      do k = 1,local_NGLLZ_always_5
 
         xi = xigll(i)
         eta = yigll(j)
@@ -921,15 +921,15 @@
 
 !--- check the shape functions and their derivatives
 
-  do i=1,local_NGLLX_always_5
-    do j=1,local_NGLLY_always_5
-      do k=1,local_NGLLZ_always_5
+  do i = 1,local_NGLLX_always_5
+    do j = 1,local_NGLLY_always_5
+      do k = 1,local_NGLLZ_always_5
 
         sumdershapexi = ZERO
         sumdershapeeta = ZERO
         sumdershapegamma = ZERO
 
-        do ia=1,NGNOD
+        do ia = 1,NGNOD
           sumdershapexi = sumdershapexi + dershape3D(1,ia,i,j,k)
           sumdershapeeta = sumdershapeeta + dershape3D(2,ia,i,j,k)
           sumdershapegamma = sumdershapegamma + dershape3D(3,ia,i,j,k)
@@ -972,29 +972,29 @@
   double precision l1xi,l2xi,l3xi,l1eta,l2eta,l3eta,l1gamma,l2gamma,l3gamma
   double precision l1pxi,l2pxi,l3pxi,l1peta,l2peta,l3peta,l1pgamma,l2pgamma,l3pgamma
 
-  l1xi=HALF*xi*(xi-ONE)
-  l2xi=ONE-xi**2
-  l3xi=HALF*xi*(xi+ONE)
+  l1xi = HALF*xi*(xi-ONE)
+  l2xi = ONE-xi**2
+  l3xi = HALF*xi*(xi+ONE)
 
-  l1pxi=xi-HALF
+  l1pxi = xi-HALF
   l2pxi=-TWO*xi
-  l3pxi=xi+HALF
+  l3pxi = xi+HALF
 
-  l1eta=HALF*eta*(eta-ONE)
-  l2eta=ONE-eta**2
-  l3eta=HALF*eta*(eta+ONE)
+  l1eta = HALF*eta*(eta-ONE)
+  l2eta = ONE-eta**2
+  l3eta = HALF*eta*(eta+ONE)
 
-  l1peta=eta-HALF
+  l1peta = eta-HALF
   l2peta=-TWO*eta
-  l3peta=eta+HALF
+  l3peta = eta+HALF
 
-  l1gamma=HALF*gamma*(gamma-ONE)
-  l2gamma=ONE-gamma**2
-  l3gamma=HALF*gamma*(gamma+ONE)
+  l1gamma = HALF*gamma*(gamma-ONE)
+  l2gamma = ONE-gamma**2
+  l3gamma = HALF*gamma*(gamma+ONE)
 
-  l1pgamma=gamma-HALF
+  l1pgamma = gamma-HALF
   l2pgamma=-TWO*gamma
-  l3pgamma=gamma+HALF
+  l3pgamma = gamma+HALF
 
   ! corner nodes
 
@@ -1127,9 +1127,9 @@
 !     do i=1,local_NGLLX_always_5
 ! for this CPML mesh extrusion routine it is sufficient to test the 8 corners of each element to reduce the cost
 ! because we just want to detect if the element is flipped or not, and if so flip it back
-  do k=1,local_NGLLZ_always_5,local_NGLLZ_always_5-1
-    do j=1,local_NGLLY_always_5,local_NGLLY_always_5-1
-      do i=1,local_NGLLX_always_5,local_NGLLX_always_5-1
+  do k = 1,local_NGLLZ_always_5,local_NGLLZ_always_5-1
+    do j = 1,local_NGLLY_always_5,local_NGLLY_always_5-1
+      do i = 1,local_NGLLX_always_5,local_NGLLX_always_5-1
 
       xxi = ZERO
       xeta = ZERO
@@ -1141,7 +1141,7 @@
       zeta = ZERO
       zgamma = ZERO
 
-      do ia=1,NGNOD
+      do ia = 1,NGNOD
         xxi = xxi + dershape3D(1,ia,i,j,k)*xelm(ia)
         xeta = xeta + dershape3D(2,ia,i,j,k)*xelm(ia)
         xgamma = xgamma + dershape3D(3,ia,i,j,k)*xelm(ia)

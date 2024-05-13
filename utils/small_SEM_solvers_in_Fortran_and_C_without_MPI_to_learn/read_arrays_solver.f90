@@ -89,9 +89,9 @@
 ! read real numbers here
   read(IOUT) dummy_float_read
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
 ! indices start at 1 in Fortran and 0 in C therefore we subtract 1 to all
 ! the indices in this formula to convert to a linear offset
           xix((ispec-1)*NGLL3+(k-1)*NGLL2+(j-1)*NGLLX+i-1+1) = dummy_float_read(i,j,k,ispec)
@@ -102,9 +102,9 @@
 
   read(IOUT) dummy_float_read
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           xiy((ispec-1)*NGLL3+(k-1)*NGLL2+(j-1)*NGLLX+i-1+1) = dummy_float_read(i,j,k,ispec)
         enddo
       enddo
@@ -113,9 +113,9 @@
 
   read(IOUT) dummy_float_read
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           xiz((ispec-1)*NGLL3+(k-1)*NGLL2+(j-1)*NGLLX+i-1+1) = dummy_float_read(i,j,k,ispec)
         enddo
       enddo
@@ -124,9 +124,9 @@
 
   read(IOUT) dummy_float_read
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           etax((ispec-1)*NGLL3+(k-1)*NGLL2+(j-1)*NGLLX+i-1+1) = dummy_float_read(i,j,k,ispec)
         enddo
       enddo
@@ -135,9 +135,9 @@
 
   read(IOUT) dummy_float_read
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           etay((ispec-1)*NGLL3+(k-1)*NGLL2+(j-1)*NGLLX+i-1+1) = dummy_float_read(i,j,k,ispec)
         enddo
       enddo
@@ -146,9 +146,9 @@
 
   read(IOUT) dummy_float_read
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           etaz((ispec-1)*NGLL3+(k-1)*NGLL2+(j-1)*NGLLX+i-1+1) = dummy_float_read(i,j,k,ispec)
         enddo
       enddo
@@ -157,9 +157,9 @@
 
   read(IOUT) dummy_float_read
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           gammax((ispec-1)*NGLL3+(k-1)*NGLL2+(j-1)*NGLLX+i-1+1) = dummy_float_read(i,j,k,ispec)
         enddo
       enddo
@@ -168,9 +168,9 @@
 
   read(IOUT) dummy_float_read
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           gammay((ispec-1)*NGLL3+(k-1)*NGLL2+(j-1)*NGLLX+i-1+1) = dummy_float_read(i,j,k,ispec)
         enddo
       enddo
@@ -179,9 +179,9 @@
 
   read(IOUT) dummy_float_read
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           gammaz((ispec-1)*NGLL3+(k-1)*NGLL2+(j-1)*NGLLX+i-1+1) = dummy_float_read(i,j,k,ispec)
         enddo
       enddo
@@ -190,9 +190,9 @@
 
   read(IOUT) dummy_float_read
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           kappav((ispec-1)*NGLL3+(k-1)*NGLL2+(j-1)*NGLLX+i-1+1) = dummy_float_read(i,j,k,ispec)
         enddo
       enddo
@@ -201,9 +201,9 @@
 
   read(IOUT) dummy_float_read
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           muv((ispec-1)*NGLL3+(k-1)*NGLL2+(j-1)*NGLLX+i-1+1) = dummy_float_read(i,j,k,ispec)
         enddo
       enddo
@@ -213,9 +213,9 @@
 ! read an integer here
   read(IOUT) dummy_int_read
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           ibool((ispec-1)*NGLL3+(k-1)*NGLL2+(j-1)*NGLLX+i-1+1) = dummy_int_read(i,j,k,ispec)
         enddo
       enddo

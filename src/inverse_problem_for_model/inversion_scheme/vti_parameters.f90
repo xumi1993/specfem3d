@@ -75,49 +75,49 @@ module vti_parameters_mod
     inversion_param%param_ref_name(5)="delta--(de)"
     inversion_param%param_ref_name(6)="gamma--(gm)"
 
-    is_selected(:)=.false.
-    ipar_inv=0
-    inversion_param%NfamilyPar=6
+    is_selected(:) = .false.
+    ipar_inv = 0
+    inversion_param%NfamilyPar = 6
 
     !! look for wanted parameters
-    do ipar=1, inversion_param%NfamilyPar !! loop on all parameters : rho, vp, vs, ep, gm, de
+    do ipar = 1, inversion_param%NfamilyPar !! loop on all parameters : rho, vp, vs, ep, gm, de
 
        select case(trim(inversion_param%param_inv_name(ipar)))
 
        case('rho')
           if (.not. is_selected(1)) then
-             ipar_inv=ipar_inv+1
-             is_selected(1)=.true.
+             ipar_inv = ipar_inv+1
+             is_selected(1) = .true.
           endif
 
        case('vp')
           if (.not. is_selected(2)) then
-             ipar_inv=ipar_inv+1
-             is_selected(2)=.true.
+             ipar_inv = ipar_inv+1
+             is_selected(2) = .true.
           endif
 
        case('vs')
           if (.not. is_selected(3)) then
-             ipar_inv=ipar_inv+1
-             is_selected(3)=.true.
+             ipar_inv = ipar_inv+1
+             is_selected(3) = .true.
           endif
 
        case('ep')
           if (.not. is_selected(4)) then
-             ipar_inv=ipar_inv+1
-             is_selected(4)=.true.
+             ipar_inv = ipar_inv+1
+             is_selected(4) = .true.
           endif
 
        case('gm')
           if (.not. is_selected(5)) then
-             ipar_inv=ipar_inv+1
-             is_selected(5)=.true.
+             ipar_inv = ipar_inv+1
+             is_selected(5) = .true.
           endif
 
        case('de')
           if (.not. is_selected(6)) then
-             ipar_inv=ipar_inv+1
-             is_selected(6)=.true.
+             ipar_inv = ipar_inv+1
+             is_selected(6) = .true.
           endif
 
        end select
@@ -125,13 +125,13 @@ module vti_parameters_mod
     enddo
 
     !! set wanted parameters in inversion structure
-    inversion_param%NinvPar=ipar_inv
+    inversion_param%NinvPar = ipar_inv
     allocate(inversion_param%Index_Invert(inversion_param%NinvPar),stat=ier)
     if (ier /= 0) call exit_MPI_without_rank('error allocating array 563')
-    ipar_inv=0
-    do ipar=1, inversion_param%NfamilyPar !! loop on all parameters : rho, vp, vs, ep, gm, de
+    ipar_inv = 0
+    do ipar = 1, inversion_param%NfamilyPar !! loop on all parameters : rho, vp, vs, ep, gm, de
        if (is_selected(ipar)) then
-          ipar_inv=ipar_inv+1
+          ipar_inv = ipar_inv+1
           inversion_param%Index_Invert(ipar_inv) = ipar
           inversion_param%param_inv_name(ipar_inv) = vti_family_name(ipar)
        endif

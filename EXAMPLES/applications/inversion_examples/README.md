@@ -37,8 +37,8 @@ More specific tools:
 * moment-tensor inversions:
   - [pycmt3d](https://github.com/wjlei1990/pycmt3d)
     provided in src/inverse_problem_for_source/
-  - CMT3D: original version from [GRD_CMT3D](https://github.com/UTCompSeismo/GRD_CMT3D) 
-           
+  - CMT3D: original version from [GRD_CMT3D](https://github.com/UTCompSeismo/GRD_CMT3D)
+
 
 
 Please consider contributing your own examples.

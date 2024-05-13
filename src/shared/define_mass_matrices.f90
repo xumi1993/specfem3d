@@ -764,7 +764,7 @@
         stop 'error in PML mesh file'
       endif
     endif
-  enddo ! do ispec_CPML=1,nspec_cpml
+  enddo ! do ispec_CPML = 1,nspec_cpml
 
   end subroutine define_mass_matrices_pml_elastic
 
@@ -855,7 +855,7 @@
   enddo
 
   ! loops over C-PML elements
-  do ispec_CPML=1,nspec_cpml
+  do ispec_CPML = 1,nspec_cpml
     ispec = CPML_to_spec(ispec_CPML)
 
     if (is_CPML(ispec) .and. ispec_is_acoustic(ispec)) then
@@ -1010,6 +1010,6 @@
         stop 'error in PML mesh file'
       endif
     endif
-  enddo ! do ispec_CPML=1,nspec_cpml
+  enddo ! do ispec_CPML = 1,nspec_cpml
 
   end subroutine define_mass_matrices_pml_acoustic

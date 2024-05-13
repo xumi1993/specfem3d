@@ -163,7 +163,7 @@
         call write_integer(npp)
       endif
 
-      do ispec=1,nspec
+      do ispec = 1,nspec
         iglob1=ibool(1,1,1,ispec)
         iglob2=ibool(NGLLX,1,1,ispec)
         iglob3=ibool(NGLLX,NGLLY,1,ispec)
@@ -281,7 +281,7 @@
       read(27) zstore
       close(27)
 
-      do ispec=1,nspec
+      do ispec = 1,nspec
         do k = 1, NGLLZ
           do j = 1, NGLLY
             do i = 1, NGLLX
@@ -372,7 +372,7 @@
 
       numpoin = 0
       mask_ibool = .false.
-      do ispec=1,nspec
+      do ispec = 1,nspec
         do k = 1, NGLLZ
           do j = 1, NGLLY
             do i = 1, NGLLX

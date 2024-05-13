@@ -132,9 +132,9 @@ contains
     call rsac1(synfile,syn,npts2,b2,dt2,NDIM,nerr)
     if (nerr > 0) stop ' Error reading data file '
     if (npts1 /= npts2 .or. abs(b1-b2) > dt1 .or. abs(dt1-dt2) > EPS_dt) &
-         stop 'check if npts1=npts2, b1=b2 and dt1=dt2'
+         stop 'check if npts1 = npts2, b1 = b2 and dt1 = dt2'
 
-    npts=npts1; b=b1; dt=dt1
+    npts = npts1; b = b1; dt = dt1
 
     ! sac header sta.net.chan, and file prefixes
     call getkhv('kstnm', sta, nerr)
@@ -167,11 +167,11 @@ contains
 
     ! set measurement file prefix
      if (iker /= IKER_FD) then
-        meas_prefix=trim(CKER(iker+1))
+        meas_prefix = trim(CKER(iker+1))
      else
-        meas_prefix=trim(CTAP(itap+1))
+        meas_prefix = trim(CTAP(itap+1))
      endif
-     meas_prefix=trim(meas_dir)//'/'//trim(file_prefix)//'.'//trim(meas_prefix)
+     meas_prefix = trim(meas_dir)//'/'//trim(file_prefix)//'.'//trim(meas_prefix)
 
     ! at least 10 points within the window
     if (tend-tstart < 10*dt) stop 'Check if tend > tstart+10*dt'
@@ -234,10 +234,10 @@ contains
 
     ! -------
     ! frequency vector from fft
-    f0=0; df=1./(NPT*dt); nf=floor(NPT/2.)+1
+    f0 = 0; df = 1./(NPT*dt); nf = floor(NPT/2.)+1
 
     ! true independent frequency spacing for nlen
-    df_new=1./(tend-tstart); idf_new = int(df_new/df)
+    df_new = 1./(tend-tstart); idf_new = int(df_new/df)
 
     ! FFT windowed data (shifted) and syn
     cdataw = cmplx(0.,0.); csynw = cmplx(0.,0.)
@@ -288,7 +288,7 @@ contains
     else ! ignore first few points for cosine and boxcar tapers
        df_fd = df_new; idf_fd = floor(df_fd/df); i_left= floor(npi*df_fd/df)
     endif
-    f_left=df_fd
+    f_left = df_fd
 
     if (DEBUG) then
        print *, 'Frequency of max power in windowed synthetic:'
@@ -307,7 +307,7 @@ contains
     else if (itap == ITAP_BC) then
       call boxcar(nlen, NPT, tas_dp)
     endif
-    tas=tas_dp
+    tas = tas_dp
 
     ! compute transfer function for freq-dep measurements
     top_fdm(:)   = cmplx(0.,0.)
@@ -350,7 +350,7 @@ contains
     call compute_dtau_dlnA(trans_fdm,dt,tshift_cc,dtau_fdm,dlnA_fdm,i_right)
 
     ! reconstruct syn with transfer function
-    csynw_sngl=csynw
+    csynw_sngl = csynw
     call reconstruct_syn_fd(csynw_sngl,dtau_fdm,dlnA_fdm,i_right,synw_rc_fd,dt,nlen)
 
     if (DEBUG) then
@@ -402,8 +402,8 @@ contains
     real, dimension(NPT) :: fvec
 
 
-    use_window=.true.
-    df = 1./(dt*NPT); nf=floor(NPT/2.)+1
+    use_window = .true.
+    df = 1./(dt*NPT); nf = floor(NPT/2.)+1
     do j = 1, nf
        fvec(j) = df*(j-1)
     enddo
@@ -470,11 +470,11 @@ contains
     integer :: ictaper, i, nerr
 
      if (iker /= IKER_FD) then
-        file=trim(CKER(iker+1))
+        file = trim(CKER(iker+1))
      else
-        file=trim(CTAP(itap+1))
+        file = trim(CTAP(itap+1))
      endif
-     file=trim(adj_dir)//'/'//trim(file_prefix)//'.'//trim(file)// '.'//char(iwin+48)
+     file = trim(adj_dir)//'/'//trim(file_prefix)//'.'//trim(file)// '.'//char(iwin+48)
 
     ! IKER_WF
     if (iker == IKER_WF) then
@@ -513,7 +513,7 @@ contains
           wf_taper(i) = 1. - cos(PI*(i-i_left)/(i_right-i_left))**ipwr_w    ! cosine
        enddo
        ! normalize freq taper
-       ffac=2*df*sum(wf_taper(i_left:i_right))
+       ffac = 2*df*sum(wf_taper(i_left:i_right))
        wf_taper(i_left:i_right) = wf_taper(i_left:i_right) / ffac
 
        ! water level of FD measurements based on average (LQY:can be smaller for mtm!!)

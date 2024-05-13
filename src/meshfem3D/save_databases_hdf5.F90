@@ -80,7 +80,7 @@
   ! local parameters
   ! MPI Cartesian topology
   ! E for East (= XI_MIN), W for West (= XI_MAX), S for South (= ETA_MIN), N for North (= ETA_MAX)
-  integer, parameter :: W=1,E=2,S=3,N=4,NW=5,NE=6,SE=7,SW=8
+  integer, parameter :: W = 1,E = 2,S = 3,N = 4,NW = 5,NE = 6,SE = 7,SW = 8
 
   ! CPML
   integer :: nspec_CPML_total,ispec_CPML
@@ -390,7 +390,7 @@
   !call h5_open_file_p(name_database_hdf5)
 
   ! global nodes
-  do iglob=1,nglob
+  do iglob = 1,nglob
     nodes_coords_this_proc(1,iglob) = nodes_coords(iglob,1)
     nodes_coords_this_proc(2,iglob) = nodes_coords(iglob,2)
     nodes_coords_this_proc(3,iglob) = nodes_coords(iglob,3)
@@ -470,7 +470,7 @@
     enddo
     if (inode /= NGNOD2D) stop 'Invalid number of inodes found for xmin'
 
-    do inode=1,NGNOD2D
+    do inode = 1,NGNOD2D
       glob2loc_elms_this_proc(inode+1,count1) = loc_node(inode)
     enddo
     count1 = count1 + 1
@@ -491,7 +491,7 @@
     enddo
     if (inode /= NGNOD2D) stop 'Invalid number of inodes found for xmax'
 
-    do inode=1,NGNOD2D
+    do inode = 1,NGNOD2D
       glob2loc_elms_this_proc(inode+1,count1) = loc_node(inode)
     enddo
     count1 = count1 + 1
@@ -511,7 +511,7 @@
       endif
     enddo
     if (inode /= NGNOD2D) stop 'Invalid number of inodes found for ymin'
-    do inode=1,NGNOD2D
+    do inode = 1,NGNOD2D
       glob2loc_elms_this_proc(inode+1,count1) = loc_node(inode)
     enddo
     count1 = count1 + 1
@@ -531,7 +531,7 @@
       endif
     enddo
     if (inode /= NGNOD2D) stop 'Invalid number of inodes found for ymax'
-    do inode=1,NGNOD2D
+    do inode = 1,NGNOD2D
       glob2loc_elms_this_proc(inode+1,count1) = loc_node(inode)
     enddo
     count1 = count1 + 1
@@ -551,7 +551,7 @@
       endif
     enddo
     if (inode /= NGNOD2D) stop 'Invalid number of inodes found for bottom'
-    do inode=1,NGNOD2D
+    do inode = 1,NGNOD2D
       glob2loc_elms_this_proc(inode+1,count1) = loc_node(inode)
     enddo
     count1 = count1 + 1
@@ -571,7 +571,7 @@
       endif
     enddo
     if (inode /= NGNOD2D) stop 'Invalid number of inodes found for top'
-    do inode=1,NGNOD2D
+    do inode = 1,NGNOD2D
       glob2loc_elms_this_proc(inode+1,count1) = loc_node(inode)
     enddo
     count1 = count1 + 1
@@ -597,11 +597,11 @@
   ncpmls(1) = nspec_CPML_total
   ncpmls(2) = nspec_CPML
   if (nspec_CPML_total > 0) then
-     do ispec_CPML=1,nspec_CPML
+     do ispec_CPML = 1,nspec_CPML
         elements_cpml(1,ispec_CPML) = CPML_to_spec(ispec_CPML)
         elements_cpml(2,ispec_CPML) = CPML_regions(ispec_CPML)
      enddo
-     do ispec=1,nspec
+     do ispec = 1,nspec
         if (is_CPML(ispec)) then
           if_cpml(ispec) = 1
         else

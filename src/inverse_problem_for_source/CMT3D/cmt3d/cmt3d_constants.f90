@@ -59,7 +59,7 @@ module cmt3d_constants
   real, parameter :: REF_DIST = 100.0
 
 ! Earth's radius for depth scaling
-  integer, parameter :: R_EARTH=6371  ! km
+  integer, parameter :: R_EARTH = 6371  ! km
 
 
 end module cmt3d_constants

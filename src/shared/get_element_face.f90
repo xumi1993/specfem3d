@@ -191,8 +191,8 @@
   case (1)
     if (NGLLA /= NGLLY .or. NGLLB /= NGLLZ) stop 'error absorbing face 1 indexing'
     i_gll = 1
-    do k=1,NGLLZ
-      do j=1,NGLLY
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
         ngll = ngll + 1
         ijk_face(1,j,k) = i_gll
         ijk_face(2,j,k) = j
@@ -204,8 +204,8 @@
   case (2)
     if (NGLLA /= NGLLY .or. NGLLB /= NGLLZ) stop 'error absorbing face 2 indexing'
     i_gll = NGLLX
-    do k=1,NGLLZ
-      do j=1,NGLLY
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
         ngll = ngll + 1
         ijk_face(1,j,k) = i_gll
         ijk_face(2,j,k) = j
@@ -217,8 +217,8 @@
   case (3)
     if (NGLLA /= NGLLX .or. NGLLB /= NGLLZ) stop 'error absorbing face 3 indexing'
     j_gll = 1
-    do k=1,NGLLZ
-      do i=1,NGLLX
+    do k = 1,NGLLZ
+      do i = 1,NGLLX
         ngll = ngll + 1
         ijk_face(1,i,k) = i
         ijk_face(2,i,k) = j_gll
@@ -230,8 +230,8 @@
   case (4)
     if (NGLLA /= NGLLX .or. NGLLB /= NGLLZ) stop 'error absorbing face 4 indexing'
     j_gll = NGLLY
-    do k=1,NGLLZ
-      do i=1,NGLLX
+    do k = 1,NGLLZ
+      do i = 1,NGLLX
         ngll = ngll + 1
         ijk_face(1,i,k) = i
         ijk_face(2,i,k) = j_gll
@@ -243,8 +243,8 @@
   case (5)
     if (NGLLA /= NGLLX .or. NGLLB /= NGLLY) stop 'error absorbing face 5 indexing'
     k_gll = 1
-    do j=1,NGLLY
-      do i=1,NGLLX
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         ngll = ngll + 1
         ijk_face(1,i,j) = i
         ijk_face(2,i,j) = j
@@ -256,8 +256,8 @@
   case (6)
     if (NGLLA /= NGLLX .or. NGLLB /= NGLLY) stop 'error absorbing face 6 indexing'
     k_gll = NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         ngll = ngll + 1
         ijk_face(1,i,j) = i
         ijk_face(2,i,j) = j

@@ -28,7 +28,7 @@
 ! read points
   read(5,*)
 
-  do ipoin=0,npoin-1
+  do ipoin = 0,npoin-1
 ! ignore Z, which we will set to high value to be above topography on display
     read(5,*) x(ipoin),y(ipoin)
     xval = x(ipoin)
@@ -43,7 +43,7 @@
 
 ! read elements
   read(5,*)
-  do ielem=1,nelem
+  do ielem = 1,nelem
     read(5,*) i1(ielem),i2(ielem)
   enddo
 
@@ -52,14 +52,14 @@
   read(5,*)
 
 ! read data
-  do ielem=1,nelem
+  do ielem = 1,nelem
     read(5,*) dataval(ielem)
   enddo
 
 ! first count number of elements to keep
 ! exclude elements that are outside of clipping box, or wrong data value
  nelemnew = 0
- do ielem=1,nelem
+ do ielem = 1,nelem
    if (x(i1(ielem)) < xmin .or. x(i1(ielem)) > xmax .or. y(i1(ielem)) < ymin .or. y(i1(ielem)) > ymax) then
      p1outside = .true.
    else
@@ -78,14 +78,14 @@
 ! write points
   write(*,*) npoin,nelemnew,' 0 1 0'
 
-  do ipoin=0,npoin-1
+  do ipoin = 0,npoin-1
     write(*,*) ipoin+1,x(ipoin),y(ipoin),IZ_VALUE
   enddo
 
 ! then write elements kept
 ! exclude elements that are outside of clipping box, or wrong data value
  ielemreal = 0
- do ielem=1,nelem
+ do ielem = 1,nelem
    if (x(i1(ielem)) < xmin .or. x(i1(ielem)) > xmax .or. y(i1(ielem)) < ymin .or. y(i1(ielem)) > ymax) then
      p1outside = .true.
    else
@@ -111,7 +111,7 @@
 ! then write element data for elements kept
 ! exclude elements that are outside of clipping box, or wrong data value
  ielemreal = 0
- do ielem=1,nelem
+ do ielem = 1,nelem
    if (x(i1(ielem)) < xmin .or. x(i1(ielem)) > xmax .or. y(i1(ielem)) < ymin .or. y(i1(ielem)) > ymax) then
      p1outside = .true.
    else

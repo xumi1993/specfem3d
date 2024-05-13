@@ -85,7 +85,7 @@ program sum_kernels
   kernel_list(:) = ''
 
   ! reads in event list
-  nker=0
+  nker = 0
   open(unit = IIN, file = trim(KERNEL_FILE_LIST), status = 'old',iostat = ier)
   if (ier /= 0) then
      print *,'Error opening ',trim(KERNEL_FILE_LIST),myrank

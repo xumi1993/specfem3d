@@ -155,7 +155,7 @@ contains
     call compute_average_error(dat_dtw,syn_dtw_cc,syn_dtw_cc_dt,nlen,dt,sigma_dt_cc,sigma_dlnA_cc)
 
     ! write cross-correlation measurement to file
-    is_mtm_av=2
+    is_mtm_av = 2
     call write_average_meas(filename,is_mtm_av,tshift,dlnA,sigma_dt_cc,sigma_dlnA_cc)
 
     !========================================
@@ -367,7 +367,7 @@ contains
     sigma_dt = sigma_dt_cc  ;  sigma_dlnA = sigma_dlnA_cc
 
     ! write average multitaper measurement to file
-    is_mtm_av=1
+    is_mtm_av = 1
     call write_average_meas(filename, is_mtm_av, dtau_wa, dlnA_wa, sigma_dt, sigma_dlnA)
 
     !-------------------------------------------------------------------------------
@@ -827,19 +827,19 @@ contains
 
        ! waveform
        if (imeas == 1 .or. imeas == 2) then
-          tr_adj_src(i1) = -dat_dtw(i)/waveform_d2 * time_window(i) ! imeas=1
+          tr_adj_src(i1) = -dat_dtw(i)/waveform_d2 * time_window(i) ! imeas = 1
           ! consider normalizing this by waveform_d2
-          am_adj_src(i1) = ( syn_dtw(i) - dat_dtw(i) ) * time_window(i) ! imeas=2
+          am_adj_src(i1) = ( syn_dtw(i) - dat_dtw(i) ) * time_window(i) ! imeas = 2
 
           ! use pure data waveform in time window
           if ( NO_WAVEFORM_DIFFERENCE ) then
-             tr_adj_src(i1) = dat_dtw(i) * time_window(i) ! waveform misfit (imeas=1)
+             tr_adj_src(i1) = dat_dtw(i) * time_window(i) ! waveform misfit (imeas = 1)
           endif
 
        ! banana-doughnut kernel adjoint source (no measurement)
        else if (imeas == 3 .or. imeas == 4) then
-          tr_adj_src(i1) = ft_bar_t(i) * time_window(i)  ! imeas=3
-          am_adj_src(i1) = fa_bar_t(i) * time_window(i)  ! imreas=4
+          tr_adj_src(i1) = ft_bar_t(i) * time_window(i)  ! imeas = 3
+          am_adj_src(i1) = fa_bar_t(i) * time_window(i)  ! imreas = 4
 
        ! cross-correlation
        else if (imeas == 5 .or. imeas == 6) then
@@ -1997,59 +1997,59 @@ contains
     call getnhv('nzmin',nsec,nerr)
     call getnhv('nzmsec',msec,nerr)
 
-    sec=nsec+msec/1000.0
+    sec = nsec+msec/1000.0
 
     ! string headers
     call getkhv('knetwk',ntw,nerr)
     if (nerr /= 0) then
-      write(*,*)'Error reading variable: knetwk'
+      write(*,*) 'Error reading variable: knetwk'
       call exit(-1)
     endif
 
     call getkhv('kstnm',sta,nerr)
     if (nerr /= 0) then
-      write(*,*)'Error reading variable: kstnm'
+      write(*,*) 'Error reading variable: kstnm'
       call exit(-1)
     endif
 
     call getkhv('kcmpnm',comp,nerr)
     if (nerr /= 0) then
-      write(*,*)'Error reading variable: kcmpnm'
+      write(*,*) 'Error reading variable: kcmpnm'
       call exit(-1)
     endif
 
     ! decimal headers
     call getfhv('dist',tmp,nerr)
     if (nerr /= 0) then
-      write(*,*)'Error reading variable: dist'
+      write(*,*) 'Error reading variable: dist'
       call exit(-1)
     endif
     dist = tmp
 
     call getfhv('az',tmp,nerr)
     if (nerr /= 0) then
-      write(*,*)'Error reading variable: az'
+      write(*,*) 'Error reading variable: az'
       call exit(-1)
     endif
     az = tmp
 
     call getfhv('baz',tmp,nerr)
     if (nerr /= 0) then
-      write(*,*)'Error reading variable: baz'
+      write(*,*) 'Error reading variable: baz'
       call exit(-1)
     endif
     baz = tmp
 
     call getfhv('stlo',tmp,nerr)
     if (nerr /= 0) then
-      write(*,*)'Error reading variable: stlo'
+      write(*,*) 'Error reading variable: stlo'
       call exit(-1)
     endif
     slon = tmp
 
     call getfhv('stla',tmp,nerr)
     if (nerr /= 0) then
-      write(*,*)'Error reading variable: stla'
+      write(*,*) 'Error reading variable: stla'
       call exit(-1)
     endif
     slat = tmp
@@ -2128,7 +2128,7 @@ subroutine setup_weighting(chan_syn)
   read(21,*,iostat=ios) npairs
   if (ios /= 0) stop 'Error reading number of pairs of data/syn'
   ! loops through windows
-  do ipair=1,npairs
+  do ipair = 1,npairs
 
     ! reads in file names
     read(21,'(a)',iostat=ios) datafile
@@ -2180,7 +2180,7 @@ subroutine setup_weighting(chan_syn)
     if (ios /= 0) stop 'Error reading windows npicks'
 
     ! loops/skips over picks (start/end times)
-    do ipicks=1,npicks
+    do ipicks = 1,npicks
 
       read(21,*,iostat=ios) tstart, tend
       if (ios /= 0) stop 'Error reading window pick: tstart and tend'

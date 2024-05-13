@@ -179,7 +179,7 @@ module wave2d_constants
   double precision, parameter :: FNORM = 1.0d10
 
 ! factors from the multitaper method
-  integer, parameter :: MAXTAPER=5, NDIM=8000*4, lnpt=14, npt=2**lnpt
-  double precision, parameter :: wtr=0.02, ZZIGN=-1.0
+  integer, parameter :: MAXTAPER = 5, NDIM = 8000*4, lnpt = 14, npt = 2**lnpt
+  double precision, parameter :: wtr = 0.02, ZZIGN=-1.0
 
 end module wave2d_constants

@@ -24,7 +24,7 @@ contains
     real :: cc
 
     ! initialise shift
-    d=0.; s=0.; d(i1:i2)=dd(i1:i2); s(i1:i2)=ss(i1:i2)
+    d = 0.; s = 0.; d(i1:i2)=dd(i1:i2); s(i1:i2)=ss(i1:i2)
     ishift = 0; cc_max = SMALL
 
     ! length of window (number of points, including ends)
@@ -37,10 +37,10 @@ contains
     do i = i_left, i_right
        i11 = max(1,i1+i)
        i22 = min(npts,i2+i)
-       cc=sum(s(i11-i:i22-i)*d(i11:i22))
+       cc = sum(s(i11-i:i22-i)*d(i11:i22))
        if (cc > cc_max) then
-          cc_max=cc
-          ishift=i
+          cc_max = cc
+          ishift = i
        endif
     enddo
 

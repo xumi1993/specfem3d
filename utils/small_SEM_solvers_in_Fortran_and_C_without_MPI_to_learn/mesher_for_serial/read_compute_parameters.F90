@@ -488,9 +488,9 @@
 !----  case prem_onecrust by default
 !----
       if (SUPPRESS_CRUSTAL_MESH) then
-        multiplication_factor=2
+        multiplication_factor = 2
       else
-        multiplication_factor=1
+        multiplication_factor = 1
       endif
 
      ! element width =   0.5625000      degrees =    62.54715      km
@@ -752,34 +752,34 @@
      call auto_time_stepping(ANGULAR_WIDTH_XI_IN_DEGREES, NEX_MAX, DT)
 
 !! DK DK suppressed because this routine should not write anything to the screen
-!    write(*,*)'##############################################################'
+!    write(*,*) '##############################################################'
 !    write(*,*)
-!    write(*,*)' Auto Radial Meshing Code '
-!    write(*,*)' Consult read_compute_parameters.f90 and auto_ner.f90 '
-!    write(*,*)' This should only be invoked for chunks less than 90 degrees'
-!    write(*,*)' and for chunks greater than 1248 elements wide'
+!    write(*,*) ' Auto Radial Meshing Code '
+!    write(*,*) ' Consult read_compute_parameters.f90 and auto_ner.f90 '
+!    write(*,*) ' This should only be invoked for chunks less than 90 degrees'
+!    write(*,*) ' and for chunks greater than 1248 elements wide'
 !    write(*,*)
-!    write(*,*)'CHUNK WIDTH:              ', ANGULAR_WIDTH_XI_IN_DEGREES
-!    write(*,*)'NEX:                      ', NEX_MAX
-!    write(*,*)'NER_CRUST:                ', NER_CRUST
-!    write(*,*)'NER_80_MOHO:              ', NER_80_MOHO
-!    write(*,*)'NER_220_80:               ', NER_220_80
-!    write(*,*)'NER_400_220:              ', NER_400_220
-!    write(*,*)'NER_600_400:              ', NER_600_400
-!    write(*,*)'NER_670_600:              ', NER_670_600
-!    write(*,*)'NER_771_670:              ', NER_771_670
-!    write(*,*)'NER_TOPDDOUBLEPRIME_771:  ', NER_TOPDDOUBLEPRIME_771
-!    write(*,*)'NER_CMB_TOPDDOUBLEPRIME:  ', NER_CMB_TOPDDOUBLEPRIME
-!    write(*,*)'NER_OUTER_CORE:           ', NER_OUTER_CORE
-!    write(*,*)'NER_TOP_CENTRAL_CUBE_ICB: ', NER_TOP_CENTRAL_CUBE_ICB
-!    write(*,*)'R_CENTRAL_CUBE:           ', R_CENTRAL_CUBE
-!    write(*,*)'multiplication factor:    ', multiplication_factor
+!    write(*,*) 'CHUNK WIDTH:              ', ANGULAR_WIDTH_XI_IN_DEGREES
+!    write(*,*) 'NEX:                      ', NEX_MAX
+!    write(*,*) 'NER_CRUST:                ', NER_CRUST
+!    write(*,*) 'NER_80_MOHO:              ', NER_80_MOHO
+!    write(*,*) 'NER_220_80:               ', NER_220_80
+!    write(*,*) 'NER_400_220:              ', NER_400_220
+!    write(*,*) 'NER_600_400:              ', NER_600_400
+!    write(*,*) 'NER_670_600:              ', NER_670_600
+!    write(*,*) 'NER_771_670:              ', NER_771_670
+!    write(*,*) 'NER_TOPDDOUBLEPRIME_771:  ', NER_TOPDDOUBLEPRIME_771
+!    write(*,*) 'NER_CMB_TOPDDOUBLEPRIME:  ', NER_CMB_TOPDDOUBLEPRIME
+!    write(*,*) 'NER_OUTER_CORE:           ', NER_OUTER_CORE
+!    write(*,*) 'NER_TOP_CENTRAL_CUBE_ICB: ', NER_TOP_CENTRAL_CUBE_ICB
+!    write(*,*) 'R_CENTRAL_CUBE:           ', R_CENTRAL_CUBE
+!    write(*,*) 'multiplication factor:    ', multiplication_factor
 !    write(*,*)
-!    write(*,*)'DT:                       ',DT
-!    write(*,*)'MIN_ATTENUATION_PERIOD    ',MIN_ATTENUATION_PERIOD
-!    write(*,*)'MAX_ATTENUATION_PERIOD    ',MAX_ATTENUATION_PERIOD
+!    write(*,*) 'DT:                       ',DT
+!    write(*,*) 'MIN_ATTENUATION_PERIOD    ',MIN_ATTENUATION_PERIOD
+!    write(*,*) 'MAX_ATTENUATION_PERIOD    ',MAX_ATTENUATION_PERIOD
 !    write(*,*)
-!    write(*,*)'##############################################################'
+!    write(*,*) '##############################################################'
 
     if (HONOR_1D_SPHERICAL_MOHO) then
       if (.not. ONE_CRUST) then
@@ -1133,8 +1133,8 @@
   if (NEX_ETA < 48) stop 'NEX_ETA must be greater than 48 to cut the sphere into slices with positive Jacobian'
 
 ! check that mesh can be coarsened in depth three or four times
-  CUT_SUPERBRICK_XI=.false.
-  CUT_SUPERBRICK_ETA=.false.
+  CUT_SUPERBRICK_XI = .false.
+  CUT_SUPERBRICK_ETA = .false.
 
   if (SUPPRESS_CRUSTAL_MESH .and. .not. ADD_4TH_DOUBLING) then
     if (mod(NEX_XI,8) /= 0) stop 'NEX_XI must be a multiple of 8'
@@ -2392,8 +2392,8 @@ enddo
       endif
       tmp_sum = 0;
       do iter_layer = ifirst_region, ilast_region
-        nglob_int_surf_eta=0
-        nglob_int_surf_xi=0
+        nglob_int_surf_eta = 0
+        nglob_int_surf_xi = 0
         nglob_ext_surf = 0
         nglob_center_edge = 0
         nglob_corner_edge = 0

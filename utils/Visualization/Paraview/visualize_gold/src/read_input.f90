@@ -19,8 +19,8 @@ integer :: i_proc,proc_count,proc_mode,slice_count1,slice_count2,slice_npmax
 integer :: input_stat,output_stat,procinfo_stat,proclist_stat,server_stat
 integer,dimension(3) :: proc_ind ! indicial parameters for processor list
 
-slice_count1=0
-slice_count2=0
+slice_count1 = 0
+slice_count2 = 0
 
 input_stat=-1
 output_stat=-1
@@ -50,9 +50,9 @@ do
   call last_char(line,tmp_char,ind)
   if (tmp_char == '&') then
         slen=len(line)
-        tag=trim(line(1:ind-1))
+        tag = trim(line(1:ind-1))
         read(11,'(a)',iostat=ios)line ! This will read a line and proceed to next line
-        tag=trim(tag)//trim(line)
+        tag = trim(tag)//trim(line)
   endif
 
   call first_token(tag,token)
@@ -65,7 +65,7 @@ do
     t_start=get_integer('start',args,narg)
     t_inc=get_integer('step',args,narg)
     t_width=get_integer('width',args,narg)
-    inp_ncomp=get_integer('ncomp',args,narg); allocate(inp_head(inp_ncomp))
+    inp_ncomp = get_integer('ncomp',args,narg); allocate(inp_head(inp_ncomp))
     if (inp_ncomp == 1) then
       inp_head=get_string('head',args,narg)
     else if (inp_ncomp == 3) then ! vector
@@ -76,10 +76,10 @@ do
       write(*,'(/,a)')'ERROR: wrong ncomp value in input: line!'
       stop
     endif
-    inp_ext=get_string('ext',args,narg); inp_ext='.'//trim(inp_ext)
+    inp_ext = get_string('ext',args,narg); inp_ext='.'//trim(inp_ext)
     dat_topo=get_integer('topo',args,narg)
     !print *,narg,arg
-    input_stat=0
+    input_stat = 0
     cycle
   endif
 
@@ -88,7 +88,7 @@ do
     call split_string(tag,',',args,narg)
     !out_path=get_string('path',args,narg)
     call seek_string('path',strval,args,narg)
-    if (.not. isblank(strval))out_path=trim(strval)
+    if (.not. isblank(strval))out_path = trim(strval)
     out_ncomp=get_integer('ncomp',args,narg)
     !stop
     out_head=get_string('head',args,narg)
@@ -96,7 +96,7 @@ do
     out_res=get_integer('res',args,narg)
     out_format=get_integer('form',args,narg)
     !print *,narg,arg
-    output_stat=0
+    output_stat = 0
     cycle
   endif
 
@@ -114,7 +114,7 @@ do
         allocate(server_name(out_nslice))
         allocate(server_exec(out_nslice))
       endif
-    procinfo_stat=0
+    procinfo_stat = 0
     cycle
   endif
 
@@ -122,7 +122,7 @@ do
   if (trim(token) == 'proclist:') then
     proclist_stat=-1
     call split_string(tag,',',args,narg)
-    slice_count1=slice_count1+1
+    slice_count1 = slice_count1+1
     if (slice_count1 > out_nslice) then
       write(*,'(/,a)')'ERROR: number of slices exceeds the actual number!'
       stop
@@ -135,9 +135,9 @@ do
     else if (proc_mode == 1) then ! Indicial
       proc_ind=get_integer_vect('list',3,args,narg) ! start, end, step
 
-      proc_count=0
-      do i_proc=proc_ind(1),proc_ind(2),proc_ind(3)
-        proc_count=proc_count+1
+      proc_count = 0
+      do i_proc = proc_ind(1),proc_ind(2),proc_ind(3)
+        proc_count = proc_count+1
         if (proc_count > slice_npmax) then
           write(*,'(/,a)')'ERROR: number of processors per slice exceeds the maximum number!'
           stop
@@ -151,7 +151,7 @@ do
       stop
     endif
 
-    proclist_stat=0
+    proclist_stat = 0
     cycle
   endif
 
@@ -160,14 +160,14 @@ do
     if (trim(token) == 'server:') then
       server_stat=-1
       call split_string(tag,',',args,narg)
-      slice_count2=slice_count2+1
+      slice_count2 = slice_count2+1
       if (slice_count2 > out_nslice) then
         write(*,'(/,a)')'ERROR: number of slices exceeds the actual number!'
         stop
       endif
       server_name(slice_count2)=get_string('name',args,narg)
       server_exec(slice_count2)=get_string('exec',args,narg)
-      server_stat=0
+      server_stat = 0
       cycle
     endif
   endif

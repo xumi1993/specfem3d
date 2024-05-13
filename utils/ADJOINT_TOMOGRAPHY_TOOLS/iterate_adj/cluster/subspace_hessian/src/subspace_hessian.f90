@@ -9,8 +9,8 @@ program subspace_Hessian
 ! ======================================================
 
 !  integer, parameter :: NSLICES=168
-  integer, parameter :: NSPEC=NSPEC_AB
-  integer, parameter :: NGLOB=NGLOB_AB
+  integer, parameter :: NSPEC = NSPEC_AB
+  integer, parameter :: NGLOB = NGLOB_AB
 
   character(len=150) :: kernel_file_list, kernel_list(1000), sline, k_file, kernel_name, kernel_name1, kernel_name2, kdir
   character(len=150) :: smodel
@@ -75,7 +75,7 @@ program subspace_Hessian
   endif
 
   ! read in list of event kernels
-  nker=0
+  nker = 0
   open(unit = 20, file = trim(kernel_file_list), status = 'old',iostat = ios)
   if (ios /= 0) then
     print *,'Error opening ',trim(kernel_file_list)
@@ -84,7 +84,7 @@ program subspace_Hessian
   do while (1 == 1)
     read(20,'(a)',iostat=ios) sline
     if (ios /= 0) exit
-    nker=nker+1
+    nker = nker+1
     kernel_list(nker) = sline
   enddo
   close(20)
@@ -121,9 +121,9 @@ program subspace_Hessian
   call zwgljd(xigll,wxgll,NGLLX,GAUSSALPHA,GAUSSBETA)
   call zwgljd(yigll,wygll,NGLLY,GAUSSALPHA,GAUSSBETA)
   call zwgljd(zigll,wzgll,NGLLZ,GAUSSALPHA,GAUSSBETA)
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         wgll_cube(i,j,k) = wxgll(i)*wygll(j)*wzgll(k)
       enddo
     enddo

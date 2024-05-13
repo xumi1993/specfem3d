@@ -35,7 +35,7 @@ PROGRAM visualize_HEX8_chunk_w_medit
   WRITE(20,*) 'Vertices'
   WRITE(20,*) np
 
-  DO i=1,np
+  DO i = 1,np
     READ(10,*) nsph, p1, p2, p3
     WRITE(20,*) p1, p2, p3, 1
   enddo
@@ -45,27 +45,27 @@ PROGRAM visualize_HEX8_chunk_w_medit
   WRITE(20,*) nquad
 
 
-  DO i=1,nq1
+  DO i = 1,nq1
     READ(31,*) nsph, sf1, sf2, sf3, sf4
     WRITE(20,*) sf1, sf2, sf3, sf4, 2
   enddo
-  DO i=1,nq2
+  DO i = 1,nq2
     READ(32,*) nsph, sf1, sf2, sf3, sf4
     WRITE(20,*) sf1, sf2, sf3, sf4, 2
   enddo
-  DO i=1,nq3
+  DO i = 1,nq3
     READ(33,*) nsph, sf1, sf2, sf3, sf4
     WRITE(20,*) sf1, sf2, sf3, sf4, 2
   enddo
-  DO i=1,nq4
+  DO i = 1,nq4
     READ(34,*) nsph, sf1, sf2, sf3, sf4
     WRITE(20,*) sf1, sf2, sf3, sf4, 2
   enddo
-  DO i=1,nq5
+  DO i = 1,nq5
     READ(35,*) nsph, sf1, sf2, sf3, sf4
     WRITE(20,*) sf1, sf2, sf3, sf4, 2
   enddo
-  DO i=1,nq6
+  DO i = 1,nq6
     READ(36,*) nsph, sf1, sf2, sf3, sf4
     WRITE(20,*) sf1, sf2, sf3, sf4, 3
   enddo
@@ -74,7 +74,7 @@ PROGRAM visualize_HEX8_chunk_w_medit
   WRITE(20,*) 'Hexahedra'
   WRITE(20,*) nhex
 
-  DO i=1,nhex
+  DO i = 1,nhex
     READ(11,*) nsph, s1, s2, s3, s4, s5, s6, s7, s8
     WRITE(20,*) s1, s2, s3, s4, s5, s6, s7, s8, 1
   enddo

@@ -151,9 +151,9 @@
 ! read the mesh from external file
   open(unit=IIN,file='database.dat',status='old')
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
 ! read real numbers here
           read(IIN,*) xix(i,j,k,ispec)
           read(IIN,*) xiy(i,j,k,ispec)
@@ -179,8 +179,8 @@
   close(IIN)
 
   open(unit=IIN,file='matrices.dat',status='old')
-  do j=1,NGLLY
-    do i=1,NGLLX
+  do j = 1,NGLLY
+    do i = 1,NGLLX
       read(IIN,*) hprime_xx(i,j)
       read(IIN,*) hprimewgll_xx(i,j)
       read(IIN,*) wgllwgll_yz(i,j)
@@ -198,9 +198,9 @@
 
 !! DK DK now create inverse mass matrix stored in element format
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
             iglob = ibool(i,j,k,ispec)
             rmass_inverse_nspec(i,j,k,ispec) = rmass_inverse(iglob)
         enddo
@@ -228,9 +228,9 @@
 !!!!!!!!!    if (it == 2100 .or. it == 5) then
       Usolidnorm = -1.
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
         current_value = sqrt(displ(1,i,j,k,ispec)**2 + displ(2,i,j,k,ispec)**2 + displ(3,i,j,k,ispec)**2)
         if (current_value > Usolidnorm) Usolidnorm = current_value
       enddo
@@ -294,9 +294,9 @@
 ! enddo
 
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
 
           tempx1l = 0.
           tempx2l = 0.
@@ -310,7 +310,7 @@
           tempz2l = 0.
           tempz3l = 0.
 
-          do l=1,NGLLX
+          do l = 1,NGLLX
             hp1 = hprime_xx(i,l)
             tempx1l = tempx1l + displ(1,l,j,k,ispec)*hp1
             tempy1l = tempy1l + displ(2,l,j,k,ispec)*hp1
@@ -393,9 +393,9 @@
         enddo
       enddo
 
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
 
           tempx1l = 0.
           tempy1l = 0.
@@ -409,7 +409,7 @@
           tempy3l = 0.
           tempz3l = 0.
 
-          do l=1,NGLLX
+          do l = 1,NGLLX
             fac1 = hprimewgll_xx(l,i)
             tempx1l = tempx1l + tempx1(l,j,k)*fac1
             tempy1l = tempy1l + tempy1(l,j,k)*fac1
@@ -454,9 +454,9 @@
 
 goto 777  !! new gather not implemented for now; partial test only
   do ispec = 1,NSPEC
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
             iglob = ibool(i,j,k,ispec)
 !           accel(1,iglob) = accel(1,iglob) + dummyx_glob(i,j,k,ispec)
 !           accel(2,iglob) = accel(2,iglob) + dummyy_glob(i,j,k,ispec)

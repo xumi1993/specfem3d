@@ -14,7 +14,7 @@ module grid3d_constants
   integer, parameter :: NRAKE_MAX = 40
 
   ! maximum total array dimension 80000
-  integer, parameter :: NMEC_MAX=NMW_MAX*NST_MAX*NDIP_MAX*NRAKE_MAX
+  integer, parameter :: NMEC_MAX = NMW_MAX*NST_MAX*NDIP_MAX*NRAKE_MAX
 
   ! maximum number of records (NRECMAX < NWINMAX)
   integer, parameter :: NRECMAX = 1200
@@ -23,7 +23,7 @@ module grid3d_constants
   integer, parameter :: NWINMAX = 1800
 
   ! maximum number of data points
-  integer, parameter :: NDATAMAX=30000
+  integer, parameter :: NDATAMAX = 30000
 
   ! number of pars for moment only
   integer, parameter :: NM = 6

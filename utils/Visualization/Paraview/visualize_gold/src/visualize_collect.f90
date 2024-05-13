@@ -96,7 +96,7 @@ do i_proc = 1, nproc
     ! mark element corners (global AVS or DX points)
     allocate(mask_ibool(NGLOB_AB))
     mask_ibool = .false.
-    do i_spec=1,NSPEC_AB
+    do i_spec = 1,NSPEC_AB
       ! Bottom corners
       iglob(1)=ibool(1,1,1,i_spec)
       iglob(2)=ibool(NGLLX,1,1,i_spec)
@@ -161,7 +161,7 @@ do i_proc = 1, nproc
     ! mark element corners (global AVS or DX points)
     allocate(mask_ibool(NGLOB_AB))
     mask_ibool = .false.
-    do i_spec=1,NSPEC_AB
+    do i_spec = 1,NSPEC_AB
       iglob(1)=ibool(1,1,1,i_spec)
       iglob(2)=ibool(NGLLX,1,1,i_spec)
       iglob(3)=ibool(NGLLX,NGLLY,1,i_spec)
@@ -228,7 +228,7 @@ integer :: fd_x, fd_y, fd_z
 allocate(mask_ibool(NGLOB_AB))
 mask_ibool(:) = .false.
 numpoin = 0
-do i_spec=1,NSPEC_AB
+do i_spec = 1,NSPEC_AB
   iglob(1)=ibool(1,1,1,i_spec)
   iglob(2)=ibool(NGLLX,1,1,i_spec)
   iglob(3)=ibool(NGLLX,NGLLY,1,i_spec)
@@ -238,7 +238,7 @@ do i_spec=1,NSPEC_AB
   iglob(7)=ibool(NGLLX,NGLLY,NGLLZ,i_spec)
   iglob(8)=ibool(1,NGLLY,NGLLZ,i_spec)
 
-  do i_node=1,NENOD_OUT
+  do i_node = 1,NENOD_OUT
     if (.not. mask_ibool(iglob(i_node))) then
       numpoin = numpoin + 1
       x = xstore(iglob(i_node))
@@ -282,7 +282,7 @@ integer :: fd_x, fd_y, fd_z
 allocate(mask_ibool(NGLOB_AB))
 mask_ibool(:) = .false.
 numpoin = 0
-do i_spec=1,NSPEC_AB
+do i_spec = 1,NSPEC_AB
   ! Bottom corners
   iglob(1)=ibool(1,1,1,i_spec)
   iglob(2)=ibool(NGLLX,1,1,i_spec)
@@ -313,7 +313,7 @@ do i_spec=1,NSPEC_AB
   iglob(19)=ibool(NGLLX,NGLLY,NGLLZ_MID,i_spec)
   iglob(20)=ibool(1,NGLLY,NGLLZ_MID,i_spec)
 
-  do i_node=1,NENOD_OUT
+  do i_node = 1,NENOD_OUT
     if (.not. mask_ibool(iglob(i_node))) then
       numpoin = numpoin + 1
       x = xstore(iglob(i_node))
@@ -357,7 +357,7 @@ integer :: fd_x, fd_y, fd_z
 allocate(mask_ibool(NGLOB_AB))
 mask_ibool(:) = .false.
 numpoin = 0
-do i_spec=1,NSPEC_AB
+do i_spec = 1,NSPEC_AB
   do k = 1, NGLLZ
     do j = 1, NGLLY
       do i = 1, NGLLX
@@ -406,7 +406,7 @@ integer :: fd
 allocate(mask_ibool(NGLOB_AB))
 mask_ibool(:) = .false.
 numpoin = 0
-do i_spec=1,NSPEC_AB
+do i_spec = 1,NSPEC_AB
   iglob(1)=ibool(1,1,1,i_spec)
   iglob(2)=ibool(NGLLX,1,1,i_spec)
   iglob(3)=ibool(NGLLX,NGLLY,1,i_spec)
@@ -426,7 +426,7 @@ do i_spec=1,NSPEC_AB
   tmp_dat(7)=dat(NGLLX,NGLLY,NGLLZ,i_spec)
   tmp_dat(8)=dat(1,NGLLY,NGLLZ,i_spec)
 
-  do i_node=1,NENOD_OUT
+  do i_node = 1,NENOD_OUT
     if (.not. mask_ibool(iglob(i_node))) then
       numpoin = numpoin + 1
       call write_real(tmp_dat(i_node),fd)
@@ -464,7 +464,7 @@ integer :: fd
 allocate(mask_ibool(NGLOB_AB))
 mask_ibool(:) = .false.
 numpoin = 0
-do i_spec=1,NSPEC_AB
+do i_spec = 1,NSPEC_AB
   iglob(1)=ibool(1,1,1,i_spec)
   iglob(2)=ibool(NGLLX,1,1,i_spec)
   iglob(3)=ibool(NGLLX,NGLLY,1,i_spec)
@@ -474,7 +474,7 @@ do i_spec=1,NSPEC_AB
   iglob(7)=ibool(NGLLX,NGLLY,NGLLZ,i_spec)
   iglob(8)=ibool(1,NGLLY,NGLLZ,i_spec)
 
-  do i_node=1,NENOD_OUT
+  do i_node = 1,NENOD_OUT
     if (.not. mask_ibool(iglob(i_node))) then
       numpoin = numpoin + 1
       call write_real(dat(iglob(i_node)),fd)
@@ -513,7 +513,7 @@ integer :: fd
 allocate(mask_ibool(NGLOB_AB))
 mask_ibool(:) = .false.
 numpoin = 0
-do i_spec=1,NSPEC_AB
+do i_spec = 1,NSPEC_AB
   ! Bottom corners
   iglob(1)=ibool(1,1,1,i_spec)
   iglob(2)=ibool(NGLLX,1,1,i_spec)
@@ -575,7 +575,7 @@ do i_spec=1,NSPEC_AB
   tmp_dat(19)=dat(NGLLX,NGLLY,NGLLZ_MID,i_spec)
   tmp_dat(20)=dat(1,NGLLY,NGLLZ_MID,i_spec)
 
-  do i_node=1,NENOD_OUT
+  do i_node = 1,NENOD_OUT
     if (.not. mask_ibool(iglob(i_node))) then
       numpoin = numpoin + 1
       call write_real(tmp_dat(i_node),fd)
@@ -613,7 +613,7 @@ integer :: fd
 allocate(mask_ibool(NGLOB_AB))
 mask_ibool(:) = .false.
 numpoin = 0
-do i_spec=1,NSPEC_AB
+do i_spec = 1,NSPEC_AB
   ! Bottom corners
   iglob(1)=ibool(1,1,1,i_spec)
   iglob(2)=ibool(NGLLX,1,1,i_spec)
@@ -644,7 +644,7 @@ do i_spec=1,NSPEC_AB
   iglob(19)=ibool(NGLLX,NGLLY,NGLLZ_MID,i_spec)
   iglob(20)=ibool(1,NGLLY,NGLLZ_MID,i_spec)
 
-  do i_node=1,NENOD_OUT
+  do i_node = 1,NENOD_OUT
     if (.not. mask_ibool(iglob(i_node))) then
       numpoin = numpoin + 1
       call write_real(dat(iglob(i_node)),fd)
@@ -681,7 +681,7 @@ integer :: fd
 allocate(mask_ibool(NGLOB_AB))
 mask_ibool(:) = .false.
 numpoin = 0
-do i_spec=1,NSPEC_AB
+do i_spec = 1,NSPEC_AB
   do k = 1, NGLLZ
     do j = 1, NGLLY
       do i = 1, NGLLX
@@ -723,7 +723,7 @@ integer :: fd
 allocate(mask_ibool(NGLOB_AB))
 mask_ibool(:) = .false.
 numpoin = 0
-do i_spec=1,NSPEC_AB
+do i_spec = 1,NSPEC_AB
   do k = 1, NGLLZ
     do j = 1, NGLLY
       do i = 1, NGLLX
@@ -768,7 +768,7 @@ allocate(num_ibool(NGLOB_AB))
 mask_ibool(:) = .false.
 num_ibool(:) = 0
 numpoin = 0
-do i_spec=1,NSPEC_AB
+do i_spec = 1,NSPEC_AB
   ! gets corner indices
   iglob(1)=ibool(1,1,1,i_spec)
   iglob(2)=ibool(NGLLX,1,1,i_spec)
@@ -780,14 +780,14 @@ do i_spec=1,NSPEC_AB
   iglob(8)=ibool(1,NGLLY,NGLLZ,i_spec)
 
   ! sets increasing numbering
-  do i_node=1,NENOD_OUT
+  do i_node = 1,NENOD_OUT
     if (.not. mask_ibool(iglob(i_node))) then
       numpoin = numpoin + 1
       num_ibool(iglob(i_node)) = numpoin
       mask_ibool(iglob(i_node)) = .true.
     endif
   enddo
-  do i_node=1,NENOD_OUT
+  do i_node = 1,NENOD_OUT
     inode = num_ibool(iglob(i_node)) + np ! -1
     call write_integer(inode,fd)
   enddo
@@ -829,7 +829,7 @@ allocate(num_ibool(NGLOB_AB))
 mask_ibool(:) = .false.
 num_ibool(:) = 0
 numpoin = 0
-do i_spec=1,NSPEC_AB
+do i_spec = 1,NSPEC_AB
   ! Bottom corners
   iglob(1)=ibool(1,1,1,i_spec)
   iglob(2)=ibool(NGLLX,1,1,i_spec)
@@ -861,14 +861,14 @@ do i_spec=1,NSPEC_AB
   iglob(20)=ibool(1,NGLLY,NGLLZ_MID,i_spec)
 
   ! sets increasing numbering
-  do i_node=1,NENOD_OUT
+  do i_node = 1,NENOD_OUT
     if (.not. mask_ibool(iglob(i_node))) then
       numpoin = numpoin + 1
       num_ibool(iglob(i_node)) = numpoin
       mask_ibool(iglob(i_node)) = .true.
     endif
   enddo
-  do i_node=1,NENOD_OUT
+  do i_node = 1,NENOD_OUT
     inode = num_ibool(iglob(i_node)) + np ! -1
     call write_integer(inode,fd)
   enddo
@@ -912,7 +912,7 @@ allocate(num_ibool(NGLOB_AB))
 mask_ibool(:) = .false.
 num_ibool(:) = 0
 numpoin = 0
-do i_spec=1,NSPEC_AB
+do i_spec = 1,NSPEC_AB
   do k = 1, NGLLZ
     do j = 1, NGLLY
       do i = 1, NGLLX
@@ -940,7 +940,7 @@ do i_spec = 1, NSPEC_AB
         iglob(6) = ibool(i+1,j,k+1,i_spec)
         iglob(7) = ibool(i+1,j+1,k+1,i_spec)
         iglob(8) = ibool(i,j+1,k+1,i_spec)
-        do i_node=1,NENOD_OUT
+        do i_node = 1,NENOD_OUT
           inode = num_ibool(iglob(i_node)) + np ! -1
           call write_integer(inode,fd)
         enddo
@@ -992,7 +992,7 @@ endif
 allocate(mask_ibool(NGLOB_AB))
 mask_ibool(:) = .false.
 numpoin = 0
-do i_spec=1,NSPEC_AB
+do i_spec = 1,NSPEC_AB
   iglob(1)=ibool(1,1,1,i_spec)
   iglob(2)=ibool(NGLLX,1,1,i_spec)
   iglob(3)=ibool(NGLLX,NGLLY,1,i_spec)
@@ -1011,7 +1011,7 @@ do i_spec=1,NSPEC_AB
   tmp_dat(7)=dat(NGLLX,NGLLY,NGLLZ,i_spec)
   tmp_dat(8)=dat(1,NGLLY,NGLLZ,i_spec)
 
-  do i_node=1,NENOD_OUT
+  do i_node = 1,NENOD_OUT
     if (.not. mask_ibool(iglob(i_node))) then
       numpoin = numpoin + 1
       x = xstore(iglob(i_node))
@@ -1060,7 +1060,7 @@ endif
 allocate(mask_ibool(NGLOB_AB))
 mask_ibool(:) = .false.
 numpoin = 0
-do i_spec=1,NSPEC_AB
+do i_spec = 1,NSPEC_AB
   do k = 1, NGLLZ
     do j = 1, NGLLY
       do i = 1, NGLLX

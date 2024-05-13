@@ -63,7 +63,7 @@
   mask_ibool(:) = .false.
 
 ! mark global AVS or DX points
-  do ispec=1,nspec
+  do ispec = 1,nspec
     iglob1=ibool(1,1,1,ispec)
     iglob2=ibool(NGLLX,1,1,ispec)
     iglob3=ibool(NGLLX,NGLLY,1,ispec)
@@ -93,7 +93,7 @@
 
 ! output global AVS or DX points
   numpoin = 0
-  do ispec=1,nspec
+  do ispec = 1,nspec
     iglob1=ibool(1,1,1,ispec)
     iglob2=ibool(NGLLX,1,1,ispec)
     iglob3=ibool(NGLLX,NGLLY,1,ispec)
@@ -173,7 +173,7 @@
   write(10,*) nspec
 
 ! output global AVS or DX elements
-  do ispec=1,nspec
+  do ispec = 1,nspec
     iglob1=ibool(1,1,1,ispec)
     iglob2=ibool(NGLLX,1,1,ispec)
     iglob3=ibool(NGLLX,NGLLY,1,ispec)

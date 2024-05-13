@@ -8,7 +8,7 @@ program model_pert
 
   ! ======================================================
 
-  integer, parameter :: NSPEC=NSPEC_AB
+  integer, parameter :: NSPEC = NSPEC_AB
 
   character(len=150) :: sline, m_file, fname
   character(len=150) :: ftag_file_list, ftag_list(10)
@@ -22,7 +22,7 @@ program model_pert
   call MPI_COMM_RANK(MPI_COMM_WORLD,myrank,ier)
 
   ! read in list of file tags
-  nfile=0
+  nfile = 0
   open(unit=20, file='INPUT/ftags', status='old',iostat=ios)
   if (ios /= 0) then
     print *,'Error opening ',trim(ftag_file_list)
@@ -31,7 +31,7 @@ program model_pert
   do while (1 == 1)
     read(20,'(a)',iostat=ios) sline
     if (ios /= 0) exit
-    nfile=nfile+1
+    nfile = nfile+1
     ftag_list(nfile) = sline
   enddo
   close(20)

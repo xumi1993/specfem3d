@@ -27,11 +27,11 @@ subroutine get_cmt(cmt_file,yr,mo,jda,ho,mi,sec, &
   read(1,"(a4,i5,i3,i3,i3,i3,f6.2,f9.4,f10.4,f6.1,f4.1,f4.1,1x,a)",iostat=ios) &
        datasource,yr,mo,da,ho,mi,sec,elat,elon,depth,mb,ms,reg
   if (ios /= 0) stop 'Error reading the information line of the CMT file'
-  jda=julian_day(yr,mo,da)
-  ios=0
+  jda = julian_day(yr,mo,da)
+  ios = 0
   do while(ios == 0)
      read(1,"(a)",iostat=ios) string
-     lstr=len_trim(string)
+     lstr = len_trim(string)
 
      if (string(1:10) == 'event name') then
      else if (string(1:10) == 'time shift') then
@@ -76,8 +76,8 @@ integer function julian_day(yr,mo,da)
 
   integer :: lpyr
 
-  julian_day=da+mon(mo)
-  if (mo > 2) julian_day=julian_day+lpyr(yr)
+  julian_day = da+mon(mo)
+  if (mo > 2) julian_day = julian_day+lpyr(yr)
 
 end function julian_day
 
@@ -91,13 +91,13 @@ integer function lpyr(yr)
   !
   !---- returns 1 if yr is a leap year
   !
-  lpyr=0
+  lpyr = 0
   if (mod(yr,400) == 0) then
-     lpyr=1
+     lpyr = 1
   else if (mod(yr,4) == 0) then
-     lpyr=1
+     lpyr = 1
      if (mod(yr,100) == 0) then
-        lpyr=0
+        lpyr = 0
      endif
   endif
 

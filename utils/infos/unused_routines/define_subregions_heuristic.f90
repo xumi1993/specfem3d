@@ -64,22 +64,22 @@
 
 ! generating stage 2 of the mesh doubling below 670
 
-    iy1=0
-    iy2=npy-8
-    diy=8
+    iy1 = 0
+    iy2 = npy-8
+    diy = 8
 
-    ix1=0
-    ix2=npx-16
-    dix=16
+    ix1 = 0
+    ix2 = npx-16
+    dix = 16
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 8
-    ir2=ir1
+    ir2 = ir1
 
     itype_element = ITYPE_UNUSUAL_1
 
@@ -89,22 +89,22 @@
 
 ! generating stage 3 of the mesh doubling below 670
 
-    iy1=0
-    iy2=npy-8
-    diy=8
+    iy1 = 0
+    iy2 = npy-8
+    diy = 8
 
-    ix1=8
-    ix2=npx-8
-    dix=16
+    ix1 = 8
+    ix2 = npx-8
+    dix = 16
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 8
-    ir2=ir1
+    ir2 = ir1
 
     itype_element = ITYPE_UNUSUAL_1p
 
@@ -114,22 +114,22 @@
 
 ! generating stage 8 of the mesh doubling below 670
 
-    iy1=8
-    iy2=npy-8
-    diy=16
+    iy1 = 8
+    iy2 = npy-8
+    diy = 16
 
-    ix1=0
-    ix2=npx-4
-    dix=4
+    ix1 = 0
+    ix2 = npx-4
+    dix = 4
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 4
-    ir2=ir1
+    ir2 = ir1
 
     itype_element = ITYPE_UNUSUAL_4
 
@@ -139,22 +139,22 @@
 
 ! generating stage 9 of the mesh doubling below 670
 
-    iy1=0
-    iy2=npy-16
-    diy=16
+    iy1 = 0
+    iy2 = npy-16
+    diy = 16
 
-    ix1=0
-    ix2=npx-4
-    dix=4
+    ix1 = 0
+    ix2 = npx-4
+    dix = 4
 
-    dir=4
+    dir = 4
 
-    iax=2
-    iay=2
-    iar=1
+    iax = 2
+    iay = 2
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO + NER_MOHO_16 + NER_16_BASEMENT) - 4
-    ir2=ir1
+    ir2 = ir1
 
     itype_element = ITYPE_UNUSUAL_4p
 
@@ -164,22 +164,22 @@
 
 ! generating stage 2 of the mesh doubling below the Moho
 
-    iy1=0
-    iy2=npy-4
-    diy=4
+    iy1 = 0
+    iy2 = npy-4
+    diy = 4
 
-    ix1=0
-    ix2=npx-8
-    dix=8
+    ix1 = 0
+    ix2 = npx-8
+    dix = 8
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-8
-    ir2=ir1
+    ir2 = ir1
 
     itype_element = ITYPE_UNUSUAL_1
 
@@ -189,22 +189,22 @@
 
 ! generating stage 3 of the mesh doubling below the Moho
 
-    iy1=0
-    iy2=npy-4
-    diy=4
+    iy1 = 0
+    iy2 = npy-4
+    diy = 4
 
-    ix1=4
-    ix2=npx-4
-    dix=8
+    ix1 = 4
+    ix2 = npx-4
+    dix = 8
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-8
-    ir2=ir1
+    ir2 = ir1
 
     itype_element = ITYPE_UNUSUAL_1p
 
@@ -214,22 +214,22 @@
 
 ! generating stage 8 of the mesh doubling below the Moho
 
-    iy1=4
-    iy2=npy-4
-    diy=8
+    iy1 = 4
+    iy2 = npy-4
+    diy = 8
 
-    ix1=0
-    ix2=npx-2
-    dix=2
+    ix1 = 0
+    ix2 = npx-2
+    dix = 2
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-4
-    ir2=ir1
+    ir2 = ir1
 
     itype_element = ITYPE_UNUSUAL_4
 
@@ -239,22 +239,22 @@
 
 ! generating stage 9 of the mesh doubling below the Moho
 
-    iy1=0
-    iy2=npy-8
-    diy=8
+    iy1 = 0
+    iy2 = npy-8
+    diy = 8
 
-    ix1=0
-    ix2=npx-2
-    dix=2
+    ix1 = 0
+    ix2 = npx-2
+    dix = 2
 
-    dir=4
+    dir = 4
 
-    iax=1
-    iay=1
-    iar=1
+    iax = 1
+    iay = 1
+    iar = 1
 
     ir1=2*(NER_BOTTOM_MOHO+NER_MOHO_16+NER_16_BASEMENT+NER_BASEMENT_SEDIM)-4
-    ir2=ir1
+    ir2 = ir1
 
     itype_element = ITYPE_UNUSUAL_4p
 

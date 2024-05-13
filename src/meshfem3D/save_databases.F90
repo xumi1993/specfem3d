@@ -70,7 +70,7 @@
   ! local parameters
   ! MPI Cartesian topology
   ! E for East (= XI_MIN), W for West (= XI_MAX), S for South (= ETA_MIN), N for North (= ETA_MAX)
-  integer, parameter :: W=1,E=2,S=3,N=4,NW=5,NE=6,SE=7,SW=8
+  integer, parameter :: W = 1,E = 2,S = 3,N = 4,NW = 5,NE = 6,SE = 7,SW = 8
 
   ! CPML
   integer :: nspec_CPML_total,ispec_CPML
@@ -1040,7 +1040,7 @@
   ! modele 1D
   open(88,file='MESH/model_1D.in')
   write(88,*) nlayer,4
-  do i=1,nlayer
+  do i = 1,nlayer
     write(88,*) zlayer(i)
     write(88,'(4f20.10)') vpv(i,:)
     write(88,'(4f20.10)') vsv(i,:)
@@ -1082,9 +1082,9 @@
   close(90)
 
   ! xmin
-  do ielm=1,nspec2D_xmin
+  do ielm = 1,nspec2D_xmin
 
-    ispec=ibelm_xmin(ielm)
+    ispec = ibelm_xmin(ielm)
 
     write(89,*) ispec,ielm,1
 
@@ -1134,9 +1134,9 @@
     kmin = 1
     kmax = NGLLZ
 
-    do k=kmin,kmax
-      do j=jmin,jmax
-        do i=imin,imax
+    do k = kmin,kmax
+      do j = jmin,jmax
+        do i = imin,imax
           write(92,'(3f25.10,i10,6i3)') xstore(i,j,k),ystore(i,j,k),zstore(i,j,k),ispec,i,j,k,1, &
                                         ilayer,updown(k)
           write(91,1000) radius(i,j,k), latitud(i,j,k), longitud(i,j,k)
@@ -1148,9 +1148,9 @@
   enddo
 
   ! xmax
-  do ielm=1,nspec2D_xmax
+  do ielm = 1,nspec2D_xmax
 
-    ispec=ibelm_xmax(ielm)
+    ispec = ibelm_xmax(ielm)
 
     write(89,*) ispec,ielm,2
 
@@ -1200,9 +1200,9 @@
     kmin = 1
     kmax = NGLLZ
 
-    do k=kmin,kmax
-      do j=jmin,jmax
-        do i=imin,imax
+    do k = kmin,kmax
+      do j = jmin,jmax
+        do i = imin,imax
           write(92,'(3f25.10,i10,6i3)') xstore(i,j,k),ystore(i,j,k),zstore(i,j,k),ispec,i,j,k,2, &
                                         ilayer,updown(k)
           write(91,1000) radius(i,j,k), latitud(i,j,k), longitud(i,j,k)
@@ -1214,9 +1214,9 @@
   enddo
 
   ! ymin
-  do ielm=1,nspec2D_ymin
+  do ielm = 1,nspec2D_ymin
 
-    ispec=ibelm_ymin(ielm)
+    ispec = ibelm_ymin(ielm)
 
     write(89,*) ispec,ielm,3
 
@@ -1266,9 +1266,9 @@
     kmin = 1
     kmax = NGLLZ
 
-    do k=kmin,kmax
-      do j=jmin,jmax
-        do i=imin,imax
+    do k = kmin,kmax
+      do j = jmin,jmax
+        do i = imin,imax
           write(92,'(3f25.10,i10,6i3)') xstore(i,j,k),ystore(i,j,k),zstore(i,j,k),ispec,i,j,k,3, &
                                         ilayer,updown(k)
           write(91,1000) radius(i,j,k), latitud(i,j,k), longitud(i,j,k)
@@ -1280,9 +1280,9 @@
   enddo
 
   ! ymax
-  do ielm=1,nspec2D_ymax
+  do ielm = 1,nspec2D_ymax
 
-    ispec=ibelm_ymax(ielm)
+    ispec = ibelm_ymax(ielm)
 
     write(89,*) ispec,ielm,4
 
@@ -1332,9 +1332,9 @@
     kmin = 1
     kmax = NGLLZ
 
-    do k=kmin,kmax
-      do j=jmin,jmax
-        do i=imin,imax
+    do k = kmin,kmax
+      do j = jmin,jmax
+        do i = imin,imax
           write(92,'(3f25.10,i10,6i3)') xstore(i,j,k),ystore(i,j,k),zstore(i,j,k),ispec,i,j,k,4, &
                                         ilayer,updown(k)
           write(91,1000) radius(i,j,k), latitud(i,j,k), longitud(i,j,k)
@@ -1346,9 +1346,9 @@
   enddo
 
   ! bottom
-  do ielm=1,nspec2D_BOTTOM
+  do ielm = 1,nspec2D_BOTTOM
 
-    ispec=ibelm_bottom(ielm)
+    ispec = ibelm_bottom(ielm)
 
     write(89,*) ispec,ielm,5
 
@@ -1398,9 +1398,9 @@
     kmin = 1
     kmax = 1
 
-    do k=kmin,kmax
-      do j=jmin,jmax
-        do i=imin,imax
+    do k = kmin,kmax
+      do j = jmin,jmax
+        do i = imin,imax
           write(92,'(3f25.10,i10,6i3)') xstore(i,j,k),ystore(i,j,k),zstore(i,j,k),ispec,i,j,k,5, &
                                         ilayer,updown(k)
           write(91,1000) radius(i,j,k), latitud(i,j,k), longitud(i,j,k)
@@ -1413,9 +1413,9 @@
 
   if (buried_box) then
     ! top
-    do ielm=1,nspec2D_TOP
+    do ielm = 1,nspec2D_TOP
 
-      ispec=ibelm_top(ielm)
+      ispec = ibelm_top(ielm)
 
       write(89,*) ispec,ielm,6
 
@@ -1465,9 +1465,9 @@
       kmin = NGLLZ
       kmax = NGLLZ
 
-      do k=kmin,kmax
-        do j=jmin,jmax
-          do i=imin,imax
+      do k = kmin,kmax
+        do j = jmin,jmax
+          do i = imin,imax
             write(92,'(3f25.10,i10,6i3)') xstore(i,j,k),ystore(i,j,k),zstore(i,j,k),ispec,i,j,k,6, &
                                           ilayer,updown(k)
             write(91,1000) radius(i,j,k), latitud(i,j,k), longitud(i,j,k)

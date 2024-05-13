@@ -143,9 +143,9 @@
     if (ispec_is_elastic(ispec) .eqv. .false.) cycle
 
     ! determines attenuation factors for each GLL point
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
 
           ! scales only mu moduli
           scale_factorl = scale_factor(i,j,k,ispec)

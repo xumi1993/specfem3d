@@ -249,10 +249,10 @@ subroutine iso3d_dpzhao_model(radius,theta,phi,vp,vs,dvp,dvs,rho,found_crust,JP3
 
 ! determine rho
   if (LAY == 1) then
-     rho=2.6
+     rho = 2.6
   endif
   if (LAY == 2) then
-     rho=2.9
+     rho = 2.9
   endif
   if (LAY > 2) then
      rho=3.3+(vs-4.4)*0.66667
@@ -260,7 +260,7 @@ subroutine iso3d_dpzhao_model(radius,theta,phi,vp,vs,dvp,dvs,rho,found_crust,JP3
 ! non-dimensionalize
 ! time scaling (s^{-1}) is done with scaleval
   scaleval=dsqrt(PI*GRAV*RHOAV)
-  rho=rho*1000.0d0/RHOAV
+  rho = rho*1000.0d0/RHOAV
   vp=vp*1000.0d0/(R_EARTH*scaleval)
   vs=vs*1000.0d0/(R_EARTH*scaleval)
 end subroutine iso3d_dpzhao_model
@@ -352,12 +352,12 @@ end subroutine iso3d_dpzhao_model
       integer :: NPX,NRX,NHX,K,I,J
       double precision ::  VELXP(NPX,NRX,NHX), &
                 PNX(NPX),RNX(NRX),HNX(NHX)
-      READ(2,110) (PNX(I),I=1,NPX)
-      READ(2,110) (RNX(I),I=1,NRX)
-      READ(2,120) (HNX(I),I=1,NHX)
+      READ(2,110) (PNX(I),I = 1,NPX)
+      READ(2,110) (RNX(I),I = 1,NRX)
+      READ(2,120) (HNX(I),I = 1,NHX)
       DO K = 1,NHX
          DO I = 1,NPX
-            READ(2,140) (VELXP(I,J,K),J=1,NRX)
+            READ(2,140) (VELXP(I,J,K),J = 1,NRX)
 110         FORMAT(6(9F7.2/))
 120         FORMAT(3(8F7.2/))
 140         FORMAT(4(14F5.2/))
@@ -440,16 +440,16 @@ end subroutine iso3d_dpzhao_model
 
       integer :: NP,NNR,I,J
       READ(3,100)  NP,NNR
-      READ(3,110) (JP3DM_V%PN(I),I=1,NP)
-      READ(3,120) (JP3DM_V%RRN(I),I=1,NNR)
+      READ(3,110) (JP3DM_V%PN(I),I = 1,NP)
+      READ(3,120) (JP3DM_V%RRN(I),I = 1,NNR)
       DO 1  I = NP,1,-1
-      READ(3,130) (JP3DM_V%DEPA(I,J),J=1,NNR)
+      READ(3,130) (JP3DM_V%DEPA(I,J),J = 1,NNR)
 1     continue
       DO 2  I = NP,1,-1
-      READ(3,130) (JP3DM_V%DEPB(I,J),J=1,NNR)
+      READ(3,130) (JP3DM_V%DEPB(I,J),J = 1,NNR)
 2     continue
       DO 3  I = NP,1,-1
-      READ(3,130) (JP3DM_V%DEPC(I,J),J=1,NNR)
+      READ(3,130) (JP3DM_V%DEPC(I,J),J = 1,NNR)
 3     continue
 100   FORMAT(2I6)
 110   FORMAT(5(10F7.2/),F7.2)

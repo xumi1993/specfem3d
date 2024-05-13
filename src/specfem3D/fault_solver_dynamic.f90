@@ -833,10 +833,10 @@ contains
         call read_para_file(xyzv,filename)
         num_lines = size(xyzv(1,:))
         ! find the nearest point
-        do ipar=1,size(b)
+        do ipar = 1,size(b)
            temp = huge(temp)
-           do jpar=1,num_lines
-              dist=sqrt((coord(1,ipar)-xyzv(1,jpar))**2+(coord(2,ipar)-xyzv(2,jpar))**2+(coord(3,ipar)-xyzv(3,jpar))**2)
+           do jpar = 1,num_lines
+              dist = sqrt((coord(1,ipar)-xyzv(1,jpar))**2+(coord(2,ipar)-xyzv(2,jpar))**2+(coord(3,ipar)-xyzv(3,jpar))**2)
               if (dist < temp) then
                  b(ipar) = xyzv(4,jpar)
                  temp    = dist
@@ -870,7 +870,7 @@ contains
 
   read(IIN_2D,*) num_lines
   allocate(xyzv(4,num_lines))
-  do i=1,num_lines
+  do i = 1,num_lines
      read(IIN_2D,*) xyzv(1,i),xyzv(2,i),xyzv(3,i),xyzv(4,i)
   enddo
   close(IIN_2D)
@@ -2151,7 +2151,7 @@ contains
   integer :: nFload
 !  real(kind=CUSTOM_REAL), dimension(:,:), allocatable :: init_vel
   integer :: nglob,ier
-  integer :: InputStateLaw = 1 ! By default using aging law: 1=ageing law, 2=slip law
+  integer :: InputStateLaw = 1 ! By default using aging law: 1 = ageing law, 2 = slip law
 
   NAMELIST / RSF / V0,f0,a,b,L,V_init,theta_init,nV0,nf0,na,nb,nL,nV_init,ntheta_init, &
                    C,T,nC,nForcedRup,Vw,fw,nVw,nfw,InputStateLaw

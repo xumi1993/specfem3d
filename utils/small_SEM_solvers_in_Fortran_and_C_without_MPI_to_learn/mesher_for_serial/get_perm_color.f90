@@ -54,7 +54,7 @@
     if (myrank == 0) &
       write(IMAIN,*) 'calling form_elt_connectivity_foelco to perform mesh coloring and inner/outer element splitting'
     call form_elt_connectivity_foelco(mn,mp,nspec,global_corner_number,nglob_GLL_full,ibool,nglob_eight_corners_only)
-    do i=1,nspec
+    do i = 1,nspec
       istart = mp(i)
       istop = mp(i+1) - 1
     enddo
@@ -75,7 +75,7 @@
     count_only = .false.
     if (myrank == 0) write(IMAIN,*) 'calling form_node_connectivity_fonoco to actually create the table'
     call form_node_connectivity_fonoco(mn,mp,ne,np,nglob_eight_corners_only,nspec,count_only,total_size_ne)
-    do i=1,nglob_eight_corners_only
+    do i = 1,nglob_eight_corners_only
       istart = np(i)
       istop = np(i+1) - 1
     enddo
@@ -98,7 +98,7 @@
     call create_adjacency_table_adjncy(mn,mp,ne,np,adj,xadj,maskel,nspec,nglob_eight_corners_only, &
     count_only,total_size_ne,total_size_adj,.false.)
 
-    do i=1,nspec
+    do i = 1,nspec
       istart = xadj(i)
       istop = xadj(i+1) - 1
       number_of_neighbors = istop-istart+1
@@ -168,10 +168,10 @@ subroutine get_color(adj,xadj,color,nspec,total_size_adj,is_on_a_slice_edge, &
 
   is_outer_element(:) = .false.
 
-  do ispec=1,nspec
+  do ispec = 1,nspec
     if (is_on_a_slice_edge(ispec)) then
       is_outer_element(ispec) = .true.
-      nspec_outer=nspec_outer+1
+      nspec_outer = nspec_outer+1
     endif
   enddo
 
@@ -284,7 +284,7 @@ nglob_GLL_full,ibool,nglob_eight_corners_only)
   nglob_eight_corners_only = 0
   global_corner_number(:) = -1
 
-  do ispec=1,nspec
+  do ispec = 1,nspec
 
     inumcorner = 0
     do iz = 1,NGLLZ,NGLLZ-1
@@ -301,7 +301,7 @@ nglob_GLL_full,ibool,nglob_eight_corners_only)
           endif
 
           node = global_corner_number(ibool(ix,iy,iz,ispec))
-            do k=nsum,ninter-1
+            do k = nsum,ninter-1
               if (node == mn(k)) goto 200
             enddo
 
@@ -367,10 +367,10 @@ nspec,count_only,total_size_ne)
   nsum = 1
   np(1) = 1
 
-  do inode=1,nglob_eight_corners_only
-      do 200 ispec=1,nspec
+  do inode = 1,nglob_eight_corners_only
+      do 200 ispec = 1,nspec
 
-            do j=mp(ispec),mp(ispec + 1) - 1
+            do j = mp(ispec),mp(ispec + 1) - 1
                   if (mn(j) == inode) then
                         if (count_only) then
                           total_size_ne = nsum
@@ -437,7 +437,7 @@ nspec,count_only,total_size_ne)
   xadj(1) = 1
   iad = 1
 
-  do ispec=1,nspec
+  do ispec = 1,nspec
 
 ! reset mask
   maskel(:) = .false.
@@ -448,11 +448,11 @@ nspec,count_only,total_size_ne)
 
   istart = mp(ispec)
   istop = mp(ispec+1) - 1
-    do ino=istart,istop
+    do ino = istart,istop
       node = mn(ino)
       jstart = np(node)
       jstop = np(node + 1) - 1
-        do 120 jel=jstart,jstop
+        do 120 jel = jstart,jstop
             nelem = ne(jel)
             if (maskel(nelem)) goto 120
             if (face) then

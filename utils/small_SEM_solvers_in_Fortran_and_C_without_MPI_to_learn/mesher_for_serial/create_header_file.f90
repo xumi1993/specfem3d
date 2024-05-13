@@ -146,7 +146,7 @@
 ! count the total number of sources in the CMTSOLUTION file
   call count_number_of_sources(NSOURCES)
 
-  do iregion=1,MAX_NUM_REGIONS
+  do iregion = 1,MAX_NUM_REGIONS
     NGLOB1D_RADIAL_CORNER(iregion,:) = NGLOB1D_RADIAL(iregion)
   enddo
 

@@ -138,7 +138,7 @@
   write(11,*) 'object 2 class array type int rank 1 shape 8 items ',nspec,' data follows'
 
 ! read local elements in this slice and output global AVS or DX elements
-  do ispec=1,nspec
+  do ispec = 1,nspec
 ! point order in OpenDX in 2D is 1,4,2,3 *not* 1,2,3,4 as in AVS
 ! point order in OpenDX in 3D is 4,1,8,5,3,2,7,6, *not* 1,2,3,4,5,6,7,8 as in AVS
 ! in the case of OpenDX, node numbers start at zero
@@ -155,7 +155,7 @@
     write(11,*) 'object 3 class array type float rank 0 items ',nspec,' data follows'
 
 ! read local elements in this slice and output global AVS or DX elements
-  do ispec=1,nspec
+  do ispec = 1,nspec
         write(11,*) imaterial(ispec)
   enddo
 

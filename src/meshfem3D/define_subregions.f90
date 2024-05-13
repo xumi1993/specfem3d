@@ -58,27 +58,27 @@
 
   call usual_hex_nodes(NGNOD_EIGHT_CORNERS,iaddx,iaddy,iaddz)
 
-  ix1=2*(subregions(isubregion,1) - iproc_xi*NEX_PER_PROC_XI - 1)
+  ix1 = 2*(subregions(isubregion,1) - iproc_xi*NEX_PER_PROC_XI - 1)
   if (ix1 < 0) ix1 = 0
 
-  ix2=2*(subregions(isubregion,2) - iproc_xi*NEX_PER_PROC_XI - 1)
+  ix2 = 2*(subregions(isubregion,2) - iproc_xi*NEX_PER_PROC_XI - 1)
   if (ix2 > 2*(NEX_PER_PROC_XI - 1)) ix2 = 2*(NEX_PER_PROC_XI - 1)
-  dix=2
+  dix = 2
 
-  iy1=2*(subregions(isubregion,3) - iproc_eta*NEX_PER_PROC_ETA - 1)
+  iy1 = 2*(subregions(isubregion,3) - iproc_eta*NEX_PER_PROC_ETA - 1)
   if (iy1 < 0) iy1 = 0
 
-  iy2=2*(subregions(isubregion,4) - iproc_eta*NEX_PER_PROC_ETA - 1)
+  iy2 = 2*(subregions(isubregion,4) - iproc_eta*NEX_PER_PROC_ETA - 1)
   if (iy2 > 2*(NEX_PER_PROC_ETA - 1)) iy2 = 2*(NEX_PER_PROC_ETA - 1)
-  diy=2
+  diy = 2
 
-  ir1=2*(subregions(isubregion,5) - 1)
-  ir2=2*(subregions(isubregion,6) - 1)
-  dir=2
+  ir1 = 2*(subregions(isubregion,5) - 1)
+  ir2 = 2*(subregions(isubregion,6) - 1)
+  dir = 2
 
-  iax=1
-  iay=1
-  iar=1
+  iax = 1
+  iay = 1
+  iar = 1
 
   num_material = subregions(isubregion,7)
 

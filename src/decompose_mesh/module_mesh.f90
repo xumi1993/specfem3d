@@ -359,7 +359,7 @@ contains
 
     ! note: entries in nummaterial_velocity_file can be an unsorted list of all
     !          defined materials (material_id > 0) and undefined materials (material_id < 0)
-    do imat=1,count_def_mat
+    do imat = 1,count_def_mat
        ! material definitions
        !
        ! format: note that we save the arguments in a slightly different order in mat_prop(:,:)
@@ -552,12 +552,12 @@ contains
     if (use_poroelastic_file) close(IIN_DB2)
     close(IIN_DB)
 
-    do ispec=1,nspec_glob
+    do ispec = 1,nspec_glob
        ! get material_id
        num_mat = mat(1,ispec)
        if (num_mat < 0) then
           ! finds undefined material property
-          do imat=1,count_undef_mat
+          do imat = 1,count_undef_mat
              if (-imat == num_mat) then
                 ! interface
                 if (trim(undef_mat_prop(2,imat)) == 'interface') then
@@ -751,7 +751,7 @@ contains
     allocate(cpml_regions(nspec_cpml),stat=ier)
     if (ier /= 0) call exit_MPI_without_rank('error allocating array 136')
     if (ier /= 0) stop 'Error allocating array CPML_regions'
-    do ispec_cpml=1,nspec_cpml
+    do ispec_cpml = 1,nspec_cpml
        ! elements are stored with #id_cpml_regions increasing order:
        !
        ! #id_cpml_regions = 1 : X_surface C-PML
@@ -773,7 +773,7 @@ contains
     if (ier /= 0) call exit_MPI_without_rank('error allocating array 137')
     if (ier /= 0) stop 'Error allocating array is_CPML'
     is_CPML(:) = .false.
-    do ispec_cpml=1,nspec_cpml
+    do ispec_cpml = 1,nspec_cpml
        if ((cpml_regions(ispec_cpml) >= 1) .and. (cpml_regions(ispec_cpml) <= 7)) then
           is_CPML(cpml_to_spec(ispec_cpml)) = .true.
        endif

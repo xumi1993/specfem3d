@@ -372,7 +372,7 @@ program combine_surf_data
 
     numpoin = 0
     mask_ibool = .false.
-    do ispec_surf=1,nspec_surf
+    do ispec_surf = 1,nspec_surf
       ispec = ibelm_surf(ispec_surf)
       k = 1
       do j = 1, NGLLY, iny

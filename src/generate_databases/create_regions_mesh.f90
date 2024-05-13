@@ -1460,8 +1460,8 @@ contains
 
           ! stores on surface GLL points (assuming NGLLX = NGLLY = NGLLZ)
           igll = 0
-          do j=1,NGLLZ
-            do i=1,NGLLX
+          do j = 1,NGLLZ
+            do i = 1,NGLLX
               igll = igll+1
               ijk_moho_bot(:,igll,ispec2D) = ijk_face(:,i,j)
               normal_moho_bot(:,igll,ispec2D) = normal_face(:,i,j)
@@ -1484,8 +1484,8 @@ contains
 
           ! GLL points
           igll = 0
-          do j=1,NGLLZ
-            do i=1,NGLLX
+          do j = 1,NGLLZ
+            do i = 1,NGLLX
               igll = igll+1
               ijk_moho_top(:,igll,ispec) = ijk_face(:,i,j)
               ! note: top elements have normal pointing into element

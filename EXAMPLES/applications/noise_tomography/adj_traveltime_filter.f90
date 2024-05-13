@@ -316,7 +316,7 @@ program adj_traveltime
     enddo
     close(1001)
 
-  enddo  !do ifreq=1,nfreq
+  enddo  !do ifreq = 1,nfreq
 
   ! closes misfit file
   close(1111)

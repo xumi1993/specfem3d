@@ -80,14 +80,14 @@
   write(IOUT_VTK,'(a)') 'ASCII'
   write(IOUT_VTK,'(a)') 'DATASET UNSTRUCTURED_GRID'
   write(IOUT_VTK, '(a,i12,a)') 'POINTS ', nglob, ' float'
-  do i=1,nglob
+  do i = 1,nglob
     write(IOUT_VTK,'(3e20.12)') xstore(i),ystore(i),zstore(i)
   enddo
   write(IOUT_VTK,*) ''
 
   ! note: indices for vtk start at 0
   write(IOUT_VTK,'(a,i12,i12)') "CELLS ",nspec,nspec*9
-  do ispec=1,nspec
+  do ispec = 1,nspec
     write(IOUT_VTK,'(9i12)') 8, &
           ibool(1,1,1,ispec)-1,ibool(NGLLX,1,1,ispec)-1,ibool(NGLLX,NGLLY,1,ispec)-1,ibool(1,NGLLY,1,ispec)-1, &
           ibool(1,1,NGLLZ,ispec)-1,ibool(NGLLX,1,NGLLZ,ispec)-1,ibool(NGLLX,NGLLY,NGLLZ,ispec)-1,ibool(1,NGLLY,NGLLZ,ispec)-1
@@ -150,14 +150,14 @@
   write(IOUT_VTK,'(a)') 'ASCII'
   write(IOUT_VTK,'(a)') 'DATASET UNSTRUCTURED_GRID'
   write(IOUT_VTK, '(a,i12,a)') 'POINTS ', nglob, ' float'
-  do i=1,nglob
+  do i = 1,nglob
     write(IOUT_VTK,'(3e20.12)') xstore(i),ystore(i),zstore(i)
   enddo
   write(IOUT_VTK,*) ''
 
   ! note: indices for vtk start at 0
   write(IOUT_VTK,'(a,i12,i12)') "CELLS ",nspec,nspec*9
-  do ispec=1,nspec
+  do ispec = 1,nspec
     write(IOUT_VTK,'(9i12)') 8, &
           ibool(1,1,1,ispec)-1,ibool(NGLLX,1,1,ispec)-1,ibool(NGLLX,NGLLY,1,ispec)-1,ibool(1,NGLLY,1,ispec)-1, &
           ibool(1,1,NGLLZ,ispec)-1,ibool(NGLLX,1,NGLLZ,ispec)-1,ibool(NGLLX,NGLLY,NGLLZ,ispec)-1,ibool(1,NGLLY,NGLLZ,ispec)-1
@@ -230,14 +230,14 @@
   write(IOUT_VTK,'(a)') 'ASCII'
   write(IOUT_VTK,'(a)') 'DATASET UNSTRUCTURED_GRID'
   write(IOUT_VTK, '(a,i12,a)') 'POINTS ', nglob, ' float'
-  do i=1,nglob
+  do i = 1,nglob
     write(IOUT_VTK,'(3e20.12)') xstore(i),ystore(i),zstore(i)
   enddo
   write(IOUT_VTK,*) ''
 
   ! note: indices for vtk start at 0
   write(IOUT_VTK,'(a,i12,i12)') "CELLS ",nspec,nspec*9
-  do ispec=1,nspec
+  do ispec = 1,nspec
     write(IOUT_VTK,'(9i12)') 8, &
           ibool(1,1,1,ispec)-1,ibool(NGLLX,1,1,ispec)-1,ibool(NGLLX,NGLLY,1,ispec)-1,ibool(1,NGLLY,1,ispec)-1, &
           ibool(1,1,NGLLZ,ispec)-1,ibool(NGLLX,1,NGLLZ,ispec)-1,ibool(NGLLX,NGLLY,NGLLZ,ispec)-1,ibool(1,NGLLY,NGLLZ,ispec)-1
@@ -256,10 +256,10 @@
   endif
 
   mask_ibool = .false.
-  do ispec=1,nspec
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+  do ispec = 1,nspec
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           iglob = ibool(i,j,k,ispec)
           if (.not. mask_ibool(iglob)) then
             flag_val(iglob) = gll_data(i,j,k,ispec)
@@ -326,14 +326,14 @@
   write(IOUT_VTK,'(a)') 'ASCII'
   write(IOUT_VTK,'(a)') 'DATASET UNSTRUCTURED_GRID'
   write(IOUT_VTK, '(a,i12,a)') 'POINTS ', nglob, ' float'
-  do i=1,nglob
+  do i = 1,nglob
     write(IOUT_VTK,'(3e20.12)') xstore(i),ystore(i),zstore(i)
   enddo
   write(IOUT_VTK,*) ''
 
   ! note: indices for vtk start at 0
   write(IOUT_VTK,'(a,i12,i12)') "CELLS ",nspec,nspec*9
-  do ispec=1,nspec
+  do ispec = 1,nspec
     write(IOUT_VTK,'(9i12)') 8, &
           ibool(1,1,1,ispec)-1,ibool(NGLLX,1,1,ispec)-1,ibool(NGLLX,NGLLY,1,ispec)-1,ibool(1,NGLLY,1,ispec)-1, &
           ibool(1,1,NGLLZ,ispec)-1,ibool(NGLLX,1,NGLLZ,ispec)-1,ibool(NGLLX,NGLLY,NGLLZ,ispec)-1,ibool(1,NGLLY,NGLLZ,ispec)-1
@@ -350,10 +350,10 @@
   if (ier /= 0) stop 'error allocating mask'
 
   mask_ibool = .false.
-  do ispec=1,nspec
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+  do ispec = 1,nspec
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           iglob = ibool(i,j,k,ispec)
           if (.not. mask_ibool(iglob)) then
             flag_val(iglob) = gll_data(i,j,k,ispec)
@@ -418,7 +418,7 @@
   write(IOUT_VTK,'(a)') 'ASCII'
   write(IOUT_VTK,'(a)') 'DATASET UNSTRUCTURED_GRID'
   write(IOUT_VTK, '(a,i12,a)') 'POINTS ', num_points_globalindices, ' float'
-  do i=1,num_points_globalindices
+  do i = 1,num_points_globalindices
     iglob = points_globalindices(i)
     if (iglob <= 0 .or. iglob > nglob) then
       print *,'error: '//prname_file(1:len_trim(prname_file))//'.vtk'
@@ -593,14 +593,14 @@
   write(IOUT_VTK,'(a)') 'ASCII'
   write(IOUT_VTK,'(a)') 'DATASET UNSTRUCTURED_GRID'
   write(IOUT_VTK, '(a,i12,a)') 'POINTS ', nglob, ' float'
-  do i=1,nglob
+  do i = 1,nglob
     write(IOUT_VTK,'(3e20.12)') xstore(i),ystore(i),zstore(i)
   enddo
   write(IOUT_VTK,*) ''
 
   ! note: indices for vtk start at 0
   write(IOUT_VTK,'(a,i12,i12)') "CELLS ",nspec,nspec*9
-  do ispec=1,nspec
+  do ispec = 1,nspec
     write(IOUT_VTK,'(9i12)') 8, &
           ibool(1,1,1,ispec)-1,ibool(NGLLX,1,1,ispec)-1,ibool(NGLLX,NGLLY,1,ispec)-1,ibool(1,NGLLY,1,ispec)-1, &
           ibool(1,1,NGLLZ,ispec)-1,ibool(NGLLX,1,NGLLZ,ispec)-1,ibool(NGLLX,NGLLY,NGLLZ,ispec)-1,ibool(1,NGLLY,NGLLZ,ispec)-1
@@ -615,7 +615,7 @@
   ! vector data for each cell
   write(IOUT_VTK,'(a,i12)') "CELL_DATA ",nspec
   write(IOUT_VTK,'(a)') "VECTORS _vectors_ float"
-  do i=1,nspec
+  do i = 1,nspec
     write(IOUT_VTK,*) elem_vector(1,i),elem_vector(2,i),elem_vector(3,i)
   enddo
   write(IOUT_VTK,*) ''
@@ -1568,14 +1568,14 @@
   write(IOUT_VTK,'(a)') 'ASCII'
   write(IOUT_VTK,'(a)') 'DATASET UNSTRUCTURED_GRID'
   write(IOUT_VTK, '(a,i12,a)') 'POINTS ', nglob, ' float'
-  do i=1,nglob
+  do i = 1,nglob
     write(IOUT_VTK,'(3e18.6)') xstore(i),ystore(i),zstore(i)
   enddo
   write(IOUT_VTK,*) ""
 
   ! note: indices for vtk start at 0
   write(IOUT_VTK,'(a,i12,i12)') "CELLS ",nspec,nspec*9
-  do ispec=1,nspec
+  do ispec = 1,nspec
     write(IOUT_VTK,'(9i12)') 8, &
                              ibool(1,1,1,ispec)-1,ibool(NGLLX,1,1,ispec)-1, &
                              ibool(NGLLX,NGLLY,1,ispec)-1,ibool(1,NGLLY,1,ispec)-1, &

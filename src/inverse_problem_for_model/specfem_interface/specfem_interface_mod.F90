@@ -1091,7 +1091,7 @@ contains
   INVERSE_FWI_FULL_PROBLEM = .true.
 
   !! following subroutines are directly from specfem3D git devel version
-  call initialize_simulation()     !! here : we need to initialize with NGLOB_ADJ=NSPEC_ADJ=NSPEC_STRAIN_ONLY=1
+  call initialize_simulation()     !! here : we need to initialize with NGLOB_ADJ = NSPEC_ADJ=NSPEC_STRAIN_ONLY = 1
 
   if (inversion_param%only_forward) then
     ! forward

@@ -13,9 +13,9 @@ contains
 logical function isblank(str)
 character(len=*) :: str
 
-isblank=.false.
+isblank = .false.
 
-if (len(trim(str)) == 0)isblank=.true.
+if (len(trim(str)) == 0)isblank = .true.
 return
 end function isblank
 !=====================================================
@@ -29,9 +29,9 @@ integer :: ind
 
 call first_char(str,ch,ind)
 
-iscomment=.false.
+iscomment = .false.
 
-if (ch == rch)iscomment=.true.
+if (ch == rch) iscomment = .true.
 
 return
 end function iscomment
@@ -45,15 +45,15 @@ character(len=len_trim(adjustl(str))) :: tmp_str
 character(len=*),intent(out) :: token
 integer :: i,slen
 
-tmp_str=trim(adjustl(str))
+tmp_str = trim(adjustl(str))
 slen=len(tmp_str)
 
 ! set default values
-token=tmp_str
+token = tmp_str
 str=' '
 
 ! first token is a word before first space
-do i=1,slen
+do i = 1,slen
   if (tmp_str(i:i) == ' ') then
     token=tmp_str(1:i-1)
     str=tmp_str(i+1:slen)
@@ -78,13 +78,13 @@ slen=len(str)
 
 ! set default values
 ch=str(1:1)
-ind=1
+ind = 1
 
 ! find first character
-do i=1,slen
+do i = 1,slen
   if (str(i:i) /= ' ') then
     ch=str(i:i)
-    ind=i
+    ind = i
     exit
   endif
 enddo
@@ -104,13 +104,13 @@ slen=len(str)
 
 ! set default values
 ch=str(slen:slen)
-ind=slen
+ind = slen
 
 ! find last character
-do i=slen,1,-1
+do i = slen,1,-1
   if (str(i:i) /= ' ') then
     ch=str(i:i)
-    ind=i
+    ind = i
     exit
   endif
 enddo
@@ -134,19 +134,19 @@ slen=len_trim(str)
 tmp_str=trim(str)
 
 ! find and count indices of all delimeters
-narg=0
-do i=1,slen
+narg = 0
+do i = 1,slen
   if (tmp_str(i:i) == delm) then
-    narg=narg+1
+    narg = narg+1
     ind(narg)=i
   endif
 enddo
-narg=narg+1
+narg = narg+1
 ind(narg)=slen+1
 
 ! split string and set to args
-i1=1
-do i=1,narg
+i1 = 1
+do i = 1,narg
   args(i)=tmp_str(i1:ind(i)-1)
   i1=ind(i)+1
 enddo
@@ -164,7 +164,7 @@ integer,intent(in) :: nvar
 character(len=80),dimension(2) :: args
 integer :: i,narg
 
-do i=1,nvar
+do i = 1,nvar
   call split_string(slist(i),'=',args,narg)
   if (narg /= 2)cycle
   if (vname == trim(adjustl(args(1)))) then
@@ -192,7 +192,7 @@ integer :: i,narg
 
 strval=''
 
-do i=1,nvar
+do i = 1,nvar
   call split_string(slist(i),'=',args,narg)
   if (narg /= 2)cycle
   if (vname == trim(adjustl(args(1)))) then
@@ -217,7 +217,7 @@ integer,intent(in) :: nvar
 character(len=80),dimension(2) :: args
 integer :: i,narg
 
-do i=1,nvar
+do i = 1,nvar
   call split_string(slist(i),'=',args,narg)
   if (narg /= 2)cycle
   if (vname == trim(adjustl(args(1)))) then
@@ -240,7 +240,7 @@ integer,intent(in) :: nvar
 character(len=80),dimension(2) :: args
 integer :: i,narg
 
-do i=1,nvar
+do i = 1,nvar
   call split_string(slist(i),'=',args,narg)
   if (narg /= 2)cycle
   if (vname == trim(adjustl(args(1)))) then
@@ -266,7 +266,7 @@ integer,intent(in) :: nvar
 character(len=80),dimension(2) :: args
 integer :: i,narg
 
-do i=1,nvar
+do i = 1,nvar
   call split_string(slist(i),'=',args,narg)
   if (narg /= 2)cycle
   if (vname == trim(adjustl(args(1)))) then
@@ -289,7 +289,7 @@ integer,intent(in) :: nvar
 character(len=80),dimension(2) :: args
 integer :: i,narg
 
-do i=1,nvar
+do i = 1,nvar
   call split_string(slist(i),'=',args,narg)
   if (narg /= 2)cycle
   if (vname == trim(adjustl(args(1)))) then

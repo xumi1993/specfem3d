@@ -306,7 +306,7 @@
   double precision, intent(in) :: t,f0
 
   ! local variables
-  double precision,parameter :: tau0=2.31d0
+  double precision,parameter :: tau0 = 2.31d0
   double precision :: omega,omegat
 
   ! Brune source-time function

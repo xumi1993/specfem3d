@@ -5,6 +5,16 @@ from __future__ import print_function
 import os
 import sys
 
+# checks path for GEOCUBIT modules
+found_lib = False
+for path in sys.path:
+    if "geocubitlib" in path:
+        found_lib = True
+        break
+if not found_lib:
+    sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../CUBIT_GEOCUBIT/')
+
 import cubit
 try:
     #cubit.init([""])
@@ -21,7 +31,7 @@ print("cubit version: ",version)
 cubit.cmd('set duplicate block elements on')
 
 # mesh
-#cubit.cmd('open "coffee_cup_with_handle_CUBIT_mesh.cub"')
+cubit.cmd('open "coffee_cup_with_handle_CUBIT_mesh.cub"')
 
 ## block definitions
 #
@@ -72,7 +82,13 @@ cubit.cmd('block 1000 name "free_or_absorbing_surface_file_zmax" ')
 cubit.cmd('export mesh "cubit_mesh.e" dimension 3 overwrite')
 cubit.cmd('save as "cubit_mesh.cub" overwrite')
 
+#
+# GEOCUBIT
+#
+from geocubitlib import cubit2specfem3d
 
+#### Export to SPECFEM3D format using cubit2specfem3d.py of GEOCUBIT
+cubit2specfem3d.export2SPECFEM3D('MESH')
 
 
 

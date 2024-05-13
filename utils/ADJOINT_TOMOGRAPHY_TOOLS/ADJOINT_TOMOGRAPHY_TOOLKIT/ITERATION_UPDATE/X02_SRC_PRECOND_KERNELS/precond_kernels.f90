@@ -9,8 +9,8 @@ program precond_kernels
   include '../../SHARE_FILES/HEADER_FILES/values_from_mesher.h'
   include '../../SHARE_FILES/HEADER_FILES/precision.h'
 
-  integer,parameter:: NSPEC=NSPEC_CRUST_MANTLE
-  integer,parameter:: NKERNEL=4    !bulk_betah, bulk_betav, bulk_c, eta
+  integer,parameter:: NSPEC = NSPEC_CRUST_MANTLE
+  integer,parameter:: NKERNEL = 4    !bulk_betah, bulk_betav, bulk_c, eta
   real(kind=CUSTOM_REAL),parameter:: THRESHOLD_HESS=5.e-4
 
   integer:: myrank, sizeprocs,ier
@@ -38,10 +38,10 @@ program precond_kernels
   kernel_name=(/"reg1_bulk_betah_kernel","reg1_bulk_betav_kernel","reg1_bulk_c_kernel","reg1_eta_kernel"/)
 
 
-  do iker=1,NKERNEL
-     kernel_precond=0.
-     hess=0.
-     kernel=0.
+  do iker = 1,NKERNEL
+     kernel_precond = 0.
+     hess = 0.
+     kernel = 0.
 
      write(kernel_file,'(a,i6.6,a)') trim(input_dir)//'/proc',myrank,'_'//trim(kernel_name(iker))//'.bin'
      write(hess_file,'(a,i6.6,a)') trim(input_dir)//'/proc',myrank,'_reg1_hess_kernel.bin'
@@ -70,15 +70,15 @@ program precond_kernels
      if (myrank == 0) write(*,*) 'MAX Hessian FOR ALL PROCESSORS:',maxh_all
 
      ! normalized hess
-     hess=hess/maxh_all
+     hess = hess/maxh_all
 
      where(hess(:,:,:,:) > THRESHOLD_HESS )
-          hess=1.0_CUSTOM_REAL / hess
+          hess = 1.0_CUSTOM_REAL / hess
      elsewhere
-          hess=1.0_CUSTOM_REAL / THRESHOLD_HESS
+          hess = 1.0_CUSTOM_REAL / THRESHOLD_HESS
      endwhere
 
-     kernel_precond=kernel*hess
+     kernel_precond = kernel*hess
 
 
      if (myrank == 0) write(*,*) 'WRITING OUT PRECONDITIONED KERNEL FOR:',trim(kernel_name(iker))

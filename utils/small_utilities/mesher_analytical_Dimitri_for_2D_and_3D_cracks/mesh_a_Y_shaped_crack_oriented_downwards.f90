@@ -444,8 +444,8 @@
   integer :: ier,ili,icol
 
   ! draw horizontal lines of the grid
-  do ili=0,nz
-    do icol=0,nx-1
+  do ili = 0,nz
+    do icol = 0,nx-1
        write(20,*) sngl(x(icol,ili)),sngl(z(icol,ili))
        write(20,*) sngl(x(icol+1,ili)),sngl(z(icol+1,ili))
        write(20,10)
@@ -453,8 +453,8 @@
   enddo
 
   ! draw vertical lines of the grid
-  do icol=0,nx
-    do ili=0,nz-1
+  do icol = 0,nx
+    do ili = 0,nz-1
        write(20,*) sngl(x(icol,ili)),sngl(z(icol,ili))
        write(20,*) sngl(x(icol,ili+1)),sngl(z(icol,ili+1))
        write(20,10)

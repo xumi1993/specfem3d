@@ -465,11 +465,11 @@
 
   integer :: nb_layer_above_aniso,FIRST_ELT_ABOVE_ANISO
 
-  integer, parameter :: maxker=200
-  integer, parameter :: maxl=72
-  integer, parameter :: maxcoe=2000
-  integer, parameter :: maxver=1000
-  integer, parameter :: maxhpa=2
+  integer, parameter :: maxker = 200
+  integer, parameter :: maxl = 72
+  integer, parameter :: maxcoe = 2000
+  integer, parameter :: maxver = 1000
+  integer, parameter :: maxhpa = 2
 
   integer numker
   integer numhpa,numcof
@@ -715,16 +715,16 @@
 
 ! to consider anisotropic elements first and to build the mesh from the bottom to the top of the region
   if (ONE_CRUST) then
-    first_layer_aniso=2
-    last_layer_aniso=3
+    first_layer_aniso = 2
+    last_layer_aniso = 3
     nb_layer_above_aniso = 1
   else
-    first_layer_aniso=3
-    last_layer_aniso=4
+    first_layer_aniso = 3
+    last_layer_aniso = 4
     nb_layer_above_aniso = 2
   endif
   allocate (perm_layer(ifirst_region:ilast_region))
-  perm_layer = (/ (i, i=ilast_region,ifirst_region,-1) /)
+  perm_layer = (/ (i, i = ilast_region,ifirst_region,-1) /)
 ! if (iregion_code == IREGION_CRUST_MANTLE) then
 !  cpt=3
 !  perm_layer(1)=first_layer_aniso
@@ -1132,7 +1132,7 @@
         rmax = R_CENTRAL_CUBE / R_EARTH
 
 !       loop over the NGNOD nodes
-        do ia=1,NGNOD
+        do ia = 1,NGNOD
 
 ! flat cubed sphere with correct mapping
           call compute_coord_central_cube(ix+iaddx(ia),iy+iaddy(ia),iz+iaddz(ia), &
@@ -1277,12 +1277,12 @@
 
 ! we need to create a copy of the x, y and z arrays because sorting in get_global will swap
 ! these arrays and therefore destroy them
-  do ispec=1,nspec
+  do ispec = 1,nspec
   ieoff = NGLLX * NGLLY * NGLLZ * (ispec-1)
   ilocnum = 0
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         ilocnum = ilocnum + 1
         xp(ilocnum+ieoff) = xstore(i,j,k,ispec)
         yp(ilocnum+ieoff) = ystore(i,j,k,ispec)
@@ -1316,10 +1316,10 @@
   copy_ibool_ori(:,:,:,:) = ibool(:,:,:,:)
 
   inumber = 0
-  do ispec=1,nspec
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do ispec = 1,nspec
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         if (mask_ibool(copy_ibool_ori(i,j,k,ispec)) == -1) then
 ! create a new point
           inumber = inumber + 1
@@ -1659,7 +1659,7 @@
 
   rmass(:) = 0._CUSTOM_REAL
 
-  do ispec=1,nspec
+  do ispec = 1,nspec
 
 ! suppress fictitious elements in central cube
   if (idoubling(ispec) == IFLAG_IN_FICTITIOUS_CUBE) cycle

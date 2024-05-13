@@ -257,10 +257,10 @@ program model_update
 
   ! threshold current model and write out the modified version
   if (MINMAX_THRESHOLD_OLD) then
-    do ispec=1,NSPEC
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+    do ispec = 1,NSPEC
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
             ! vs
             if (model_vs(i,j,k,ispec) < VS_MIN) model_vs(i,j,k,ispec) = VS_MIN
             if (model_vs(i,j,k,ispec) > VS_MAX) model_vs(i,j,k,ispec) = VS_MAX
@@ -407,10 +407,10 @@ program model_update
 
   ! threshold model according to minmax values specified above
   if (MINMAX_THRESHOLD_NEW) then
-    do ispec=1,NSPEC
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+    do ispec = 1,NSPEC
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
             ! vs
             if (model_vs_new(i,j,k,ispec) < VS_MIN) model_vs_new(i,j,k,ispec) = VS_MIN
             if (model_vs_new(i,j,k,ispec) > VS_MAX) model_vs_new(i,j,k,ispec) = VS_MAX
@@ -1004,7 +1004,7 @@ subroutine save_new_databases()
     if (ier /= 0) stop 'Error allocating array dummy etc.'
 
     read(IIN,'(9i12)') dummy_num,dummy_l_1,dummy_l_2,dummy_l_3,dummy_l_4, &
-                    dummy_l_5,dummy_l_6,dummy_l_7,dummy_l_8 !8,ibool-1 for ispec=1,nspec
+                    dummy_l_5,dummy_l_6,dummy_l_7,dummy_l_8 !8,ibool-1 for ispec = 1,nspec
     read(IIN,*) !blank line
 
     deallocate(dummy_num,dummy_l_1,dummy_l_2,dummy_l_3,dummy_l_4,dummy_l_5,dummy_l_6,dummy_l_7,dummy_l_8)
@@ -1037,10 +1037,10 @@ subroutine save_new_databases()
     if (ier /= 0) stop 'Error allocating mask'
 
     mask_ibool = .false.
-    do ispec=1,NSPEC_AB
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+    do ispec = 1,NSPEC_AB
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
             iglob = ibool(i,j,k,ispec)
             if (.not. mask_ibool(iglob)) then
               qmu_attenuation_store(i,j,k,ispec) = flag_val(iglob)

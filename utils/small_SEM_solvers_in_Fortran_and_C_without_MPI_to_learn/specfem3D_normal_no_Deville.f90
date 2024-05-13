@@ -164,8 +164,8 @@
   enddo
 
   open(unit=IIN,file='DATABASES_FOR_SOLVER/matrices.dat',status='old')
-  do j=1,NGLLY
-    do i=1,NGLLX
+  do j = 1,NGLLY
+    do i = 1,NGLLX
       read(IIN,*) hprime_xx(i,j)
       read(IIN,*) hprimewgll_xx(i,j)
       read(IIN,*) wgllwgll_yz(i,j)
@@ -247,9 +247,9 @@
 ! to the acceleration vector of each element of the finite-element mesh
   do ispec = 1,NSPEC
 
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
             iglob = ibool(i,j,k,ispec)
             dummyx_loc(i,j,k) = displ(1,iglob)
             dummyy_loc(i,j,k) = displ(2,iglob)
@@ -258,9 +258,9 @@
       enddo
     enddo
 
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
 
           tempx1l = 0.
           tempx2l = 0.
@@ -274,7 +274,7 @@
           tempz2l = 0.
           tempz3l = 0.
 
-          do l=1,NGLLX
+          do l = 1,NGLLX
             hp1 = hprime_xx(i,l)
             tempx1l = tempx1l + dummyx_loc(l,j,k)*hp1
             tempy1l = tempy1l + dummyy_loc(l,j,k)*hp1
@@ -362,9 +362,9 @@
         enddo
       enddo
 
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
 
           tempx1l = 0.
           tempy1l = 0.
@@ -378,7 +378,7 @@
           tempy3l = 0.
           tempz3l = 0.
 
-          do l=1,NGLLX
+          do l = 1,NGLLX
             fac1 = hprimewgll_xx(l,i)
             tempx1l = tempx1l + tempx1(l,j,k)*fac1
             tempy1l = tempy1l + tempy1(l,j,k)*fac1

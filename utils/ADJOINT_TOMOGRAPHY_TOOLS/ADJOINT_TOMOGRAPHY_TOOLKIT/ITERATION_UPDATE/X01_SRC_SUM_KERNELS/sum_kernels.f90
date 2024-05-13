@@ -7,8 +7,8 @@ program sum_kernels
   include '../../SHARE_FILES/HEADER_FILES/constants.h'
   include '../../SHARE_FILES/HEADER_FILES/values_from_mesher.h'
 
-  integer,parameter:: NSPEC=NSPEC_CRUST_MANTLE
-  integer,parameter:: NKERNEL=6    !bulk_betah, bulk_betav, bulk_c, eta, rho, hess
+  integer,parameter:: NSPEC = NSPEC_CRUST_MANTLE
+  integer,parameter:: NKERNEL = 6    !bulk_betah, bulk_betav, bulk_c, eta, rho, hess
 
   integer:: myrank, sizeprocs,ier
   integer:: ios,nevent,ievent,iker
@@ -42,7 +42,7 @@ program sum_kernels
 
   kernel_name=(/"reg1_bulk_betah_kernel","reg1_bulk_betav_kernel","reg1_bulk_c_kernel","reg1_eta_kernel","reg1_rho_kernel","reg1_hess_kernel"/)
 
-  nevent=0
+  nevent = 0
   open(unit=1001,file=trim(eventid),status='old',iostat=ios)
   if ( ios /= 0 ) then
      print *, 'ERROR OPENING', trim(eventid)
@@ -51,16 +51,16 @@ program sum_kernels
   do while ( 1 == 1)
      read(1001,'(a)',iostat=ios) line
      if ( ios /= 0) exit
-     nevent=nevent+1
+     nevent = nevent+1
      event_list(nevent)=line
   enddo
   close(1001)
 
 
-  do iker=1,NKERNEL
-     total_kernel=0.
+  do iker = 1,NKERNEL
+     total_kernel = 0.
 
-     do ievent=1,nevent
+     do ievent = 1,nevent
 
         if (myrank == 0) write(*,*) 'READING IN EVENT KERNEL:',trim(kernel_name(iker)),' FOR ',trim(event_list(ievent))
 

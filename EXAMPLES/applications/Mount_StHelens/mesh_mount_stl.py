@@ -14,36 +14,65 @@ import os
 import sys
 import os.path
 
-import cubit
-cubit.init([""])
+# checks for path for modules
+found_lib = False
+for path in sys.path:
+    if "geocubitlib" in path:
+        found_lib = True
+        break
+if not found_lib:
+    sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../CUBIT_GEOCUBIT/')
+#print("path:")
+#for path in sys.path: print("  ",path)
+#print("")
 
+#
+# CUBIT
+#
 try:
-	from geocubitlib import boundary_definition
-	from geocubitlib import cubit2specfem3d
+    import cubit
+except ImportError:
+    print("Error: Importing cubit as python module failed")
+    print("       Please check your PYTHONPATH settings...")
+    print("")
+    print("current path: ")
+    print(sys.path)
+    print("")
+    sys.exit("Import cubit failed")
+
+cubit.init(["-noecho","-nojournal"])
+
+#
+# GEOCUBIT
+#
+try:
+    from geocubitlib import boundary_definition
+    from geocubitlib import cubit2specfem3d
 except:
     import boundary_definition
-	import cubit2specfem3d
+    import cubit2specfem3d
 
 # time stamp
 print("#" + time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime()))
 
 # working directory
 cwd = os.getcwd()
-print("#current working directory: " + str(cwd))
+print("# current working directory: " + str(cwd))
 if cwd[len(cwd)-14:len(cwd)] != "Mount_StHelens":
-  print("")
-  print("#please run this script from example directory: SPECFEM3D/example/Mount_StHelens/")
-  print("")
+    print("")
+    print("# Please run this script from example directory: SPECFEM3D/EXAMPLES/applications/Mount_StHelens/")
+    print("")
 
 cubit.cmd('version')
 cubit.cmd('reset')
 
 os.system('rm -f topo_brick.stl topo_vol.stl topo_vol2.stl')
 
-print("running meshing script...")
+print("# running meshing script...")
 print("")
-print("note: this script uses topography surface in STL format")
-print("         meshing will take around 2 min")
+print("# note: this script uses topography surface in STL format")
+print("#       meshing will take around 2 min")
 print("")
 
 # note: this is a workaround to use STL file formats rather than ACIS formats.
@@ -71,10 +100,10 @@ cubit.cmd('export stl ascii "topo_brick.stl" overwrite')
 cubit.cmd('reset')
 #checks if new file available
 if not os.path.exists("topo_brick.stl"):
-  print("")
-  print("error creating new STL file topo_brick.stl, please check manually...")
-  print("")
-  cubit.cmd('pause')
+    print("")
+    print("# error creating new STL file topo_brick.stl, please check manually...")
+    print("")
+    cubit.cmd('pause')
 
 #############################################################
 #
@@ -84,18 +113,19 @@ if not os.path.exists("topo_brick.stl"):
 
 # topography surface
 if os.path.exists("topo.stl"):
-  print("opening existing topography surface")
-  # previously run, just reopen the cubit file
-  cubit.cmd('import stl "topo.stl" merge stitch')
+    print("# opening existing topography surface")
+    # previously run, just reopen the cubit file
+    cubit.cmd('import stl "topo.stl" merge stitch')
 else:
-  # topo surface doesn't exist yet, this creates it:
-  print("reading in topography surface")
-  # reads in topography points and creates sheet surface
-  execfile("./read_topo.py")
-  # clear
-  cubit.cmd('reset')
-  # now reopen the cubit file
-  cubit.cmd('import stl "topo.stl" merge stitch')
+    # topo surface doesn't exist yet, this creates it:
+    print("# reading in topography surface")
+    # reads in topography points and creates sheet surface
+    # old: execfile("./read_topo.py")
+    exec(open("./read_topo.py").read())
+    # clear
+    cubit.cmd('reset')
+    # now reopen the cubit file
+    cubit.cmd('import stl "topo.stl" merge stitch')
 
 # re-opens brick in STL format
 cubit.cmd('import stl "topo_brick.stl" merge stitch')
@@ -114,10 +144,10 @@ cubit.cmd('export stl ascii "topo_vol.stl" surface 9 5 6 8 11 13 overwrite')
 cubit.cmd('reset')
 #checks if new file available
 if not os.path.exists("topo_vol.stl"):
-  print("")
-  print("error creating new STL file topo_vol.stl, please check manually...")
-  print("")
-  cubit.cmd('pause')
+    print("")
+    print("# error creating new STL file topo_vol.stl, please check manually...")
+    print("")
+    cubit.cmd('pause')
 
 #############################################################
 #
@@ -128,10 +158,10 @@ if not os.path.exists("topo_vol.stl"):
 os.system('awk \'BEGIN{print \"solid Body_1\";}{if($0 !~ /solid/) print $0;}END{print \"endsolid Body_1\";}\' topo_vol.stl > topo_vol2.stl')
 #checks if new file available
 if not os.path.exists("topo_vol2.stl"):
-  print("")
-  print("error creating new STL file topo_vol2.stl, please check manually...")
-  print("")
-  cubit.cmd('pause')
+    print("")
+    print("# error creating new STL file topo_vol2.stl, please check manually...")
+    print("")
+    cubit.cmd('pause')
 
 #############################################################
 #
@@ -171,23 +201,30 @@ cubit.cmd('draw volume all')
 
 #### End of meshing
 
+# re-indexes
+cubit.cmd('compress all')
+
+# avoids assigning empty blocks
+cubit.cmd('set duplicate block elements on')
+
 ###### This is boundary_definition.py of GEOCUBIT
 #..... which extracts the bounding faces and defines them into blocks
+print('#### DEFINE BC #######################')
 boundary_definition.entities=['face']
 boundary_definition.define_bc(boundary_definition.entities,parallel=True)
 
 #### Define material properties for the 3 volumes ################
-cubit.cmd('#### DEFINE MATERIAL PROPERTIES #######################')
-
+print('#### DEFINE MATERIAL PROPERTIES #######################')
 
 cubit.cmd('block 1 name "elastic 1" ')        # elastic material region
-cubit.cmd('block 1 attribute count 6')
+cubit.cmd('block 1 attribute count 7')
 cubit.cmd('block 1 attribute index 1 1')      # flag for material: 1 for 1. material
 cubit.cmd('block 1 attribute index 2 2800')   # vp
 cubit.cmd('block 1 attribute index 3 1500')   # vs
 cubit.cmd('block 1 attribute index 4 2300')   # rho
-cubit.cmd('block 1 attribute index 5 150.0')  # Qmu
-cubit.cmd('block 1 attribute index 6 0 ')      # anisotropy_flag
+cubit.cmd('block 1 attribute index 5 9999.0')  # Qkappa
+cubit.cmd('block 1 attribute index 6 150.0')  # Qmu
+cubit.cmd('block 1 attribute index 7 0 ')      # anisotropy_flag
 
 # optional saves backups
 cubit.cmd('export mesh "top.e" dimension 3 overwrite')
@@ -203,4 +240,5 @@ cubit2specfem3d.export2SPECFEM3D('MESH')
 # all files needed by SCOTCH are now in directory MESH
 
 # time stamp
+print("# all done")
 print("#" + time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime()))

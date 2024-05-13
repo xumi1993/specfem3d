@@ -194,11 +194,11 @@
   iglob_coord(:) = 0; ispec_coord(:) = 0
 
   countval = 0
-  do ispec=1,NSPEC_AB
+  do ispec = 1,NSPEC_AB
     if (ispec_is_image_surface(ispec)) then
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
             iglob = ibool(i,j,k,ispec)
             if (iglob_is_image_surface(iglob)) then
               countval = countval + 1
@@ -330,8 +330,8 @@
     distance_z2 = 2.0*size_pixel_vertical
   endif
 
-  do j=1,NZ_IMAGE_color
-    do i=1,NX_IMAGE_color
+  do j = 1,NZ_IMAGE_color
+    do i = 1,NX_IMAGE_color
       ! calculates midpoint of pixel
       xtmp = xmin_color_image + (i-1)*size_pixel_horizontal
       ztmp = zmin_color_image + (j-1)*size_pixel_vertical
@@ -346,7 +346,7 @@
 
       ! looks for closest point to midpoint of pixel
       dist_min_pixel = HUGEVAL
-      do iglob=1,num_iglob_image_surface
+      do iglob = 1,num_iglob_image_surface
         ! point location with respect to image surface
         x_loc = xcoord(iglob)
         z_loc = zcoord(iglob)
@@ -376,12 +376,12 @@
   if (ier /= 0) call exit_mpi(myrank,'error allocating dist pixel recv')
   dist_pixel_recv(:,:) = HUGEVAL
   nb_pixel_loc = 0
-  do j=1,NZ_IMAGE_color
+  do j = 1,NZ_IMAGE_color
     ! compares with other processes
     call gather_all_all_cr(dist_pixel_image(:,j),dist_pixel_recv,NX_IMAGE_color,NPROC)
 
     ! selects entries
-    do i=1,NX_IMAGE_color
+    do i = 1,NX_IMAGE_color
       ! note: minimum location will be between 1 and NPROC
       locval = minloc(dist_pixel_recv(i,:))
       irank = locval(1) - 1
@@ -787,8 +787,8 @@
   ! compute background maximum amplitude
   bg_min = HUGEVAL
   bg_max = TINYVAL
-  do iy=1,NY
-    do ix=1,NX
+  do iy = 1,NY
+    do ix = 1,NX
       if (iglob_image_color_2D(ix,iy) > -1) then
         bg_min = min(bg_min,image_color_background_display(ix,iy))
         bg_max = max(bg_max,image_color_background_display(ix,iy))
@@ -799,8 +799,8 @@
   ! color data maximum
   amplitude_min = HUGEVAL
   amplitude_max = -HUGEVAL
-  do iy=1,NY
-    do ix=1,NX
+  do iy = 1,NY
+    do ix = 1,NX
       if (iglob_image_color_2D(ix,iy) > -1) then
         amplitude_min = min(amplitude_min,color_image_2D_data(ix,iy))
         amplitude_max = max(amplitude_max,color_image_2D_data(ix,iy))
@@ -819,8 +819,8 @@
   !         'amplitude min/max = ',amplitude_min,amplitude_max
 
   ! in the PNM format, the image starts in the upper-left corner
-  do iy=NY,1,-1
-    do ix=1,NX
+  do iy = NY,1,-1
+    do ix = 1,NX
       ! check if pixel is defined or not (can be above topography for instance)
       if (iglob_image_color_2D(ix,iy) == -1) then
         ! use white (/ black /light blue) to display undefined region above topography
@@ -958,9 +958,9 @@
   integer :: i,j,k
 
   ! returns first vp encountered for iglob index
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         if (ibool(i,j,k,ispec) == iglob) then
           ! calculates vp
           if (ELASTIC_SIMULATION) then
@@ -995,9 +995,9 @@
   integer :: i,j,k
 
   ! returns first vs encountered for iglob index
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         if (ibool(i,j,k,ispec) == iglob) then
           ! calculates vs
           vs = sqrt( mustore(i,j,k,ispec) / rhostore(i,j,k,ispec) )
@@ -1026,9 +1026,9 @@
   integer :: i,j,k
 
   ! returns first vs encountered for iglob index
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         if (ibool(i,j,k,ispec) == iglob) then
           ! returns rho
           rho = rhostore(i,j,k,ispec)
@@ -1109,9 +1109,9 @@
       endif
 
       ! returns corresponding iglob velocity entry
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
             if (ibool(i,j,k,ispec) == iglob) then
               val_vector(:) = val_element(:,i,j,k)
               return

@@ -73,7 +73,7 @@
     write(11,*) 'object 1 class array type float rank 1 shape 3 items ',npoin,' data follows'
 
 ! read local points in this slice and output global DX points
-  do ipoin=1,npoin
+  do ipoin = 1,npoin
     write(11,*) x(ipoin),y(ipoin),z(ipoin)
   enddo
 
@@ -89,7 +89,7 @@
   write(11,*) 'object 2 class array type int rank 1 shape 8 items ',nspec,' data follows'
 
 ! read local elements in this slice and output global DX elements
-  do ispec=1,nspec
+  do ispec = 1,nspec
     read(23,*) ispec_read,i1,i2,i3,i4,i5,i6,i7,i8
     ibool(1,ispec_read) = i1
     ibool(2,ispec_read) = i2
@@ -103,7 +103,7 @@
 
 ! point order in OpenDX is 4,1,8,5,3,2,7,6, *not* 1,2,3,4,5,6,7,8 as in AVS or SPECFEM
 ! and point numbers start at 0 rather than 1
-  do ispec=1,nspec
+  do ispec = 1,nspec
     write(11,"(i9,1x,i9,1x,i9,1x,i9,1x,i9,1x,i9,1x,i9,1x,i9)") &
                  ibool(4,ispec)-1,ibool(1,ispec)-1,ibool(8,ispec)-1,ibool(5,ispec)-1, &
                  ibool(3,ispec)-1,ibool(2,ispec)-1,ibool(7,ispec)-1,ibool(6,ispec)-1
@@ -120,14 +120,14 @@
 
 ! read local elements in this slice and output global DX elements
     open(unit=23,file='materials_file',status='old',action='read')
-    do ispec=1,nspec
+    do ispec = 1,nspec
 ! beware: elements may not be listed in increasing order, they can appear in any order
       read(23,*) ispec_read,imat_read
       imat(ispec_read) = imat_read
     enddo
     close(23)
 
-  do ispec=1,nspec
+  do ispec = 1,nspec
     val_color = imat(ispec) ! use material property read to color the elements
     write(11,*) val_color
   enddo

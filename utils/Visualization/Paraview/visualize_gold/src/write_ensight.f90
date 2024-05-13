@@ -43,14 +43,14 @@ if (out_nslice > 1) then
   write(121,'(a,i2,/)')'number of servers:    ',out_nslice
 
   ! Loop over output slices
-  do i_slice=1,out_nslice
+  do i_slice = 1,out_nslice
     write(121,'(a,i2)')'#Server ',i_slice
     write(121,'(a)')'machine id: '//trim(server_name(i_slice))
     write(121,'(a)')'executable: '//trim(server_exec(i_slice))
     write(121,'(a)')'#login id: '
     write(121,'(a)')'#data_path: '
     write(tmp_str,*)i_slice
-    file_head=trim(out_head)//'_server'//trim(adjustl(tmp_str))
+    file_head = trim(out_head)//'_server'//trim(adjustl(tmp_str))
     write(121,'(a,/)')'casefile: '//trim(file_head)//'.case'
   enddo
   close(121)
@@ -58,8 +58,8 @@ endif
 
 write(*,'(a)')'writing ensight gold files...'
 ! Loop over output slices
-do i_slice=1,out_nslice
-  !write(*,*)'slice: ',i_slice
+do i_slice = 1,out_nslice
+  !write(*,*) 'slice: ',i_slice
   ! counts total number of points
   !nnode = 0
   !nelmt = 0
@@ -68,8 +68,8 @@ do i_slice=1,out_nslice
   !slice_proc_list(i_slice,1:slice_nproc(i_slice)),proc_width, &
   !inp_path,nnode,nelmt,out_res)
   !write(*,'(a)')'complete!'
-  !write(*,*)'  Total number of nodes: ',nnode
-  !write(*,*)'  Total number of elements: ',nelmt
+  !write(*,*) '  Total number of nodes: ',nnode
+  !write(*,*) '  Total number of elements: ',nelmt
 
   ! Ensight Gold files
   call write_ensight_serial(i_slice,slice_nproc(i_slice),slice_proc_list(i_slice,1:slice_nproc(i_slice)))
@@ -122,10 +122,10 @@ else
 endif
 
 write(tmp_str,*)i_slice
-file_head=trim(out_head)//'_server'//trim(adjustl(tmp_str))
+file_head = trim(out_head)//'_server'//trim(adjustl(tmp_str))
 
 ! write Ensight Gold case file
-ts=1 ! Time set
+ts = 1 ! Time set
 
 !write(*,'(a)',advance='no')'writing Ensight case file...'
 open(unit=11, file=trim(out_path)// '/' // trim(file_head)//'.case', status='replace', action='write', iostat=ios)
@@ -160,7 +160,7 @@ write(11,'(a,i10)')'filename start number:',t_start
 write(11,'(a,i10)')'filename increment:',t_inc
 write(11,'(a)',advance='no')'time values: '
 
-do i=1,t_nstep
+do i = 1,t_nstep
   write(11,'(e12.5)',advance='yes')(t_start+(i-1)*t_inc)*DT
 enddo
 close(11)
@@ -172,11 +172,11 @@ close(11)
 !write(*,*) proc_list(1:nproc)
 
 ! open Ensight Gold geo file to store mesh data
-geo_file = trim(out_path) // '/' // trim(file_head)//'.geo' !; write(*,*)geo_file
+geo_file = trim(out_path) // '/' // trim(file_head)//'.geo' !; write(*,*) geo_file
 call open_file2write(trim(geo_file)//char(0),fd)
 
-npart=1
-!write(*,*)nnode,nelmt
+npart = 1
+!write(*,*) nnode,nelmt
 buffer='C Binary'
 call write_string(buffer//char(0),fd)
 buffer='Created by write_ensight Routine'
@@ -262,7 +262,7 @@ do i_proc = 1, nproc
     stop
   endif
 
-  !write(*,*)'  points:',node_count,nnode
+  !write(*,*) '  points:',node_count,nnode
 
   ! stores total number of points written
   node_count = node_count + nnode
@@ -285,9 +285,9 @@ endif
 !write coordinates to file
 !call open_file2read('tmp_x'//char(0),fd_x)
 call open_file2read('../tmp/tmp_x'//char(0),fd_x)
-do i=1,slice_nnode(i_slice)
+do i = 1,slice_nnode(i_slice)
   call read_float(tmp_real,fd_x)
-  !write(*,*)'new:',tmp_real
+  !write(*,*) 'new:',tmp_real
   !stop
   call write_float(tmp_real,fd)
 enddo
@@ -296,14 +296,14 @@ call close_delete_file('../tmp/tmp_x'//char(0),fd_x)
 
 
 call open_file2read('../tmp/tmp_y'//char(0),fd_y)
-do i=1,slice_nnode(i_slice)
+do i = 1,slice_nnode(i_slice)
   call read_float(tmp_real,fd_y)
   call write_float(tmp_real,fd)
 enddo
 call close_delete_file('../tmp/tmp_y'//char(0),fd_y)
 
 call open_file2read('../tmp/tmp_z'//char(0),fd_z)
-do i=1,slice_nnode(i_slice)
+do i = 1,slice_nnode(i_slice)
   call read_float(tmp_real,fd_z)
   call write_float(tmp_real,fd)
 enddo
@@ -311,7 +311,7 @@ call close_delete_file('../tmp/tmp_z'//char(0),fd_z)
 
 
 ! writes element information
-buffer=ensight_etype
+buffer = ensight_etype
 call write_string(buffer//char(0),fd)
 call write_integer(slice_nelmt(i_slice),fd)
 elmt_count = 0
@@ -352,8 +352,8 @@ do i_proc = 1, nproc
     stop
   endif
 
-  !write(*,*)'  elements:',elmt_count,nelmt
-  !write(*,*)'  points : ',node_count,nnode
+  !write(*,*) '  elements:',elmt_count,nelmt
+  !write(*,*) '  points : ',node_count,nnode
 
   elmt_count = elmt_count + nelmt
 
@@ -382,7 +382,7 @@ endif
 write(tmp_str,*)ceiling(log10(real(t_nstep)+1))
 format_str3='(a,a,i'//trim(adjustl(tmp_str))//',a,i'//trim(adjustl(tmp_str))
 write(tmp_str,*)ceiling(log10(real(out_nslice)+1))
-format_str3=trim(format_str3)//',a,i'//trim(adjustl(tmp_str))//',a,i'//trim(adjustl(tmp_str))//')'
+format_str3 = trim(format_str3)//',a,i'//trim(adjustl(tmp_str))//',a,i'//trim(adjustl(tmp_str))//')'
 
 if (out_ncomp == 1) then
   out_ext='.scl'
@@ -396,12 +396,12 @@ else
 endif
 
 !write(*,'(a)',advance='no')'time step: '
-do i_t=1,t_nstep
+do i_t = 1,t_nstep
   tstep=t_start + (i_t-1)*t_inc
 
   ! Open Ensight Gold data file to store data
   write(out_fname,fmt=format_str1)trim(out_path) // '/'//trim(file_head)//'_',tstep,trim(out_ext)
-  npart=1;
+  npart = 1;
   call open_file2write(trim(out_fname)//char(0),fd)
   buffer='Scalar data'
   call write_string(buffer//char(0),fd)
@@ -417,7 +417,7 @@ do i_t=1,t_nstep
 
 
   if (out_ncomp > 1) then
-    do i_comp=1,out_ncomp
+    do i_comp = 1,out_ncomp
       node_count = 0
       do i_proc = 1, nproc
 
@@ -441,7 +441,7 @@ do i_t=1,t_nstep
           open(unit = 11,file = trim(inp_fname),status='old', &
             action='read', iostat = ios,form ='unformatted')
           if (ios /= 0) then
-            write(*,*)'Error opening '//trim(inp_fname)
+            write(*,*) 'Error opening '//trim(inp_fname)
             stop
           endif
 
@@ -472,7 +472,7 @@ do i_t=1,t_nstep
           open(unit = 11,file = trim(inp_fname),status='old', &
             action='read', iostat = ios,form ='unformatted')
           if (ios /= 0) then
-            write(*,*)'Error opening ',trim(inp_fname)
+            write(*,*) 'Error opening ',trim(inp_fname)
             stop
           endif
 
@@ -497,7 +497,7 @@ do i_t=1,t_nstep
         endif ! if dat_topo == 0
         deallocate(ibool)
 
-        !write(*,*)'  points:',node_count,nnode
+        !write(*,*) '  points:',node_count,nnode
 
         ! stores total number of points written
         node_count = node_count + nnode
@@ -527,25 +527,25 @@ do i_t=1,t_nstep
       if (dat_topo == 0) then
         allocate(tmp_dat(NGLLX,NGLLY,NGLLZ,NSPEC_AB))
         allocate(dat(NGLLX,NGLLY,NGLLZ,NSPEC_AB))
-        tmp_dat=0.0
-        do i_comp=1,inp_ncomp
+        tmp_dat = 0.0
+        do i_comp = 1,inp_ncomp
           ! data file
           write(inp_fname,fmt=format_str2)trim(out_path)//'/'//trim(proc_head), &
             iproc,trim(inp_head(i_comp)),tstep,trim(inp_ext)
           open(unit = 222,file = trim(inp_fname),status='old', &
             action='read', iostat = ios,form ='unformatted')
           if (ios /= 0) then
-            write(*,*)'Error opening '//trim(inp_fname)
+            write(*,*) 'Error opening '//trim(inp_fname)
             stop
           endif
 
           read(222) dat
           close(222)
           tmp_dat=tmp_dat+real(dat)
-          !write(*,*)inp_fname
+          !write(*,*) inp_fname
         enddo
         if (inp_ncomp == 3 .and. out_ncomp == 1) then
-          tmp_dat=0.5*tmp_dat ! Equivalent to S-wave potential
+          tmp_dat = 0.5*tmp_dat ! Equivalent to S-wave potential
         endif
 
         ! writes point coordinates and scalar value to mesh file
@@ -567,8 +567,8 @@ do i_t=1,t_nstep
       else if (dat_topo == 1) then
         allocate(tmp_dat_glob(NGLOB_AB))
         allocate(dat_glob(NGLOB_AB))
-        tmp_dat=0.0
-        do i_comp=1,inp_ncomp
+        tmp_dat = 0.0
+        do i_comp = 1,inp_ncomp
           ! data file
           write(inp_fname,fmt=format_str2)trim(out_path)//'/'//trim(proc_head), &
             iproc,trim(inp_head(i_comp)),tstep,trim(inp_ext)
@@ -581,10 +581,10 @@ do i_t=1,t_nstep
 
           read(11) dat_glob
           tmp_dat_glob=tmp_dat_glob+real(dat_glob)
-          !write(*,*)inp_fname
+          !write(*,*) inp_fname
         enddo
         if (inp_ncomp == 3 .and. out_ncomp == 1) then
-          tmp_dat_glob=0.5*tmp_dat_glob ! Equivalent to S-wave potential
+          tmp_dat_glob = 0.5*tmp_dat_glob ! Equivalent to S-wave potential
         endif
 
         ! writes point coordinates and scalar value to mesh file
@@ -605,7 +605,7 @@ do i_t=1,t_nstep
         deallocate(ibool,dat_glob,tmp_dat_glob)
       endif ! if dat_topo == 0
 
-      !write(*,*)'  points:',node_count,nnode
+      !write(*,*) '  points:',node_count,nnode
 
       ! stores total number of points written
       node_count = node_count + nnode
@@ -626,7 +626,7 @@ do i_t=1,t_nstep
   ! Display progress
   write(*,fmt=format_str3,advance='no')CR,' slice: ',i_slice,'/',out_nslice,', time step: ',i_t,'/',t_nstep
 
-enddo ! do i_t=1,t_nstep
+enddo ! do i_t = 1,t_nstep
 
 !write(*,'(a)')' complete!'
 

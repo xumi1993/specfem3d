@@ -38,7 +38,7 @@ program xcopy_local
     cp = "cp"
   endif
 
-  do iregion_code=1,3
+  do iregion_code = 1,3
     ! process name
     write(procname,"('/proc',i6.6,'_reg',i1,'_')") myrank,iregion_code
 

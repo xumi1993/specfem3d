@@ -15,8 +15,8 @@
 
 ! read file
   open(unit=13,file='gmt_movie_000001.xyz',status='old')
-  do iy=1,NEX_ETA
-    do ix=1,NEX_XI
+  do iy = 1,NEX_ETA
+    do ix = 1,NEX_XI
       read(13,*) long(ix,iy),lat(ix,iy),uz(ix,iy)
     enddo
   enddo
@@ -26,16 +26,16 @@
   open(unit=3,file='gmt_movie.dx',status='unknown')
   write(3,*) 'object 1 class array type float rank 1 shape 3 items ',NEX_XI*NEX_ETA,' data follows'
 
-  do iy=1,NEX_ETA
-    do ix=1,NEX_XI
+  do iy = 1,NEX_ETA
+    do ix = 1,NEX_XI
       write(3,*) sngl(long(ix,iy)),sngl(lat(ix,iy)),' 0'
     enddo
   enddo
 
   write(3,*) 'object 2 class array type int rank 1 shape 4 items ',(NEX_XI-1)*(NEX_ETA-1),' data follows'
 
-  do iy=1,NEX_ETA-1
-    do ix=1,NEX_XI-1
+  do iy = 1,NEX_ETA-1
+    do ix = 1,NEX_XI-1
       iglob1 = (iy-1)*NEX_XI + ix
       iglob2 = (iy-1)*NEX_XI + ix+1
       iglob3 = (iy+1-1)*NEX_XI + ix+1
@@ -48,8 +48,8 @@
   write(3,*) 'attribute "ref" string "positions"'
   write(3,*) 'object 3 class array type float rank 0 items ',NEX_XI*NEX_ETA,' data follows'
 
-  do iy=1,NEX_ETA
-    do ix=1,NEX_XI
+  do iy = 1,NEX_ETA
+    do ix = 1,NEX_XI
       write(3,*) uz(ix,iy)
     enddo
   enddo

@@ -9,8 +9,8 @@ program cg_test
 ! ======================================================
 
 !  integer, parameter :: NSLICES=168
-  integer, parameter :: NSPEC=NSPEC_AB
-  integer, parameter :: NGLOB=NGLOB_AB
+  integer, parameter :: NSPEC = NSPEC_AB
+  integer, parameter :: NGLOB = NGLOB_AB
 
   character(len=150) :: sline, k_file, kernel_name
   logical :: global_code
@@ -104,9 +104,9 @@ program cg_test
   call zwgljd(xigll,wxgll,NGLLX,GAUSSALPHA,GAUSSBETA)
   call zwgljd(yigll,wygll,NGLLY,GAUSSALPHA,GAUSSBETA)
   call zwgljd(zigll,wzgll,NGLLZ,GAUSSALPHA,GAUSSBETA)
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         wgll_cube(i,j,k) = wxgll(i)*wygll(j)*wzgll(k)
       enddo
     enddo

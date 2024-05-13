@@ -30,7 +30,7 @@ Step-by-step tutorial:
      If successful, this will generate the files in setup/:
      config.h, constants.h, precision.h, among others
 
-   - Copy run scripts for your particular cluster from utils/scripts/Cluster/ into SPECFEM3D/, 
+   - Copy run scripts for your particular cluster from utils/scripts/Cluster/ into SPECFEM3D/,
      e.g., go_mesher_slurm.bash, go_generate_databases_slurm.bash, and go_solver_slurm.bash
 
      > cp utils/scripts/Cluster/slurm/*.bash .
@@ -107,11 +107,11 @@ Step-by-step tutorial:
            You can track the progress with the timestamp files
            generated in OUTPUT_FILES/
 
-   - when the job is complete, you should have 6 velocity seismogram files and 2 pressure seismogram files in the directory OUTPUT_FILES. 
+   - when the job is complete, you should have 6 velocity seismogram files and 2 pressure seismogram files in the directory OUTPUT_FILES.
      There will also be 330 timestamp****** files (halfspace example) or 67 timestamp****** files (topography example).
-     > ls OUTPUT_FILES/\*semv | wc -l  
-     > ls OUTPUT_FILES/\*semp | wc -l  
-     > ls OUTPUT_FILES/timestamp\* | wc -l  
+     > ls OUTPUT_FILES/\*semv | wc -l
+     > ls OUTPUT_FILES/\*semp | wc -l
+     > ls OUTPUT_FILES/timestamp\* | wc -l
 
 7. Check with the four reference seismograms in SPECFEM3D/EXAMPLES/reproducible_study/seismoacoustic_bishop2022/REF_SEIS_FIG[48]/
 
@@ -129,7 +129,7 @@ Step-by-step tutorial:
 
    - Example: from SPECFEM3D/, quick viewing using xmgrace (if available):
 
-     > xmgrace EXAMPLES/reproducible_study/seismoacoustic_bishop2022/REF_SEIS_FIG4/JP.STN83S.FXZ.semv &  
+     > xmgrace EXAMPLES/reproducible_study/seismoacoustic_bishop2022/REF_SEIS_FIG4/JP.STN83S.FXZ.semv &
      > xmgrace OUTPUT_FILES/JP.STN83S.FXZ.semv &
 
 

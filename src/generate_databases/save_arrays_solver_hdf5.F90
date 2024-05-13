@@ -344,47 +344,47 @@
     call h5_create_dataset_gen(dset_name,(/NPROC/), 1, CUSTOM_REAL)
 
     if (sum(offset_nspec_irregular) > 0) then
-      dset_name = "xixstore" ! 4 r  (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "xixstore" ! 4 r  (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/NGLLX,NGLLY,NGLLZ,sum(offset_nspec_irregular(:))/), 4, CUSTOM_REAL)
-      dset_name = "xiystore" ! 4 r  (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "xiystore" ! 4 r  (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/NGLLX,NGLLY,NGLLZ,sum(offset_nspec_irregular(:))/), 4, CUSTOM_REAL)
-      dset_name = "xizstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "xizstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/NGLLX,NGLLY,NGLLZ,sum(offset_nspec_irregular(:))/), 4, CUSTOM_REAL)
-      dset_name = "etaxstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "etaxstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/NGLLX,NGLLY,NGLLZ,sum(offset_nspec_irregular(:))/), 4, CUSTOM_REAL)
-      dset_name = "etaystore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "etaystore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/NGLLX,NGLLY,NGLLZ,sum(offset_nspec_irregular(:))/), 4, CUSTOM_REAL)
-      dset_name = "etazstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "etazstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/NGLLX,NGLLY,NGLLZ,sum(offset_nspec_irregular(:))/), 4, CUSTOM_REAL)
-      dset_name = "gammaxstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "gammaxstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/NGLLX,NGLLY,NGLLZ,sum(offset_nspec_irregular(:))/), 4, CUSTOM_REAL)
-      dset_name = "gammaystore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "gammaystore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/NGLLX,NGLLY,NGLLZ,sum(offset_nspec_irregular(:))/), 4, CUSTOM_REAL)
-      dset_name = "gammazstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "gammazstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/NGLLX,NGLLY,NGLLZ,sum(offset_nspec_irregular(:))/), 4, CUSTOM_REAL)
-      dset_name = "jacobianstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "jacobianstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/NGLLX,NGLLY,NGLLZ,sum(offset_nspec_irregular(:))/), 4, CUSTOM_REAL)
     else
       ! dummy
-      dset_name = "xixstore" ! 4 r  (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "xixstore" ! 4 r  (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/1,1,1,1/), 4, CUSTOM_REAL)
-      dset_name = "xiystore" ! 4 r  (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "xiystore" ! 4 r  (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/1,1,1,1/), 4, CUSTOM_REAL)
-      dset_name = "xizstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "xizstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/1,1,1,1/), 4, CUSTOM_REAL)
-      dset_name = "etaxstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "etaxstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/1,1,1,1/), 4, CUSTOM_REAL)
-      dset_name = "etaystore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "etaystore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/1,1,1,1/), 4, CUSTOM_REAL)
-      dset_name = "etazstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "etazstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/1,1,1,1/), 4, CUSTOM_REAL)
-      dset_name = "gammaxstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "gammaxstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/1,1,1,1/), 4, CUSTOM_REAL)
-      dset_name = "gammaystore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "gammaystore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/1,1,1,1/), 4, CUSTOM_REAL)
-      dset_name = "gammazstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "gammazstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/1,1,1,1/), 4, CUSTOM_REAL)
-      dset_name = "jacobianstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+      dset_name = "jacobianstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
       call h5_create_dataset_gen(dset_name,(/1,1,1,1/), 4, CUSTOM_REAL)
     endif
 
@@ -916,25 +916,25 @@
   call h5_write_dataset_collect_hyperslab(dset_name,(/xix_regular/),(/myrank/),if_col)
   dset_name = "jacobian_regular" ! 1 r (/myrank/)
   call h5_write_dataset_collect_hyperslab(dset_name,(/jacobian_regular/),(/myrank/),if_col)
-  dset_name = "xixstore" ! 4 r  (/0,0,0,offset_nspec_irregular=offset_nspec/)
+  dset_name = "xixstore" ! 4 r  (/0,0,0,offset_nspec_irregular = offset_nspec/)
   call h5_write_dataset_collect_hyperslab(dset_name,xixstore,(/0,0,0,sum(offset_nspec_irregular(0:myrank-1))/),if_col)
-  dset_name = "xiystore" ! 4 r  (/0,0,0,offset_nspec_irregular=offset_nspec/)
+  dset_name = "xiystore" ! 4 r  (/0,0,0,offset_nspec_irregular = offset_nspec/)
   call h5_write_dataset_collect_hyperslab(dset_name,xiystore,(/0,0,0,sum(offset_nspec_irregular(0:myrank-1))/),if_col)
-  dset_name = "xizstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+  dset_name = "xizstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
   call h5_write_dataset_collect_hyperslab(dset_name,xizstore,(/0,0,0,sum(offset_nspec_irregular(0:myrank-1))/),if_col)
-  dset_name = "etaxstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+  dset_name = "etaxstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
   call h5_write_dataset_collect_hyperslab(dset_name,etaxstore,(/0,0,0,sum(offset_nspec_irregular(0:myrank-1))/),if_col)
-  dset_name = "etaystore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+  dset_name = "etaystore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
   call h5_write_dataset_collect_hyperslab(dset_name,etaystore,(/0,0,0,sum(offset_nspec_irregular(0:myrank-1))/),if_col)
-  dset_name = "etazstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+  dset_name = "etazstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
   call h5_write_dataset_collect_hyperslab(dset_name,etazstore,(/0,0,0,sum(offset_nspec_irregular(0:myrank-1))/),if_col)
-  dset_name = "gammaxstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+  dset_name = "gammaxstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
   call h5_write_dataset_collect_hyperslab(dset_name,gammaxstore,(/0,0,0,sum(offset_nspec_irregular(0:myrank-1))/),if_col)
-  dset_name = "gammaystore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+  dset_name = "gammaystore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
   call h5_write_dataset_collect_hyperslab(dset_name,gammaystore,(/0,0,0,sum(offset_nspec_irregular(0:myrank-1))/),if_col)
-  dset_name = "gammazstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+  dset_name = "gammazstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
   call h5_write_dataset_collect_hyperslab(dset_name,gammazstore,(/0,0,0,sum(offset_nspec_irregular(0:myrank-1))/),if_col)
-  dset_name = "jacobianstore" ! 4 r (/0,0,0,offset_nspec_irregular=offset_nspec/)
+  dset_name = "jacobianstore" ! 4 r (/0,0,0,offset_nspec_irregular = offset_nspec/)
   call h5_write_dataset_collect_hyperslab(dset_name,jacobianstore,(/0,0,0,sum(offset_nspec_irregular(0:myrank-1))/),if_col)
   dset_name = "kappastore" ! 4 r (/0,0,0,offset_nspec/)
   call h5_write_dataset_collect_hyperslab(dset_name,kappastore,(/0,0,0,sum(offset_nspec(0:myrank-1))/),if_col)
@@ -1523,13 +1523,13 @@
   integer :: ispec,ii,icub,jcub,kcub
   integer, parameter :: cell_type = 9
 
-  do ispec=1, nspec
+  do ispec = 1, nspec
     ! extract information from full GLL grid
     ! node order follows vtk format
 
-    do icub=0,NGLLX-2
-      do jcub=0,NGLLY-2
-        do kcub=0,NGLLZ-2
+    do icub = 0,NGLLX-2
+      do jcub = 0,NGLLY-2
+        do kcub = 0,NGLLZ-2
           ii = 1+(ispec-1)*(NGLLX-1)*(NGLLY-1)*(NGLLZ-1) + (icub*(NGLLY-1)*(NGLLZ-1)+jcub*(NGLLZ-1)+kcub)
           elm_conn(1, ii)  = cell_type
           elm_conn(2, ii)  = ibool(icub+1,jcub+1,kcub+1,ispec)-1+o ! node id starts 0 in xdmf rule

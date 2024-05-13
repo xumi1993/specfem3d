@@ -122,7 +122,7 @@ contains
     iunit = 3
 
     if (norder /= 0) then
-       npoles=abs(norder)
+       npoles = abs(norder)
        !determination of filter coefficients
        call bpcoeff(f1,f2,npoles, dt, a,b1, b2)
        if (norder >= 0) then
@@ -170,8 +170,8 @@ contains
        do i = 2, npoles
           z(i) = a(i)*(z(i-1)-z2(i-1))-b1(i)*z1(i)-b2(i)*z2(i)
        enddo
-       x2=x1
-       x1=x(n)
+       x2 = x1
+       x1 = x(n)
        do i = 1, npoles
           z2(i) =z1(i)
           z1(i) =z(i)
@@ -195,11 +195,11 @@ contains
 
     do n = ndat, 1, -1
        z(1) = a(1)*(y(n)-x2)-b1(1)*z1(1)-b2(1)*z2(1)
-       do i =2, npoles
+       do i = 2, npoles
           z(i) = a(i)*(z(i-1)-z2(i-1))-b1(i)*z1(i)-b2(i)*z2(i)
        enddo
-       x2=x1
-       x1=y(n)
+       x2 = x1
+       x1 = y(n)
        do i = 1,npoles
           z2(i)=z1(i)
           z1(i)=z(i)
@@ -224,27 +224,27 @@ contains
     endif
 
     d2= 2/dt
-    w1=d2*tan(2.*pi*f1/d2)
-    w2=d2*tan(2.*pi*f2/d2)
-    w0=0.5*(w2-w1)
+    w1 = d2*tan(2.*pi*f1/d2)
+    w2 = d2*tan(2.*pi*f2/d2)
+    w0 = 0.5*(w2-w1)
 
-    i=1
-    npol2=npoles/2+1
-    do n =1,npoles
+    i = 1
+    npol2 = npoles/2+1
+    do n = 1,npoles
        p = cexp(cmplx(0.,real(2*n-1+npoles)*pi/real(2*npoles)))
        t1 = p*cmplx(w0,0.)
        t2 = sqrt(t1*t1-cmplx(w1*w2,0.))
        s(i)=t1+t2
        s(i+1)=t1-t2
-       i=i+2
+       i = i+2
     enddo
 
-    do n=1,npoles
-       ssum=2*real(s(n))
-       sprod=real(s(n)*conjg(s(n)))
-       fact1=d2*d2-d2*ssum+sprod
-       fact2=2.*(sprod-d2*d2)
-       fact3=d2*d2+d2*ssum+sprod
+    do n = 1,npoles
+       ssum = 2*real(s(n))
+       sprod = real(s(n)*conjg(s(n)))
+       fact1 = d2*d2-d2*ssum+sprod
+       fact2 = 2.*(sprod-d2*d2)
+       fact3 = d2*d2+d2*ssum+sprod
        a(n)=2.*d2*w0/fact1
        b1(n)=fact2/fact1
        b2(n)=fact3/fact1
@@ -314,7 +314,7 @@ contains
        crosscorr = crosscorr * dt
 
        !* Find maximum of correlation
-       ii = maxloc(abs(crosscorr),dim=1)
+       ii = maxloc(abs(crosscorr),dim = 1)
 
        !* Put local contibution to src_one and src_sum
        src_one     = 0._cp
@@ -353,8 +353,8 @@ contains
      convtmp = zero
 
      !*** Convolve
-     do i1=1,n1
-        do i2=1,n2
+     do i1 = 1,n1
+        do i2 = 1,n2
            convtmp(i1+i2-1) = convtmp(i1+i2-1) + sig1(i1) * sig2(i2)
         enddo
      enddo
@@ -421,7 +421,7 @@ contains
      endif
 
      !*** Flip second signal
-     do i=1,n2
+     do i = 1,n2
         flipsig2(i) = sig2(n2-i+1)
      enddo
 
@@ -468,7 +468,7 @@ contains
 
      !*** Find delay
      maxcorr = maxval(abs(corr))
-     do it=1,n1
+     do it = 1,n1
         if (abs(corr(it)) == maxcorr) then
            lag = it-ind
            exit
@@ -502,7 +502,7 @@ contains
      tmpsta(nsta+1:nsta+n) = sig(:)
      tmpsta(nsta+n+1:n+2*nsta) = sig(n)
      sta = zero
-     do i=1+nsta,n+nsta
+     do i = 1+nsta,n+nsta
         sta(i-nsta) = sum(tmpsta(i-nsta:i+nsta)**2)
      enddo
      sta = 0.5 * sta / nsta
@@ -512,14 +512,14 @@ contains
      tmplta(nlta+1:nlta+n) = sig(:)
      tmplta(nlta+n+1:n+2*nlta) = sig(n)
      lta = zero
-     do i=1+nlta,n+nlta
+     do i = 1+nlta,n+nlta
         lta(i-nlta) = sum(tmplta(i-nlta:i+nlta)**2)
      enddo
      lta = 0.5 * lta / nlta
 
      !*** Compute ratio and gives first pick
      stalta = sta / lta
-     do i=1,n
+     do i = 1,n
         if (stalta(i) >= crit) then
            tpick = i
            exit
@@ -595,7 +595,7 @@ contains
     call locate_bissection(valz,nz,z,indz)
 
 
-    m=2
+    m = 2
     kx = min(max(indx-(m-1)/2,1),nx+1-m)
     ky = min(max(indy-(m-1)/2,1),ny+1-m)
     kz = min(max(indz-(m-1)/2,1),nz+1-m)
@@ -799,9 +799,9 @@ contains
                 tapz(ndom(3)/2:ndom(3))=1.
      endif
 
-     do k=1,ndom(3)
-        do j=1,ndom(2)
-           do i=1,ndom(1)
+     do k = 1,ndom(3)
+        do j = 1,ndom(2)
+           do i = 1,ndom(1)
               taper(i,j,k) = tapx(i) * tapy(j) * tapz(k)
            enddo
         enddo
@@ -834,14 +834,14 @@ contains
     tuk(:) = 1.
 
     !*** Left part
-    do i=0,int(0.5*alpha*(N-1))
+    do i = 0,int(0.5*alpha*(N-1))
        if (i+1 > 0 .and. i+1 <= N) then
           tuk(i+1) = 0.5*(1+cos(pipi*(2.*i/(alpha*(N-1.))-1.)))
        endif
     enddo
 
     !*** Right part
-    do i=int((N-1)*(1-alpha/2.)),N-1
+    do i = int((N-1)*(1-alpha/2.)),N-1
        if (i+1 > 0 .and. i+1 <= N) then
           tuk(i+1) = 0.5*(1+cos(pipi*(2.*i/(alpha*(N-1.))-(2./alpha)+1.)))
        endif

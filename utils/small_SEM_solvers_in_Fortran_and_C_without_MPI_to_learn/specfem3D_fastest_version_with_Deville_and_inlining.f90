@@ -205,8 +205,8 @@
   enddo
 
   open(unit=IIN,file='DATABASES_FOR_SOLVER/matrices.dat',status='old')
-  do j=1,NGLLY
-    do i=1,NGLLX
+  do j = 1,NGLLY
+    do i = 1,NGLLX
       read(IIN,*) hprime_xx(i,j)
       read(IIN,*) hprimewgll_xx(i,j)
       read(IIN,*) wgllwgll_yz(i,j)
@@ -381,9 +381,9 @@
 ! to the acceleration vector of each element of the finite-element mesh
   do ispec = 1,NSPEC
 
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
             iglob = ibool(i,j,k,ispec)
             dummyx_loc(i,j,k) = displ(1,iglob)
             dummyy_loc(i,j,k) = displ(2,iglob)
@@ -396,8 +396,8 @@
 ! for incompressible fluid flow, Cambridge University Press (2002),
 ! pages 386 and 389 and Figure 8.3.1
 ! call mxm_m1_m2_5points(hprime_xx,dummyx_loc,dummyy_loc,dummyz_loc,tempx1,tempy1,tempz1)
-  do j=1,m2
-    do i=1,m1
+  do j = 1,m2
+    do i = 1,m1
       C1_m1_m2_5points(i,j) = hprime_xx(i,1)*B1_m1_m2_5points(1,j) + &
                               hprime_xx(i,2)*B1_m1_m2_5points(2,j) + &
                               hprime_xx(i,3)*B1_m1_m2_5points(3,j) + &
@@ -420,8 +420,8 @@
 
 !   call mxm_m1_m1_5points(dummyx_loc(1,1,k),dummyy_loc(1,1,k),dummyz_loc(1,1,k), &
 !          hprime_xxT,tempx2(1,1,k),tempy2(1,1,k),tempz2(1,1,k))
-  do j=1,m1
-    do i=1,m1
+  do j = 1,m1
+    do i = 1,m1
 ! for efficiency it is better to leave this loop on k inside, it leads to slightly faster code
       do k = 1,NGLLX
         tempx2(i,j,k) = dummyx_loc(i,1,k)*hprime_xxT(1,j) + &
@@ -446,8 +446,8 @@
   enddo
 
 ! call mxm_m2_m1_5points(dummyx_loc,dummyy_loc,dummyz_loc,tempx3,tempy3,tempz3)
-  do j=1,m1
-    do i=1,m2
+  do j = 1,m1
+    do i = 1,m2
       C1_mxm_m2_m1_5points(i,j) = A1_mxm_m2_m1_5points(i,1)*hprime_xxT(1,j) + &
                                   A1_mxm_m2_m1_5points(i,2)*hprime_xxT(2,j) + &
                                   A1_mxm_m2_m1_5points(i,3)*hprime_xxT(3,j) + &
@@ -468,9 +468,9 @@
     enddo
   enddo
 
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
 
 !         tempx1l = 0.
 !         tempx2l = 0.
@@ -578,8 +578,8 @@
 ! for incompressible fluid flow, Cambridge University Press (2002),
 ! pages 386 and 389 and Figure 8.3.1
 ! call mxm_m1_m2_5points(hprimewgll_xxT,tempx1,tempy1,tempz1,newtempx1,newtempy1,newtempz1)
-  do j=1,m2
-    do i=1,m1
+  do j = 1,m2
+    do i = 1,m1
       E1_m1_m2_5points(i,j) = hprimewgll_xxT(i,1)*C1_m1_m2_5points(1,j) + &
                               hprimewgll_xxT(i,2)*C1_m1_m2_5points(2,j) + &
                               hprimewgll_xxT(i,3)*C1_m1_m2_5points(3,j) + &
@@ -602,8 +602,8 @@
 
 !   call mxm_m1_m1_5points(tempx2(1,1,k),tempy2(1,1,k),tempz2(1,1,k), &
 !         hprimewgll_xx,newtempx2(1,1,k),newtempy2(1,1,k),newtempz2(1,1,k))
-  do i=1,m1
-    do j=1,m1
+  do i = 1,m1
+    do j = 1,m1
 ! for efficiency it is better to leave this loop on k inside, it leads to slightly faster code
       do k = 1,NGLLX
         newtempx2(i,j,k) = tempx2(i,1,k)*hprimewgll_xx(1,j) + &
@@ -628,8 +628,8 @@
   enddo
 
 ! call mxm_m2_m1_5points(tempx3,tempy3,tempz3,hprimewgll_xx,newtempx3,newtempy3,newtempz3)
-  do j=1,m1
-    do i=1,m2
+  do j = 1,m1
+    do i = 1,m2
       E1_mxm_m2_m1_5points(i,j) = C1_mxm_m2_m1_5points(i,1)*hprimewgll_xx(1,j) + &
                                   C1_mxm_m2_m1_5points(i,2)*hprimewgll_xx(2,j) + &
                                   C1_mxm_m2_m1_5points(i,3)*hprimewgll_xx(3,j) + &
@@ -687,9 +687,9 @@
 !     enddo
 !   enddo
 
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
 
           fac1 = wgllwgll_yz(j,k)
           fac2 = wgllwgll_xz(i,k)
@@ -759,8 +759,8 @@
 
   integer :: i,j
 
-  do j=1,m2
-    do i=1,m1
+  do j = 1,m2
+    do i = 1,m1
 
       C1(i,j) = A(i,1)*B1(1,j) + &
                 A(i,2)*B1(2,j) + &
@@ -799,8 +799,8 @@
 
   integer :: i,j
 
-  do j=1,m1
-    do i=1,m1
+  do j = 1,m1
+    do i = 1,m1
 
       C1(i,j) = A1(i,1)*B(1,j) + &
                 A1(i,2)*B(2,j) + &
@@ -839,8 +839,8 @@
 
   integer :: i,j
 
-  do j=1,m1
-    do i=1,m2
+  do j = 1,m1
+    do i = 1,m2
 
       C1(i,j) = A1(i,1)*B(1,j) + &
                 A1(i,2)*B(2,j) + &

@@ -33,10 +33,10 @@
 
   if (x < a+1.d0) then
     call gser(gamser,a,x,gln)
-    gammp=gamser
+    gammp = gamser
   else
     call gcf(gammcf,a,x,gln)
-    gammp=1.d0-gammcf
+    gammp = 1.d0-gammcf
   endif
 
   end function gammp
@@ -47,8 +47,8 @@
 
   double precision a,gammcf,gln,x
 
-  double precision, parameter :: EPS=3.d-7,FPMIN=1.d-30
-  integer, parameter :: ITMAX=100
+  double precision, parameter :: EPS = 3.d-7,FPMIN = 1.d-30
+  integer, parameter :: ITMAX = 100
 
 ! this routine uses routine gammln
 
@@ -58,22 +58,22 @@
   double precision, external :: gammln
 
   gln=gammln(a)
-  b=x+1.d0-a
-  c=1.d0/FPMIN
-  d=1.d0/b
-  h=d
-  do i=1,ITMAX
+  b = x+1.d0-a
+  c = 1.d0/FPMIN
+  d = 1.d0/b
+  h = d
+  do i = 1,ITMAX
     an=-i*(i-a)
-    b=b+2.d0
-    d=an*d+b
-    if (dabs(d) < FPMIN)d=FPMIN
-    c=b+an/c
-    if (dabs(c) < FPMIN)c=FPMIN
-    d=1.d0/d
-    del=d*c
-    h=h*del
+    b = b+2.d0
+    d = an*d+b
+    if (dabs(d) < FPMIN)d = FPMIN
+    c = b+an/c
+    if (dabs(c) < FPMIN)c = FPMIN
+    d = 1.d0/d
+    del = d*c
+    h = h*del
     if (dabs(del-1.d0) < EPS) then
-      gammcf=exp(-x+a*log(x)-gln)*h
+      gammcf = exp(-x+a*log(x)-gln)*h
       return
     endif
   enddo
@@ -88,8 +88,8 @@
 
   double precision a,gamser,gln,x
 
-  integer, parameter :: ITMAX=100
-  double precision, parameter :: EPS=3.d-7
+  integer, parameter :: ITMAX = 100
+  double precision, parameter :: EPS = 3.d-7
 
 ! this routine uses routine gammln
 
@@ -102,20 +102,20 @@
 
   if (x <= 0.d0) then
     if (x < 0.d0) stop 'x < 0 in gser'
-    gamser=0.d0
+    gamser = 0.d0
     return
   endif
 
-  ap=a
-  sumval=1.d0/a
-  del=sumval
+  ap = a
+  sumval = 1.d0/a
+  del = sumval
 
-  do n=1,ITMAX
-    ap=ap+1.d0
-    del=del*x/ap
-    sumval=sumval+del
+  do n = 1,ITMAX
+    ap = ap+1.d0
+    del = del*x/ap
+    sumval = sumval+del
     if (dabs(del) < dabs(sumval)*EPS) then
-      gamser=sumval*exp(-x+a*log(x)-gln)
+      gamser = sumval*exp(-x+a*log(x)-gln)
       return
     endif
   enddo
@@ -142,13 +142,13 @@
 
   stp = 2.5066282746310005d0
 
-  x=xx
-  y=x
-  tmp=x+5.5d0
+  x = xx
+  y = x
+  tmp = x+5.5d0
   tmp=(x+0.5d0)*log(tmp)-tmp
-  ser=1.000000000190015d0
-  do j=1,6
-    y=y+1.d0
+  ser = 1.000000000190015d0
+  do j = 1,6
+    y = y+1.d0
     ser=ser+cof(j)/y
   enddo
   gammln=tmp+log(stp*ser/x)
@@ -177,7 +177,7 @@
   y2(1)=-0.5d0
   u(1)=(3.d0/(x(2)-x(1)))*((y(2)-y(1))/(x(2)-x(1))-yp1)
 
-  do i=2,n-1
+  do i = 2,n-1
     sig=(x(i)-x(i-1))/(x(i+1)-x(i-1))
     p=sig*y2(i-1)+2.d0
     y2(i)=(sig-1.d0)/p
@@ -185,11 +185,11 @@
                 /(x(i)-x(i-1)))/(x(i+1)-x(i-1))-sig*u(i-1))/p
   enddo
 
-  qn=0.5d0
+  qn = 0.5d0
   un=(3.d0/(x(n)-x(n-1)))*(ypn-(y(n)-y(n-1))/(x(n)-x(n-1)))
   y2(n)=(un-qn*u(n-1))/(qn*y2(n-1)+1.d0)
 
-  do k=n-1,1,-1
+  do k = n-1,1,-1
     y2(k)=y2(k)*y2(k+1)+u(k)
   enddo
 
@@ -212,23 +212,23 @@
   integer k,klo,khi
   double precision h,a,b
 
-  KLO=1
-  KHI=N
+  KLO = 1
+  KHI = N
  1 if (KHI-KLO > 1) then
     K=(KHI+KLO)/2
     if (XA(K) > X) then
-      KHI=K
+      KHI = K
     ELSE
-      KLO=K
+      KLO = K
     endif
   goto 1
   endif
-  H=XA(KHI)-XA(KLO)
+  H = XA(KHI)-XA(KLO)
   if (H == 0.d0) stop 'Bad input in spline evaluation'
   A=(XA(KHI)-X)/H
   B=(X-XA(KLO))/H
 
-  Y=A*YA(KLO)+B*YA(KHI)+((A**3-A)*Y2A(KLO) + (B**3-B)*Y2A(KHI))*(H**2)/6.d0
+  Y = A*YA(KLO)+B*YA(KHI)+((A**3-A)*Y2A(KLO) + (B**3-B)*Y2A(KHI))*(H**2)/6.d0
 
   end subroutine splint
 

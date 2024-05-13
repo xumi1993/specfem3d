@@ -383,7 +383,8 @@
             endif
 
             !  stores damping profiles and auxiliary coefficients at the C-PML element's GLL points
-            if (alpha_x < ZERO) stop "there is error in mesh of CPML-layer x"
+            if (alpha_x < ZERO) &
+              stop "there is an alpha error in mesh of CPML-layer x"
 
             K_store_x(i,j,k,ispec_CPML) = K_x
             d_store_x(i,j,k,ispec_CPML) = d_x
@@ -438,7 +439,8 @@
             endif
 
             !  stores damping profiles and auxiliary coefficients at the C-PML element's GLL points
-            if (alpha_y < ZERO) stop "there is error in mesh of  CPML-layer y"
+            if (alpha_y < ZERO) &
+              stop "there is an alpha error in mesh of  CPML-layer y"
 
             K_store_x(i,j,k,ispec_CPML) = ONE
             d_store_x(i,j,k,ispec_CPML) = ZERO
@@ -497,7 +499,8 @@
             endif
 
             !  stores damping profiles and auxiliary coefficients at the C-PML element's GLL points
-            if (alpha_z < ZERO) stop "there is error in mesh of CPML-layer z"
+            if (alpha_z < ZERO) &
+              stop "there is an alpha error in mesh of CPML-layer z"
 
             K_store_x(i,j,k,ispec_CPML) = ONE
             d_store_x(i,j,k,ispec_CPML) = ZERO
@@ -644,7 +647,8 @@
             endif
 
             !  stores damping profiles and auxiliary coefficients at the C-PML element's GLL points
-            if (alpha_x < ZERO .or. alpha_y < ZERO) stop "there is error in mesh of CPML-layer xy"
+            if (alpha_x < ZERO .or. alpha_y < ZERO) &
+              stop "there is an alpha error in mesh of CPML-layer xy"
 
             K_store_x(i,j,k,ispec_CPML) = K_x
             d_store_x(i,j,k,ispec_CPML) = d_x
@@ -795,7 +799,8 @@
             endif
 
             !  stores damping profiles and auxiliary coefficients at the C-PML element's GLL points
-            if (alpha_x < ZERO .or. alpha_z < ZERO) stop "there is error in mesh of CPML-layer xz"
+            if (alpha_x < ZERO .or. alpha_z < ZERO) &
+              stop "there is an alpha error in mesh of CPML-layer xz"
 
             K_store_x(i,j,k,ispec_CPML) = K_x
             d_store_x(i,j,k,ispec_CPML) = d_x
@@ -946,7 +951,8 @@
             endif
 
             !! DK DK define an alias for y and z variable names (which are the same)
-            if (alpha_y < ZERO .or. alpha_z < ZERO) stop "there is error in mesh of CPML-layer yz"
+            if (alpha_y < ZERO .or. alpha_z < ZERO) &
+              stop "there is an alpha error in mesh of CPML-layer yz"
 
             K_store_x(i,j,k,ispec_CPML) = ONE
             d_store_x(i,j,k,ispec_CPML) = ZERO
@@ -1354,7 +1360,8 @@
             endif
 
             !! DK DK define an alias for y and z variable names (which are the same)
-            if (alpha_x < ZERO .or. alpha_y < ZERO .or. alpha_z < ZERO) stop "there is error in mesh of CPML-layer xyz"
+            if (alpha_x < ZERO .or. alpha_y < ZERO .or. alpha_z < ZERO) &
+              stop "there is an alpha error in mesh of CPML-layer xyz"
 
             K_store_x(i,j,k,ispec_CPML) = K_x
             d_store_x(i,j,k,ispec_CPML) = d_x
@@ -1383,9 +1390,9 @@
     ispec = CPML_to_spec(ispec_CPML)
   ! loops over all GLL points
   ! (combines directions to speed up calculations)
-    do k=1,NGLLZ-1
-      do j=1,NGLLY-1
-        do i=1,NGLLX-1
+    do k = 1,NGLLZ-1
+      do j = 1,NGLLY-1
+        do i = 1,NGLLX-1
           ! reference point
           iglob1 = ibool(i,j,k,ispec)
           x1 = xstore(iglob1)
@@ -1534,7 +1541,7 @@
             endif
 
             if (abs(beta_z - alpha_x) < min_distance_between_CPML_parameter) then
-              stop 'there is an error in the separation of beta_z and alpha_z'
+              stop 'there is an error in the separation of beta_z and alpha_x'
             endif
 
             d_x = (beta_x - alpha_x) * K_x
@@ -1875,7 +1882,7 @@
         if (ier /= 0) stop 'error allocating array points_interface_PML_acoustic'
         points_interface_PML_acoustic = 0
         nglob_interface_PML_acoustic = 0
-        do ispec=1,nspec
+        do ispec = 1,nspec
           if (ispec_is_acoustic(ispec) .and. is_CPML(ispec)) then
             do k = 1,NGLLZ; do j = 1,NGLLY; do i = 1,NGLLX
               if (mask_ibool_interior_domain(ibool(i,j,k,ispec))) then
@@ -1899,7 +1906,7 @@
 
     if (ELASTIC_SIMULATION) then
 
-      do ispec=1,nspec
+      do ispec = 1,nspec
         if (ispec_is_elastic(ispec) .and. is_CPML(ispec)) then
           do k = 1,NGLLZ; do j = 1,NGLLY; do i = 1,NGLLX
             if (mask_ibool_interior_domain(ibool(i,j,k,ispec))) then

@@ -53,24 +53,24 @@
   double precision scale_fac
 
   if (REFERENCE_1D_MODEL == REFERENCE_MODEL_IASP91) then
-    vp=11.24094d0-4.09689d0*x*x
-    vs=3.56454d0-3.45241d0*x*x
-    rho=13.0885d0-8.8381d0*x*x
+    vp = 11.24094d0-4.09689d0*x*x
+    vs = 3.56454d0-3.45241d0*x*x
+    rho = 13.0885d0-8.8381d0*x*x
 
 ! values at center
-    vp0=11.24094d0
-    vs0=3.56454d0
-    rho0=13.0885d0
+    vp0 = 11.24094d0
+    vs0 = 3.56454d0
+    rho0 = 13.0885d0
 
   else if (REFERENCE_1D_MODEL == REFERENCE_MODEL_PREM) then
-    vp=11.2622d0-6.3640d0*x*x
-    vs=3.6678d0-4.4475d0*x*x
-    rho=13.0885d0-8.8381d0*x*x
+    vp = 11.2622d0-6.3640d0*x*x
+    vs = 3.6678d0-4.4475d0*x*x
+    rho = 13.0885d0-8.8381d0*x*x
 
 ! values at center
-    vp0=11.2622d0
-    vs0=3.6678d0
-    rho0=13.0885d0
+    vp0 = 11.2622d0
+    vs0 = 3.6678d0
+    rho0 = 13.0885d0
 
   else
     stop 'unknown 1D reference Earth model in anisotropic inner core'
@@ -104,7 +104,7 @@
 !       c66 = mu
 
 ! non-dimensionalization of elastic parameters
-  scale_fac=RHOAV*R_EARTH*R_EARTH*PI*GRAV*RHOAV
+  scale_fac = RHOAV*R_EARTH*R_EARTH*PI*GRAV*RHOAV
 
 ! Ishii et al. (2002):
 !
@@ -133,14 +133,14 @@
 ! 1200 5527 12.77   1559 1155 1257 1670 141 1343 169
 !
 
-  c11=rho*vp*vp*1.d9/scale_fac
-  c66=rho*vs*vs*1.d9/scale_fac
+  c11 = rho*vp*vp*1.d9/scale_fac
+  c66 = rho*vs*vs*1.d9/scale_fac
 
-  A0=rho0*vp0*vp0*1.d9/scale_fac
-  c33=c11+0.0349d0*A0
-  c44=c66+0.00988d0*A0
-  c12=c11-2.0d0*c66
-  c13=c12-0.00881d0*A0
+  A0 = rho0*vp0*vp0*1.d9/scale_fac
+  c33 = c11+0.0349d0*A0
+  c44 = c66+0.00988d0*A0
+  c12 = c11-2.0d0*c66
+  c13 = c12-0.00881d0*A0
 
   end subroutine aniso_inner_core_model
 

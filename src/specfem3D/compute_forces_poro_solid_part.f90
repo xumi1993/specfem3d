@@ -114,7 +114,7 @@
  !
     ! first double loop over GLL points to compute and store gradients
     !
-    do k=1,NGLLZ
+    do k = 1,NGLLZ
       do j = 1,NGLLY
         do i = 1,NGLLX
 
@@ -428,7 +428,7 @@
           tempz3lw = 0.0_CUSTOM_REAL
 
           ! we can merge these loops because NGLLX = NGLLY = NGLLZ
-          do l=1,NGLLX
+          do l = 1,NGLLX
             fac1 = hprimewgll_xx(l,i)
             tempx1ls = tempx1ls + tempx1(l,j,k)*fac1
             tempy1ls = tempy1ls + tempy1(l,j,k)*fac1

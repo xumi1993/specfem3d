@@ -43,7 +43,7 @@ contains
     integer :: ios,i
 
     ! get number of lines in the input file
-    npt=0
+    npt = 0
     open(10,file=trim(fname),iostat=ios,status='old')
     if (ios /= 0) then
        print *,'Error opening ascii file to read: ',trim(fname)
@@ -52,13 +52,13 @@ contains
     do while (1 == 1)
        read(10,*,iostat=ios) ttemp, dtemp
        if (ios /= 0) exit
-       npt=npt+1
+       npt = npt+1
     enddo
     close(10)
 
     allocate(ti(npt))
     open(10,file=trim(fname),iostat=ios,status='old')
-    do i=1,npt
+    do i = 1,npt
        read(10,*,iostat=ios) ttemp, dtemp
        ti(i) = ttemp
        data(i) = dtemp

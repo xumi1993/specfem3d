@@ -37,7 +37,7 @@ PROGRAM visualize_HEX27_chunk_w_medit
   WRITE(20,*) 'Vertices'
   WRITE(20,*) np
 
-  DO i=1,np
+  DO i = 1,np
     READ(10,*) nsph, p1, p2, p3
     WRITE(20,*) p1, p2, p3, 1
   enddo
@@ -47,42 +47,42 @@ PROGRAM visualize_HEX27_chunk_w_medit
   WRITE(20,*) nqdecoup
 
 
-  DO i=1,nq1
+  DO i = 1,nq1
     READ(31,*) nsph, sf1, sf2, sf3, sf4, sf5, sf6, sf7, sf8, sf9
     WRITE(20,*) sf1, sf5, sf9, sf8, 2
     WRITE(20,*) sf5, sf2, sf6, sf9, 2
     WRITE(20,*) sf9, sf6, sf3, sf7, 2
     WRITE(20,*) sf8, sf9, sf7, sf4, 2
   enddo
-  DO i=1,nq2
+  DO i = 1,nq2
     READ(32,*) nsph, sf1, sf2, sf3, sf4, sf5, sf6, sf7, sf8, sf9
     WRITE(20,*) sf1, sf5, sf9, sf8, 2
     WRITE(20,*) sf5, sf2, sf6, sf9, 2
     WRITE(20,*) sf9, sf6, sf3, sf7, 2
     WRITE(20,*) sf8, sf9, sf7, sf4, 2
   enddo
-  DO i=1,nq3
+  DO i = 1,nq3
     READ(33,*) nsph, sf1, sf2, sf3, sf4, sf5, sf6, sf7, sf8, sf9
     WRITE(20,*) sf1, sf5, sf9, sf8, 2
     WRITE(20,*) sf5, sf2, sf6, sf9, 2
     WRITE(20,*) sf9, sf6, sf3, sf7, 2
     WRITE(20,*) sf8, sf9, sf7, sf4, 2
   enddo
-  DO i=1,nq4
+  DO i = 1,nq4
     READ(34,*) nsph, sf1, sf2, sf3, sf4, sf5, sf6, sf7, sf8, sf9
     WRITE(20,*) sf1, sf5, sf9, sf8, 2
     WRITE(20,*) sf5, sf2, sf6, sf9, 2
     WRITE(20,*) sf9, sf6, sf3, sf7, 2
     WRITE(20,*) sf8, sf9, sf7, sf4, 2
   enddo
-  DO i=1,nq5
+  DO i = 1,nq5
     READ(35,*) nsph, sf1, sf2, sf3, sf4, sf5, sf6, sf7, sf8, sf9
     WRITE(20,*) sf1, sf5, sf9, sf8, 2
     WRITE(20,*) sf5, sf2, sf6, sf9, 2
     WRITE(20,*) sf9, sf6, sf3, sf7, 2
     WRITE(20,*) sf8, sf9, sf7, sf4, 2
   enddo
-  DO i=1,nq6
+  DO i = 1,nq6
     READ(36,*) nsph, sf1, sf2, sf3, sf4, sf5, sf6, sf7, sf8, sf9
     WRITE(20,*) sf1, sf5, sf9, sf8, 3
     WRITE(20,*) sf5, sf2, sf6, sf9, 3
@@ -94,7 +94,7 @@ PROGRAM visualize_HEX27_chunk_w_medit
   WRITE(20,*) 'Hexahedra'
   WRITE(20,*) nhexdecoup
 
-  DO i=1,nhex
+  DO i = 1,nhex
     READ(11,*) nsph, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, &
                s15, s16, s17, s18, s19, s20, s21, s22, s23, s24, s25, s26, s27
 !

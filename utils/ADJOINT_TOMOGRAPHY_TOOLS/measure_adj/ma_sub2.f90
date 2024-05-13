@@ -5,7 +5,7 @@ module ma_sub2
   implicit none
 
 ! TOLERRANCE CONTROL
-  double precision, parameter ::  TOL=1e-7
+  double precision, parameter ::  TOL = 1e-7
 
 contains
 
@@ -41,14 +41,14 @@ contains
 
 
 
-      do 1 i=1,n
+      do 1 i = 1,n
     1 m(i) = 2**(n-i)
-      do 4 l=1,n
+      do 4 l = 1,n
       nblock = 2**(l-1)
       lblock = lx/nblock
       lbhalf = lblock/2
       k = 0
-      do 4 iblock=1,nblock
+      do 4 iblock = 1,nblock
       fk = k
       flx = lx
 
@@ -57,7 +57,7 @@ contains
       wk = cmplx(cos(v),-sin(v))   ! sign change to -sin(v) 17-Nov-2006
       istart = lblock*(iblock-1)
 
-      do 2 i=1,lbhalf
+      do 2 i = 1,lbhalf
       j  = istart+i
       jh = j+lbhalf
       ! checks bounds
@@ -68,20 +68,20 @@ contains
       xi(j)  = xi(j)+q
     2 continue
 
-      do 3 i=2,n
+      do 3 i = 2,n
       ii = i
       if (k < m(i)) goto 4
     3 k = k-m(i)
     4 k = k+m(ii)
       k = 0
-      do 7 j=1,lx
+      do 7 j = 1,lx
       if (k < j) goto 5
       hold = xi(j)
       ! checks bounds
       if ( k+1 < 1 .or. k+1 > NPT ) stop 'error fft k bounds'
       xi(j) = xi(k+1)
       xi(k+1) = hold
-    5 do 6 i=1,n
+    5 do 6 i = 1,n
       ii = i
       if (k < m(i)) goto 7
     6 k = k-m(i)
@@ -121,7 +121,7 @@ contains
       nhalf = nsmp/2
       call rspec(s,nhalf)   ! re-structuring
 
-      zign=zzign
+      zign = zzign
       call fft(npow,s,zign,dt)    ! Fourier transform
 
       do i = 1,nsmp
@@ -192,34 +192,34 @@ contains
       if (nt < 2) return
       nxi=mod(nt,2)
       lh=(nt/2)+nxi
-      lp1=nt+1
-      om=2.*PI*fw/nt
+      lp1 = nt+1
+      om = 2.*PI*fw/nt
       com=cos(om)
       hn=0.5*dble(lp1)
-      do 10 i=1,lh
+      do 10 i = 1,lh
         a(i)=com*(i-hn)**2
    10   w(i)=0.5*dble(i*(nt-i))
       if (nxi == 0) then
-        asav=a(lh)-w(lh)
+        asav = a(lh)-w(lh)
         a(lh)=a(lh)+w(lh)
-        rbd=1./(a(lh)+w(lh-1))
+        rbd = 1./(a(lh)+w(lh-1))
       else
         asav=w(lh-1)
-        rbd=1./(w(lh)+w(lh-1))
+        rbd = 1./(w(lh)+w(lh-1))
         w(lh-1)=r2*w(lh-1)
       endif
-      do 15 i=1,lh
+      do 15 i = 1,lh
         a(i+lh)=w(i)*rbd
         w(i)=a(i+lh)**2
    15   a(i)=a(i)*rbd
-      neven=max0((nev+1)/2,1)
-      nodd=nev-neven
+      neven = max0((nev+1)/2,1)
+      nodd = nev-neven
 !  Do the even tapers
       call tsturm(nt,lh,a,a(lh+1),w,neven,v,ndim,w(lh+1),0)
-      do 20 i=1,neven
-        k=2*i-1
+      do 20 i = 1,neven
+        k = 2*i-1
         if (nxi == 1) v(lh,k)=r2*v(lh,k)
-          do 20 j=1,lh
+          do 20 j = 1,lh
    20     v(lp1-j,k)=v(j,k)
       if (nodd <= 0) goto 34
 !  Do the odd tapers
@@ -230,37 +230,37 @@ contains
         w(lh-1)=asav*asav
       endif
       call tsturm(nt,lh-nxi,a,a(lh+1),w,nodd,v,ndim,w(lh+1),1)
-      do 30 i=1,nodd
-        k=2*i
+      do 30 i = 1,nodd
+        k = 2*i
         if (nxi == 1) v(lh,k)=0.
-          do 30 j=1,lh
+          do 30 j = 1,lh
    30     v(lp1-j,k)=-v(j,k)
-   34 ntot=neven+nodd
+   34 ntot = neven+nodd
 !  Calculate bandwidth retention parameters
-      dc=2.*com
-      sm=0.
+      dc = 2.*com
+      sm = 0.
       s=sin(om)
       w(1)=om/PI
       w(2)=s/PI
-      do 35 j=3,nt
-        sn=dc*s-sm
-        sm=s
-        s=sn
+      do 35 j = 3,nt
+        sn = dc*s-sm
+        sm = s
+        s = sn
    35   w(j)=s/(PI*(j-1))
-      do 55 m=1,ntot
-        vmax=abs(v(1,m))
-        kmax=1
-        do 40 kk=2,lh
+      do 55 m = 1,ntot
+        vmax = abs(v(1,m))
+        kmax = 1
+        do 40 kk = 2,lh
           if (abs(v(kk,m)) <= vmax) goto 40
-          kmax=kk
-          vmax=abs(v(kk,m))
+          kmax = kk
+          vmax = abs(v(kk,m))
    40     continue
         a(m)=0.
-        nlow=kmax-1
-          do 45 j=1,nlow
+        nlow = kmax-1
+          do 45 j = 1,nlow
    45     a(m)=a(m)+w(j+1)*v(nlow+1-j,m)
-        nup=nt-nlow
-          do 50 j=1,nup
+        nup = nt-nlow
+          do 50 j = 1,nup
    50     a(m)=a(m)+w(j)*v(nlow+j,m)
    55 a(m)=a(m)/v(kmax,m)
       return
@@ -294,48 +294,48 @@ contains
       !-------------------------
 
       if (n <= 0 .or. nev <= 0) return
-      umeps=1.-epsi
-      do 5 i=1,nev
+      umeps = 1.-epsi
+      do 5 i = 1,nev
     5 ev(i)=-1.
-      u=1.
-      do 1000 ik=1,nev
-      if (ik > 1) u=ev(ik-1)*umeps
-      el=min(ev(ik),u)
+      u = 1.
+      do 1000 ik = 1,nev
+      if (ik > 1) u = ev(ik-1)*umeps
+      el = min(ev(ik),u)
    10 elam=0.5*(u+el)
       if (abs(u-el) <= epsi1) goto 35
-      iag=0
+      iag = 0
       q=a(1)-elam
       if (q >= 0.) iag=iag+1
-      do 15 i=2,n
+      do 15 i = 2,n
       if (q == 0.) x=abs(b(i-1))/epsi
-      if (q /= 0.) x=w(i-1)/q
+      if (q /= 0.) x = w(i-1)/q
       q=a(i)-elam-x
       if (q >= 0.) iag=iag+1
       if (iag > nev) goto 20
    15 continue
       if (iag >= ik) goto 20
-      u=elam
+      u = elam
       goto 10
    20 if (iag == ik) goto 30
-      m=ik+1
-      do 25 i=m,iag
+      m = ik+1
+      do 25 i = m,iag
    25 ev(i)=elam
-      el=elam
+      el = elam
       goto 10
-   30 el=elam
+   30 el = elam
       call root(u,el,elam,a,b,w,n,ik)
    35 ev(ik)=elam
-      jk=2*ik+ipar-1
+      jk = 2*ik+ipar-1
       r(1,jk)=1.
       r(2,jk)=-(a(1)-ev(ik))/b(1)
-      ddot=1.+r(2,jk)*r(2,jk)
-      jm1=2
-      do 45 j=3,n
+      ddot = 1.+r(2,jk)*r(2,jk)
+      jm1 = 2
+      do 45 j = 3,n
       r(j,jk)=-((a(jm1)-ev(ik))*r(jm1,jk)+b(j-2)*r(j-2,jk))/b(jm1)
-      ddot=ddot+r(j,jk)*r(j,jk)
-   45 jm1=j
-      rnorm=sqrt(nt/(2.*ddot))
-      do 50 j=1,n
+      ddot = ddot+r(j,jk)*r(j,jk)
+   45 jm1 = j
+      rnorm = sqrt(nt/(2.*ddot))
+      do 50 j = 1,n
    50 r(j,jk)=r(j,jk)*rnorm
  1000 continue
       return
@@ -363,27 +363,27 @@ contains
     5 elam=0.5*(u+el)
    10 if (abs(u-el) <= 1.5*epsi1) return
       an=a(1)-elam
-      b=0.
+      b = 0.
       bn=-1./an
-      iag=0
+      iag = 0
       if (an >= 0.) iag=iag+1
-      do 20 i=2,n
+      do 20 i = 2,n
       if (an == 0.) x=abs(bb(i-1))/epsi
-      if (an /= 0.) x=w(i-1)/an
+      if (an /= 0.) x = w(i-1)/an
       an=a(i)-elam-x
       if (an == 0.) an=epsi
-      bm=b
-      b=bn
+      bm = b
+      b = bn
       bn=((a(i)-elam)*b-bm*x-1.)/an
       if (an >= 0.) iag=iag+1
    20 continue
       if (iag == ik) goto 25
-      u=elam
+      u = elam
       goto 30
-   25 el=elam
-   30 del=1./bn
+   25 el = elam
+   30 del = 1./bn
       if (abs(del) <= epsi1) del=sign(epsi1,del)
-      elam=elam-del
+      elam = elam-del
       if (elam >= u .or. elam <= el) goto 5
       goto 10
 
@@ -467,7 +467,7 @@ contains
 !!$      tshift=ishift*dt
 !!$
 !!$!     apply time shift to synthetic seismogram
-!!$!     write(*,*)'shift synth seismogram by ', tshift, 'seconds'
+!!$!     write(*,*) 'shift synth seismogram by ', tshift, 'seconds'
 !!$      do i = 1, npts_win
 !!$        s_cor(i) = 0
 !!$        if ( (i1-1+i-ishift) > 1 .and. (i1-1+i-ishift) < npts ) s_cor(i) = s(i1-1+i-ishift)
@@ -630,7 +630,7 @@ contains
 
       pi = asin(1.0d0)*2
       sum = 0.
-      do i =1,ipoint
+      do i = 1,ipoint
       tas(i,1) = 1 -  cos( 2*pi*i/ipoint)
       tas(i,1) = tas(i,1) / sqrt(1.5)
       enddo
@@ -646,7 +646,7 @@ contains
       double precision tas(ndata,*)
       integer i
 
-      do i =1,ipoint
+      do i = 1,ipoint
       tas(i,1) = 1.0
       enddo
       return

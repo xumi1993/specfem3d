@@ -76,7 +76,7 @@ program measure_adj
   open(12,file='window_index',status='unknown',iostat=ios)
   open(13,file='window_chi',status='unknown',iostat=ios)
 
-  nwin = 0; all_chi=0.
+  nwin = 0; all_chi = 0.
   do ipair = 1, npairs
 
     data(:) = 0.0

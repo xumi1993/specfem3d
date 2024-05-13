@@ -382,7 +382,7 @@
   ! output source information to a file so that we can load it and write to SU headers later
   if (myrank == 0) then
     open(unit=IOUT_SU,file=trim(OUTPUT_FILES)//'/output_list_sources.txt',status='unknown')
-    do isource=1,NSOURCES
+    do isource = 1,NSOURCES
       write(IOUT_SU,*) x_found(isource),y_found(isource),z_found(isource)
     enddo
     close(IOUT_SU)

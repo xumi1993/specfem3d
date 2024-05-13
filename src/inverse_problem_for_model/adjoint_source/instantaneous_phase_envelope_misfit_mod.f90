@@ -366,8 +366,8 @@ contains
        ft_tmp_vx = cmplx(0.,0.)
        ft_tmp_vy = cmplx(0.,0.)
        ft_tmp_vz = cmplx(0.,0.)
-       do ff=1,nt
-          do tt=1,nt
+       do ff = 1,nt
+          do tt = 1,nt
 
              !* Fourier basis
              tmp_four = cos(-2. * ipi * real(ff-1.) * real(tt-1.) / nt) + &
@@ -382,7 +382,7 @@ contains
        enddo
 
        !* Remove negative freq
-       do irec=1,nrecloc
+       do irec = 1,nrecloc
           ft_tmp_vx(irec,:) = ft_tmp_vx(irec,:) * hh(:)
           ft_tmp_vy(irec,:) = ft_tmp_vy(irec,:) * hh(:)
           ft_tmp_vz(irec,:) = ft_tmp_vz(irec,:) * hh(:)
@@ -392,8 +392,8 @@ contains
        srcterm2_vx = cmplx(0.,0.)
        srcterm2_vy = cmplx(0.,0.)
        srcterm2_vz = cmplx(0.,0.)
-       do tt=1,nt
-          do ff=1,nt
+       do tt = 1,nt
+          do ff = 1,nt
 
              !* Fourier basis
              tmp_four = cos(2. * ipi * real(ff-1.) * real(tt-1.) / nt) + &
@@ -538,8 +538,8 @@ contains
        ft_tmp_vx = cmplx(0.,0.)
        ft_tmp_vy = cmplx(0.,0.)
        ft_tmp_vz = cmplx(0.,0.)
-       do ff=1,nt
-          do tt=1,nt
+       do ff = 1,nt
+          do tt = 1,nt
 
              !* Fourier basis
              tmp_four = cos(-2. * ipi * real(ff-1.) * real(tt-1.) / nt) + &
@@ -554,7 +554,7 @@ contains
        enddo
 
        !* Remove negative freq
-       do irec=1,nrecloc
+       do irec = 1,nrecloc
           ft_tmp_vx(irec,:) = ft_tmp_vx(irec,:) * hh(:)
           ft_tmp_vy(irec,:) = ft_tmp_vy(irec,:) * hh(:)
           ft_tmp_vz(irec,:) = ft_tmp_vz(irec,:) * hh(:)
@@ -564,8 +564,8 @@ contains
        srcterm2_vx = cmplx(0.,0.)
        srcterm2_vy = cmplx(0.,0.)
        srcterm2_vz = cmplx(0.,0.)
-       do tt=1,nt
-          do ff=1,nt
+       do tt = 1,nt
+          do ff = 1,nt
 
              !* Fourier basis
              tmp_four = cos(2. * ipi * real(ff-1.) * real(tt-1.) / nt) + &
@@ -662,8 +662,8 @@ contains
 
 
     !* DFT
-    do ff=1,nt
-        do tt=1,nt
+    do ff = 1,nt
+        do tt = 1,nt
 
            !* Fourier basis
            tmp_four = cos(-2. * ipi * real(ff-1.) * real(tt-1.) / nt) + &
@@ -692,15 +692,15 @@ contains
     hh(1) = 1.
     hh(floor(nt/2.)+1) = 1.
 
-    do ff=2,floor(nt/2.)
+    do ff = 2,floor(nt/2.)
         hh(ff) = 2.
     enddo
 
-    do ff=floor(nt/2.)+2,nt
+    do ff = floor(nt/2.)+2,nt
         hh(ff) = 0.
     enddo
 
-    do irec=1,nrecloc
+    do irec = 1,nrecloc
        ft_dobs_vx(irec,:) = ft_dobs_vx(irec,:) * hh(:)
        ft_dcal_vx(irec,:) = ft_dcal_vx(irec,:) * hh(:)
 
@@ -722,8 +722,8 @@ contains
     an_dcal_vz = cmplx(0.,0.)
 
     !* Perform inverse DFT
-    do tt=1,nt
-        do ff=1,nt
+    do tt = 1,nt
+        do ff = 1,nt
 
            !* Fourier basis
            tmp_four = cos(2. * ipi * real(ff-1.) * real(tt-1.) / nt) + &

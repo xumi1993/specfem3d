@@ -46,7 +46,7 @@ program random_model
 
   !! input parameters
   if (iargc() /= 2) &
-    stop 'Usage: ./xrandom_model percent NPROC [percent must be small enough (~1d-5) for F*dm=S(m+dm)-S(m) to be valid]'
+    stop 'Usage: ./xrandom_model percent NPROC [percent must be small enough (~1d-5) for F*dm = S(m+dm)-S(m) to be valid]'
 
   call get_command_argument(1, arg); read(arg,*,iostat=ier) percent;   if (ier /= 0) stop 'Error reading percent'
   call get_command_argument(2, arg); read(arg,*,iostat=ier)   NPROC;   if (ier /= 0) stop 'Error reading NPROC'
@@ -220,9 +220,9 @@ program random_model
       ! sets Gaussian perturbation into the middle of model:
       ! dimension (Width x Length x Depth) : 2640.0 m x 2640.0 m x 1.44 km
       do ispec = 1,nspec
-        do k=1,NGLLZ
-          do j=1,NGLLY
-            do i=1,NGLLX
+        do k = 1,NGLLZ
+          do j = 1,NGLLY
+            do i = 1,NGLLX
               ! GLL point location (given in m: dimension 2640 m x 2640 x x 1440 m)
               iglob = ibool(i,j,k,ispec)
               x = xstore(iglob)
@@ -236,7 +236,7 @@ program random_model
               ! Gaussian function:  values between [0,1]
               pert_param(i,j,k,ispec) = exp( - (dist_h*dist_h) / sigma_h2 - (dist_v*dist_v) / sigma_v2 )
 
-              !if (myrank == 0 )print *,pert_param(i,j,k,ispec),x,y,z,dist_v,dist_h
+              !if (myrank == 0 ) print *,pert_param(i,j,k,ispec),x,y,z,dist_v,dist_h
             enddo
           enddo
         enddo

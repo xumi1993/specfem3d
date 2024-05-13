@@ -121,9 +121,9 @@
     !---
     if (ispec_is_elastic(ispec)) then
 
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
             iglob = ibool(i,j,k,ispec)
             dummyx_loc(i,j,k) = displ(1,iglob)
             dummyy_loc(i,j,k) = displ(2,iglob)
@@ -132,9 +132,9 @@
         enddo
       enddo
 
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
 
             iglob = ibool(i,j,k,ispec)
 
@@ -151,7 +151,7 @@
             tempz3(i,j,k) = 0._CUSTOM_REAL
 
             ! we can merge these loops because NGLLX = NGLLY = NGLLZ
-            do l=1,NGLLX
+            do l = 1,NGLLX
               hp1 = hprime_xx(i,l)
               tempx1(i,j,k) = tempx1(i,j,k) + dummyx_loc(l,j,k)*hp1
               tempy1(i,j,k) = tempy1(i,j,k) + dummyy_loc(l,j,k)*hp1
@@ -335,18 +335,18 @@
       ! velocity is then: v = grad(Chi_dot) / rho (Chi_dot being the time derivative of Chi)
       ! and pressure is: p = - Chi_dot_dot  (Chi_dot_dot being the time second derivative of Chi).
 
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
             iglob = ibool(i,j,k,ispec)
             dummyx_loc(i,j,k) = potential_dot_acoustic(iglob)
           enddo
         enddo
       enddo
 
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
 
             iglob = ibool(i,j,k,ispec)
 
@@ -355,7 +355,7 @@
             tempx3(i,j,k) = 0._CUSTOM_REAL
 
             ! we can merge these loops because NGLLX = NGLLY = NGLLZ
-            do l=1,NGLLX
+            do l = 1,NGLLX
               hp1 = hprime_xx(i,l)
               tempx1(i,j,k) = tempx1(i,j,k) + dummyx_loc(l,j,k)*hp1
 
@@ -553,9 +553,9 @@
     !---
     if (ispec_is_elastic(ispec)) then
 
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
             iglob = ibool(i,j,k,ispec)
             dummyx_loc(i,j,k) = displ(1,iglob)
             dummyy_loc(i,j,k) = displ(2,iglob)
@@ -581,9 +581,9 @@
         call mxm7_single_three_arrays_at_a_time_AC(dummyx_loc,m2,hprime_xxT,tempx3,m1,dummyy_loc,tempy3,dummyz_loc,tempz3)
       endif
 
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
 
             iglob = ibool(i,j,k,ispec)
 
@@ -754,9 +754,9 @@
       ! velocity is then: v = grad(Chi_dot) / rho (Chi_dot being the time derivative of Chi)
       ! and pressure is: p = - Chi_dot_dot  (Chi_dot_dot being the time second derivative of Chi).
 
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
             iglob = ibool(i,j,k,ispec)
             dummyx_loc(i,j,k) = potential_dot_acoustic(iglob)
           enddo
@@ -780,9 +780,9 @@
         call mxm7_single(dummyx_loc,m2,hprime_xxT,tempx3,m1)
       endif
 
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
 
             iglob = ibool(i,j,k,ispec)
 

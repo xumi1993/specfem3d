@@ -224,7 +224,7 @@
   vs = vs + 2720._CUSTOM_REAL * depth
 
   ! attenuation: PREM crust value
-  qmu_atten=600._CUSTOM_REAL
+  qmu_atten = 600._CUSTOM_REAL
 
   ! no Q_Kappa in this model, use a dummy very high value of 9999. as a flag for no QKappa attenuation
   qkappa_atten = 9999._CUSTOM_REAL

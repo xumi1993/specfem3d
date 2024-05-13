@@ -411,9 +411,9 @@ contains
       do ispec = 1, NSPEC_AB
         ispec_irreg = irregular_element_number(ispec)
         if (ispec_irreg == 0) jacobianl = jacobian_regular
-        do k=1,NGLLZ
-          do j=1,NGLLY
-            do i=1,NGLLX
+        do k = 1,NGLLZ
+          do j = 1,NGLLY
+            do i = 1,NGLLX
               weight = wxgll(i) * wygll(j) * wzgll(k)
               if (ispec_irreg /= 0) jacobianl = jacobianstore(i,j,k,ispec_irreg)
               ! integrated inner product
@@ -484,9 +484,9 @@ contains
       do ispec = 1, NSPEC_AB
         ispec_irreg = irregular_element_number(ispec)
         if (ispec_irreg == 0) jacobianl = jacobian_regular
-        do k=1,NGLLZ
-          do j=1,NGLLY
-            do i=1,NGLLX
+        do k = 1,NGLLZ
+          do j = 1,NGLLY
+            do i = 1,NGLLX
               weight = wxgll(i) * wygll(j) * wzgll(k)
               if (ispec_irreg /= 0) jacobianl = jacobianstore(i,j,k,ispec_irreg)
               ! integrated squared norm value

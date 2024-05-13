@@ -191,10 +191,10 @@
   allocate(final_distance_all(nrec,0:NPROC-1))
 
 ! loop on all the stations
-  do irec=1,nrec
+  do irec = 1,nrec
 
 ! set distance to huge initial value
-  distmin=HUGEVAL
+  distmin = HUGEVAL
 
     read(1,*,iostat=ios) station_name(irec),network_name(irec),stlat(irec),stlon(irec),stele(irec),stbur(irec)
     if (ios /= 0) call exit_mpi(myrank, 'Error reading station file '//trim(rec_filename))
@@ -278,16 +278,16 @@
 ! examine top of the elements only (receivers always at the surface)
 !      k = NGLLZ
 
-      do ispec=1,NSPEC_AB
+      do ispec = 1,NSPEC_AB
 
 ! modification by Qinya Liu: idoubling is no longer used because receivers can now be in depth
 ! (in previous versions, receivers were always assumed to be at the surface)
 
 ! loop only on points inside the element
 ! exclude edges to ensure this point is not shared with other elements
-       do k=2,NGLLZ-1
-        do j=2,NGLLY-1
-          do i=2,NGLLX-1
+       do k = 2,NGLLZ-1
+        do j = 2,NGLLY-1
+          do i = 2,NGLLX-1
 
             iglob = ibool(i,j,k,ispec)
             dist = dsqrt((x_target(irec)-dble(xstore(iglob)))**2 &
@@ -333,7 +333,7 @@
 
 ! define coordinates of the control points of the element
 
-  do ia=1,NGNOD
+  do ia = 1,NGNOD
 
     if (iaddx(ia) == 0) then
       iax = 1
@@ -489,7 +489,7 @@
   final_distance(irec) = distmin
   enddo
 
-  do irec=1,nrec
+  do irec = 1,nrec
 
     write(IMAIN,*)
     write(IMAIN,*) 'station # ',irec,'    ',station_name(irec),network_name(irec)
@@ -542,7 +542,7 @@
 
 ! write the list of stations and associated epicentral distance
   open(unit=27,file=trim(OUTPUT_FILES)//'/output_list_stations.txt',status='unknown')
-  do irec=1,nrec
+  do irec = 1,nrec
     write(27,*) station_name(irec),'.',network_name(irec),' : ',horiz_dist(irec),' km horizontal distance'
   enddo
   close(27)

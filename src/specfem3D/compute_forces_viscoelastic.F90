@@ -286,9 +286,9 @@
       !       (through indirect addressing with array ibool())
       !       thus, instead of DO_LOOP_IJK we use do k=..;do j=..;do i=..,
       !       which helps the compiler to unroll the innermost loop
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
             iglob = ibool(i,j,k,ispec)
             dummyx_loc(i,j,k) = displ(1,iglob) + eta * veloc(1,iglob)
             dummyy_loc(i,j,k) = displ(2,iglob) + eta * veloc(2,iglob)
@@ -302,9 +302,9 @@
       !       (through indirect addressing with array ibool())
       !       thus, instead of DO_LOOP_IJK we use do k=..;do j=..;do i=..,
       !       which helps the compiler to unroll the innermost loop
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
             iglob = ibool(i,j,k,ispec)
             dummyx_loc(i,j,k) = displ(1,iglob)
             dummyy_loc(i,j,k) = displ(2,iglob)
@@ -346,9 +346,9 @@
       call mxm8_3comp_3dmat_single(dummyx_loc,dummyy_loc,dummyz_loc,m1,hprime_xxT,m1,tempx2,tempy2,tempz2,m1)
       call mxm8_3comp_singleB(dummyx_loc,dummyy_loc,dummyz_loc,m2,hprime_xxT,tempx3,tempy3,tempz3,m1)
     case default
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
             tempx1l = 0._CUSTOM_REAL
             tempx2l = 0._CUSTOM_REAL
             tempx3l = 0._CUSTOM_REAL
@@ -397,9 +397,9 @@
       if (ATTENUATION .and. .not. is_CPML(ispec)) then
         ! use first order Taylor expansion of displacement for local storage of stresses
         ! at this current time step, to fix attenuation in a consistent way
-        do k=1,NGLLZ
-          do j=1,NGLLY
-            do i=1,NGLLX
+        do k = 1,NGLLZ
+          do j = 1,NGLLY
+            do i = 1,NGLLX
               iglob = ibool(i,j,k,ispec)
               dummyx_loc_att(i,j,k) = deltat * veloc(1,iglob)
               dummyy_loc_att(i,j,k) = deltat * veloc(2,iglob)
@@ -752,7 +752,7 @@
             tempy3l = 0._CUSTOM_REAL
             tempz3l = 0._CUSTOM_REAL
             ! we can merge these loops because NGLLX = NGLLY = NGLLZ
-            do l=1,NGLLX
+            do l = 1,NGLLX
               fac1 = hprimewgll_xx(l,i)
               tempx1l = tempx1l + tempx1(l,j,k) * fac1
               tempy1l = tempy1l + tempy1(l,j,k) * fac1
@@ -910,9 +910,9 @@
 
     ! use first order Taylor expansion of displacement for local storage of stresses
     ! at this current time step, to fix attenuation in a consistent way
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           tempx1l = tempx1(i,j,k)
           tempy1l = tempy1(i,j,k)
           tempz1l = tempz1(i,j,k)
@@ -925,7 +925,7 @@
           tempy3l = tempy3(i,j,k)
           tempz3l = tempz3(i,j,k)
           ! we can merge these loops because NGLLX = NGLLY = NGLLZ
-          do l=1,NGLLX
+          do l = 1,NGLLX
             hp1 = hprime_xxT(l,i)
             tempx1l = tempx1l + dummyx_loc(l,j,k) * hp1
             tempy1l = tempy1l + dummyy_loc(l,j,k) * hp1
@@ -1301,9 +1301,9 @@
       call mxm8_3comp_singleB(dummyx_loc_new,dummyy_loc_new,dummyz_loc_new,m2,hprime_xxT,tempx3_new,tempy3_new,tempz3_new,m1)
 
     case default
-      do k=1,NGLLZ
-        do j=1,NGLLY
-          do i=1,NGLLX
+      do k = 1,NGLLZ
+        do j = 1,NGLLY
+          do i = 1,NGLLX
             tempx1l = 0._CUSTOM_REAL
             tempx2l = 0._CUSTOM_REAL
             tempx3l = 0._CUSTOM_REAL
@@ -1678,7 +1678,7 @@
             tempz3l = 0._CUSTOM_REAL
 
             ! we can merge these loops because NGLLX = NGLLY = NGLLZ
-            do l=1,NGLLX
+            do l = 1,NGLLX
               fac1 = hprimewgll_xx(l,i)
               tempx1l = tempx1l + tempx1(l,j,k) * fac1
               tempy1l = tempy1l + tempy1(l,j,k) * fac1

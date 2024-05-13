@@ -183,9 +183,9 @@ program smooth_sem_globe
   call zwgljd(xigll,wxgll,NGLLX,GAUSSALPHA,GAUSSBETA)
   call zwgljd(yigll,wygll,NGLLY,GAUSSALPHA,GAUSSBETA)
   call zwgljd(zigll,wzgll,NGLLZ,GAUSSALPHA,GAUSSBETA)
-  do k=1,NGLLZ
-    do j=1,NGLLY
-      do i=1,NGLLX
+  do k = 1,NGLLZ
+    do j = 1,NGLLY
+      do i = 1,NGLLX
         wgll_cube(i,j,k) = wxgll(i)*wygll(j)*wzgll(k)
       enddo
     enddo
@@ -303,7 +303,7 @@ program smooth_sem_globe
 
   tk = 0.0
   bk = 0.0
-  kernel_smooth=0.0
+  kernel_smooth = 0.0
 
   ! loop over all the slices
   do iproc = 1, nums

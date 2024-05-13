@@ -150,7 +150,7 @@
   nspecface = 0
 
 ! mark global AVS or DX points
-  do ispec=1,nspec
+  do ispec = 1,nspec
 ! only if on face
   if (iboun(1,ispec) .or. iboun(2,ispec) .or. &
               iboun(3,ispec) .or. iboun(4,ispec)) then
@@ -213,7 +213,7 @@
 
 ! output global AVS or DX points
   numpoin = 0
-  do ispec=1,nspec
+  do ispec = 1,nspec
 ! only if on face
   if (iboun(1,ispec) .or. iboun(2,ispec) .or. &
               iboun(3,ispec) .or. iboun(4,ispec)) then
@@ -571,7 +571,7 @@
   write(10,*) nspecface
 
   ispecface = 0
-  do ispec=1,nspec
+  do ispec = 1,nspec
 ! only if on face
   if (iboun(1,ispec) .or. iboun(2,ispec) .or. &
               iboun(3,ispec) .or. iboun(4,ispec)) then
@@ -588,17 +588,17 @@
 
   if (ISOTROPIC_3D_MANTLE) then
 !   pick a point within the element and get its radius
-    r=dsqrt(xstore(2,2,2,ispec)**2+ystore(2,2,2,ispec)**2+zstore(2,2,2,ispec)**2)
+    r = dsqrt(xstore(2,2,2,ispec)**2+ystore(2,2,2,ispec)**2+zstore(2,2,2,ispec)**2)
 
     if (r > RCMB/R_EARTH .and. r < R_UNIT_SPHERE) then
 !     average over the element
       dvp = 0.0
       dvs = 0.0
       np =0
-      do k=2,NGLLZ-1
-        do j=2,NGLLY-1
-          do i=2,NGLLX-1
-            np=np+1
+      do k = 2,NGLLZ-1
+        do j = 2,NGLLY-1
+          do i = 2,NGLLX-1
+            np = np+1
             x=xstore(i,j,k,ispec)
             y=ystore(i,j,k,ispec)
             z=zstore(i,j,k,ispec)
@@ -610,7 +610,7 @@
               p20=0.5d0*(3.0d0*cost*cost-1.0d0)
               call spline_evaluation(rspl,espl,espl2,nspl,r,ell)
               factor=ONE-(TWO/3.0d0)*ell*p20
-              r=r/factor
+              r = r/factor
             endif
 
             if (REFERENCE_1D_MODEL == REFERENCE_MODEL_IASP91) then

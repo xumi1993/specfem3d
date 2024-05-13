@@ -1,12 +1,25 @@
 #!/usr/bin/env python
 from __future__ import print_function
 
+import os
+import sys
+
+# checks for path for modules
+found_lib = False
+for path in sys.path:
+    if "geocubitlib" in path:
+        found_lib = True
+        break
+if not found_lib:
+    sys.path.append('../../../CUBIT_GEOCUBIT/geocubitlib')
+    sys.path.append('../../../CUBIT_GEOCUBIT/')
+#print("path:")
+#for path in sys.path: print("  ",path)
+#print("")
+
 import cubit
 import boundary_definition
 import cubit2specfem3d
-
-import os
-import sys
 
 # two volumes separating whole 134000x134000x60000 block in middle vertically
 cubit.cmd('reset')
@@ -28,11 +41,12 @@ cubit.cmd('mesh volume 1 2')
 
 ###### This is boundary_definition.py of GEOCUBIT
 #..... which extracts the bounding faces and defines them into blocks
+print('#### DEFINE BC #######################')
 boundary_definition.entities=['face']
 boundary_definition.define_bc(boundary_definition.entities,parallel=True)
 
 #### Define material properties for the 3 volumes ################
-cubit.cmd('#### DEFINE MATERIAL PROPERTIES #######################')
+print('#### DEFINE MATERIAL PROPERTIES #######################')
 cubit.cmd('block 1 name "acoustic 1" ')        # material region
 cubit.cmd('block 1 attribute count 4')
 cubit.cmd('block 1 attribute index 1 1')      # flag for material: 1 for 1. material

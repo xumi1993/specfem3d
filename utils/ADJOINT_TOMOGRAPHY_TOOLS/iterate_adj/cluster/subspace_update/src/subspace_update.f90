@@ -8,8 +8,8 @@ program subspace_update
 
 ! ======================================================
 
-  integer, parameter :: NSPEC=NSPEC_AB
-  integer, parameter :: NGLOB=NGLOB_AB
+  integer, parameter :: NSPEC = NSPEC_AB
+  integer, parameter :: NGLOB = NGLOB_AB
 
   character(len=150) :: kernel_file_list, kernel_list(1000), sline, k_file, kernel_name, dm_file, filename
   character(len=150) :: dcov_tag, idir, kdir, odir, beta_dir, bulk_dir
@@ -73,7 +73,7 @@ program subspace_update
   ! READ IN FILES
 
   ! read in list of event kernels
-  nsrc=0
+  nsrc = 0
   open(unit=19,file=trim(kernel_file_list),status='old',iostat=ios)
   if (ios /= 0) then
     print *,'Error opening ',trim(kernel_file_list)
@@ -82,7 +82,7 @@ program subspace_update
   do while (1 == 1)
     read(19,'(a)',iostat=ios) sline
     if (ios /= 0) exit
-    nsrc=nsrc+1
+    nsrc = nsrc+1
     kernel_list(nsrc) = sline
   enddo
   close(19)
@@ -98,7 +98,7 @@ program subspace_update
   ! read in the data-norm vector for subspace method
   if (myrank == 0) write(*,*) 'reading in data_norm'
   open(unit=22,file=trim(idir)//'data_norm',status='old',iostat=ios)
-  do i=1,nsrc
+  do i = 1,nsrc
      read(22,*) dnorm(i)
      if (myrank == 0) write(*,*) dnorm(i)
   enddo
@@ -107,7 +107,7 @@ program subspace_update
   ! read in the number of window picks per event
   if (myrank == 0) write(*,*) 'reading in window tallies'
   open(unit=23,file=trim(idir)//'dcov_fac',status='old',iostat=ios)
-  do i=1,nsrc
+  do i = 1,nsrc
      read(23,*) dcov_fac(i)
      if (myrank == 0) write(*,*) dcov_fac(i)
   enddo
@@ -131,7 +131,7 @@ program subspace_update
 
   ! read in the pmax values
   ! pmax : max singular value for TSVD construction of subspace Hessian
-  npmax=0
+  npmax = 0
   open(unit=19,file=trim(idir)//'pmax',status='old',iostat=ios)
   if (ios /= 0) then
     print *,'Error opening ',trim(filename)
@@ -140,7 +140,7 @@ program subspace_update
   do while (1 == 1)
     read(19,*,iostat=ios) ptemp
     if (ios /= 0) exit
-    npmax=npmax+1
+    npmax = npmax+1
     pmax_list(npmax) = ptemp
   enddo
   close(19)
@@ -173,7 +173,7 @@ program subspace_update
      if (myrank == 0) write(*,*) 'reading in mu vectors'
      write(filename,'(a,i3.3)') trim(idir) // 'mu_p', pmax
      open(unit=20,file=trim(filename),status='old',iostat=ios)
-     do i=1,nsrc
+     do i = 1,nsrc
         read(20,*) mu_beta(i)
         if (myrank == 0) write(*,*) mu_beta(i)
      enddo

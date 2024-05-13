@@ -13,7 +13,7 @@
   integer n
   double precision alpha,beta
 
-  double precision, parameter :: zero=0.d0,one=1.d0,two=2.d0,three=3.d0,four=4.d0
+  double precision, parameter :: zero = 0.d0,one = 1.d0,two = 2.d0,three = 3.d0,four = 4.d0
   double precision apb,f1,fint1,fint2,f2,di,abn,abnn,a1,a2,a3,f3
   double precision, external :: gammaf
   integer i
@@ -39,7 +39,7 @@
    endw1 = f2
    return
   endif
-  do i=3,n
+  do i = 3,n
    di   = dble(i-1)
    abn  = alpha+beta+di
    abnn = abn+di
@@ -65,7 +65,7 @@
   integer n
   double precision alpha,beta
 
-  double precision, parameter :: zero=0.d0,one=1.d0,two=2.d0,three=3.d0,four=4.d0
+  double precision, parameter :: zero = 0.d0,one = 1.d0,two = 2.d0,three = 3.d0,four = 4.d0
   double precision apb,f1,fint1,fint2,f2,di,abn,abnn,a1,a2,a3,f3
   double precision, external :: gammaf
   integer i
@@ -91,7 +91,7 @@
    endw2 = f2
    return
   endif
-  do i=3,n
+  do i = 3,n
    di   = dble(i-1)
    abn  = alpha+beta+di
    abnn = abn+di
@@ -118,7 +118,7 @@
 
   double precision x
 
-  double precision, parameter :: half=0.5d0,one=1.d0,two=2.d0
+  double precision, parameter :: half = 0.5d0,one = 1.d0,two = 2.d0
 
   gammaf = one
 
@@ -176,7 +176,7 @@
   p = 0.d0
   pd = 0.d0
   jmin = 0
-  do j=1,np
+  do j = 1,np
    if (j == 1) then
       x = dcos((2.d0*(dble(j)-1.d0)+1.d0)*dth)
    else
@@ -184,11 +184,11 @@
       x2 = xlast
       x  = (x1+x2)/2.d0
    endif
-   do k=1,K_MAX_ITER
+   do k = 1,K_MAX_ITER
       call jacobf (p,pd,pm1,pdm1,pm2,pdm2,np,alpha,beta,x)
       recsum = 0.d0
       jm = j-1
-      do i=1,jm
+      do i = 1,jm
          recsum = recsum+1.d0/(x-xjac(np-i+1))
       enddo
       delx = -p/(pd-recsum*p)
@@ -199,9 +199,9 @@
    xjac(np-j+1) = x
    xlast        = x
   enddo
-  do i=1,np
+  do i = 1,np
    xmin = 2.d0
-   do j=i,np
+   do j = i,np
       if (xjac(j) < xmin) then
          xmin = xjac(j)
          jmin = j
@@ -250,7 +250,7 @@
   pder  = (apb+2.d0)/2.d0
   if (n == 1) return
 
-  do k=2,n
+  do k = 2,n
     dk = dble(k)
     a1 = 2.d0*dk*(dk+apb)*(2.d0*dk+apb-2.d0)
     a2 = (2.d0*dk+apb-1.d0)*(alp**2-bet**2)
@@ -381,7 +381,7 @@
   prod  = prod*(one+alpha)*(two+alpha)
   prod  = prod*(one+beta)*(two+beta)
 
-  do i=3,n
+  do i = 3,n
     dindx = dble(i)
     frac  = (dindx+alpha)*(dindx+beta)/(dindx*(dindx+alpha+beta))
     prod  = prod*frac
@@ -408,7 +408,7 @@
 
   implicit none
 
-  double precision, parameter :: zero=0.d0,one=1.d0,two=2.d0
+  double precision, parameter :: zero = 0.d0,one = 1.d0,two = 2.d0
 
   integer np
   double precision z(np),w(np)
@@ -451,7 +451,7 @@
   fac3  = fac2+one
   fnorm = pnormj(np1,alpha,beta)
   rcoef = (fnorm*fac2*fac3)/(two*fac1*dnp2)
-  do i=1,np
+  do i = 1,np
     call jacobf(p,pd,pm1,pdm1,pm2,pdm2,np2,alpha,beta,z(i))
     w(i) = -rcoef/(p*pdm1)
   enddo
@@ -478,7 +478,7 @@
 
   implicit none
 
-  double precision, parameter :: zero=0.d0,one=1.d0,two=2.d0
+  double precision, parameter :: zero = 0.d0,one = 1.d0,two = 2.d0
 
   integer np
   double precision alpha,beta
@@ -515,7 +515,7 @@
   z(1)  = - one
   z(np) =  one
 
-  do i=2,np-1
+  do i = 2,np-1
    w(i) = w(i)/(one-z(i)**2)
   enddo
 

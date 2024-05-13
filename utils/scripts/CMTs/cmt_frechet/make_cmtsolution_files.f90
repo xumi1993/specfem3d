@@ -59,14 +59,14 @@
   read(1,"(a4,i5,i3,i3,i3,i3,f6.2,f9.4,f10.4,f6.1,f4.1,f4.1,1x,a)") &
            datasource,yr,mo,da,ho,mi,sec,lat,long,depth,mb,ms,reg
 
-  do iu=2,10
+  do iu = 2,10
     write(iu,"(a3,i5,i3,i3,i3,i3,f6.2,f9.4,f10.4,f6.1,f4.1,f4.1,1x,a)") &
              datasource,yr,mo,da,ho,mi,sec,lat,long,depth,mb,ms,reg
   enddo
 
   jda=julian_day(yr,mo,da)
 
-  ios=0
+  ios = 0
   do while(ios == 0)
 
     read(1,"(a)",iostat=ios) string
@@ -76,17 +76,17 @@
       lstr=len_trim(string)
 
       if (string(1:10) == 'event name') then
-        do iu=2,10
+        do iu = 2,10
           write(iu,"(a)") string(1:lstr)
         enddo
       else if (string(1:10) == 'time shift') then
         read(string(12:lstr),*) tshift_cmt
-        do iu=2,10
+        do iu = 2,10
           write(iu,"(a)") string(1:lstr)
         enddo
       else if (string(1:13) == 'half duration') then
         read(string(15:lstr),*) hdur
-        do iu=2,10
+        do iu = 2,10
           write(iu,"(a)") string(1:lstr)
         enddo
       else if (string(1:8) == 'latitude') then
@@ -94,7 +94,7 @@
         latp = lat + DDELTA
         if (latp > 90.0) latp = 180.0 - latp
         write(2,"(a9,5x,f9.4)") string(1:9),latp
-        do iu=3,10
+        do iu = 3,10
           write(iu,"(a)") string(1:lstr)
         enddo
       else if (string(1:9) == 'longitude') then
@@ -103,7 +103,7 @@
         longp = long + DDELTA
         if (longp > 180.0) longp = longp - 360.0
         write(3,"(a10,4x,f9.4)") string(1:10),longp
-        do iu=4,10
+        do iu = 4,10
           write(iu,"(a)") string(1:lstr)
         enddo
       else if (string(1:5) == 'depth') then
@@ -111,12 +111,12 @@
         write(2,"(a)") string(1:lstr)
         write(3,"(a)") string(1:lstr)
         write(4,"(a6,8x,f9.4)") string(1:6),depth+DDEPTH
-        do iu=5,10
+        do iu = 5,10
           write(iu,"(a)") string(1:lstr)
         enddo
       else if (string(1:3) == 'Mrr') then
         read(string(5:lstr),*) moment_tensor(1)
-        do iu=2,4
+        do iu = 2,4
           write(iu,"(a)") string(1:lstr)
         enddo
         write(5,"(a4,4x,e15.6)") string(1:4),MOMENT
@@ -127,7 +127,7 @@
         write(10,"(a4,4x,e15.6)") string(1:4),0.0
       else if (string(1:3) == 'Mtt') then
         read(string(5:lstr),*) moment_tensor(2)
-        do iu=2,4
+        do iu = 2,4
           write(iu,"(a)") string(1:lstr)
         enddo
         write(5,"(a4,4x,e15.6)") string(1:4),0.0
@@ -138,7 +138,7 @@
         write(10,"(a4,4x,e15.6)") string(1:4),0.0
       else if (string(1:3) == 'Mpp') then
         read(string(5:lstr),*) moment_tensor(3)
-        do iu=2,4
+        do iu = 2,4
           write(iu,"(a)") string(1:lstr)
         enddo
         write(5,"(a4,4x,e15.6)") string(1:4),0.0
@@ -149,7 +149,7 @@
         write(10,"(a4,4x,e15.6)") string(1:4),0.0
       else if (string(1:3) == 'Mrt') then
         read(string(5:lstr),*) moment_tensor(4)
-        do iu=2,4
+        do iu = 2,4
           write(iu,"(a)") string(1:lstr)
         enddo
         write(5,"(a4,4x,e15.6)") string(1:4),0.0
@@ -160,7 +160,7 @@
         write(10,"(a4,4x,e15.6)") string(1:4),0.0
       else if (string(1:3) == 'Mrp') then
         read(string(5:lstr),*) moment_tensor(5)
-        do iu=2,4
+        do iu = 2,4
           write(iu,"(a)") string(1:lstr)
         enddo
         write(5,"(a4,4x,e15.6)") string(1:4),0.0
@@ -171,7 +171,7 @@
         write(10,"(a4,4x,e15.6)") string(1:4),0.0
       else if (string(1:3) == 'Mtp') then
         read(string(5:lstr),*) moment_tensor(6)
-        do iu=2,4
+        do iu = 2,4
           write(iu,"(a)") string(1:lstr)
         enddo
         write(5,"(a4,4x,e15.6)") string(1:4),0.0
@@ -210,7 +210,7 @@
   data mon /0,31,59,90,120,151,181,212,243,273,304,334/
 
   julian_day=da+mon(mo)
-  if (mo > 2) julian_day=julian_day+lpyr(yr)
+  if (mo > 2) julian_day = julian_day+lpyr(yr)
 
   end function julian_day
 
@@ -221,13 +221,13 @@
 !
 !---- returns 1 if yr is a leap year
 !
-  lpyr=0
+  lpyr = 0
   if (mod(yr,400) == 0) then
-    lpyr=1
+    lpyr = 1
   else if (mod(yr,4) == 0) then
-    lpyr=1
+    lpyr = 1
     if (mod(yr,100) == 0) then
-      lpyr=0
+      lpyr = 0
     endif
   endif
 
