@@ -30,7 +30,11 @@
 !----
 
   subroutine abort_mpi()
+
+  implicit none
+
   stop 'error, program ended by abort'
+
   end subroutine abort_mpi
 
 !
@@ -55,6 +59,9 @@
 !
 
   subroutine synchronize_all()
+
+  implicit none
+
   end subroutine synchronize_all
 
 !
@@ -826,7 +833,7 @@
 !-------------------------------------------------------------------------------------------------
 !
 
-  subroutine max_allreduce_i(buffer,countval)
+  subroutine max_all_all_veci(buffer,countval)
 
   implicit none
 
@@ -837,22 +844,7 @@
 
   unused_i4 = buffer(1)
 
-  end subroutine max_allreduce_i
-
-!
-!-------------------------------------------------------------------------------------------------
-!
-
-  subroutine max_allreduce_singlei(val,recvval)
-
-  implicit none
-
-  integer,intent(in) :: val
-  integer,intent(out) :: recvval
-
-  recvval = val
-
-  end subroutine max_allreduce_singlei
+  end subroutine max_all_all_veci
 
 !
 !-------------------------------------------------------------------------------------------------

@@ -208,7 +208,7 @@
 
 
   ! calling wrapper instead to compile without mpi
-  call max_allreduce_i(max_global_values,num_vars)
+  call max_all_all_veci(max_global_values,num_vars)
 
   nglob_wmax                          = max_global_values(1)
   nspec_wmax                          = max_global_values(2)

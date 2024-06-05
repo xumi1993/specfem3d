@@ -68,7 +68,7 @@
   max_global_values(3) = NSPEC_STRAIN_ONLY
   max_global_values(4) = N_SLS
 
-  call max_allreduce_i(max_global_values,num_vars)
+  call max_all_all_veci(max_global_values,num_vars)
 
   NGLOB_wmax                   = max_global_values(1)
   NSPEC_ATTENUATION_wmax       = max_global_values(2)
@@ -303,9 +303,9 @@
   ! only need to do this once for the first iteration and save the max values
   if (iteration_on_subset_tmp == 1) then
     ! Filling a temporary array to avoid doing allreduces for each var.
-    call max_allreduce_singlei(NGLOB_AB,NGLOB_wmax)
-    call max_allreduce_singlei(NSPEC_ATTENUATION_AB,NSPEC_ATTENUATION_wmax)
-    call max_allreduce_singlei(N_SLS,N_SLS_wmax)        ! probably not needed, N_SLS will be the same for all partitions
+    call max_all_all_i(NGLOB_AB,NGLOB_wmax)
+    call max_all_all_i(NSPEC_ATTENUATION_AB,NSPEC_ATTENUATION_wmax)
+    call max_all_all_i(N_SLS,N_SLS_wmax)        ! probably not needed, N_SLS will be the same for all partitions
   endif
 
   ! file handling
