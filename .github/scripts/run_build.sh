@@ -29,13 +29,25 @@ echo "mpif90 --version"
 mpif90 --version
 echo
 
+## ADIOS2
+if [ "${ADIOS2}" == "true" ]; then
+  echo
+  echo "enabling ADIOS2"
+  echo
+  ADIOS2_CONFIG="${ADIOS2_DIR}/bin/adios2-config"
+  adios=(--with-adios2 ADIOS2_CONFIG="$ADIOS2_CONFIG" )
+else
+  adios=()
+fi
 
 # configuration
 echo
-echo "configuration: default"
+echo "configuration:"
 echo
 
-./configure FC=gfortran MPIFC=mpif90 CC=gcc ${TESTFLAGS}
+./configure \
+${adios[@]} \
+FC=gfortran MPIFC=mpif90 CC=gcc ${TESTFLAGS}
 
 # checks
 if [[ $? -ne 0 ]]; then echo "configuration failed:"; cat config.log; echo ""; echo "exiting..."; exit 1; fi

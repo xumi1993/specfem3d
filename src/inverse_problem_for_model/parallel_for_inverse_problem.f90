@@ -34,8 +34,6 @@
 
   implicit none
 
-  include "precision.h"
-
   integer,                intent(in)    :: countval
   real(kind=CUSTOM_REAL), intent(in)    :: sendbuf
   real(kind=CUSTOM_REAL), intent(inout) :: recvbuf
@@ -62,8 +60,6 @@
 
   implicit none
 
-  include "precision.h"
-
   integer,                intent(in)    :: countval
   real(kind=CUSTOM_REAL), intent(in)    :: sendbuf
   real(kind=CUSTOM_REAL), intent(inout) :: recvbuf
@@ -89,8 +85,6 @@
   use shared_parameters, only: NUMBER_OF_SIMULTANEOUS_RUNS
 
   implicit none
-
-  include "precision.h"
 
   integer,                intent(in)    :: countval
   real(kind=CUSTOM_REAL), intent(in)    :: sendbuf
@@ -167,8 +161,6 @@
   use constants, only: CUSTOM_REAL
 
   implicit none
-
-  include "precision.h"
 
   integer,                intent(in)    :: countval
   real(kind=CUSTOM_REAL), intent(in)    :: sendbuf

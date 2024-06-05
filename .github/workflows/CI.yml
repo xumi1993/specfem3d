@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Check for changes
       id: diff
@@ -86,7 +86,7 @@ jobs:
     needs: changesCheck
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install dependencies
       run: |
@@ -104,10 +104,11 @@ jobs:
         echo ""
         ## avoids sed -i '' issue on MacOS, using gnu sed to have the same sed command lines as in linux
         brew install gnu-sed
-        echo "PATH=/usr/local/opt/gnu-sed/libexec/gnubin:$PATH" >> $GITHUB_ENV
+        echo "PATH=/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH" >> $GITHUB_ENV
         ## OpenMP
         echo "OMP_NUM_THREADS=2" >> $GITHUB_ENV
         ## MPI
+        echo
         echo "MPI environment:"
         echo "mpif90 on path: $(which mpif90)"
         echo
@@ -149,7 +150,7 @@ jobs:
         os: [ubuntu-latest,ubuntu-20.04]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -168,7 +169,7 @@ jobs:
     needs: changesCheck
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Cache Intel oneapi packages
       id: cache-intel-oneapi
@@ -303,7 +304,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -322,7 +323,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -346,7 +347,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -370,7 +371,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -395,7 +396,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -419,7 +420,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -444,7 +445,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -469,7 +470,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -495,7 +496,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -520,7 +521,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -544,7 +545,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -568,7 +569,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -592,7 +593,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -616,7 +617,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -640,7 +641,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -664,7 +665,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -688,7 +689,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -712,7 +713,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       run: ./.github/scripts/run_install.sh
@@ -736,7 +737,7 @@ jobs:
     needs: [linuxCheck]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install packages
       env:
@@ -755,6 +756,34 @@ jobs:
         TEST: with-hdf5
         TESTDIR: EXAMPLES/applications/meshfem3D_examples/socal1D/
         TESTID: 0
+      run: ./.github/scripts/run_tests.sh
+      shell: bash
+
+  linuxTest_19:
+    name: Test run example 19 - meshfem3D simple model w/ ADIOS2
+    runs-on: ubuntu-latest
+    needs: [linuxCheck]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install packages
+      env:
+        ADIOS2: true
+      run: ./.github/scripts/run_install.sh
+      shell: bash
+
+    - name: Run build
+      env:
+        TESTFLAGS: --with-mpi --enable-vectorization
+        ADIOS2: true
+      run: ./.github/scripts/run_build.sh
+      shell: bash
+
+    - name: Run test
+      env:
+        TESTDIR: EXAMPLES/applications/meshfem3D_examples/simple_model/
+        ADIOS2: true
       run: ./.github/scripts/run_tests.sh
       shell: bash
 

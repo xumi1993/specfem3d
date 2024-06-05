@@ -1109,7 +1109,7 @@ contains
         nuc_r   = bc%twf%nuc_r
         nuc_t0  = bc%twf%nuc_t0
         nuc_v   = bc%twf%nuc_v
-        if(bc%twf%kind==1) then
+        if (bc%twf%kind == 1) then
             do i = 1,bc%nglob
                 dist = ((bc%coord(1,i)-nuc_x)**2 + (bc%coord(2,i)-nuc_y)**2 + (bc%coord(3,i)-nuc_z)**2)**0.5
                 if (dist < nuc_r) then
@@ -1122,14 +1122,14 @@ contains
                     endif
                 endif
             enddo
-        elseif(bc%twf%kind==2) then
+        else if (bc%twf%kind == 2) then
             do i = 1,bc%nglob
                 dist = ((bc%coord(1,i)-nuc_x)**2 + (bc%coord(2,i)-nuc_y)**2 + (bc%coord(3,i)-nuc_z)**2)**0.5
                 if (dist < nuc_r) then
                     temp_T = dist/0.7/3464 + 0.081*nuc_r/0.7/3464*(1/(1-(dist/nuc_r)**2)-1)
                     if (timeval >= temp_T+nuc_t0) then
                         bc%mu(i) = min(bc%mu(i), bc%twf%mud)
-                    else if (timeval>=temp_T .and. timeval<temp_T+nuc_t0) then
+                    else if (timeval >= temp_T .and. timeval < temp_T+nuc_t0) then
                         bc%mu(i) = min(bc%mu(i), bc%twf%mud + (temp_T+nuc_t0-timeval)/nuc_t0*(bc%twf%mus-bc%twf%mud))
                     endif
                 endif
@@ -1526,7 +1526,7 @@ contains
         nuc_r   = bc%twf%nuc_r
         nuc_t0  = bc%twf%nuc_t0
         nuc_v   = bc%twf%nuc_v
-        if(bc%twf%kind==1) then
+        if (bc%twf%kind == 1) then
             do i = 1,bc%nglob
                 dist = ((bc%coord(1,i)-nuc_x)**2 + (bc%coord(2,i)-nuc_y)**2 + (bc%coord(3,i)-nuc_z)**2)**0.5
                 if (dist < nuc_r) then
@@ -1539,14 +1539,14 @@ contains
                     endif
                 endif
             enddo
-        elseif(bc%twf%kind==2) then
+        else if (bc%twf%kind == 2) then
             do i = 1,bc%nglob
                 dist = ((bc%coord(1,i)-nuc_x)**2 + (bc%coord(2,i)-nuc_y)**2 + (bc%coord(3,i)-nuc_z)**2)**0.5
                 if (dist < nuc_r) then
                     temp_T = dist/0.7/3464 + 0.081*nuc_r/0.7/3464*(1/(1-(dist/nuc_r)**2)-1)
                     if (timeval >= temp_T+nuc_t0) then
                         bc%mu(i) = min(bc%mu(i), bc%twf%mud)
-                    else if (timeval>=temp_T .and. timeval<temp_T+nuc_t0) then
+                    else if (timeval >= temp_T .and. timeval < temp_T+nuc_t0) then
                         bc%mu(i) = min(bc%mu(i), bc%twf%mud + (temp_T+nuc_t0-timeval)/nuc_t0*(bc%twf%mus-bc%twf%mud))
                     endif
                 endif

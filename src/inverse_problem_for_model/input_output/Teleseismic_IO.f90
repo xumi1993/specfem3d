@@ -39,6 +39,8 @@ module Teleseismic_IO_mod
                                         calc_delta_dist_baz, calc_dist_baz_cart, lowcase, &
                                         write_binary_data
   use signal_processing, only: taper_window_W
+
+  implicit none
   integer, private :: NEVENT
 
 contains
@@ -50,8 +52,8 @@ contains
   subroutine read_acqui_teleseismic_file(acqui_file, acqui_simu, myrank)
 
     use my_mpi             !! module from specfem
-    include "precision.h"  !! from specfem
 
+    implicit none
     character(len=MAX_LEN_STRING),           intent(in)    ::  acqui_file
     integer,                                 intent(in)    ::  myrank
     type(acqui),  dimension(:), allocatable, intent(inout) ::  acqui_simu
@@ -437,7 +439,7 @@ contains
     !! hgamma, hpgamma
     !!
     !! ------------------------------------------------------------------------------
-
+    implicit none
     type(acqui), dimension(:),              intent(inout)  :: acqui_simu
     integer,                                intent(in)     :: myrank
     ! local

@@ -71,7 +71,7 @@
   call init_adios_group(myadios_group,group_name)
 
   ! determines maximum values for nspec over all partition slices
-  call max_allreduce_singlei(NSPEC_AB,nspec_wmax)
+  call max_all_all_i(NSPEC_AB,nspec_wmax)
 
   ! defines variable entries
   call define_adios_scalar(myadios_group, group_size_inc, '', "nspec", NSPEC_AB)
@@ -240,7 +240,7 @@
   integer :: nspec_wmax
 
   ! determines maximum values for nspec over all partition slices
-  call max_allreduce_singlei(NSPEC_AB,nspec_wmax)
+  call max_all_all_i(NSPEC_AB,nspec_wmax)
 
   local_dim = NGLLX * NGLLY * NGLLZ * nspec_wmax
 
@@ -273,7 +273,7 @@
   integer :: nspec_wmax
 
   ! determines maximum values for nspec over all partition slices
-  call max_allreduce_singlei(NSPEC_AB,nspec_wmax)
+  call max_all_all_i(NSPEC_AB,nspec_wmax)
 
   local_dim = NGLLX * NGLLY * NGLLZ * nspec_wmax
 
@@ -325,7 +325,7 @@
   integer :: nspec_wmax
 
   ! determines maximum values for nspec over all partition slices
-  call max_allreduce_singlei(NSPEC_AB,nspec_wmax)
+  call max_all_all_i(NSPEC_AB,nspec_wmax)
 
   local_dim = NGLLX * NGLLY * NGLLZ * nspec_wmax
 
@@ -384,7 +384,7 @@
   integer :: nspec_wmax
 
   ! determines maximum values for nspec over all partition slices
-  call max_allreduce_singlei(NSPEC_AB,nspec_wmax)
+  call max_all_all_i(NSPEC_AB,nspec_wmax)
 
   local_dim = NGLLX * NGLLY * NGLLZ * nspec_wmax
 
@@ -440,7 +440,7 @@
   if (.not. SAVE_MOHO_MESH) return
 
   ! determines maximum values for nspec over all partition slices
-  call max_allreduce_singlei(NSPEC_AB,nspec_wmax)
+  call max_all_all_i(NSPEC_AB,nspec_wmax)
 
   ! save moho kernels to binary files
   local_dim = NGLLX * NGLLY * NGLLZ * nspec_wmax
@@ -468,7 +468,7 @@
   integer :: nspec_wmax
 
   ! determines maximum values for nspec over all partition slices
-  call max_allreduce_singlei(NSPEC_AB,nspec_wmax)
+  call max_all_all_i(NSPEC_AB,nspec_wmax)
 
   local_dim = NGLLX * NGLLY * NGLLZ * nspec_wmax
 

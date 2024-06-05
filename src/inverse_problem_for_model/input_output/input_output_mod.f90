@@ -105,6 +105,7 @@ contains
 !-------------------------------------------------------------------------------------------------------------------
   subroutine init_input_output_mod(inversion_param, acqui_simu, myrank)
 
+    implicit none
     integer,                                 intent(in)    ::  myrank
     type(acqui),  dimension(:), allocatable, intent(inout) ::  acqui_simu
     type(inver),                             intent(inout) ::  inversion_param
@@ -284,6 +285,8 @@ contains
 !> read input inversion parameter file
 !--------------------------------------------------------------------------------------------------------------------
   subroutine SetUpInversion(inversion_param, myrank)
+
+    implicit none
     type(inver),                         intent(inout)    :: inversion_param
     integer,                             intent(in)       :: myrank
 
@@ -366,6 +369,7 @@ contains
 !--------------------------------------------------------------------------------------------------------------------
   subroutine read_and_distribute_events_for_simultaneous_runs(NUMBER_OF_SIMULTANEOUS_RUNS, acqui_file_ref)
 
+    implicit none
     character(len=MAX_LEN_STRING),       intent(in)       :: acqui_file_ref
     integer,                             intent(in)       :: NUMBER_OF_SIMULTANEOUS_RUNS
     ! local
@@ -450,7 +454,6 @@ contains
   subroutine create_name_database_inversion(prname,iproc,ievent,LOCAL_PATH)
 
     implicit none
-
     integer,                       intent(in)   :: iproc, ievent
     ! name of the database file
     character(len=MAX_LEN_STRING), intent(inout) :: prname
@@ -471,6 +474,7 @@ contains
 !--------------------------------------------------------------------------------------------------------------------
   subroutine WriteOutputs(inversion_param)
 
+    implicit none
     type(inver),                                                intent(in)    :: inversion_param
 
     !! FOR NOT ONLY ONE OUPTPUT BUT FOR FURTHER DEV WE WILL ADD OTHER
@@ -488,6 +492,7 @@ contains
     use my_mpi
     use specfem_par, only: myrank
 
+    implicit none
     type(inver),                                    intent(inout) :: inversion_param
     character(len=MAX_LEN_STRING),                  intent(inout) :: mode_running
     integer                                                       :: ier
@@ -564,6 +569,7 @@ contains
 
   subroutine dump_adjoint_sources(ievent, acqui_simu, myrank)
 
+    implicit none
     integer,                    intent(in)    :: ievent, myrank
     type(acqui),  dimension(:), intent(inout) :: acqui_simu
     ! local
@@ -589,6 +595,7 @@ contains
 !----------------------------------------------------------------
   subroutine dump_seismograms(ievent, array_to_write,  acqui_simu, myrank)
 
+    implicit none
     integer,                                   intent(in)    :: ievent, myrank
     real(kind=CUSTOM_REAL),  dimension(:,:,:), intent(in)    :: array_to_write
     type(acqui),  dimension(:),                intent(inout) :: acqui_simu
@@ -624,6 +631,7 @@ contains
 !----------------------------------------------------------------
   subroutine dump_filtered_data(ievent, array_to_write,  acqui_simu, myrank)
 
+    implicit none
     integer,                                   intent(in)    :: ievent,myrank
     real(kind=CUSTOM_REAL),  dimension(:,:,:), intent(in)    :: array_to_write
     type(acqui),  dimension(:),                intent(inout) :: acqui_simu
@@ -651,8 +659,8 @@ contains
   subroutine write_bin_sismo_on_disk(ievent, acqui_simu, array_to_write, name_file_to_write, myrank)
 
     use my_mpi             !! module from specfem
-    include "precision.h"  !! from specfem
 
+    implicit none
     integer,                                   intent(in)    :: myrank, ievent
     character(len=MAX_LEN_STRING),             intent(in)    :: name_file_to_write
     real(kind=CUSTOM_REAL),  dimension(:,:,:), intent(in)    :: array_to_write
@@ -787,8 +795,8 @@ contains
   subroutine read_data_gather(acqui_simu, inversion_param, myrank)
 
     use my_mpi             !! module from specfem
-    include "precision.h"  !! from specfem
 
+    implicit none
     integer,                                     intent(in)    :: myrank
     type(acqui), dimension(:),                   intent(inout) :: acqui_simu
     type(inver),                                 intent(inout) :: inversion_param
@@ -999,8 +1007,8 @@ contains
   subroutine read_pif_data_gather(acqui_simu, inversion_param, myrank)
 
     use my_mpi             !! module from specfem
-    include "precision.h"  !! from specfem
 
+    implicit none
     integer,                                     intent(in)    :: myrank
     type(acqui),  dimension(:),                  intent(inout) :: acqui_simu
     type(inver),                                 intent(inout) :: inversion_param
@@ -1308,8 +1316,8 @@ contains
   subroutine write_pif_data_gather(ievent, acqui_simu, inversion_param, array_to_write, name_file_to_write, myrank)
 
     use my_mpi             !! module from specfem
-    include "precision.h"  !! from specfem
 
+    implicit none
     integer,                                   intent(in)    :: myrank, ievent
     real(kind=CUSTOM_REAL),  dimension(:,:,:), intent(in)    :: array_to_write
     type(acqui),             dimension(:),     intent(inout) :: acqui_simu
@@ -1513,8 +1521,8 @@ contains
   subroutine read_acqui_file(acqui_file, acqui_simu, myrank)
 
     use my_mpi             !! module from specfem
-    include "precision.h"  !! from specfem
 
+    implicit none
     character(len=MAX_LEN_STRING),           intent(in)    ::  acqui_file
     integer,                                 intent(in)    ::  myrank
     type(acqui),  dimension(:), allocatable, intent(inout) ::  acqui_simu
@@ -1719,8 +1727,8 @@ contains
   subroutine read_inver_file(inver_file, inversion_param, myrank)
 
     use my_mpi             !! module from specfem
-    include "precision.h"  !! from specfem
 
+    implicit none
     character(len=MAX_LEN_STRING), intent(in)    ::  inver_file
     integer,                       intent(in)    ::  myrank
     type(inver),                   intent(inout) ::  inversion_param
@@ -2051,6 +2059,7 @@ contains
 !----------------------------------------------------------------
   subroutine store_default_acqui_values(acqui_simu, ievent)
 
+    implicit none
     type(acqui), dimension(:), intent(inout)  :: acqui_simu
     integer,                   intent(in)     :: ievent
 
@@ -2069,6 +2078,7 @@ contains
 !----------------------------------------------------------------
   logical function is_blank_line(line)
 
+    implicit none
     character(len=MAX_LEN_STRING), intent(in) :: line
     is_blank_line = .false.
     if (len(trim(adjustl(line))) == 0) is_blank_line = .true.
@@ -2081,6 +2091,7 @@ contains
 !----------------------------------------------------------------
   subroutine remove_blank_in_line(line, line_without_blank)
 
+    implicit none
     character(len=MAX_LEN_STRING), intent(in)    :: line
     character(len=MAX_LEN_STRING), intent(inout) :: line_without_blank
     integer                                      :: n, i, k
@@ -2103,6 +2114,7 @@ contains
 !------------------------------------------------------------
   subroutine get_stations(acqui_simu)
 
+    implicit none
     type(acqui), dimension(:), intent(inout)               :: acqui_simu
 
     integer                                                :: ievent, irec, nsta, nrec_loc, ier
@@ -2288,8 +2300,8 @@ contains
   subroutine get_point_source(acqui_simu)
 
     use my_mpi             !! module from specfem
-    include "precision.h"  !! from specfem
 
+    implicit none
     type(acqui), dimension(:),              intent(inout)     :: acqui_simu
     ! locals
     character(len=MAX_STRING_LEN)                             :: filename
@@ -2650,7 +2662,7 @@ contains
 
 !  subroutine bcast_all_acqui(acqui_simu, inversion_param, myrank)
 !    use my_mpi             !! module from specfem
-!    include "precision.h"  !! from specfem
+!    implicit none
 !    type(acqui), dimension(:), intent(inout)  :: acqui_simu
 !    type(inver),               intent(inout)  :: inversion_param
 !    integer,                   intent(in)     :: myrank

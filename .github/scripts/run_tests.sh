@@ -117,6 +117,12 @@ if [[ "${TEST}" == *"with-hdf5"* ]]; then
   cp -v run_this_example_HDF5_IO_server.sh run_this_example.sh
 fi
 
+# adios
+if [ "${ADIOS2}" == "true" ]; then
+  # turns on ADIOS
+  sed -i "s:^ADIOS_ENABLED .*:ADIOS_ENABLED = .true.:" DATA/Par_file
+fi
+
 # default script
 ./run_this_example.sh
 

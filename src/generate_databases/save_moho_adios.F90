@@ -61,8 +61,8 @@
   ! ADIOS write equally sized chunks for each processor.            |
   !-----------------------------------------------------------------'
   ! determines maximum values for nspec over all partition slices
-  call max_allreduce_singlei(NSPEC_AB,NSPEC_wmax)
-  call max_allreduce_singlei(nspec2d_moho,nspec2d_moho_wmax)
+  call max_all_all_i(NSPEC_AB,NSPEC_wmax)
+  call max_all_all_i(nspec2d_moho,nspec2d_moho_wmax)
 
   !-----------------------------------.
   ! Setup ADIOS for the current group |
