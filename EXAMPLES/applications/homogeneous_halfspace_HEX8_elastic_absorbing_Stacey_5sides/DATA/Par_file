@@ -325,6 +325,13 @@ FKMODEL_FILE                    = FKmodel
 RECIPROCITY_AND_KH_INTEGRAL     = .false.   # does not work yet
 
 #-----------------------------------------------------------
+##
+## Prescribed wavefield discontinuity on an interface
+##
+##-----------------------------------------------------------
+IS_WAVEFIELD_DISCONTINUITY      = .false.
+
+#-----------------------------------------------------------
 #
 # Run modes
 #

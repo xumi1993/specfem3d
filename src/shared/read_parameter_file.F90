@@ -711,6 +711,14 @@
 
     !-------------------------------------------------------
 
+    ! prescribed wavefield discontinuity on an interface
+    ! if these parameters do not exist in Par_file, then wavefield
+    ! is not switched on by default
+    call read_value_logical(IS_WAVEFIELD_DISCONTINUITY, 'IS_WAVEFIELD_DISCONTINUITY', ier); ier = 0
+    if (IS_WAVEFIELD_DISCONTINUITY) write(*,'(a)') 'wavefield discontinuity enabled'
+
+    !-------------------------------------------------------
+
     ! for simultaneous runs from the same batch job
     call read_value_integer(NUMBER_OF_SIMULTANEOUS_RUNS, 'NUMBER_OF_SIMULTANEOUS_RUNS', ier)
     if (ier /= 0) then
@@ -1055,6 +1063,13 @@
     print *,'         Resetting MOVIE_VOLUME_STRESS = .false.'
     print *
     MOVIE_VOLUME_STRESS = .false.
+  endif
+
+  if (IS_WAVEFIELD_DISCONTINUITY) then
+    if (GPU_MODE) &
+      stop 'wavefield discontinuity problem cannot be solved on GPU yet'
+    if (ATTENUATION) &
+      stop 'wavefield discontinuity problem cannot be solved with attenuation'
   endif
 
   end subroutine check_simulation_parameters
@@ -1418,6 +1433,9 @@
   call bcast_all_string(TRACTION_PATH)
   call bcast_all_string(FKMODEL_FILE)
   call bcast_all_singlel(RECIPROCITY_AND_KH_INTEGRAL)
+
+  ! wavefield discontinuity
+  call bcast_all_singlel(IS_WAVEFIELD_DISCONTINUITY)
 
   ! simultaneous runs
   call bcast_all_singlei(NUMBER_OF_SIMULTANEOUS_RUNS)

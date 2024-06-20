@@ -289,6 +289,22 @@
 
 !!-----------------------------------------------------------
 !!
+!! Prescribed wavefield discontinuity on an interface
+!!
+!!-----------------------------------------------------------
+
+
+! I/O for wavefield discontinuity
+  integer, parameter :: IFILE_WAVEFIELD_DISCONTINUITY = 527
+
+! file name for ASCII wavefield discontinuity interface file
+  character(len=*), parameter :: FNAME_WAVEFIELD_DISCONTINUITY_INTERFACE = 'wavefield_discontinuity_interface'
+
+! file name for ASCII wavefield discontinuity box file
+  character(len=*), parameter :: FNAME_WAVEFIELD_DISCONTINUITY_BOX = 'wavefield_discontinuity_box'
+
+!!-----------------------------------------------------------
+!!
 !! mesh optimization
 !!
 !!-----------------------------------------------------------
