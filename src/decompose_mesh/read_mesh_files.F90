@@ -38,6 +38,8 @@
 
   use fault_scotch, only: ANY_FAULT,read_fault_files,save_nodes_coords,close_faults
 
+  use constants, only: FNAME_WAVEFIELD_DISCONTINUITY_INTERFACE
+  
   implicit none
 
   ! local parameters
@@ -46,7 +48,7 @@
   ! poroelastic parameters read in a new file
   double precision :: rhos,rhof,phi,tort,kxx,kxy,kxz,kyy,kyz,kzz,kappas,kappaf,kappafr,eta,mufr
   integer(kind=8) :: nspec_long
-  integer :: inode,idummy
+  integer :: inode,idummy,ib
   integer :: ispec,ispec2D,ispec_CPML,ier
 
   character(len=MAX_STRING_LEN) :: line
@@ -565,6 +567,32 @@
       mat(2,ispec) = 0
     endif
   enddo
+
+  ! reads in wavefield discontinuity elements
+  if (IS_WAVEFIELD_DISCONTINUITY) then
+    open(unit=IIN_DB, file=localpath_name(1:len_trim(localpath_name))//&
+         '/'//trim(FNAME_WAVEFIELD_DISCONTINUITY_INTERFACE), &
+         status='old', form='formatted',iostat=ier)
+    if (ier /= 0) then
+      stop 'no wavefield discontinuity interface file'
+    endif
+    ier = 0
+    nb_wd = 0
+    do while (ier == 0)
+      read(IIN_DB, '(a)', iostat=ier) line
+      if (ier /= 0) exit
+      nb_wd = nb_wd + 1
+    enddo
+    close(IIN_DB)
+    allocate(boundary_to_ispec_wd(nb_wd), side_wd(nb_wd))
+    open(unit=IIN_DB, file=localpath_name(1:len_trim(localpath_name))//&
+         '/'//trim(FNAME_WAVEFIELD_DISCONTINUITY_INTERFACE), &
+         status='old', form='formatted',iostat=ier)
+    do ib = 1, nb_wd
+      read(IIN_DB, *, iostat=ier) boundary_to_ispec_wd(ib), side_wd(ib)
+    enddo
+    close(IIN_DB)
+  endif  
 
   ! reads in absorbing boundary files
   open(unit=IIN_DB, file=localpath_name(1:len_trim(localpath_name))//'/absorbing_surface_file_xmin', &

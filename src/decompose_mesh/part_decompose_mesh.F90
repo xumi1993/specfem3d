@@ -608,6 +608,53 @@ contains
   end subroutine  write_material_props_database
 
 
+  !-------------------------------------------------
+  ! Write elements on the inner side of the wavefield
+  ! discontinuity interface
+  !-------------------------------------------------
+  subroutine write_wavefield_discontinuity_database(IIN_database, iproc, &
+                                       nb_wd, boundary_to_ispec_wd, side_wd, &
+                                                nspec, glob2loc_elmnts, part)
+  implicit none
+  integer, intent(in)  :: IIN_database
+  integer, intent(in)  :: iproc
+  integer, intent(in)  :: nspec
+  integer, intent(in)  :: nb_wd 
+  integer, dimension(:), pointer :: glob2loc_elmnts
+  integer, dimension(1:nspec)  :: part
+  integer, dimension(1:nb_wd), intent(in)  :: boundary_to_ispec_wd, side_wd
+  integer :: ispec, iside, ib
+  integer :: local_nb_wd
+  integer, dimension(:), allocatable :: local_boundary_to_ispec_wd, &
+                                        local_side_wd
+
+  local_nb_wd = 0
+  do ib = 1, nb_wd
+    ispec = boundary_to_ispec_wd(ib)
+    iside = side_wd(ib)
+    if (part(ispec) == iproc) then
+      local_nb_wd = local_nb_wd + 1
+    endif
+  enddo
+  allocate(local_boundary_to_ispec_wd(local_nb_wd))
+  allocate(local_side_wd(local_nb_wd))
+  local_nb_wd = 0
+  do ib = 1, nb_wd
+    ispec = boundary_to_ispec_wd(ib)
+    iside = side_wd(ib)
+    if (part(ispec) == iproc) then
+      local_nb_wd = local_nb_wd + 1
+      local_boundary_to_ispec_wd(local_nb_wd) = glob2loc_elmnts(ispec-1)+1
+      local_side_wd(local_nb_wd) = iside
+    endif
+  enddo
+  write(IIN_database) local_nb_wd
+  write(IIN_database) local_boundary_to_ispec_wd
+  write(IIN_database) local_side_wd
+  deallocate(local_boundary_to_ispec_wd, local_side_wd)
+  end subroutine write_wavefield_discontinuity_database
+
+
   !--------------------------------------------------
   ! Write elements on boundaries (and their four nodes on boundaries)
   ! pertaining to iproc partition in the corresponding Database

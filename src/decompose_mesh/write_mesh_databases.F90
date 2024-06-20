@@ -108,9 +108,15 @@
     ! writes out spectral element indices
     write(IIN_database) nspec_local
 
+
     call write_partition_database(IIN_database, ipart, nspec_local, nspec, elmnts, &
                                   glob2loc_elmnts, glob2loc_nodes_nparts, &
                                   glob2loc_nodes_parts, glob2loc_nodes, part, mat, NGNOD, 2)
+
+    !! setting up wavefield discontinuity boundary
+    call write_wavefield_discontinuity_database(IIN_database, ipart, &
+                                      nb_wd, boundary_to_ispec_wd, side_wd, &
+                                                nspec, glob2loc_elmnts, part)
 
     ! writes out absorbing/free-surface boundaries
     call write_boundaries_database(IIN_database, ipart, nspec, nspec2D_xmin, nspec2D_xmax, nspec2D_ymin, &
