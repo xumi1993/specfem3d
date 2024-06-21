@@ -26,16 +26,21 @@
 !=====================================================================
 
 
-  subroutine write_wavefield_discontinuity_database(ifile)
+  subroutine write_wavefield_discontinuity_database()
 ! write data related to wavefield discontinuity to proc*_Database
-  use meshfem_par, only: nb_wd, boundary_to_ispec_wd, side_wd
+  use meshfem_par, only: nb_wd, boundary_to_ispec_wd, side_wd, prname
+  use constants, only: FNAME_WAVEFIELD_DISCONTINUITY_MESH, &
+                       IFILE_WAVEFIELD_DISCONTINUITY
   implicit none
   ! local variables
-  integer, intent(in) :: ifile
-  write(ifile) nb_wd
-  write(ifile) boundary_to_ispec_wd
-  write(ifile) side_wd
-  !deallocate(boundary_to_ispec_wd, side_wd)
+  open(unit=IFILE_WAVEFIELD_DISCONTINUITY, &
+       file=prname(1:len_trim(prname))//&
+            trim(FNAME_WAVEFIELD_DISCONTINUITY_MESH), &
+       form='unformatted', action='write')
+  write(IFILE_WAVEFIELD_DISCONTINUITY) nb_wd
+  write(IFILE_WAVEFIELD_DISCONTINUITY) boundary_to_ispec_wd
+  write(IFILE_WAVEFIELD_DISCONTINUITY) side_wd
+  close(IFILE_WAVEFIELD_DISCONTINUITY)
   end subroutine write_wavefield_discontinuity_database
 
 !

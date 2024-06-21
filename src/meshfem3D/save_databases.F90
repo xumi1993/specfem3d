@@ -260,9 +260,6 @@
     write(IIN_database) ispec,material_index(1,ispec),material_index(2,ispec),(loc_node(ia),ia = 1,NGNOD)
   enddo
 
-  !! setting up wavefield discontinuity interface
-  if (IS_WAVEFIELD_DISCONTINUITY) &
-    call write_wavefield_discontinuity_database(IIN_database)
 
   ! Boundaries
   !
@@ -602,6 +599,10 @@
   endif
 
   deallocate(material_index)
+
+  ! setting up wavefield discontinuity interface
+  if (IS_WAVEFIELD_DISCONTINUITY) &
+    call write_wavefield_discontinuity_database()
 
   ! user output
   if (myrank == 0) then
