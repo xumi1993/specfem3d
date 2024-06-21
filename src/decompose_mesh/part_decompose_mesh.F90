@@ -630,7 +630,7 @@ contains
                                         local_side_wd
   character(len=MAX_STRING_LEN), intent(in) :: outputpath_name
   character(len=MAX_STRING_LEN) :: prname
-  write(prname, "(i6.6,'_')") iproc
+  write(prname, "('proc',i6.6,'_')") iproc
   open(unit=IFILE_WAVEFIELD_DISCONTINUITY, &
        file=trim(outputpath_name)//'/'//trim(prname)//&
             trim(FNAME_WAVEFIELD_DISCONTINUITY_MESH), &
