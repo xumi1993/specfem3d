@@ -82,6 +82,11 @@
   ! PML
   use pml_par, only: is_CPML,NSPEC_CPML
 
+  !! solving wavefield problem with non-split-node scheme
+  use shared_parameters, only: IS_WAVEFIELD_DISCONTINUITY
+  use wavefield_discontinuity_solver, only: &
+                                   add_displacement_discontinuity_element
+
   ! LTS
   use specfem_par_lts, only: lts_type_compute_pelem,current_lts_elem,current_lts_boundary_elem
 
@@ -312,6 +317,13 @@
           enddo
         enddo
       enddo
+      !! solving wavefield discontinuity problem with non-split-node scheme
+      !! add back displacement discontinuity for inner elements of
+      !! the discontinuity interface
+      if (IS_WAVEFIELD_DISCONTINUITY) then
+        call add_displacement_discontinuity_element(ispec, dummyx_loc, &
+                                                  dummyy_loc, dummyz_loc)
+      endif
     endif
 
     !------------------------------------------------------------------------------

@@ -40,6 +40,10 @@
   use constants, only: FAULT_SYNCHRONIZE_DISPL_VELOC,FAULT_SYNCHRONIZE_ACCEL
   use fault_solver_dynamic, only: bc_dynflt_set3d_all,SIMULATION_TYPE_DYN,fault_output_synchronize_GPU,NT_RECORD_LENGTH
   use fault_solver_kinematic, only: bc_kinflt_set_all,SIMULATION_TYPE_KIN
+  
+  !! solving wavefield discontinuity problem with non-split-node scheme
+  use wavefield_discontinuity_solver, only: &
+                 add_traction_discontinuity, read_wavefield_discontinuity_file
 
   implicit none
 
@@ -101,6 +105,12 @@
         call transfer_veloc_to_device(NDIM*NGLOB_AB,veloc, Mesh_pointer)
       endif
     endif
+  endif
+
+  !! solving wavefield discontinuity problem with
+  !! non-split-node scheme
+  if (IS_WAVEFIELD_DISCONTINUITY) then
+    call read_wavefield_discontinuity_file()
   endif
 
 ! distinguishes two runs: for elements in contact with MPI interfaces, and elements within the partitions
@@ -265,6 +275,14 @@
       else
         ! on GPU
         call compute_add_sources_viscoelastic_GPU()
+      endif
+
+      !! solving wavefield discontinuity problem with
+      !! non-split-node scheme
+      !! traction discontinuity term must be added in iphase = 1
+      !! because these terms need to be used in MPI calls
+      if (IS_WAVEFIELD_DISCONTINUITY) then
+        call add_traction_discontinuity()
       endif
     endif ! iphase
 
