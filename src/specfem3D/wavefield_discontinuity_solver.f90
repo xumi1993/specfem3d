@@ -152,12 +152,14 @@ contains
   endif
   end subroutine add_displacement_discontinuity_element
 
-  subroutine add_traction_discontinuity()
-  use specfem_par, only: CUSTOM_REAL, NGLLX, NGLLY, NGLLZ, NGLLSQUARE, ibool
-  use specfem_par_elastic, only: accel
+  subroutine add_traction_discontinuity(accel, nglob)
+  use specfem_par, only: CUSTOM_REAL, NGLLX, NGLLY, NGLLZ, NGLLSQUARE, &
+                         ibool, NDIM
+  !use specfem_par_elastic, only: accel
   implicit none
-  integer :: iglob_wd, iglob, ispec, i, j, k, iface_wd, igll
+  integer :: iglob_wd, iglob, ispec, i, j, k, iface_wd, igll, nglob
   real(kind=CUSTOM_REAL) :: jacobianw
+  real(kind=CUSTOM_REAL) :: accel(NDIM, nglob)
   do iglob_wd = 1, nglob_wd
     iglob = boundary_to_iglob_wd(iglob_wd)
     accel(:,iglob) = accel(:,iglob) - &

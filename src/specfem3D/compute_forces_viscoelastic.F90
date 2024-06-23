@@ -320,7 +320,9 @@
       !! solving wavefield discontinuity problem with non-split-node scheme
       !! add back displacement discontinuity for inner elements of
       !! the discontinuity interface
-      if (IS_WAVEFIELD_DISCONTINUITY) then
+      !! note that this is called in adjoint simulation
+      if (IS_WAVEFIELD_DISCONTINUITY .and. &
+          ((SIMULATION_TYPE == 1) .or. backward_simulation)) then
         call add_displacement_discontinuity_element(ispec, dummyx_loc, &
                                                   dummyy_loc, dummyz_loc)
       endif

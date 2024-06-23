@@ -109,7 +109,8 @@
 
   !! solving wavefield discontinuity problem with
   !! non-split-node scheme
-  if (IS_WAVEFIELD_DISCONTINUITY) then
+  !! note that this is not called in case of adjoint simulation
+  if (IS_WAVEFIELD_DISCONTINUITY .and. (SIMULATION_TYPE == 1)) then
     call read_wavefield_discontinuity_file()
   endif
 
@@ -281,8 +282,9 @@
       !! non-split-node scheme
       !! traction discontinuity term must be added in iphase = 1
       !! because these terms need to be used in MPI calls
-      if (IS_WAVEFIELD_DISCONTINUITY) then
-        call add_traction_discontinuity()
+      !! note that this is not called in case of adjoint simulation
+      if (IS_WAVEFIELD_DISCONTINUITY .and. (SIMULATION_TYPE == 1)) then
+        call add_traction_discontinuity(accel, NGLOB_AB)
       endif
     endif ! iphase
 
