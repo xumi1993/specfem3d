@@ -303,6 +303,12 @@
 ! file name for ASCII wavefield discontinuity box file
   character(len=*), parameter :: FNAME_WAVEFIELD_DISCONTINUITY_BOX = 'wavefield_discontinuity_box'
 
+! file name for binary wavefield discontinuity mesh file
+  character(len=*), parameter :: FNAME_WAVEFIELD_DISCONTINUITY_MESH = 'wavefield_discontinuity_mesh.bin'
+
+! file name for binary wavefield discontinuity solver database file
+  character(len=*), parameter :: FNAME_WAVEFIELD_DISCONTINUITY_DATABASE = 'wavefield_discontinuity_database.bin'
+
 !!-----------------------------------------------------------
 !!
 !! mesh optimization
