@@ -9,7 +9,7 @@ Tmax = 50.0
 
 fig = plt.figure(figsize=(12, 9))
 
-wave_dir = '../injection_test_crust/OUTPUT_FILES'
+wave_dir = 'OUTPUT_FILES'
 
 sta_list = [f'TS{i:02d}' for i in range(1,5)]
 
@@ -20,7 +20,7 @@ sec_fk = WaveformSection()
 sec_fk.get_waveforms_from_specfem(fn_list=fn_list, fn_stations=os.path.join(wave_dir, 'STATIONS'))
 
 
-wave_dir = '../injection_test_crust/OUTPUT_FILES'
+wave_dir = 'OUTPUT_FILES'
 
 sta_list = [f'TS{i:02d}' for i in range(1,5)]
 
