@@ -35,6 +35,7 @@ tomography/postprocess_sensitivity_kernels_TARGETS = \
 	$E/xclip_sem \
 	$E/xcombine_sem \
 	$E/xsmooth_sem \
+	$E/xsmooth_sem_pde \
 	$(EMPTY_MACRO)
 
 tomography/postprocess_sensitivity_kernels_OBJECTS = \
@@ -77,7 +78,8 @@ xcombine_sem: $E/xcombine_sem
 smooth_sem: xsmooth_sem
 xsmooth_sem: $E/xsmooth_sem
 
-
+smooth_sem_pde: xsmooth_sem_pde
+xsmooth_sem_pde: $E/xsmooth_sem_pde
 
 #######################################
 
@@ -170,6 +172,41 @@ xsmooth_sem_SHARED_OBJECTS = \
 	$O/write_VTK_data.shared.o \
 	$(EMPTY_MACRO)
 
+
+xsmooth_sem_pde_OBJECTS = \
+	$O/postprocess_par.postprocess_module.o \
+	$O/parse_kernel_names.postprocess.o \
+	$O/smooth_sem_pde.postprocess.o \
+	$(EMPTY_MACRO)
+
+
+xsmooth_sem_pde_SHARED_OBJECTS = \
+	$O/specfem3D_par.spec_module.o \
+	$O/pml_par.spec_module.o \
+	$O/read_mesh_databases.spec.o \
+	$O/hdf5_io_server.spec_hdf5.o \
+	$O/initialize_simulation.spec.o \
+	$O/read_mesh_databases_hdf5.spec_hdf5.o \
+	$O/shared_par.shared_module.o \
+	$O/adios_manager.shared_adios_module.o \
+	$O/init_openmp.shared.o \
+	$O/lagrange_poly.shared.o \
+	$O/check_mesh_resolution.shared.o \
+	$O/count_number_of_sources.shared.o \
+	$O/create_name_database.shared.o \
+	$O/exit_mpi.shared.o \
+	$O/gll_library.shared.o \
+	$O/hdf5_manager.shared_hdf5_module.o \
+	$O/heap_sort.shared.o \
+	$O/param_reader.cc.o \
+	$O/read_parameter_file.shared.o \
+	$O/read_value_parameters.shared.o \
+	$O/search_kdtree.shared.o \
+	$O/write_VTK_data.shared.o \
+	$O/define_derivation_matrices.shared.o \
+	$O/assemble_MPI_scalar.shared.o \
+	$(EMPTY_MACRO)
+
 ###
 ### ADIOS
 ###
@@ -178,11 +215,26 @@ xsmooth_sem_SHARED_OBJECTS = \
 ifeq ($(ADIOS),yes)
 xsmooth_sem_OBJECTS += $(adios_specfem3D_OBJECTS)
 xsmooth_sem_SHARED_OBJECTS += $(adios_specfem3D_PREOBJECTS)
+xsmooth_sem_pde_OBJECTS += $(adios_specfem3D_OBJECTS)
+xsmooth_sem_pde_SHARED_OBJECTS += $(adios_specfem3D_PREOBJECTS)
 else ifeq ($(ADIOS2),yes)
 xsmooth_sem_OBJECTS += $(adios_specfem3D_OBJECTS)
 xsmooth_sem_SHARED_OBJECTS += $(adios_specfem3D_PREOBJECTS)
+xsmooth_sem_pde_OBJECTS += $(adios_specfem3D_OBJECTS)
+xsmooth_sem_pde_SHARED_OBJECTS += $(adios_specfem3D_PREOBJECTS)
 else
 xsmooth_sem_OBJECTS += $(adios_specfem3D_STUBS)
+xsmooth_sem_pde_OBJECTS += $(adios_specfem3D_STUBS)
+endif
+
+###
+### ASDF
+###
+
+ifeq ($(ASDF),yes)
+xsmooth_sem_pde_OBJECTS += $(asdf_shared_OBJECTS)
+else
+xsmooth_sem_pde_OBJECTS += $(asdf_shared_STUBS)
 endif
 
 ###
@@ -191,17 +243,22 @@ endif
 
 xsmooth_sem_LIBS = $(MPILIBS)
 xsmooth_sem_OBJECTS += $(gpu_OBJECTS)
+xsmooth_sem_pde_LIBS = $(MPILIBS)
+xsmooth_sem_pde_OBJECTS += $(gpu_OBJECTS)
 
 ## cuda
 ifeq ($(HAS_GPU),yes)
 xsmooth_sem_LIBS += $(GPU_LINK)
+xsmooth_sem_pde_LIBS += $(GPU_LINK)
 endif
 INFO_SMOOTH="building xsmooth_sem $(BUILD_VERSION_TXT)"
+INFO_SMOOTH_PDE="building xsmooth_sem_pde $(BUILD_VERSION_TXT)"
 
 # extra dependencies
 $O/smooth_sem.postprocess.o: $O/specfem3D_par.spec_module.o $O/postprocess_par.postprocess_module.o
 $O/smooth_sem.postprocess.o: $O/search_kdtree.shared.o
 
+$O/smooth_sem_pde.postprocess.o: $O/specfem3D_par.spec_module.o $O/postprocess_par.postprocess_module.o
 
 ${E}/xsmooth_sem: $(xsmooth_sem_OBJECTS) $(xsmooth_sem_SHARED_OBJECTS) $(COND_MPI_OBJECTS)
 	@echo ""
@@ -209,6 +266,13 @@ ${E}/xsmooth_sem: $(xsmooth_sem_OBJECTS) $(xsmooth_sem_SHARED_OBJECTS) $(COND_MP
 	@echo ""
 	${FCLINK} -o $@ $+ $(xsmooth_sem_LIBS)
 	@echo ""
+
+${E}/xsmooth_sem_pde: $(xsmooth_sem_pde_OBJECTS) $(xsmooth_sem_pde_SHARED_OBJECTS) $(COND_MPI_OBJECTS)
+	@echo ""
+	@echo $(INFO_SMOOTH_PDE)
+	@echo ""
+	${FCLINK} -o $@ $+ $(xsmooth_sem_pde_LIBS)
+	@echo 
 
 #######################################
 
