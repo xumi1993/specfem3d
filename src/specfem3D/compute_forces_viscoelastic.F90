@@ -200,6 +200,7 @@
 !$OMP irregular_element_number,jacobian_regular,xix_regular, &
 !$OMP displ,veloc,accel, &
 !$OMP is_CPML,backward_simulation, &
+!$OMP IS_WAVEFIELD_DISCONTINUITY, &
 !$OMP xixstore,xiystore,xizstore,etaxstore,etaystore,etazstore,gammaxstore,gammaystore,gammazstore,jacobianstore, &
 !$OMP kappastore,mustore, &
 !$OMP Kelvin_Voigt_eta,USE_KELVIN_VOIGT_DAMPING, &
