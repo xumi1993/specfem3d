@@ -46,6 +46,9 @@
     nspec_CPML,is_CPML,CPML_to_spec,CPML_regions, &
     SAVE_MESH_AS_CUBIT
 
+  !! setting up wavefield discontinuity interface
+  use shared_parameters, only: IS_WAVEFIELD_DISCONTINUITY
+
   implicit none
 
   ! number of spectral elements in each block
@@ -256,6 +259,7 @@
     ! output
     write(IIN_database) ispec,material_index(1,ispec),material_index(2,ispec),(loc_node(ia),ia = 1,NGNOD)
   enddo
+
 
   ! Boundaries
   !
@@ -596,6 +600,10 @@
 
   deallocate(material_index)
 
+  ! setting up wavefield discontinuity interface
+  if (IS_WAVEFIELD_DISCONTINUITY) &
+    call write_wavefield_discontinuity_database()
+
   ! user output
   if (myrank == 0) then
     write(IMAIN,*) '  done mesh files'
@@ -622,6 +630,9 @@
     NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX,NSPEC2D_BOTTOM,NSPEC2D_TOP, &
     NMATERIALS,material_properties, &
     nspec_CPML,CPML_to_spec,CPML_regions
+
+  !! setting up wavefield discontinuity interface
+  use shared_parameters, only: IS_WAVEFIELD_DISCONTINUITY
 
   implicit none
 
@@ -777,6 +788,10 @@
                                   iglob_to_nodeid(ibool(1,NGLLZ_M,NGLLZ_M,ispec))
   enddo
   close(IIN_database)
+
+  !! setting up wavefield discontinuity interface
+  if (IS_WAVEFIELD_DISCONTINUITY) &
+    call write_wavefield_discontinuity_file()
 
   open(IIN_database,file='MESH/absorbing_surface_file_xmin')
   write(IIN_database,*) nspec2D_xmin

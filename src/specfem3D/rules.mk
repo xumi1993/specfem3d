@@ -45,6 +45,7 @@ specfem3D_TARGETS = \
 specfem3D_OBJECTS = \
 	$O/specfem3D_par.spec_module.o \
 	$O/asdf_data.spec_module.o \
+	$O/wavefield_discontinuity_solver.spec.o \
 	$O/assemble_MPI_vector.spec.o \
 	$O/check_stability.spec.o \
 	$O/comp_source_time_function.spec.o \
@@ -199,6 +200,7 @@ specfem3D_MODULES = \
 	$(FC_MODDIR)/specfem_par_noise.$(FC_MODEXT) \
 	$(FC_MODDIR)/specfem_par_lts.$(FC_MODEXT) \
 	$(FC_MODDIR)/user_noise_distribution.$(FC_MODEXT) \
+	$(FC_MODDIR)/wavefield_discontinuity_solver.$(FC_MODEXT) \
 	$(EMPTY_MACRO)
 
 
@@ -357,6 +359,11 @@ $O/initialize_simulation.spec.o: $O/adios_manager.shared_adios_module.o
 
 ## ASDF compilation
 $O/write_output_ASDF.spec.o: $O/asdf_data.spec_module.o
+
+## wavefield discontinuity
+$O/compute_forces_viscoelastic_calling_routine.spec.o: $O/wavefield_discontinuity_solver.spec.o
+$O/compute_forces_viscoelastic.spec.o: $O/wavefield_discontinuity_solver.spec.o
+$O/iterate_time.spec.o: $O/wavefield_discontinuity_solver.spec.o
 
 ## kdtree
 $O/locate_point.spec.o: $O/search_kdtree.shared.o

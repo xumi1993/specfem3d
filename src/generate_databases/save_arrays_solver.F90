@@ -69,6 +69,11 @@
 
   use shared_parameters, only: ADIOS_FOR_MESH,HDF5_ENABLED
 
+  !! setup wavefield discontinuity interface
+  use shared_parameters, only: IS_WAVEFIELD_DISCONTINUITY
+  use wavefield_discontinuity_generate_databases, only: &
+                              save_arrays_solver_mesh_wavefield_discontinuity
+
   implicit none
 
   ! local parameters
@@ -406,6 +411,11 @@
   ! if SAVE_MESH_FILES is true then the files have already been saved, no need to save them again
   if (COUPLE_WITH_INJECTION_TECHNIQUE .or. MESH_A_CHUNK_OF_THE_EARTH) then
     call save_arrays_solver_injection_boundary()
+  endif
+
+  !! setup wavefield discontinuity interface
+  if (IS_WAVEFIELD_DISCONTINUITY) then
+    call save_arrays_solver_mesh_wavefield_discontinuity()
   endif
 
   ! synchronizes processes

@@ -204,6 +204,9 @@ end module constants
   logical :: MESH_A_CHUNK_OF_THE_EARTH
   logical :: RECIPROCITY_AND_KH_INTEGRAL
 
+  ! prescribed wavefield discontinuity on an interface
+  logical :: IS_WAVEFIELD_DISCONTINUITY = .false. ! if .true. then wavefield discontinuity is turned on (default is false)
+
   end module shared_input_parameters
 
 !

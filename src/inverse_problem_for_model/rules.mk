@@ -111,6 +111,7 @@ inverse_problem_for_model_OBJECTS = \
 inverse_problem_for_model_OBJECTS += \
 	$O/specfem3D_par.spec_module.o \
 	$O/asdf_data.spec_module.o \
+	$O/wavefield_discontinuity_solver.spec.o \
 	$O/assemble_MPI_vector.spec.o \
 	$O/calendar.spec.o \
 	$O/check_stability.spec.o \

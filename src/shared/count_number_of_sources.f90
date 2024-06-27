@@ -37,6 +37,8 @@
   use shared_parameters, only: USE_FORCE_POINT_SOURCE,USE_EXTERNAL_SOURCE_FILE, &
     HAS_FINITE_FAULT_SOURCE,NUMBER_OF_SIMULTANEOUS_RUNS
 
+  use shared_parameters, only: IS_WAVEFIELD_DISCONTINUITY
+
   implicit none
 
   integer,intent(out) :: NSOURCES
@@ -125,9 +127,13 @@
 
   ! checks if any
   if (NSOURCES < 1) then
-    print *,'Error: ',trim(sources_filename),' has ',icounter,'lines, but need ',nlines_per_source, &
+    ! if there is prescribed wavefield discontinuity, then
+    ! it is OK to have an empty source file
+    if (.not. IS_WAVEFIELD_DISCONTINUITY) then
+      print *,'Error: ',trim(sources_filename),' has ',icounter,'lines, but need ',nlines_per_source, &
             'per source... ',NSOURCES
-    stop 'Error need at least one source in CMTSOLUTION or FORCESOLUTION file'
+      stop 'Error need at least one source in CMTSOLUTION or FORCESOLUTION file'
+    endif
   endif
 
   end subroutine count_number_of_sources

@@ -26,8 +26,8 @@ SUPPRESS_UTM_PROJECTION         = .true.
 NPROC                           = 4
 
 # time step parameters
-NSTEP                           = 5000
-DT                              = 0.05
+NSTEP                           = 3000
+DT                              = 0.02
 
 # set to true to use local-time stepping (LTS)
 LTS_MODE                        = .false.
@@ -101,13 +101,13 @@ OLSEN_ATTENUATION_RATIO         = 0.05
 # C-PML boundary conditions for a regional simulation
 # (if set to .false., and STACEY_ABSORBING_CONDITIONS is also set to .false., you get a free surface instead
 # in the case of elastic or viscoelastic mesh elements, and a rigid surface in the case of acoustic (fluid) elements
-PML_CONDITIONS                  = .false.
+PML_CONDITIONS                  = .true.
 
 # C-PML top surface
 PML_INSTEAD_OF_FREE_SURFACE     = .false.
 
 # C-PML dominant frequency
-f0_FOR_PML                      = 0.05555
+f0_FOR_PML                      = 1.0
 
 # parameters used to rotate C-PML boundary conditions by a given angle (not completed yet)
 # ROTATE_PML_ACTIVATE           = .false.
@@ -116,7 +116,7 @@ f0_FOR_PML                      = 0.05555
 # absorbing boundary conditions for a regional simulation
 # (if set to .false., and PML_CONDITIONS is also set to .false., you get a free surface instead
 # in the case of elastic or viscoelastic mesh elements, and a rigid surface in the case of acoustic (fluid) elements
-STACEY_ABSORBING_CONDITIONS     = .true.
+STACEY_ABSORBING_CONDITIONS     = .false.
 
 # absorbing top surface (defined in mesh as 'free_surface_file')
 STACEY_INSTEAD_OF_FREE_SURFACE  = .false.
@@ -163,7 +163,7 @@ HDUR_MOVIE                      = 0.0
 SAVE_MESH_FILES                 = .true.
 
 # path to store the local database file on each node
-LOCAL_PATH                      = OUTPUT_FILES/DATABASES_MPI
+LOCAL_PATH                      = ./DATABASES_MPI
 
 # interval at which we output time step info and max of norm of displacement
 NTSTEP_BETWEEN_OUTPUT_INFO      = 500
@@ -175,7 +175,7 @@ NTSTEP_BETWEEN_OUTPUT_INFO      = 500
 #-----------------------------------------------------------
 
 # sources and receivers Z coordinates given directly (i.e. as their true position) instead of as their depth
-USE_SOURCES_RECEIVERS_Z         = .false.
+USE_SOURCES_RECEIVERS_Z         = .true.
 
 # use a (tilted) FORCESOLUTION force point source (or several) instead of a CMTSOLUTION moment-tensor source.
 # This can be useful e.g. for oil industry foothills simulations or asteroid simulations
@@ -189,11 +189,11 @@ USE_SOURCES_RECEIVERS_Z         = .false.
 # - the components of a (non necessarily unitary) direction vector for the force source in the E/N/Z_UP basis.
 # The direction vector is made unitary internally in the code and thus only its direction matters here;
 # its norm is ignored and the norm of the force used is the factor force source times the source time function.
-USE_FORCE_POINT_SOURCE          = .false.
+USE_FORCE_POINT_SOURCE          = .true.
 
 # set to true to use a Ricker source time function instead of the source time functions set by default
 # to represent a (tilted) FORCESOLUTION force point source or a CMTSOLUTION moment-tensor source.
-USE_RICKER_TIME_FUNCTION        = .false.
+USE_RICKER_TIME_FUNCTION        = .true.
 
 # use an external source time function
 # you must add a file with your source time function and the file name path
@@ -205,7 +205,7 @@ USE_RICKER_TIME_FUNCTION        = .false.
 USE_EXTERNAL_SOURCE_FILE        = .false.
 
 # print source time function
-PRINT_SOURCE_TIME_FUNCTION      = .false.
+PRINT_SOURCE_TIME_FUNCTION      = .true.
 
 # source encoding
 # (for acoustic simulations only for now) determines source encoding factor +/-1 depending on sign of moment tensor
@@ -238,7 +238,7 @@ SAVE_SEISMOGRAMS_STRAIN         = .false.
 
 # save seismograms also when running the adjoint runs for an inverse problem
 # (usually they are unused and not very meaningful, leave this off in almost all cases)
-SAVE_SEISMOGRAMS_IN_ADJOINT_RUN = .true.
+SAVE_SEISMOGRAMS_IN_ADJOINT_RUN = .false.
 
 # save seismograms in binary or ASCII format (binary is smaller but may not be portable between machines)
 USE_BINARY_FOR_SEISMOGRAMS      = .false.
@@ -329,7 +329,7 @@ RECIPROCITY_AND_KH_INTEGRAL     = .false.   # does not work yet
 ## Prescribed wavefield discontinuity on an interface
 ##
 ##-----------------------------------------------------------
-IS_WAVEFIELD_DISCONTINUITY      = .false.
+IS_WAVEFIELD_DISCONTINUITY      = .true.
 
 #-----------------------------------------------------------
 #

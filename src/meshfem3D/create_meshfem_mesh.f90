@@ -82,6 +82,9 @@ end module create_meshfem_par
 
   ! HDF5 file i/o
   use shared_parameters, only: HDF5_ENABLED
+  
+  !! setting up wavefield discontinuity interface
+  use shared_parameters, only: IS_WAVEFIELD_DISCONTINUITY
 
   implicit none
 
@@ -142,6 +145,11 @@ end module create_meshfem_par
   call create_visual_files(CREATE_ABAQUS_FILES,CREATE_DX_FILES,CREATE_VTK_FILES, &
                            nspec,nglob, &
                            prname,nodes_coords,ibool,ispec_material_id)
+
+  !! setting up wavefield discontinuity interface
+  if (IS_WAVEFIELD_DISCONTINUITY) then
+    call find_wavefield_discontinuity_elements()
+  endif
 
   ! stores boundary informations
   call store_boundaries(iboun,nspec, &

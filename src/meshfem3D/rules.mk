@@ -59,6 +59,7 @@ meshfem3D_OBJECTS = \
 	$O/get_MPI_cutplanes_xi.mesh.o \
 	$O/meshfem3D.mesh.o \
 	$O/meshfem3D_par.mesh_module.o \
+	$O/get_wavefield_discontinuity.mesh.o \
 	$O/read_mesh_parameter_file.mesh.o \
 	$O/read_value_mesh_parameters.mesh.o \
 	$O/save_databases.mesh.o \
