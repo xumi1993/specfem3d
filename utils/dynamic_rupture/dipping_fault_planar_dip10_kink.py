@@ -140,6 +140,7 @@ def main(parameter):
     ##### MESHING fault ####
     cubit.cmd("imprint all")
     cubit.cmd("merge all")
+
     cubit.cmd("vol all size "+str(h_size*sf))
     cubit.cmd("mesh volume all")
 

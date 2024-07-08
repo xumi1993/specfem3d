@@ -131,6 +131,7 @@ elementsize = 1000
 
 cubit.cmd("imprint all")
 cubit.cmd("merge all")
+
 cubit.cmd("surface 1 size "+str(elementsize))
 cubit.cmd("volume 1 size "+str(elementsize))
 cubit.cmd("surface 1 scheme pave")

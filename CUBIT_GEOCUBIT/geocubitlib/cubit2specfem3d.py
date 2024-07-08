@@ -652,14 +652,16 @@ class mesh(mesh_tools):
             self.bc = bc
             print('HEX Blocks:')
             for m, f in zip(self.block_mat, self.block_flag):
-                print('block ', m, 'material flag ', f)
+                print('  block ', m, 'material flag ', f)
             print('Absorbing Boundary Conditions:')
             for m, f in zip(self.block_bc, self.block_bc_flag):
-                print('bc ', m, 'bc flag ', f)
-            print('Topography (free surface)')
-            print(self.topography)
-            print('Free surface')
-            print(self.free)
+                print('  bc ', m, 'bc flag ', f)
+            if self.topography:
+                print('Topography (free surface):')
+                print('  ',self.topography)
+            if self.free:
+                print('Free surface:')
+                print('  ',self.free)
         except:
             print('****************************************')
             print('sorry, no blocks or blocks not properly defined')
@@ -765,7 +767,7 @@ class mesh(mesh_tools):
         else:
             raise RuntimeError('Error: material id must be strictly positive or negative, but not equal to 0')
         # info output
-        print("material: ",txt)
+        print("  material: ",txt)
         return txt
 
     def nummaterial_write(self, nummaterial_name, placeholder=True):
@@ -853,8 +855,7 @@ class mesh(mesh_tools):
         else:
             map(int, txt.split())
 
-    def create_facenode_string(self, hexa, face, normal=None, cknormal=True,
-                               facenode_string=True):
+    def create_facenode_string(self, hexa, face, normal=None, cknormal=True, facenode_string=True):
         nodes = self.get_face_connectivity(face)
         if cknormal:
             nodes_ok = self.normal_check(nodes[0:4], normal)
@@ -886,7 +887,7 @@ class mesh(mesh_tools):
         meshfile.write(str(num_elems) + '\n')
         for block, flag in zip(self.block_mat, self.block_flag):
             hexes = cubit.get_block_hexes(block)
-            print('block ', block, ' hexes ', len(hexes))
+            print('  block ', block, ' hexes ', len(hexes))
             for hexa in hexes:
                 txt = self.create_hexnode_string(hexa)
                 meshfile.write(txt)
@@ -897,7 +898,7 @@ class mesh(mesh_tools):
         mat = open(mat_name, 'w')
         print('Writing ' + mat_name + '.....')
         for block, flag in zip(self.block_mat, self.block_flag):
-            print('block ', block, 'flag ', flag)
+            print('  block ', block, 'flag ', flag)
             hexes = cubit.get_block_hexes(block)
             for hexa in hexes:
                 mat.write(('%10i %10i\n') % (hexa, flag))
@@ -949,8 +950,7 @@ class mesh(mesh_tools):
         for block, flag in zip(self.block_bc, self.block_bc_flag):
             if block == self.topography:
                 name = cubit.get_exodus_entity_name('block', block)
-                print('free surface (topography) block name:', \
-                      name, 'id:', block)
+                print('  free surface (topography): block name:', name, 'id:', block)
                 quads_all = cubit.get_block_faces(block)
                 print('  number of faces = ', len(quads_all))
                 dic_quads_all = dict(zip(quads_all, quads_all))
@@ -968,13 +968,13 @@ class mesh(mesh_tools):
                     faces = cubit.get_sub_elements('hex', h, 2)
                     for f in faces:
                         if f in s:
-                            txt = self.create_facenode_string(
-                                h, f, normal, cknormal=True)
+                            # topography surface: checks face orientation against vertical normal (0,0,1)
+                            txt = self.create_facenode_string(h, f, normal, cknormal=True)
                             freehex.write(txt)
                 print('    100 %')
             elif block == self.free:
                 name = cubit.get_exodus_entity_name('block', block)
-                print('free surface block name:', name, 'id:', block)
+                print('  free surface: block name:', name, 'id:', block)
                 quads_all = cubit.get_block_faces(block)
                 print('  number of faces = ', len(quads_all))
                 dic_quads_all = dict(zip(quads_all, quads_all))
@@ -992,8 +992,8 @@ class mesh(mesh_tools):
                     faces = cubit.get_sub_elements('hex', h, 2)
                     for f in faces:
                         if f in s:
-                            txt = self.create_facenode_string(
-                                h, f, normal, cknormal=False)
+                            # free surface: no face orientation check against vertical normal
+                            txt = self.create_facenode_string(h, f, normal, cknormal=False)
                             freehex.write(txt)
                 print('    100 %')
         freehex.close()
@@ -1122,60 +1122,60 @@ class mesh(mesh_tools):
             # loops through all block definitions
             list_hex = cubit.parse_cubit_list('hex', 'all')
             for block, flag in zip(self.block_bc, self.block_bc_flag):
-                if block != self.topography:
+                if block != self.topography and block != self.free:
                     name = cubit.get_exodus_entity_name('block', block)
                     print('  block name:', name, 'id:', block)
                     cknormal = True
                     abshex_local = False
                     # opens file
                     if re.search('xmin', name):
-                        print("xmin")
+                        print("  xmin")
                         abshex_local = open(absname + '_xmin', 'w')
                         normal = (-1, 0, 0)
                     elif re.search('xmax', name):
-                        print("xmax")
+                        print("  xmax")
                         abshex_local = open(absname + '_xmax', 'w')
                         normal = (1, 0, 0)
                     elif re.search('ymin', name):
-                        print("ymin")
+                        print("  ymin")
                         abshex_local = open(absname + '_ymin', 'w')
                         normal = (0, -1, 0)
                     elif re.search('ymax', name):
-                        print("ymax")
+                        print("  ymax")
                         abshex_local = open(absname + '_ymax', 'w')
                         normal = (0, 1, 0)
                     elif re.search('bottom', name):
-                        print("bottom")
+                        print("  bottom")
                         abshex_local = open(absname + '_bottom', 'w')
                         normal = (0, 0, -1)
                     elif re.search('abs', name):
-                        print("abs all - experimental, check the output")
+                        print("  abs all - experimental, check the output")
                         cknormal = False
                         abshex_local = open(absname, 'w')
                         normal = None
                     else:
                         if block == 1003:
-                            print("xmin")
+                            print("  xmin")
                             abshex_local = open(absname + '_xmin', 'w')
                             normal = (-1, 0, 0)
                         elif block == 1004:
-                            print("ymin")
+                            print("  ymin")
                             abshex_local = open(absname + '_ymin', 'w')
                             normal = (0, -1, 0)
                         elif block == 1005:
-                            print("xmax")
+                            print("  xmax")
                             abshex_local = open(absname + '_xmax', 'w')
                             normal = (1, 0, 0)
                         elif block == 1006:
-                            print("ymax")
+                            print("  ymax")
                             abshex_local = open(absname + '_ymax', 'w')
                             normal = (0, 1, 0)
                         elif block == 1002:
-                            print("bottom")
+                            print("  bottom")
                             abshex_local = open(absname + '_bottom', 'w')
                             normal = (0, 0, -1)
                         elif block == 1000:
-                            print("custom")
+                            print("  custom")
                             abshex_local = open(absname, 'w')
                             cknormal = False
                             normal = None
@@ -1199,8 +1199,7 @@ class mesh(mesh_tools):
                             faces = cubit.get_sub_elements('hex', h, 2)
                             for f in faces:
                                 if f in s:
-                                    txt = self.create_facenode_string(
-                                        h, f, normal=normal, cknormal=cknormal)
+                                    txt = self.create_facenode_string(h, f, normal=normal, cknormal=cknormal)
                                     abshex_local.write(txt)
                         abshex_local.close()
                         print('    100 %')
@@ -1215,19 +1214,23 @@ class mesh(mesh_tools):
         #  > block 10 name 'moho_surface'
         import re
         for block in self.block_bc:
-            if block != self.topography:
+            if block != self.topography and block != self.free:
                 name = cubit.get_exodus_entity_name('block', block)
-                # skips block names like face_abs**, face_topo**
+                # skips block names like face_abs**, face_topo**, face_free**
                 if re.search('abs', name):
                     continue
                 elif re.search('topo', name):
                     continue
+                elif re.search('free', name):
+                    continue
                 elif re.search('surface', name):
+                    # e.g. moho_surface
                     filename = pathdir + name + '_file'
                 else:
                     continue
                 # gets face elements
-                print('  surface block name: ', name, 'id: ', block)
+                print('Optional surface:')
+                print('  surface: block name: ', name, 'id: ', block)
                 quads_all = cubit.get_block_faces(block)
                 print('  face = ', len(quads_all))
                 if len(quads_all) == 0:
@@ -1243,8 +1246,8 @@ class mesh(mesh_tools):
                 Nhex = len(list_hex)
                 # Create a set to speed up "if f in dic_quads_all.keys()" big time
                 s = set(dic_quads_all.keys())
-                percentageDone = -1
-                for h in list_hex:
+                lastDisplayed = -1
+                for ih, h in enumerate(list_hex):
                     percentageDone = float(ih)/Nhex*100.0
                     if int(percentageDone)%10 == 0 and lastDisplayed != int(percentageDone):
                         print('    ', int(percentageDone), '%')
@@ -1252,8 +1255,7 @@ class mesh(mesh_tools):
                     faces = cubit.get_sub_elements('hex', h, 2)
                     for f in faces:
                         if f in s:
-                            txt = self.create_facenode_string(
-                                h, f, cknormal=False)
+                            txt = self.create_facenode_string(h, f, cknormal=False)
                             surfhex_local.write(txt)
                 # closes file
                 surfhex_local.close()
@@ -1388,7 +1390,7 @@ class mesh(mesh_tools):
             normal = (0, 0, -1)
         elif re.search('abs', name):
             label = "all"
-            print("abs all - experimental, check the output")
+            print("  abs all - experimental, check the output")
             cknormal = False
         else:
             if block == 1003:
@@ -1424,9 +1426,7 @@ class mesh(mesh_tools):
 #            faces = cubit.get_sub_elements('hex', h, 2)
 #            for f in faces:
 #                if dic_quads_all.has_key(f):
-#                    abs_array.append(self.create_facenode_string(
-#                        h, f, normal=normal, cknormal=cknormal,
-#                        facenode_string=False))
+#                    abs_array.append(self.create_facenode_string(h, f, normal=normal, cknormal=cknormal, facenode_string=False))
 #        print('Ok')
 #        cubit.cd('set info on')
 #        cubit.cmd('set echo on')
@@ -1474,9 +1474,7 @@ class mesh(mesh_tools):
 #                    for f in faces:
 #                        if dic_quads_all.has_key(f):
 #                            # print(f)
-#                            free_array.append(self.create_facenode_string(
-#                                h, f, normal, cknormal=True,
-#                                facenode_string=False))
+#                            free_array.append(self.create_facenode_string(h, f, normal, cknormal=True, facenode_string=False))
 #            elif block == self.free:
 #                name = cubit.get_exodus_entity_name('block', block)
 #                print('free surface block name:', name, 'id:', block)
@@ -1488,9 +1486,7 @@ class mesh(mesh_tools):
 #                    faces = cubit.get_sub_elements('hex', h, 2)
 #                    for f in faces:
 #                        if dic_quads_all.has_key(f):
-#                            free_array.append(self.create_facenode_string(
-#                                h, f, normal, cknormal=False,
-#                                facenode_string=False))
+#                            free_array.append(self.create_facenode_string(h, f, normal, cknormal=False, facenode_string=False))
 #        print('Ok')
 #        cubit.cmd('set info on')
 #        cubit.cmd('set echo on')

@@ -39,7 +39,7 @@
   use fault_scotch, only: ANY_FAULT,read_fault_files,save_nodes_coords,close_faults
 
   use constants, only: FNAME_WAVEFIELD_DISCONTINUITY_INTERFACE
-  
+
   implicit none
 
   ! local parameters
@@ -592,7 +592,7 @@
       read(IIN_DB, *, iostat=ier) boundary_to_ispec_wd(ib), side_wd(ib)
     enddo
     close(IIN_DB)
-  endif  
+  endif
 
   ! reads in absorbing boundary files
   open(unit=IIN_DB, file=localpath_name(1:len_trim(localpath_name))//'/absorbing_surface_file_xmin', &

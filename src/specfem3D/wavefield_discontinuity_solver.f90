@@ -1,3 +1,30 @@
+!=====================================================================
+!
+!                          S p e c f e m 3 D
+!                          -----------------
+!
+!     Main historical authors: Dimitri Komatitsch and Jeroen Tromp
+!                              CNRS, France
+!                       and Princeton University, USA
+!                 (there are currently many more authors!)
+!                           (c) October 2017
+!
+! This program is free software; you can redistribute it and/or modify
+! it under the terms of the GNU General Public License as published by
+! the Free Software Foundation; either version 3 of the License, or
+! (at your option) any later version.
+!
+! This program is distributed in the hope that it will be useful,
+! but WITHOUT ANY WARRANTY; without even the implied warranty of
+! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+! GNU General Public License for more details.
+!
+! You should have received a copy of the GNU General Public License along
+! with this program; if not, write to the Free Software Foundation, Inc.,
+! 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+!
+!=====================================================================
+
 !! Solving the wavefield discontinuity problem with a non-split-node
 !! scheme
 !! Tianshi Liu, 2023.5
@@ -9,7 +36,7 @@ module wavefield_discontinuity_solver
   !! read from solver database
   integer, dimension(:), allocatable :: ispec_to_elem_wd
 
-  !! number of distinct gll points on the boundary
+  !! number of distinct GLL points on the boundary
   !! read from solver database
   integer :: nglob_wd
 
@@ -66,15 +93,15 @@ module wavefield_discontinuity_solver
   real(kind=CUSTOM_REAL), dimension(:,:,:), allocatable :: traction_wd
 
 contains
-  
+
   subroutine read_mesh_databases_wavefield_discontinuity()
   use constants, only: IFILE_WAVEFIELD_DISCONTINUITY, &
                        FNAME_WAVEFIELD_DISCONTINUITY_DATABASE
-  use specfem_par, only: CUSTOM_REAL, prname, &
+  use specfem_par, only: prname, &
                          NSPEC_AB, NGLLX, NGLLY, NGLLZ, NDIM, NGLLSQUARE
   implicit none
   open(unit=IFILE_WAVEFIELD_DISCONTINUITY, &
-       file=trim(prname)//trim(FNAME_WAVEFIELD_DISCONTINUITY_DATABASE), &
+       file = trim(prname)//trim(FNAME_WAVEFIELD_DISCONTINUITY_DATABASE), &
        action='read', form='unformatted')
 
   allocate(ispec_to_elem_wd(NSPEC_AB))
@@ -137,9 +164,9 @@ contains
   integer :: ispec_wd, i, j, k, iglob_wd
   ispec_wd = ispec_to_elem_wd(ispec)
   if (ispec_wd /= 0) then
-    do k=1,NGLLZ
-      do j=1,NGLLY
-        do i=1,NGLLX
+    do k = 1,NGLLZ
+      do j = 1,NGLLY
+        do i = 1,NGLLX
           iglob_wd = ibool_wd(i,j,k,ispec_wd)
           if (iglob_wd /= 0) then
             dummyx_loc(i,j,k) = dummyx_loc(i,j,k) + displ_wd(1, iglob_wd)
@@ -153,7 +180,7 @@ contains
   end subroutine add_displacement_discontinuity_element
 
   subroutine add_traction_discontinuity(accel, nglob)
-  use specfem_par, only: CUSTOM_REAL, NGLLX, NGLLY, NGLLZ, NGLLSQUARE, &
+  use specfem_par, only: CUSTOM_REAL, NGLLSQUARE, &
                          ibool, NDIM
   !use specfem_par_elastic, only: accel
   implicit none

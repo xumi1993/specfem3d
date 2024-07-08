@@ -110,6 +110,7 @@
   if (myrank == 0) then
     write(IMAIN,*) '     using binary file format'
     write(IMAIN,*) '     database file (for rank 0): ',trim(filename)
+    write(IMAIN,*)
     call flush_IMAIN()
   endif
 
@@ -585,7 +586,7 @@
     ! user output
     call synchronize_all()
     if (myrank == 0) then
-      write(IMAIN,*) '     saving additonal mesh files with surface/coupling points'
+      write(IMAIN,*) '     saving additional mesh files with surface/coupling points'
       call flush_IMAIN()
     endif
 

@@ -82,7 +82,7 @@ end module create_meshfem_par
 
   ! HDF5 file i/o
   use shared_parameters, only: HDF5_ENABLED
-  
+
   !! setting up wavefield discontinuity interface
   use shared_parameters, only: IS_WAVEFIELD_DISCONTINUITY
 

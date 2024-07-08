@@ -201,7 +201,7 @@
     enddo
   endif
 
-  
+
   !! setting up wavefield discontinuity boundary
   if (IS_WAVEFIELD_DISCONTINUITY) then
     do ipart = 0, nparts-1

@@ -34,7 +34,7 @@
   implicit none
   ! local variables
   open(unit=IFILE_WAVEFIELD_DISCONTINUITY, &
-       file=prname(1:len_trim(prname))//&
+       file = prname(1:len_trim(prname))//&
             trim(FNAME_WAVEFIELD_DISCONTINUITY_MESH), &
        form='unformatted', action='write')
   write(IFILE_WAVEFIELD_DISCONTINUITY) nb_wd
@@ -72,7 +72,6 @@
   subroutine find_wavefield_discontinuity_elements()
 ! read the wavefield_discontinuity_box file
 ! find the wavefield discontinuity interface
-  use constants, only: CUSTOM_REAL
   use constants, only: IFILE_WAVEFIELD_DISCONTINUITY, &
                        FNAME_WAVEFIELD_DISCONTINUITY_BOX
   use meshfem_par, only: xstore,ystore,zstore,nspec
@@ -85,7 +84,7 @@
                              IS_EXTRAPOLATION_MODE
   logical :: covered(26)
   double precision :: x_min, x_max, y_min, y_max, z_min, z_max
-  double precision :: dx, dy, dz, x_mid, y_mid, z_mid, ratio_small=1.0e-6
+  double precision :: dx, dy, dz, x_mid, y_mid, z_mid, ratio_small = 1.0e-6
   open(unit=IFILE_WAVEFIELD_DISCONTINUITY, &
        file=trim(FNAME_WAVEFIELD_DISCONTINUITY_BOX), &
        form='formatted', action='read')

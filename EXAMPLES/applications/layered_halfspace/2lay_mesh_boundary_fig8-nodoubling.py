@@ -94,8 +94,8 @@ cubit.cmd('section volume 3 with surface 19 reverse')
 
 cubit.cmd('delete volume 2 4')
 
-cubit.cmd('merge all')
 cubit.cmd('imprint all')
+cubit.cmd('merge all')
 
 cubit.cmd('volume 3 size '+str(elementsize))
 cubit.cmd('mesh volume 3')
