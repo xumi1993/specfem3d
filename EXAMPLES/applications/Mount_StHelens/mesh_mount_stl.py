@@ -132,7 +132,7 @@ cubit.cmd('import stl "topo_brick.stl" merge stitch')
 # imprints topography surfaces into brick volume, creates connected surfaces
 # note: this is a develop feature
 cubit.cmd('imprint all')
-
+cubit.cmd('merge all')
 
 cubit.cmd('version')
 

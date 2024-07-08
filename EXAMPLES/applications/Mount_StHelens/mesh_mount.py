@@ -158,8 +158,8 @@ if os.path.exists("topo_2.cub"):
 else:
     print("#" + time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime()))
     print("# imprinting volume, this will take around 1 min, please be patience...")
-    cubit.cmd('merge all')
     cubit.cmd('imprint all')
+    cubit.cmd('merge all')
 
     # exports only surfaces which will create single volume
     cubit.cmd('export acis "topo_2.acis" surface 3 10 12 14 15 9 ascii overwrite')

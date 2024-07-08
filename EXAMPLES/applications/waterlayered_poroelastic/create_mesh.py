@@ -95,8 +95,8 @@ else:
     cubit.cmd('delete volume 4')
 
 # merges surfaces
-cubit.cmd('merge all')
 cubit.cmd('imprint all')
+cubit.cmd('merge all')
 
 # resets numbering
 cubit.cmd('compress all')
