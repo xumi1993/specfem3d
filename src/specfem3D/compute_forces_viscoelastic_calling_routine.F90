@@ -40,7 +40,7 @@
   use constants, only: FAULT_SYNCHRONIZE_DISPL_VELOC,FAULT_SYNCHRONIZE_ACCEL
   use fault_solver_dynamic, only: bc_dynflt_set3d_all,SIMULATION_TYPE_DYN,fault_output_synchronize_GPU,NT_RECORD_LENGTH
   use fault_solver_kinematic, only: bc_kinflt_set_all,SIMULATION_TYPE_KIN
-  
+
   !! solving wavefield discontinuity problem with non-split-node scheme
   use wavefield_discontinuity_solver, only: &
                  add_traction_discontinuity, read_wavefield_discontinuity_file

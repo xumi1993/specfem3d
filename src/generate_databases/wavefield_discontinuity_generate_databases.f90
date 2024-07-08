@@ -1,3 +1,31 @@
+!=====================================================================
+!
+!                          S p e c f e m 3 D
+!                          -----------------
+!
+!     Main historical authors: Dimitri Komatitsch and Jeroen Tromp
+!                              CNRS, France
+!                       and Princeton University, USA
+!                 (there are currently many more authors!)
+!                           (c) October 2017
+!
+! This program is free software; you can redistribute it and/or modify
+! it under the terms of the GNU General Public License as published by
+! the Free Software Foundation; either version 3 of the License, or
+! (at your option) any later version.
+!
+! This program is distributed in the hope that it will be useful,
+! but WITHOUT ANY WARRANTY; without even the implied warranty of
+! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+! GNU General Public License for more details.
+!
+! You should have received a copy of the GNU General Public License along
+! with this program; if not, write to the Free Software Foundation, Inc.,
+! 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+!
+!=====================================================================
+
+
 module wavefield_discontinuity_generate_databases
   use constants, only: CUSTOM_REAL
 
@@ -23,7 +51,7 @@ module wavefield_discontinuity_generate_databases
   !! written in solver database and used in solver
   integer, dimension(:), allocatable :: ispec_to_elem_wd
 
-  !! number of distinct gll points on the boundary
+  !! number of distinct GLL points on the boundary
   !! written in solver database and used in solver
   integer :: nglob_wd
 
@@ -75,7 +103,7 @@ contains
   implicit none
   !integer :: ier
   open(unit=IFILE_WAVEFIELD_DISCONTINUITY, &
-       file=trim(prname)//trim(FNAME_WAVEFIELD_DISCONTINUITY_MESH), &
+       file = trim(prname)//trim(FNAME_WAVEFIELD_DISCONTINUITY_MESH), &
        action='read', form='unformatted')
   read(IFILE_WAVEFIELD_DISCONTINUITY) nb_wd
   allocate(boundary_to_ispec_wd(nb_wd), side_wd(nb_wd))
@@ -90,7 +118,7 @@ contains
   use generate_databases_par, only: prname
   implicit none
   open(unit=IFILE_WAVEFIELD_DISCONTINUITY, &
-       file=trim(prname)//trim(FNAME_WAVEFIELD_DISCONTINUITY_DATABASE), &
+       file = trim(prname)//trim(FNAME_WAVEFIELD_DISCONTINUITY_DATABASE), &
        action='write', form='unformatted')
   write(IFILE_WAVEFIELD_DISCONTINUITY) ispec_to_elem_wd
   write(IFILE_WAVEFIELD_DISCONTINUITY) nglob_wd
@@ -112,7 +140,7 @@ contains
   subroutine setup_boundary_wavefield_discontinuity()
   use generate_databases_par, only: NDIM, NGLLX, NGLLY, NGLLZ, CUSTOM_REAL, &
                                     NGLLSQUARE, ibool, NSPEC_AB
-                                    
+
   implicit none
   integer :: i1, i2, j1, j2, k1, k2, i, j, k
   integer :: ib, iside, ispec, iglob, ispec_wd, iglob_wd
@@ -126,7 +154,7 @@ contains
   nfaces_wd = 0
   ispec_to_elem_wd(:) = 0
   elem_list_temp(:) = 0
-  gllp_list_temp(:) = 0  
+  gllp_list_temp(:) = 0
   do ib = 1, nb_wd
     ispec = boundary_to_ispec_wd(ib)
     iside = side_wd(ib)
@@ -137,7 +165,7 @@ contains
       elem_list_temp(nspec_wd+1) = ispec
       nspec_wd = nspec_wd + 1
     endif
-    do i=i1,i2; do j=j1,j2; do k=k1,k2
+    do i = i1,i2; do j = j1,j2; do k = k1,k2
       iglob = ibool(i,j,k,ispec)
       call find_point_wd(iglob, gllp_list_temp, nglob_wd, iglob_wd)
       if (iglob_wd == 0) then
@@ -162,7 +190,7 @@ contains
     iside = side_wd(ib)
     call get_points_boundary_wd(iside, i1, i2, j1, j2, k1, k2, is_face)
     call find_point_wd(ispec, elem_list_temp, nspec_wd, ispec_wd)
-    do i=i1,i2; do j=j1,j2; do k=k1,k2
+    do i = i1,i2; do j = j1,j2; do k = k1,k2
       iglob = ibool(i,j,k,ispec)
       call find_point_wd(iglob, gllp_list_temp, nglob_wd, iglob_wd)
       ibool_wd(i,j,k,ispec_wd) = iglob_wd
@@ -181,7 +209,7 @@ contains
   do ispec = 1, NSPEC_AB
     ispec_wd = ispec_to_elem_wd(ispec)
     if (ispec_wd > 0) then
-      do k=1,NGLLZ; do j=1,NGLLY; do i=1, NGLLX
+      do k = 1,NGLLZ; do j = 1,NGLLY; do i = 1, NGLLX
         iglob_wd= ibool_wd(i,j,k,ispec_wd)
         if (iglob_wd > 0) then
           call get_mass_wd(i, j, k, ispec, val_mass)
@@ -194,7 +222,7 @@ contains
   end subroutine setup_boundary_wavefield_discontinuity
 
   subroutine write_discontinuity_surface_file()
-  use constants, only: NGLLX,NGLLY,NGLLZ,NDIM,NGLLSQUARE,CUSTOM_REAL,&
+  use constants, only: NGLLX,NGLLY,NGLLZ,NDIM,NGLLSQUARE,CUSTOM_REAL, &
                        IFILE_WAVEFIELD_DISCONTINUITY
   use generate_databases_par, only: prname, myrank, LOCAL_PATH, &
        nodes_coords_ext_mesh, elmnts_ext_mesh, NGNOD
@@ -215,7 +243,7 @@ contains
   double precision, dimension(NGNOD) :: xelm,yelm,zelm
   call create_name_database(prname,myrank,LOCAL_PATH)
   open(unit=IFILE_WAVEFIELD_DISCONTINUITY, &
-       file=prname(1:len_trim(prname))//'wavefield_discontinuity_points',&
+       file = prname(1:len_trim(prname))//'wavefield_discontinuity_points', &
        action='write', form='formatted')
   do iglob_wd = 1, nglob_wd
     iglob = boundary_to_iglob_wd(iglob_wd)
@@ -235,7 +263,7 @@ contains
   call get_shape3D(shape3D_shrink, dershape3D_shrink, &
        xigll_shrink, yigll_shrink, zigll_shrink, NGNOD, NGLLX, NGLLY, NGLLZ)
   open(unit=IFILE_WAVEFIELD_DISCONTINUITY, &
-       file=prname(1:len_trim(prname))//'wavefield_discontinuity_faces',&
+       file = prname(1:len_trim(prname))//'wavefield_discontinuity_faces', &
        action='write', form='formatted')
   do iface_wd = 1, nfaces_wd
     ispec = face_ispec_wd(iface_wd)
@@ -245,7 +273,7 @@ contains
       yelm(ia) = nodes_coords_ext_mesh(2,iglob)
       zelm(ia) = nodes_coords_ext_mesh(3,iglob)
     enddo
-    call calc_coords(xstore_shrink(1,1,1), ystore_shrink(1,1,1),&
+    call calc_coords(xstore_shrink(1,1,1), ystore_shrink(1,1,1), &
                      zstore_shrink(1,1,1), xelm,yelm,zelm,shape3D_shrink)
     do igll = 1, NGLLSQUARE
       i = face_ijk_wd(1,igll,iface_wd)

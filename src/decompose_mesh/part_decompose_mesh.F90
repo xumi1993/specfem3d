@@ -620,7 +620,7 @@ contains
   implicit none
   integer, intent(in)  :: iproc
   integer, intent(in)  :: nspec
-  integer, intent(in)  :: nb_wd 
+  integer, intent(in)  :: nb_wd
   integer, dimension(:), pointer :: glob2loc_elmnts
   integer, dimension(1:nspec)  :: part
   integer, dimension(1:nb_wd), intent(in)  :: boundary_to_ispec_wd, side_wd
@@ -632,7 +632,7 @@ contains
   character(len=MAX_STRING_LEN) :: prname
   write(prname, "('proc',i6.6,'_')") iproc
   open(unit=IFILE_WAVEFIELD_DISCONTINUITY, &
-       file=trim(outputpath_name)//'/'//trim(prname)//&
+       file = trim(outputpath_name)//'/'//trim(prname)//&
             trim(FNAME_WAVEFIELD_DISCONTINUITY_MESH), &
        form='unformatted', action='write')
   local_nb_wd = 0
