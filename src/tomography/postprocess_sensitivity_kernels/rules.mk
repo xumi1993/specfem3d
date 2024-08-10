@@ -205,6 +205,22 @@ xsmooth_sem_pde_SHARED_OBJECTS = \
 	$O/write_VTK_data.shared.o \
 	$O/define_derivation_matrices.shared.o \
 	$O/assemble_MPI_scalar.shared.o \
+	$O/write_movie_output_HDF5.spec_hdf5.o \
+	$O/write_output_HDF5.spec_hdf5.o \
+	$O/write_seismograms.spec.o \
+	$O/write_output_ASCII_or_binary.spec.o \
+	$O/write_output_SU.spec.o \
+	$O/compute_seismograms.spec.o \
+	$O/compute_adj_source_frechet.spec.o \
+	$O/compute_gradient_in_acoustic.spec.o \
+	$O/compute_interpolated_dva.spec.o \
+	$O/compute_element_strain.spec.o \
+	$O/compute_add_sources_viscoelastic.spec.o \
+	$O/comp_source_time_function.spec.o \
+	$O/noise_tomography.spec.o \
+	$O/compute_arrays_source.spec.o \
+	$O/netlib_specfun_erf.shared.o \
+	$O/write_c_binary.cc.o \
 	$(EMPTY_MACRO)
 
 ###
