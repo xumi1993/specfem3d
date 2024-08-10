@@ -228,6 +228,16 @@ xsmooth_sem_pde_OBJECTS += $(adios_specfem3D_STUBS)
 endif
 
 ###
+### HDF 5
+###
+
+ifeq ($(HDF5),yes)
+tomography/postprocess_sensitivity_kernels_MODULES += \
+	$(FC_MODDIR)/specfem_par_movie_hdf5.$(FC_MODEXT) \
+	$(EMPTY_MACRO)
+endif
+
+###
 ### ASDF
 ###
 
