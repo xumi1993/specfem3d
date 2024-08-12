@@ -46,9 +46,7 @@
 
 program smooth_sem_pde
 
-  use constants, only: HUGEVAL, m1, m2
-  use postprocess_par, only: CUSTOM_REAL,NGLLX,NGLLY,NGLLZ,NDIM,NGLLSQUARE, &
-    MAX_STRING_LEN,IIN,IOUT,GAUSSALPHA,GAUSSBETA,PI,TWO_PI
+  use constants, only: m1, m2, CUSTOM_REAL,NGLLX,NGLLY,NGLLZ, MAX_STRING_LEN,IIN,IOUT
   use specfem_par
   use specfem_par_elastic, only: &
       !ispec_is_elastic, &
@@ -760,7 +758,7 @@ end program smooth_sem_pde
 
 ! waits for data to receive and assembles
 
-  use constants, only: CUSTOM_REAL, itag
+  use constants, only: CUSTOM_REAL
 
   implicit none
 
