@@ -42,12 +42,14 @@ tomography/postprocess_sensitivity_kernels_OBJECTS = \
 	$(xclip_sem_OBJECTS) \
 	$(xcombine_sem_OBJECTS) \
 	$(xsmooth_sem_OBJECTS) \
+	$(xsmooth_sem_pde_OBJECTS) \
 	$(EMPTY_MACRO)
 
 tomography/postprocess_sensitivity_kernels_SHARED_OBJECTS = \
 	$(xclip_sem_SHARED_OBJECTS) \
 	$(xcombine_sem_SHARED_OBJECTS) \
 	$(xsmooth_sem_SHARED_OBJECTS) \
+	$(xsmooth_sem_pde_SHARED_OBJECTS) \
 	$(EMPTY_MACRO)
 
 tomography/postprocess_sensitivity_kernels_MODULES = \
