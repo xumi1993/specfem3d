@@ -612,8 +612,13 @@ contains
     endif
     call synchronize_all()
 
-    ! open file
-    call h5_open_file_p_collect(filename)
+    ! open file (usually *_collect can be used with H5_COL = .false.)
+    ! but I got a strange error on some systems, so I use if statement here
+    if (H5_COL) then
+      call h5_open_file_p_collect(filename)
+    else
+      call h5_open_file_p(filename)
+    endif
     call h5_write_dataset_collect_hyperslab(dset_name, dump_array, (/sum(offset(0:myrank-1))/), H5_COL)
     call h5_close_file_p()
 
