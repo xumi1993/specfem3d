@@ -526,16 +526,16 @@ contains
     ! open file
     call h5_open_file_p_collect(fname)
     ! read offset array
-    call h5_read_dataset_1d_i_collect_hyperslab("offset_nspec",offset_nspec, (/0/), H5_COL)
+    call h5_read_dataset_collect_hyperslab("offset_nspec",offset_nspec, (/0/), H5_COL)
 
-    call h5_read_dataset_4d_r_collect_hyperslab("scale_factor", scale_factor, &
-                                                (/0,0,0,sum(offset_nspec(0:myrank-1))/), H5_COL)
-    call h5_read_dataset_4d_r_collect_hyperslab("scale_factor_kappa", scale_factor_kappa, &
-                                                (/0,0,0,sum(offset_nspec(0:myrank-1))/), H5_COL)
-    call h5_read_dataset_5d_r_collect_hyperslab("factor_common", factor_common, &
-                                                (/0,0,0,0,sum(offset_nspec(0:myrank-1))/), H5_COL)
-    call h5_read_dataset_5d_r_collect_hyperslab("factor_common_kappa", factor_common_kappa, &
-                                                (/0,0,0,0,sum(offset_nspec(0:myrank-1))/), H5_COL)
+    call h5_read_dataset_collect_hyperslab("scale_factor", scale_factor, &
+                                          (/0,0,0,sum(offset_nspec(0:myrank-1))/), H5_COL)
+    call h5_read_dataset_collect_hyperslab("scale_factor_kappa", scale_factor_kappa, &
+                                          (/0,0,0,sum(offset_nspec(0:myrank-1))/), H5_COL)
+    call h5_read_dataset_collect_hyperslab("factor_common", factor_common, &
+                                          (/0,0,0,0,sum(offset_nspec(0:myrank-1))/), H5_COL)
+    call h5_read_dataset_collect_hyperslab("factor_common_kappa", factor_common_kappa, &
+                                          (/0,0,0,0,sum(offset_nspec(0:myrank-1))/), H5_COL)
 
     call h5_close_file_p()
     call h5_finalize()
@@ -614,7 +614,7 @@ contains
 
     ! open file
     call h5_open_file_p_collect(filename)
-    call h5_write_dataset_1d_r_collect_hyperslab(dset_name, dump_array, (/sum(offset(0:myrank-1))/), H5_COL)
+    call h5_write_dataset_collect_hyperslab(dset_name, dump_array, (/sum(offset(0:myrank-1))/), H5_COL)
     call h5_close_file_p()
 
     call h5_finalize()
