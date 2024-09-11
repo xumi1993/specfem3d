@@ -584,12 +584,6 @@ contains
     ! flag if dataset exists
     logical           :: exists = .false.
 
-    ! io mode
-    logical           :: if_collective = .true.
-
-    ! use global settings for collective IO
-    if_collective = HDF5_IO_COLLECTIVE
-
     ! saves mesh file external_mesh.h5
     tempstr = "/external_mesh.h5"
     filename = LOCAL_PATH(1:len_trim(LOCAL_PATH))//trim(tempstr)
@@ -620,7 +614,7 @@ contains
 
     ! open file
     call h5_open_file_p_collect(filename)
-    call h5_write_dataset_1d_r_collect_hyperslab(dset_name, dump_array, (/sum(offset(0:myrank-1))/), if_collective)
+    call h5_write_dataset_1d_r_collect_hyperslab(dset_name, dump_array, (/sum(offset(0:myrank-1))/), HDF5_IO_COLLECTIVE)
     call h5_close_file_p()
 
     call h5_finalize()
