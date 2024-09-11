@@ -34,6 +34,7 @@
 #ifdef USE_HDF5
   use specfem_par
   use manager_hdf5
+  use shared_parameters, only: HDF5_IO_COLLECTIVE
 
   implicit none
   ! Local variables
@@ -46,6 +47,9 @@
 
   ! if collective read
   logical :: if_col = .true.
+
+  ! overwrite the io mode by global variable
+  if_col = HDF5_IO_COLLECTIVE
 
   if (I_should_read_the_database) then
     ! set file name
@@ -127,7 +131,7 @@
   integer :: info, comm
 
   ! if collective read
-  logical :: if_col = .true.
+  logical :: if_col
 
   ! offset arrays
   integer, dimension(0:NPROC-1) :: offset_nglob
@@ -162,6 +166,9 @@
   integer, dimension(0:NPROC-1) :: offset_nglob_ab
   integer, dimension(0:NPROC-1) :: offset_neighbors_xadj
   integer, dimension(0:NPROC-1) :: offset_neighbors_adjncy
+
+  ! overwrite the io mode by global variable
+  if_col = HDF5_IO_COLLECTIVE
 
   ! user output
   if (myrank == 0) then

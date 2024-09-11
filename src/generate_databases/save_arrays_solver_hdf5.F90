@@ -35,7 +35,8 @@
 
   use shared_parameters, only: ACOUSTIC_SIMULATION, ELASTIC_SIMULATION, POROELASTIC_SIMULATION, &
     APPROXIMATE_OCEAN_LOAD, ANISOTROPY, &
-    COUPLE_WITH_INJECTION_TECHNIQUE, MESH_A_CHUNK_OF_THE_EARTH,NPROC
+    COUPLE_WITH_INJECTION_TECHNIQUE, MESH_A_CHUNK_OF_THE_EARTH,NPROC, &
+    HDF5_IO_COLLECTIVE
 
   ! global indices
   use generate_databases_par, only: NSPEC_AB, ibool, NGLOB_AB
@@ -86,7 +87,7 @@
   integer :: info, comm
 
   ! if collective write
-  logical, parameter :: if_col = .true.
+  logical :: if_col = .true.
 
   ! hdf5 valiables
   character(len=64) :: dset_name, tempstr
@@ -134,6 +135,9 @@
   integer, dimension(0:NPROC-1) :: offset_nglob_ab
   integer, dimension(0:NPROC-1) :: offset_neighbors_xadj
   integer, dimension(0:NPROC-1) :: offset_neighbors_adjncy
+
+  ! use global setting for io mode
+  if_col = HDF5_IO_COLLECTIVE
 
   ! saves mesh file external_mesh.h5
   tempstr = "/external_mesh.h5"

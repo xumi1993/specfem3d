@@ -195,7 +195,7 @@
   if (ier /= 0) stop 'Error allocating array nodes_coords_ext_mesh'
   nodes_coords_ext_mesh(:,:) = 0.0
 
-  call h5_read_dataset_collect_hyperslab(dsetname, nodes_coords_ext_mesh, (/0,sum(offset_nnodes(0:myrank-1))/),.true.)
+  call h5_read_dataset_collect_hyperslab(dsetname, nodes_coords_ext_mesh, (/0,sum(offset_nnodes(0:myrank-1))/),.true.) !!!!!!!!!!!!!!
 
   call sum_all_i(nnodes_ext_mesh,num)
   if (myrank == 0) then

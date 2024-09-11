@@ -1033,6 +1033,7 @@ contains
   subroutine prepare_vol_movie_hdf5()
 
   use specfem_par_movie_hdf5
+  use shared_parameters, only: HDF5_IO_COLLECTIVE
 
   implicit none
 
@@ -1042,7 +1043,10 @@ contains
   integer           :: iproc, ier, nglob_all, nspec_all
   character(len=MAX_STRING_LEN) :: fname_h5_data_vol
 
-  logical,parameter :: if_collective = .true.
+  logical :: if_collective = .true.
+
+  ! overwrite with global values
+  if_collective = HDF5_IO_COLLECTIVE
 
   allocate(nglob_par_proc_nio(0:NPROC-1), stat=ier)
   if (ier /= 0) call exit_MPI_without_rank('error allocating array nglob_par_proc')
@@ -1144,6 +1148,7 @@ contains
   subroutine write_vol_data_hdf5(darr, dset_name)
 
   use specfem_par_movie_hdf5
+  use shared_parameters, only: HDF5_IO_COLLECTIVE
 
   implicit none
 
@@ -1156,7 +1161,10 @@ contains
   character(len=MAX_STRING_LEN) :: fname_h5_data_vol
 
   integer, parameter :: rank = 1
-  logical, parameter :: if_collective = .true.
+  logical :: if_collective = .true.
+
+  ! overwrite with global values
+  if_collective = HDF5_IO_COLLECTIVE
 
   fname_h5_data_vol = trim(OUTPUT_FILES) // "/movie_volume.h5"
 
