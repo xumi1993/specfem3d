@@ -1033,7 +1033,7 @@ contains
   subroutine prepare_vol_movie_hdf5()
 
   use specfem_par_movie_hdf5
-  use shared_parameters, only: HDF5_IO_COLLECTIVE
+  use shared_parameters, only: H5_COL
 
   implicit none
 
@@ -1120,13 +1120,13 @@ contains
   call h5_open_group(group_name)
 
   dset_name = "elm_conn"
-  call h5_write_dataset_collect_hyperslab_in_group(dset_name,elm_conn_loc,(/0,nelm_offset(myrank)/),HDF5_IO_COLLECTIVE)
+  call h5_write_dataset_collect_hyperslab_in_group(dset_name,elm_conn_loc,(/0,nelm_offset(myrank)/),H5_COL)
   dset_name = "x"
-  call h5_write_dataset_collect_hyperslab_in_group(dset_name,xstore,(/nglob_offset(myrank)/),HDF5_IO_COLLECTIVE)
+  call h5_write_dataset_collect_hyperslab_in_group(dset_name,xstore,(/nglob_offset(myrank)/),H5_COL)
   dset_name = "y"
-  call h5_write_dataset_collect_hyperslab_in_group(dset_name,ystore,(/nglob_offset(myrank)/),HDF5_IO_COLLECTIVE)
+  call h5_write_dataset_collect_hyperslab_in_group(dset_name,ystore,(/nglob_offset(myrank)/),H5_COL)
   dset_name = "z"
-  call h5_write_dataset_collect_hyperslab_in_group(dset_name,zstore,(/nglob_offset(myrank)/),HDF5_IO_COLLECTIVE)
+  call h5_write_dataset_collect_hyperslab_in_group(dset_name,zstore,(/nglob_offset(myrank)/),H5_COL)
 
   call h5_close_group()
   call h5_close_file()
@@ -1143,7 +1143,7 @@ contains
   subroutine write_vol_data_hdf5(darr, dset_name)
 
   use specfem_par_movie_hdf5
-  use shared_parameters, only: HDF5_IO_COLLECTIVE
+  use shared_parameters, only: H5_COL
 
   implicit none
 
@@ -1187,7 +1187,7 @@ contains
   call h5_open_file_p(fname_h5_data_vol)
   call h5_open_group(group_name)
   call h5_write_dataset_collect_hyperslab_in_group(dset_name, &
-                                darr, (/nglob_offset(myrank)/), HDF5_IO_COLLECTIVE)
+                                darr, (/nglob_offset(myrank)/), H5_COL)
 
   call h5_close_group()
   call h5_close_file()

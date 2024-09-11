@@ -410,7 +410,7 @@ contains
   subroutine write_attenuation_file_hdf5(factor_common, scale_factor, factor_common_kappa, scale_factor_kappa)
 
 #if defined(USE_HDF5)
-    use shared_parameters, only: NPROC, LOCAL_PATH
+    use shared_parameters, only: NPROC, LOCAL_PATH,H5_COL
     use constants, only: myrank,N_SLS,NGLLX,NGLLY,NGLLZ
 #endif
 
@@ -463,16 +463,16 @@ contains
     call h5_open_file_p_collect(filename)
     dset_name = "scale_factor"
     call h5_write_dataset_4d_r_collect_hyperslab(dset_name, &
-                                                 scale_factor,(/0,0,0,sum(offset_nspec(0:myrank-1))/),.true.)
+                                                 scale_factor,(/0,0,0,sum(offset_nspec(0:myrank-1))/),H5_COL)
     dset_name = "scale_factor_kappa"
     call h5_write_dataset_4d_r_collect_hyperslab(dset_name, &
-                                                 scale_factor_kappa,(/0,0,0,sum(offset_nspec(0:myrank-1))/),.true.)
+                                                 scale_factor_kappa,(/0,0,0,sum(offset_nspec(0:myrank-1))/),H5_COL)
     dset_name = "factor_common"
     call h5_write_dataset_5d_r_collect_hyperslab(dset_name, &
-                                                 factor_common,(/0,0,0,0,sum(offset_nspec(0:myrank-1))/),.true.)
+                                                 factor_common,(/0,0,0,0,sum(offset_nspec(0:myrank-1))/),H5_COL)
     dset_name = "factor_common_kappa"
     call h5_write_dataset_5d_r_collect_hyperslab(dset_name, &
-                                                 factor_common_kappa,(/0,0,0,0,sum(offset_nspec(0:myrank-1))/),.true.)
+                                                 factor_common_kappa,(/0,0,0,0,sum(offset_nspec(0:myrank-1))/),H5_COL)
 
     call h5_close_file_p()
     call h5_finalize()
@@ -499,7 +499,7 @@ contains
   subroutine read_attenuation_file_hdf5(factor_common, scale_factor, factor_common_kappa, scale_factor_kappa)
 
 #if defined(USE_HDF5)
-    use shared_parameters, only: NPROC, LOCAL_PATH
+    use shared_parameters, only: NPROC, LOCAL_PATH, H5_COL
     use constants, only: myrank
 #endif
 
@@ -526,16 +526,16 @@ contains
     ! open file
     call h5_open_file_p_collect(fname)
     ! read offset array
-    call h5_read_dataset_1d_i_collect_hyperslab("offset_nspec",offset_nspec, (/0/), .true.)
+    call h5_read_dataset_1d_i_collect_hyperslab("offset_nspec",offset_nspec, (/0/), H5_COL)
 
     call h5_read_dataset_4d_r_collect_hyperslab("scale_factor", scale_factor, &
-                                                (/0,0,0,sum(offset_nspec(0:myrank-1))/), .true.)
+                                                (/0,0,0,sum(offset_nspec(0:myrank-1))/), H5_COL)
     call h5_read_dataset_4d_r_collect_hyperslab("scale_factor_kappa", scale_factor_kappa, &
-                                                (/0,0,0,sum(offset_nspec(0:myrank-1))/), .true.)
+                                                (/0,0,0,sum(offset_nspec(0:myrank-1))/), H5_COL)
     call h5_read_dataset_5d_r_collect_hyperslab("factor_common", factor_common, &
-                                                (/0,0,0,0,sum(offset_nspec(0:myrank-1))/), .true.)
+                                                (/0,0,0,0,sum(offset_nspec(0:myrank-1))/), H5_COL)
     call h5_read_dataset_5d_r_collect_hyperslab("factor_common_kappa", factor_common_kappa, &
-                                                (/0,0,0,0,sum(offset_nspec(0:myrank-1))/), .true.)
+                                                (/0,0,0,0,sum(offset_nspec(0:myrank-1))/), H5_COL)
 
     call h5_close_file_p()
     call h5_finalize()
@@ -562,7 +562,7 @@ contains
   subroutine write_checkmesh_data_hdf5(dset_name,dump_array)
 
 #if defined(USE_HDF5)
-    use shared_parameters, only: LOCAL_PATH, NPROC, HDF5_IO_COLLECTIVE
+    use shared_parameters, only: LOCAL_PATH, NPROC, H5_COL
     use constants, only: myrank
 #endif
 
@@ -614,7 +614,7 @@ contains
 
     ! open file
     call h5_open_file_p_collect(filename)
-    call h5_write_dataset_1d_r_collect_hyperslab(dset_name, dump_array, (/sum(offset(0:myrank-1))/), HDF5_IO_COLLECTIVE)
+    call h5_write_dataset_1d_r_collect_hyperslab(dset_name, dump_array, (/sum(offset(0:myrank-1))/), H5_COL)
     call h5_close_file_p()
 
     call h5_finalize()
