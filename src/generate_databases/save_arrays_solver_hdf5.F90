@@ -135,6 +135,8 @@
 
   ! avoid integer overflow
   integer(kind=8) :: sum_neighbors_adjncy, offset_neighbors_adjncy_this_proc
+  integer(kind=8), dimension(0:NPROC-1) :: offset_neighbors_adjncy_i8
+
 
   ! saves mesh file external_mesh.h5
   tempstr = "/external_mesh.h5"
@@ -249,6 +251,8 @@
   ! mesh adjacency
   call gather_all_all_singlei(nspec_ab+1,offset_neighbors_xadj,NPROC)
   call gather_all_all_singlei(num_neighbors_all,offset_neighbors_adjncy,NPROC)
+  offset_neighbors_adjncy_i8 = offset_neighbors_adjncy
+  sum_neighbors_adjncy = sum(offset_neighbors_adjncy_i8)
 
   !
   ! make datasets by main
@@ -874,7 +878,6 @@
     dset_name = "neighbors_xadj" ! 1 i (/offset_neighbors_xadj/)   ! actual array size: nspec_ab + 1
     call h5_create_dataset_gen(dset_name,(/sum(offset_neighbors_xadj(:))/), 1, 0)
     dset_name = "neighbors_adjncy" ! 1 i (/offset_neighbors_adjncy/)
-    sum_neighbors_adjncy = sum(offset_neighbors_adjncy(:)) ! to avoid integer overflow
     call h5_create_dataset_gen(dset_name,(/sum_neighbors_adjncy/), 1, 1) ! 64bit integer
 
     ! arrays for visualization
@@ -1453,7 +1456,7 @@
   call h5_write_dataset_collect_hyperslab(dset_name, neighbors_xadj, &
           (/sum(offset_neighbors_xadj(0:myrank-1))/), H5_COL)
   dset_name = "neighbors_adjncy" ! 1 i (/offset_num_neighbors_all/)
-  offset_neighbors_adjncy_this_proc = sum(offset_neighbors_adjncy(0:myrank-1))
+  offset_neighbors_adjncy_this_proc = sum(offset_neighbors_adjncy_i8(0:myrank-1))
   call h5_write_dataset_collect_hyperslab(dset_name, neighbors_adjncy, &
           (/offset_neighbors_adjncy_this_proc/), H5_COL)
 
