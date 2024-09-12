@@ -137,7 +137,6 @@
   integer(kind=8) :: sum_neighbors_adjncy, offset_neighbors_adjncy_this_proc
   integer(kind=8), dimension(0:NPROC-1) :: offset_neighbors_adjncy_i8
 
-
   ! saves mesh file external_mesh.h5
   tempstr = "/external_mesh.h5"
   filename = LOCAL_PATH(1:len_trim(LOCAL_PATH))//trim(tempstr)

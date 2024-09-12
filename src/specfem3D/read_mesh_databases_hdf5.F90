@@ -158,6 +158,9 @@
   integer, dimension(0:NPROC-1) :: offset_neighbors_xadj
   integer, dimension(0:NPROC-1) :: offset_neighbors_adjncy
 
+  ! avoid integer overflow
+  integer(kind=8) :: sum_offset_neighbors_adjncy_this_proc
+  integer(kind=8), dimension(0:NPROC-1) :: offset_neighbors_adjncy_i8
 
   ! user output
   if (myrank == 0) then
@@ -203,6 +206,8 @@
     ! mesh adjacency
     call h5_read_dataset_collect_hyperslab("offset_neighbors_xadj",offset_neighbors_xadj, (/0/), H5_COL)
     call h5_read_dataset_collect_hyperslab("offset_neighbors_adjncy",offset_neighbors_adjncy, (/0/), H5_COL)
+    ! convert to 8-byte integers
+    offset_neighbors_adjncy_i8 = offset_neighbors_adjncy
 
     ! info about external mesh simulation
     dsetname = "nspec"
@@ -1631,8 +1636,9 @@
     call h5_read_dataset_collect_hyperslab(dsetname, neighbors_xadj, &
             (/sum(offset_neighbors_xadj(0:myrank-1))/), H5_COL)
     dsetname = "neighbors_adjncy"
+    sum_offset_neighbors_adjncy_this_proc = sum(offset_neighbors_adjncy_i8(0:myrank-1))
     call h5_read_dataset_collect_hyperslab(dsetname, neighbors_adjncy, &
-            (/sum(offset_neighbors_adjncy(0:myrank-1))/), H5_COL)
+            (/sum_offset_neighbors_adjncy_this_proc/), H5_COL)
   endif
   call bcast_all_i_for_database(neighbors_xadj(1), size(neighbors_xadj))
   call bcast_all_i_for_database(neighbors_adjncy(1), size(neighbors_adjncy))
