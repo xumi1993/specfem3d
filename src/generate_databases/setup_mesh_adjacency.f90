@@ -47,7 +47,7 @@
 
   ! local parameters
   ! maximum number of neighbors
-  integer,parameter :: MAX_NEIGHBORS_DIRECT = 50   ! maximum number of neighbors (for direct element neighbors)
+  integer,parameter :: MAX_NEIGHBORS_DIRECT = 80   ! maximum number of neighbors (for direct element neighbors only)
   integer,parameter :: MAX_NEIGHBORS = 300         ! maximum number of neighbors (with neighbor of neighbors)
 
   ! temporary
@@ -84,8 +84,8 @@
   integer, dimension(:,:), allocatable :: node_to_elem
   integer, dimension(:), allocatable :: node_to_elem_count
   integer :: icount
-  integer, dimension(MAX_NEIGHBORS_DIRECT) :: elem_neighbors
-  integer, dimension(MAX_NEIGHBORS) :: elem_neighbors_of_neighbors
+  integer, dimension(MAX_NEIGHBORS_DIRECT) :: elem_neighbors            ! direct neighbors
+  integer, dimension(MAX_NEIGHBORS) :: elem_neighbors_of_neighbors      ! with neighboring element neighbors
 
   ! user output
   if (myrank == 0) then
@@ -231,7 +231,7 @@
           num_neighbors = num_neighbors + 1
 
           ! check
-          if (num_neighbors > MAX_NEIGHBORS_DIRECT) stop 'Error maximum of direct neighbors exceeded'
+          if (num_neighbors > MAX_NEIGHBORS_DIRECT) stop 'Error maximum of neighbors (direct) exceeded'
 
           ! store element
           elem_neighbors(num_neighbors) = ispec
@@ -248,7 +248,7 @@
       inum_neighbor = inum_neighbor + num_neighbors
 
       ! checks
-      if (inum_neighbor > MAX_NEIGHBORS * NSPEC_AB) stop 'Error maximum neighbors exceeded'
+      if (inum_neighbor > MAX_NEIGHBORS * NSPEC_AB) stop 'Error maximum of total neighbors exceeded'
 
       ! adds to adjacency
       tmp_adjncy(inum_neighbor-num_neighbors+1:inum_neighbor) = elem_neighbors(1:num_neighbors)
@@ -302,6 +302,11 @@
             if (is_neighbor) then
               ! adds to adjacency
               num_neighbor_neighbors = num_neighbor_neighbors + 1
+
+              ! check
+              if (num_neighbor_neighbors > MAX_NEIGHBORS) stop 'Error maximum of neighbors (with neighbors) exceeded'
+
+              ! store element
               elem_neighbors_of_neighbors(num_neighbor_neighbors) = ispec
             endif
           enddo
@@ -314,7 +319,7 @@
         inum_neighbor = inum_neighbor + num_neighbor_neighbors
 
         ! checks
-        if (inum_neighbor > MAX_NEIGHBORS * NSPEC_AB) stop 'Error maximum neighbors exceeded'
+        if (inum_neighbor > MAX_NEIGHBORS * NSPEC_AB) stop 'Error maximum of total neighbors (with neighbors) exceeded'
 
         ! adds elements
         tmp_adjncy(inum_neighbor-num_neighbor_neighbors+1:inum_neighbor) = elem_neighbors_of_neighbors(1:num_neighbor_neighbors)
