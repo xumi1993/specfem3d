@@ -354,6 +354,7 @@
 
   ! frees temporary array
   deallocate(ibool_corner)
+  deallocate(node_to_elem,node_to_elem_count)
 
   ! debug: for vtk output
   if (DEBUG_VTK_OUTPUT) then
